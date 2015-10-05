@@ -8,7 +8,7 @@ Il s’agit d’un jeu au concept très simple mais avec beaucoup de possibilit�
 ### Developpeurs
 
 - Anis
-- Timothee
+- Timothée
 - Joa
 - Florent
 
