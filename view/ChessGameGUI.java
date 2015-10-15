@@ -206,7 +206,9 @@ public class ChessGameGUI extends JFrame implements MouseListener, MouseMotionLi
 
             for (int j = 0; j < 8; j++) {
 
-                // cr�ation d'un JPanel pour le carr� blanc ou noir
+                // cr�ati
+                
+                //on d'un JPanel pour le carr� blanc ou noir
                 square = this.newSquare(i, j);
 
                 // Cr�ation �ventuelle d'un JLabel pour stocker une image
