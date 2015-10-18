@@ -6,13 +6,13 @@
 package launcher.localLauncher;
 
 import javax.swing.JFrame;
-import view.QuartoGUI;
+import view.MaquetteQuartoGUI;
 
 /**
  *
  * @author Anis
  */
 public class LauncherQuarto {
-    JFrame toto = new QuartoGUI();
+    JFrame toto = new MaquetteQuartoGUI();
     
 }
