@@ -5,14 +5,28 @@
  */
 package launcher.localLauncher;
 
+import java.awt.Dimension;
 import javax.swing.JFrame;
-import view.MaquetteQuartoGUI;
+import view.QuartoGUI;
 
 /**
  *
  * @author Anis
  */
 public class LauncherQuarto {
-    JFrame toto = new MaquetteQuartoGUI();
     
+    	public static void main(String[] args) 
+        {
+           
+		Dimension dim = new Dimension(800, 800);
+		
+		
+		JFrame frame = new QuartoGUI();
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(600, 10);
+		frame.setPreferredSize(dim);
+		frame.pack();
+		frame.setVisible(true);
+        }
 }
