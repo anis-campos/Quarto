@@ -17,7 +17,7 @@ public class LauncherQuarto {
 
     public static void main(String[] args) {
 
-        Dimension dim = new Dimension(992, 540);
+        //Dimension dim = new Dimension(992, 540);
 
 
         JFrame frame = new QuartoGUI();
@@ -25,7 +25,7 @@ public class LauncherQuarto {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation(600, 10);
         //frame.setPreferredSize(dim);
-        //frame.setResizable(false);
+        frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
     }

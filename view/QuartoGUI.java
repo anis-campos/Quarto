@@ -18,7 +18,7 @@ import model.Coord;
 /**
  * @author Anis
  */
-public class QuartoGUI extends JFrame implements MouseListener, MouseMotionListener, Observer {
+public class QuartoGUI extends JFrame implements Observer {
 
 
     private Map<JPanel, Coord> cases;
@@ -36,6 +36,12 @@ public class QuartoGUI extends JFrame implements MouseListener, MouseMotionListe
 
     private JButton bDonnerJ1;
     private JButton bDonnerJ2;
+
+    private Joueur courant = Joueur.J1;
+
+    enum Joueur{
+        J1,J2
+    }
 
 
     private JPanel layeredPane;
@@ -109,14 +115,21 @@ public class QuartoGUI extends JFrame implements MouseListener, MouseMotionListe
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
         jPieces = new JPanel();
+
+        pieces = new HashMap<>();
+
         grid = new GridLayout(2, 8);
         grid.setHgap(5);
         grid.setVgap(5);
         jPieces.setLayout(grid);
+        jPieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
 
         for (int i = 0; i < 16; i++) {
             JLabel jLabel = new JLabel();
             jLabel.setText("PIECE_" + i);
+
+            pieces.put(jLabel,"PIECE_" + i);
+
             jLabel.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
@@ -124,6 +137,36 @@ public class QuartoGUI extends JFrame implements MouseListener, MouseMotionListe
                     JLabel toto = (JLabel) e.getComponent();
                     if (toto.getText().matches("PIECE_1"))
                         System.out.println("Taille de la piece 1 : " + toto.getWidth() + "x" + toto.getHeight());
+                }
+            });
+
+            jLabel.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    JLabel lab = (JLabel)e.getSource();
+                    lab.setVisible(false);
+                    placerPiece(new JLabel(lab.getText()));
+
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
                 }
             });
             jLabel.setBackground(Color.WHITE);
@@ -201,39 +244,14 @@ public class QuartoGUI extends JFrame implements MouseListener, MouseMotionListe
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void placerPiece(JLabel lab){
+        if(courant == Joueur.J1){
+            jPieceJ2.add(lab);
+            courant = Joueur.J2;
+        }else{
+            jPieceJ1.add(lab);
+            courant = Joueur.J1;
+        }
     }
 
     @Override
