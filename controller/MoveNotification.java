@@ -6,7 +6,7 @@
 package controller;
 
 import java.io.Serializable;
-import model.Coord;
+import modelquarto.Coord;
 
 /**
  *

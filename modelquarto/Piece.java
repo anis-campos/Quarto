@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package modelquarto;
 
 import static java.lang.Math.abs;
 import java.util.LinkedList;
@@ -15,10 +15,11 @@ import java.util.List;
  */
 public class Piece {
 
-    protected final Boolean carre;
-    protected final Boolean grand;
-    protected final Boolean fonce;
-    protected final Boolean plein;
+    protected Boolean carre;
+    protected Boolean grand;
+    protected Boolean fonce;
+    protected Boolean plein;
+    protected String nomPiece;
     protected Coord coord;
     
     //Les valeurs par défaut sont à TRUE
@@ -27,17 +28,8 @@ public class Piece {
         this.grand = grand;
         this.fonce = fonce;
         this.plein = plein;
+        this.nomPiece = this.getName()+".png";
         this.coord = coord;
-    }
-
-    public boolean move(int xFinal, int yFinal) {
-        this.coord.x = xFinal;
-        this.coord.y = yFinal;
-        return true;
-    }
-    
-    public boolean isMoveOk(int xFinal, int yFinal) {
-        return true;
     }
 
     @Override
@@ -71,26 +63,6 @@ public class Piece {
     }
 
 
-    public int getX() {
-        return this.coord.x;
-    }
-
-    public int getY() {
-        return this.coord.y;
-    }
-
-    public List<Coord> availableCoords() {//TO_REFACTOR
-        List<Coord> coords = new LinkedList<>();
-        for (int colonne = 0; colonne < 8; colonne++) {
-            for (int ligne = 0; ligne < 8; ligne++) {
-                if (isMoveOk(colonne, ligne)) {
-                    coords.add(new Coord(colonne, ligne));
-                }
-            }
-        }
-        return coords;
-    }
-
 
 
     @Override
@@ -98,4 +70,22 @@ public class Piece {
         Piece clone = new Piece(carre, grand, fonce, plein, coord.clone());
         return clone;
     }
+
+    public void setCarre(Boolean carre) {
+        this.carre = carre;
+    }
+
+    public void setGrand(Boolean grand) {
+        this.grand = grand;
+    }
+
+    public void setFonce(Boolean fonce) {
+        this.fonce = fonce;
+    }
+
+    public void setPlein(Boolean plein) {
+        this.plein = plein;
+    }
+    
+    
 }

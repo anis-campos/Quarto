@@ -1,6 +1,6 @@
 package tools;
 
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 
 /**

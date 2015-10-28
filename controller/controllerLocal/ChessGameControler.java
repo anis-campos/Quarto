@@ -1,6 +1,6 @@
 package controller.controllerLocal;
 
-import model.Coord;
+import modelquarto.Coord;
 import model.observable.ChessGame;
 import controller.AbstractChessGameControler;
 

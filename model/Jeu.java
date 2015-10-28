@@ -5,6 +5,7 @@
  */
 package model;
 
+import modelquarto.Coord;
 import java.util.LinkedList;
 import java.util.List;
 import tools.ChessPieceFactory;

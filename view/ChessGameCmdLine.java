@@ -7,7 +7,7 @@ package view;
 
 import controller.controllerLocal.ChessGameControler;
 import java.util.Scanner;
-import model.Coord;
+import modelquarto.Coord;
 
 /**
  *

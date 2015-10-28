@@ -2,7 +2,7 @@ package controller;
 
 import java.util.Observable;
 import java.util.Observer;
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 import model.observable.ChessGame;
 

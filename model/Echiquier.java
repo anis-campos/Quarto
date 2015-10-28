@@ -5,6 +5,8 @@
  */
 package model;
 
+import modelquarto.Coord;
+
 /**
  *
  * @author Antoine

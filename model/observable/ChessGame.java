@@ -1,7 +1,7 @@
 package model.observable;
 
 import java.util.Observable;
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 
 import model.Echiquier;

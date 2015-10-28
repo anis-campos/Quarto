@@ -1,6 +1,6 @@
 package controller.controllerRemote;
 
-import model.Coord;
+import modelquarto.Coord;
 import model.observable.ChessGame;
 import controller.AbstractChessGameControler;
 import controller.MoveNotification;

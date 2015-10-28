@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 import model.observable.*;
 import tools.ChessImageProvider;

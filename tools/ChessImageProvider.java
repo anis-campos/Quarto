@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 
 /**

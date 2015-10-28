@@ -1,7 +1,7 @@
 package controller;
 
 import java.util.Observer;
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 
 public interface ChessGameControlers {

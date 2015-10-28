@@ -3,7 +3,7 @@ package tools;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Coord;
+import modelquarto.Coord;
 import model.Couleur;
 import model.Pieces;
 

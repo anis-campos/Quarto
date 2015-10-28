@@ -1,4 +1,4 @@
-package model;
+package modelquarto;
 
 import java.io.Serializable;
 
