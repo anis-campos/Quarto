@@ -18,20 +18,28 @@ public class Partie {
     private final Map<Coord, Piece> plateauPiece;
     private Piece caseJoueur1;
     private Piece caseJoueur2;
-    private Joueur joueur1;
-    private Joueur joueur2;
+    private final Joueur joueur1;
+    private final Joueur joueur2;
     private Parametre parametres;
-
+        //TEST
     public static void main(String[] args) {
-        new Partie(new Parametre(true, false, true, true, true));
+        Parametre p = new Parametre(true, false, true, true, true);
+        Joueur j1 = new Joueur("Joueur1", false);
+        Joueur j2 = new Joueur("Joueur2", false);
+        Partie partie = new Partie(p, j1, j2);
     }
+        //ENDTEST
 
-    public Partie(Parametre parametres) {
-        plateauJeu = new HashMap<>();
-        plateauPiece = new HashMap<>();
+    public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
+        this.plateauJeu = new HashMap<>();
+        this.plateauPiece = new HashMap<>();
+        this.joueur1 = joueur1;
+        this.joueur2 = joueur2;
         this.parametres = parametres;
         this.pieceFactory();
-        System.out.println(plateauPiece.toString());
+        //TEST
+        System.out.println(this.plateauPiece.toString());
+        //ENDTEST
     }
 
     //Création des 16 pièces pour initialiser une partie
@@ -56,7 +64,7 @@ public class Partie {
             {true, true, true, true}
         };
         Piece laPiece;
-        //Si un paramètre de jeu est actif alors, les pièces vont avoir les caractéristiques associées variables:
+        //Si un paramètre de jeu est actif alors, les pièces vont avoir la caractéristique associée variable:
         //ex: parametre hauteur == true -> il y a des pieces hautes et basses (return true ou false)
         //ex: parametre hauteur == false -> toutes les pièces sont hautes (return true)
         for (int i = 0; i < 16; i++) {
