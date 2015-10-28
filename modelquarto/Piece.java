@@ -5,9 +5,6 @@
  */
 package modelquarto;
 
-import static java.lang.Math.abs;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -36,7 +33,6 @@ public class Piece {
     public String toString() {
         return this.getName();
     }
-
     public String getName() {
         String string = "";
         if(carre){
@@ -62,30 +58,9 @@ public class Piece {
         return string;
     }
 
-
-
-
     @Override
     protected Piece clone(){
-        Piece clone = new Piece(carre, grand, fonce, plein, coord.clone());
-        return clone;
+        return new Piece(carre, grand, fonce, plein, coord.clone());
     }
-
-    public void setCarre(Boolean carre) {
-        this.carre = carre;
-    }
-
-    public void setGrand(Boolean grand) {
-        this.grand = grand;
-    }
-
-    public void setFonce(Boolean fonce) {
-        this.fonce = fonce;
-    }
-
-    public void setPlein(Boolean plein) {
-        this.plein = plein;
-    }
-    
     
 }

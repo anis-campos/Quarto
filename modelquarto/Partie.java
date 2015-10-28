@@ -22,67 +22,46 @@ public class Partie {
     private Joueur joueur2;
     private Parametre parametres;
 
-    public static void main(String[] args){
-        new Partie(new Parametre(true,true,true,true));
+    public static void main(String[] args) {
+        new Partie(new Parametre(true, false, true, true, true));
     }
-    
+
     public Partie(Parametre parametres) {
         plateauJeu = new HashMap<>();
         plateauPiece = new HashMap<>();
         this.parametres = parametres;
-        this.partieBuilder();
-    }
-
-    private void partieBuilder() {
-        Piece laPiece;
-        laPiece = new Piece(false, false, false, false, new Coord(1, 1));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, false, false, true, new Coord(1, 2));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, false, true, false, new Coord(1, 3));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, false, true, true, new Coord(1, 4));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, true, false, false, new Coord(2, 1));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, true, false, true, new Coord(2, 2));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, true, true, false, new Coord(2, 3));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(false, true, true, true, new Coord(2, 4));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, false, false, false, new Coord(3, 1));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, false, false, true, new Coord(3, 2));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, false, true, false, new Coord(3, 3));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, false, true, true, new Coord(3, 4));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, true, false, false, new Coord(4, 1));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, true, false, true, new Coord(4, 2));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, true, true, false, new Coord(4, 3));
-        plateauPiece.put(laPiece.coord, laPiece);
-        laPiece = new Piece(true, true, true, true, new Coord(4, 4));
-        plateauPiece.put(laPiece.coord, laPiece);
-
-        for (Piece pieceCourante: plateauPiece.values()) {
-            if (!parametres.getCouleur()) {
-                pieceCourante.setFonce(Boolean.TRUE);
-            }
-            if (!parametres.getCreux()) {
-                pieceCourante.setPlein(Boolean.TRUE);
-            }
-            if (!parametres.getForme()) {
-                pieceCourante.setCarre(Boolean.TRUE);
-            }
-            if (!parametres.getHauteur()) {
-                pieceCourante.setGrand(Boolean.TRUE);
-            }
-        }
+        this.pieceFactory();
         System.out.println(plateauPiece.toString());
     }
 
+    //Création des 16 pièces pour initialiser une partie
+    //La pièceFactory prend en compte les paramètres de jeu
+    private void pieceFactory() {
+        Boolean booleanMatrix[][] = {
+            {false, false, false, false},
+            {false, false, false, true},
+            {false, false, true, false},
+            {false, false, true, true},
+            {false, true, false, false},
+            {false, true, false, true},
+            {false, true, true, false},
+            {false, true, true, true},
+            {true, false, false, false},
+            {true, false, false, true},
+            {true, false, true, false},
+            {true, false, true, true},
+            {true, true, false, false},
+            {true, true, false, true},
+            {true, true, true, false},
+            {true, true, true, true}
+        };
+        Piece laPiece;
+        //Si un paramètre de jeu est actif alors, les pièces vont avoir les caractéristiques associées variables:
+        //ex: parametre hauteur == true -> il y a des pieces hautes et basses (return true ou false)
+        //ex: parametre hauteur == false -> toutes les pièces sont hautes (return true)
+        for (int i = 0; i < 16; i++) {
+            laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord(((i + 1) % 4) + 1, (i / 4) + 1));
+            plateauPiece.put(laPiece.coord, laPiece);
+        }
+    }
 }

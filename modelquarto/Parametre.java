@@ -10,33 +10,35 @@ package modelquarto;
  * @author timotheetroncy
  */
 class Parametre {
-    private Boolean hauteur;
-    private Boolean creux;
-    private Boolean couleur;
-    private Boolean forme;
 
-    public Parametre(Boolean hauteur,  Boolean creux,  Boolean couleur,  Boolean forme) {
-        this.hauteur = true;
-        this.creux = true;
-        this.couleur = true;
-        this.forme = true;
+    private final Boolean hauteur;
+    private final Boolean creux;
+    private final Boolean couleur;
+    private final Boolean forme;
+    private final Boolean quartoCarre;
+
+    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre) {
+        this.hauteur = hauteur;
+        this.creux = creux;
+        this.couleur = couleur;
+        this.forme = forme;
+        this.quartoCarre = quartoCarre;
     }
 
-    public Boolean getHauteur() {
+    public Boolean hauteurActif() {
         return hauteur;
     }
 
-    public Boolean getCreux() {
+    public Boolean creuxActif() {
         return creux;
     }
 
-    public Boolean getCouleur() {
+    public Boolean couleurActif() {
         return couleur;
     }
 
-    public Boolean getForme() {
+    public Boolean formeActif() {
         return forme;
     }
-    
-    
+
 }
