@@ -29,8 +29,8 @@ public class Partie {
     //TEST
     public static void main(String[] args) {
         Parametre p = new Parametre(true, false, true, true, true);
-        Joueur j1 = new Joueur("Joueur1", false,NumeroJoueur.J1);
-        Joueur j2 = new Joueur("Joueur2", false,NumeroJoueur.J2);
+        Joueur j1 = new Joueur("Joueur1", false, NumeroJoueur.J1);
+        Joueur j2 = new Joueur("Joueur2", false, NumeroJoueur.J2);
         Partie partie = new Partie(p, j1, j2);
     }
     //ENDTEST
@@ -48,7 +48,7 @@ public class Partie {
         //ENDTEST
     }
 
-    public NumeroJoueur getJoueurCourant(){
+    public NumeroJoueur getJoueurCourant() {
         return Courant.getNumeroJoueur();
     }
 
@@ -97,13 +97,20 @@ public class Partie {
     public List<String> getListPieceDisponible() {
         List<String> rep = new ArrayList<>();
         for (Piece piece : listPiece) {
-           rep.add(piece.getName());
+            rep.add(piece.getName());
         }
         return rep;
     }
 
-    public boolean donnerPiece(Piece piece) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void donnerPiece() {
+
+        if (this.Courant == joueur1) {
+            caseJoueur2 = caseJoueur1;
+        } else {
+            caseJoueur1 = caseJoueur2;
+        }
+        changerJoueurCourant();
+        
     }
 
 }
