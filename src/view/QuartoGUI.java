@@ -239,7 +239,7 @@ public class QuartoGUI extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO : Deplacer les pieces
     }
 
     public class PieceClickListener implements MouseListener {

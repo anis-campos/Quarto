@@ -5,17 +5,20 @@
  */
 package controlleur;
 
+import java.util.Observable;
 import model.Coord;
 import model.Partie;
 import model.Piece;
+
 
 /**
  *
  * @author Flo
  */
-public class ControllerLocal  implements  IControlleur{
+public class ControllerLocal  extends Observable implements  IControlleur{
 
     Partie partie;
+
     
     public ControllerLocal(Partie partie) {
         this.partie=partie ;

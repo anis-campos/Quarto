@@ -7,6 +7,7 @@ package launcher.localLauncher;
 
 import controlleur.ControllerLocal;
 import java.awt.Dimension;
+import java.util.Observer;
 import javax.swing.*;
 import model.Joueur;
 import model.Parametre;
@@ -27,9 +28,12 @@ public class LauncherQuarto {
         Joueur j1 = new Joueur("Joueur1", false);
         Joueur j2 = new Joueur("Joueur2", false);
         Partie partie = new Partie(p, j1, j2);
-        ControllerLocal controllerLocal = new controlleur.ControllerLocal(partie);
+
+        ControllerLocal controllerLocal = new ControllerLocal(partie);
 
         JFrame frame = new QuartoGUI(controllerLocal);
+        
+        controllerLocal.addObserver((Observer) frame);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation(600, 10);
