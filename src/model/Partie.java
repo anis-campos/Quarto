@@ -21,6 +21,10 @@ public class Partie {
     private final Joueur joueur1;
     private final Joueur joueur2;
     private Parametre parametres;
+    
+    private Joueur Courant;
+    
+    
         //TEST
     public static void main(String[] args) {
         Parametre p = new Parametre(true, false, true, true, true);
@@ -35,11 +39,24 @@ public class Partie {
         this.plateauPiece = new HashMap<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
+        Courant = joueur1;
         this.parametres = parametres;
         this.pieceFactory();
         //TEST
         System.out.println(this.plateauPiece.toString());
         //ENDTEST
+    }
+    
+    public Joueur getJoueurCourant(){
+        return Courant;
+    }
+    
+    
+    public void changerJoueurCourant(){
+        if(Courant==joueur1)
+            Courant=joueur2;
+        else
+            Courant=joueur1;
     }
 
     //Création des 16 pièces pour initialiser une partie
