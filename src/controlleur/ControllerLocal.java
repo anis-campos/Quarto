@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import java.util.List;
 import java.util.Observable;
 import model.Coord;
 import model.Joueur;
@@ -50,6 +51,12 @@ public class ControllerLocal  extends Observable implements  IControlleur{
     @Override
     public Joueur getJoueurCourant() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> getListPieceDisponible() {
+
+        return partie.getListPieceDisponible();
     }
     
 }

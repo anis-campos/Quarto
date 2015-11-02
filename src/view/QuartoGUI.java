@@ -8,15 +8,22 @@ package view;
 import controlleur.IControlleur;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import model.Coord;
+import model.Couleur;
 import model.Joueur;
 import model.NumeroJoueur;
+import tools.ChessImageProvider;
 
 /**
  * @author Anis
@@ -103,7 +110,18 @@ public class QuartoGUI extends JFrame implements Observer {
         jPieces.setLayout(grid);
         jPieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
 
+        for (String piece : controleur.getListPieceDisponible()) {
+            
+              JLabel jLabel = new JLabel();
+              jLabel.setName(piece);
+              
+              pieces.put(piece, jLabel);
+              
+              
+        }
+        
         for (int i = 0; i < 16; i++) {
+            
             JLabel jLabel = new JLabel();
             jLabel.setText("PIECE_" + i);
 
@@ -194,6 +212,17 @@ public class QuartoGUI extends JFrame implements Observer {
         layeredPane.add(Centre, BorderLayout.CENTER);
         layeredPane.add(jPieces, BorderLayout.SOUTH);
 
+    }
+    
+     public static BufferedImage getImageFile(String piece) {
+        
+
+        try {
+            return ImageIO.read(ChessImageProvider.class.getResourceAsStream("/images/"+piece+".png"));
+        } catch (IOException ex) {
+            Logger.getLogger(ChessImageProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     void donnerPiece(String nom) {
