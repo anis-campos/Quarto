@@ -24,12 +24,10 @@ public class ControllerLocal extends Observable implements IControlleur {
         this.partie = partie;
     }
 
-    @Override
     public boolean poserPiece(String nomPiece, Coord coord) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public boolean donnerPiece(String nomPiece) {
         Piece piece;
         piece = partie.findPieceAvailable(nomPiece);
@@ -42,23 +40,19 @@ public class ControllerLocal extends Observable implements IControlleur {
         return true;
     }
 
-    @Override
     public boolean annoncerQuarto() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public boolean annoncerMatchNul() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public List<String> getListPieceDisponible() {
 
         return partie.getListPieceDisponible();
     }
 
-    @Override
     public NumeroJoueur getJoueurCourant() {
         return partie.getJoueurCourant();
     }

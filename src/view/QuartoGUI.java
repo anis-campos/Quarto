@@ -5,7 +5,6 @@
  */
 package view;
 
-import controlleur.IControlleur;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -17,9 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import model.Coord;
 import model.NumeroJoueur;
+import controlleur.IControlleur;
+
 
 /**
  * @author Anis

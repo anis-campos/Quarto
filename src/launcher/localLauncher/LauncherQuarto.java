@@ -12,8 +12,8 @@ import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
-
 import view.QuartoGUI;
+
 
 /**
  * @author Anis

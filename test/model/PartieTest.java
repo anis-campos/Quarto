@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package test.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import src.model.Joueur;
+import src.model.NumeroJoueur;
+import src.model.Parametre;
+import src.model.Partie;
 /**
  *
  * @author Anis
