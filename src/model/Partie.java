@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package src.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static model.QuartoCalculator.thereIsQuarto;
+import static src.model.QuartoCalculator.thereIsQuarto;
 
 /**
  *
@@ -17,7 +17,7 @@ import static model.QuartoCalculator.thereIsQuarto;
  */
 public class Partie {
 
-    private final Map<Coord, Piece> plateauJeu;
+    private final PlateauJeu plateauJeu;
     private final ArrayList<Piece> listPiece;
     private Piece caseJoueur1;
     private Piece caseJoueur2;
@@ -30,11 +30,12 @@ public class Partie {
     //TEST
 
     public static void main(String[] args) {
-        Parametre p = new Parametre(true, true, true, true, false);
+        Parametre p = new Parametre(true, true, true, true, true);
         Joueur j1 = new Joueur("Joueur1", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Joueur2", false, NumeroJoueur.J2);
         Partie partie = new Partie(p, j1, j2);
-        testQuarto(p);
+        testQuarto(p);//tester la présence d'un quarto à partir de la coord de la dernière pièce posée
+        testPlateauJeu();// tester les méthodes de la classe PlateauJeu
     }
 
     private static void testQuarto(Parametre p) {
@@ -45,10 +46,19 @@ public class Partie {
         plateauTest.put(new Coord(0, 3), new Piece(true, false, false, false));
         System.out.println(thereIsQuarto(plateauTest, p, new Coord(0, 1)).toString());
     }
+    private static void testPlateauJeu(){
+        PlateauJeu pj = new PlateauJeu();
+        pj.addPiece(new Coord(0,0), new Piece(true, false, true, true));
+        pj.addPiece(new Coord(0,1), new Piece(true, true, true, true));
+        pj.addPiece(new Coord(2,1), new Piece(true, true, true, false));
+        pj.removePieceFromCoord(new Coord(2,1));
+        pj.removePieceFromPiece(new Piece(true, true, true, true));
+        System.out.println(pj);
+    }
     //ENDTEST
 
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
-        this.plateauJeu = new HashMap<>();
+        this.plateauJeu = new PlateauJeu();
         this.listPiece = new ArrayList<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
@@ -121,10 +131,11 @@ public class Partie {
         changerJoueurCourant();
         
     }
+    
    public Piece findPieceAvailable(String nomPiece){
        
        for( Piece piece :listPiece){
-           if (piece.getName()==nomPiece)
+           if (piece.getName().equals(nomPiece))
                return piece;
        }
       return null;

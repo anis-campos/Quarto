@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package src.model;
+
+import java.util.Objects;
 
 
 /**
@@ -59,8 +61,52 @@ public class Piece {
     }
 
     @Override
-    protected Piece clone(){
+    protected Piece clone() throws CloneNotSupportedException{
         return new Piece(carre, grand, fonce, plein);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.carre);
+        hash = 67 * hash + Objects.hashCode(this.grand);
+        hash = 67 * hash + Objects.hashCode(this.fonce);
+        hash = 67 * hash + Objects.hashCode(this.plein);
+        hash = 67 * hash + Objects.hashCode(this.nomFichierPiece);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Piece other = (Piece) obj;
+        if (!Objects.equals(this.carre, other.carre)) {
+            return false;
+        }
+        if (!Objects.equals(this.grand, other.grand)) {
+            return false;
+        }
+        if (!Objects.equals(this.fonce, other.fonce)) {
+            return false;
+        }
+        if (!Objects.equals(this.plein, other.plein)) {
+            return false;
+        }
+        if (!Objects.equals(this.nomFichierPiece, other.nomFichierPiece)) {
+            return false;
+        }
+        return true;
+    }
+
+    public int compareTo(Boolean b) {
+        return carre.compareTo(b);
+    }
+    
+    
     
 }
