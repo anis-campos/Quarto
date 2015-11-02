@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package src.model;
 
 
 /**
@@ -17,16 +17,16 @@ public class Piece {
     protected Boolean fonce;
     protected Boolean plein;
     protected String nomFichierPiece;
-    protected Coord coord;
+    //protected Coord coord;
     
     //Les valeurs par défaut sont à TRUE
-    public Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein, Coord coord) {
+    public Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein) {
         this.carre = carre;
         this.grand = grand;
         this.fonce = fonce;
         this.plein = plein;
         this.nomFichierPiece = this.getName()+".png";
-        this.coord = coord;
+        //this.coord = coord;
     }
 
     @Override
@@ -60,7 +60,8 @@ public class Piece {
 
     @Override
     protected Piece clone(){
-        return new Piece(carre, grand, fonce, plein, coord.clone());
+        //return new Piece(carre, grand, fonce, plein, coord.clone());
+        return new Piece(carre, grand, fonce, plein);
     }
     
 }

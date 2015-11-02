@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package src.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import static src.model.QuartoCalculator.*;
 
 /**
  *
@@ -20,13 +21,22 @@ public class Partie {
     private Piece caseJoueur2;
     private final Joueur joueur1;
     private final Joueur joueur2;
-    private Parametre parametres;
+    private final Parametre parametres;
         //TEST
     public static void main(String[] args) {
         Parametre p = new Parametre(true, false, true, true, true);
         Joueur j1 = new Joueur("Joueur1", false);
         Joueur j2 = new Joueur("Joueur2", false);
         Partie partie = new Partie(p, j1, j2);
+        testQuarto(p);
+    }
+    private static void testQuarto(Parametre p){
+        Map<Coord, Piece> plateauTest =  new HashMap<>();
+        plateauTest.put(new Coord(1,0), new Piece(true,true,true,true));
+        plateauTest.put(new Coord(1,1), new Piece(true,false,true,true));
+        plateauTest.put(new Coord(1,2), new Piece(true,true,false,true));
+        plateauTest.put(new Coord(2,1), new Piece(true,false,false,true));
+        QuartoCalculator:thereIsQuarto(plateauTest, p, new Coord(1,1));
     }
         //ENDTEST
 
@@ -71,8 +81,10 @@ public class Partie {
             //for a 1-1 to 4-4 plateau
             //laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord(((i + 1) % 4) + 1, (i / 4) + 1));
             //Map from 0-0 to 1-7
-            laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord((i % 2), (i / 2)));
-            plateauPiece.put(laPiece.coord, laPiece);
+            //laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord((i % 2), (i / 2)));
+            //Map from 0-0 to 1-7 (without coord in piece)
+            laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif());
+            plateauPiece.put(new Coord((i % 2), (i / 2)), laPiece);
         }
     }
 }
