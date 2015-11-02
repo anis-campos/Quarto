@@ -7,6 +7,7 @@ package controlleur;
 
 import java.util.Observable;
 import model.Coord;
+import model.Joueur;
 import model.Partie;
 import model.Piece;
 
@@ -43,6 +44,11 @@ public class ControllerLocal  extends Observable implements  IControlleur{
 
     @Override
     public boolean annoncerMatchNul() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Joueur getJoueurCourant() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

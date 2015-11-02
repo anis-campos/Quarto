@@ -6,6 +6,7 @@
 package controlleur;
 
 import model.Coord;
+import model.Joueur;
 import model.Piece;
 
 /**
@@ -18,6 +19,8 @@ public interface IControlleur {
     boolean donnerPiece(Piece piece);
     boolean annoncerQuarto();
     boolean annoncerMatchNul();
+    
+    Joueur getJoueurCourant();
     
     
 }
