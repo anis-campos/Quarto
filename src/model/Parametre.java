@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package src.model;
 
 /**
  *
@@ -39,6 +39,9 @@ public class Parametre {
 
     public Boolean formeActif() {
         return forme;
+    }
+    public Boolean quartoCarreActif(){
+        return quartoCarre;
     }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package src.view;
 
 import controlleur.IControlleur;
 import java.awt.*;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import model.Coord;
+import src.model.Coord;
 import model.NumeroJoueur;
 
 /**

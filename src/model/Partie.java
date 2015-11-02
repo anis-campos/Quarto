@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package src.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static src.model.QuartoCalculator.thereIsQuarto;
 
 /**
  *
@@ -22,16 +23,27 @@ public class Partie {
     private Piece caseJoueur2;
     private final Joueur joueur1;
     private final Joueur joueur2;
-    private Parametre parametres;
+    private final Parametre parametres;
 
     private Joueur Courant;
 
     //TEST
+
     public static void main(String[] args) {
-        Parametre p = new Parametre(true, false, true, true, true);
+        Parametre p = new Parametre(true, true, true, true, false);
         Joueur j1 = new Joueur("Joueur1", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Joueur2", false, NumeroJoueur.J2);
         Partie partie = new Partie(p, j1, j2);
+        testQuarto(p);
+    }
+
+    private static void testQuarto(Parametre p) {
+        Map<Coord, Piece> plateauTest = new HashMap<>();
+        plateauTest.put(new Coord(0, 0), new Piece(true, false, true, true));
+        plateauTest.put(new Coord(0, 1), new Piece(true, true, true, false));
+        plateauTest.put(new Coord(0, 2), new Piece(true, false, false, true));
+        plateauTest.put(new Coord(0, 3), new Piece(true, false, false, false));
+        System.out.println(thereIsQuarto(plateauTest, p, new Coord(0, 1)).toString());
     }
     //ENDTEST
 
@@ -43,9 +55,6 @@ public class Partie {
         Courant = joueur1;
         this.parametres = parametres;
         this.pieceFactory();
-        //TEST
-        System.out.println(this.listPiece.toString());
-        //ENDTEST
     }
 
     public NumeroJoueur getJoueurCourant() {

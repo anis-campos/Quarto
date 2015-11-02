@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.localLauncher;
+package src.launcher.localLauncher;
 
 import controlleur.ControllerLocal;
-import java.awt.Dimension;
 import java.util.Observer;
 import javax.swing.*;
 import model.Joueur;
@@ -14,7 +13,7 @@ import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
 
-import view.QuartoGUI;
+import src.view.QuartoGUI;
 
 /**
  * @author Anis
