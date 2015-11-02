@@ -225,13 +225,14 @@ public class QuartoGUI extends JFrame implements Observer {
         public void actionPerformed(ActionEvent e) {
 
             JButton button = (JButton) e.getSource();
-            
+            String nomPiece;
             if(button==bDonnerJ1){
-                
+                nomPiece = jPieceJ1.getComponent(0).getName();
             }else
             {
-                
+                nomPiece = jPieceJ2.getComponent(0).getName();
             }
+            controleur.donnerPiece(nomPiece);
         }
         
     }
