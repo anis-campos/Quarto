@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.localLauncher;
+package src.launcher.localLauncher;
 
-import java.awt.Dimension;
 import javax.swing.*;
 
-import view.QuartoGUI;
+import src.view.QuartoGUI;
 
 /**
  * @author Anis

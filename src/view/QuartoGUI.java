@@ -13,7 +13,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
 
-import model.Coord;
+import src.model.Coord;
 
 /**
  * @author Anis

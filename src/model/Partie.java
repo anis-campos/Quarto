@@ -7,7 +7,7 @@ package src.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import static src.model.QuartoCalculator.*;
+import static src.model.QuartoCalculator.thereIsQuarto;
 
 /**
  *
@@ -26,7 +26,7 @@ public class Partie {
     //TEST
 
     public static void main(String[] args) {
-        Parametre p = new Parametre(true, true, true, true, true);
+        Parametre p = new Parametre(true, true, true, true, false);
         Joueur j1 = new Joueur("Joueur1", false);
         Joueur j2 = new Joueur("Joueur2", false);
         Partie partie = new Partie(p, j1, j2);
@@ -36,24 +36,10 @@ public class Partie {
     private static void testQuarto(Parametre p) {
         Map<Coord, Piece> plateauTest = new HashMap<>();
         plateauTest.put(new Coord(0, 0), new Piece(true, false, true, true));
-        plateauTest.put(new Coord(0, 1), new Piece(true, false, true, false));
+        plateauTest.put(new Coord(0, 1), new Piece(true, true, true, false));
         plateauTest.put(new Coord(0, 2), new Piece(true, false, false, true));
         plateauTest.put(new Coord(0, 3), new Piece(true, false, false, false));
-//        plateauTest.put(new Coord(1, 0), new Piece(true, true, true, true));
-//        plateauTest.put(new Coord(1, 1), new Piece(true, false, true, true));
-//        plateauTest.put(new Coord(1, 2), new Piece(true, true, false, true));
-//        plateauTest.put(new Coord(1, 3), new Piece(true, false, false, true));
-//        plateauTest.put(new Coord(2, 0), new Piece(true, true, true, true));
-//        plateauTest.put(new Coord(2, 1), new Piece(true, false, true, true));
-//        plateauTest.put(new Coord(2, 2), new Piece(true, true, false, true));
-//        plateauTest.put(new Coord(2, 3), new Piece(true, false, false, true));
-//        plateauTest.put(new Coord(3, 0), new Piece(true, true, true, true));
-//        plateauTest.put(new Coord(3, 1), new Piece(true, false, true, true));
-//        plateauTest.put(new Coord(3, 2), new Piece(true, true, false, true));
-//        plateauTest.put(new Coord(3, 3), new Piece(true, false, false, true));
-        //System.out.println(
-                QuartoCalculator:thereIsQuarto(plateauTest, p, new Coord(1, 1)).toString();
-                       // );
+        System.out.println(thereIsQuarto(plateauTest, p, new Coord(0, 1)).toString());
     }
     //ENDTEST
 

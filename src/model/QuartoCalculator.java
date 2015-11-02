@@ -5,9 +5,7 @@
  */
 package src.model;
 
-import static java.sql.Types.NULL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -121,8 +119,11 @@ public class QuartoCalculator {
         y = coordDernierePiece.y;
         Piece pieceCourante;
         if (x != 0 && y != 3) {
-            carreHD.add(plateau.get(coordDernierePiece));
 
+            pieceCourante = plateau.get(coordDernierePiece);
+            if (pieceCourante != null) {
+                carreHD.add(pieceCourante);
+            }
             pieceCourante = plateau.get(new Coord(x - 1, y));
             if (pieceCourante != null) {
                 carreHD.add(pieceCourante);
@@ -144,8 +145,10 @@ public class QuartoCalculator {
         y = coordDernierePiece.y;
         Piece pieceCourante;
         if (x != 0 && y != 0) {
-            carreHG.add(plateau.get(coordDernierePiece));
-
+            pieceCourante = plateau.get(coordDernierePiece);
+            if (pieceCourante != null) {
+                carreHG.add(pieceCourante);
+            }
             pieceCourante = plateau.get(new Coord(x - 1, y));
             if (pieceCourante != null) {
                 carreHG.add(pieceCourante);
@@ -167,8 +170,10 @@ public class QuartoCalculator {
         y = coordDernierePiece.y;
         Piece pieceCourante;
         if (x != 3 && y != 3) {
-            carreBD.add(plateau.get(coordDernierePiece));
-
+            pieceCourante = plateau.get(coordDernierePiece);
+            if (pieceCourante != null) {
+                carreBD.add(pieceCourante);
+            }
             pieceCourante = plateau.get(new Coord(x + 1, y));
             if (pieceCourante != null) {
                 carreBD.add(pieceCourante);
@@ -190,8 +195,10 @@ public class QuartoCalculator {
         y = coordDernierePiece.y;
         Piece pieceCourante;
         if (x != 3 && y != 0) {
-            carreBG.add(plateau.get(coordDernierePiece));
-
+            pieceCourante = plateau.get(coordDernierePiece);
+            if (pieceCourante != null) {
+                carreBG.add(pieceCourante);
+            }
             pieceCourante = plateau.get(new Coord(x, y - 1));
             if (pieceCourante != null) {
                 carreBG.add(pieceCourante);
