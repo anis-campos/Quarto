@@ -5,6 +5,7 @@
  */
 package view;
 
+import controlleur.IControlleur;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class QuartoGUI extends JFrame implements Observer {
 
     private Map<JPanel, Coord> cases;
 
-    private Map<String , JLabel> pieces;
+    private Map<String, JLabel> pieces;
 
     private JPanel jEntete;
 
@@ -37,6 +38,7 @@ public class QuartoGUI extends JFrame implements Observer {
     private JButton bDonnerJ2;
 
     private Joueur courant = Joueur.J1;
+    private final IControlleur controleur;
 
     enum Joueur {
 
@@ -45,8 +47,12 @@ public class QuartoGUI extends JFrame implements Observer {
 
     private JPanel layeredPane;
 
-    public QuartoGUI() {
+    public QuartoGUI(IControlleur controleur) {
+
         super();
+
+        this.controleur = controleur;
+
         initComponents();
 
     }
@@ -102,7 +108,7 @@ public class QuartoGUI extends JFrame implements Observer {
             JLabel jLabel = new JLabel();
             jLabel.setText("PIECE_" + i);
 
-            pieces.put("PIECE_" + i,jLabel);
+            pieces.put("PIECE_" + i, jLabel);
 
             jLabel.addMouseListener(new PieceClickListener());
             jLabel.setBackground(Color.WHITE);
@@ -125,12 +131,13 @@ public class QuartoGUI extends JFrame implements Observer {
         jPieceJ1.setMaximumSize(new Dimension(100, 100));
 
         bDonnerJ1 = new JButton("Donner à J2");
-        bDonnerJ1.addActionListener( new ActionListener() {
+        bDonnerJ1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                  if(jPieceJ1.getComponentCount()==1)
-                donnerPiece(((JLabel) jPieceJ1.getComponent(0)).getText());
+                if (jPieceJ1.getComponentCount() == 1) {
+                    donnerPiece(((JLabel) jPieceJ1.getComponent(0)).getText());
+                }
             }
         });
 
@@ -157,17 +164,18 @@ public class QuartoGUI extends JFrame implements Observer {
         JLabel j2 = new JLabel("JOUEUR 2");
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         bDonnerJ2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                  if(jPieceJ2.getComponentCount()==1)
-                donnerPiece(((JLabel) jPieceJ2.getComponent(0)).getText());
+                if (jPieceJ2.getComponentCount() == 1) {
+                    donnerPiece(((JLabel) jPieceJ2.getComponent(0)).getText());
+                }
             }
-        }          
+        }
         );
-        
+
         j2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(j2);
         jZoneJ2.add(jPieceJ2);
@@ -189,8 +197,8 @@ public class QuartoGUI extends JFrame implements Observer {
 
     }
 
-    void donnerPiece(String nom){
-         if (courant == Joueur.J1) {
+    void donnerPiece(String nom) {
+        if (courant == Joueur.J1) {
             if (jPieceJ2.getComponents().length > 0) {
                 jPieceJ2.removeAll();
             }
@@ -204,28 +212,28 @@ public class QuartoGUI extends JFrame implements Observer {
             jPieceJ2.removeAll();
             jPieceJ1.add(new JLabel(nom));
             courant = Joueur.J1;
- 
+
         }
     }
-    
+
     void placerPiece(JLabel lab) {
         if (courant == Joueur.J1) {
             if (jPieceJ1.getComponents().length > 0) {
-                String nom  = ((JLabel)jPieceJ1.getComponent(0)).getText();
+                String nom = ((JLabel) jPieceJ1.getComponent(0)).getText();
                 pieces.get(nom).setVisible(true);
                 jPieceJ1.removeAll();
             }
 
             jPieceJ1.add(lab);
-      
+
         } else {
             if (jPieceJ2.getComponents().length > 0) {
-                String nom  = ((JLabel)jPieceJ2.getComponent(0)).getText();
+                String nom = ((JLabel) jPieceJ2.getComponent(0)).getText();
                 pieces.get(nom).setVisible(true);
                 jPieceJ2.removeAll();
             }
             jPieceJ2.add(lab);
- 
+
         }
     }
 
