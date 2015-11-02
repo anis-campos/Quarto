@@ -5,10 +5,19 @@
  */
 package controlleur;
 
+import model.Coord;
+import model.Piece;
+
 /**
  *
  * @author Anis
  */
 public interface IControlleur {
+     
+    boolean poserPiece(Piece piece, Coord coord);
+    boolean donnerPiece(Piece piece);
+    boolean annoncerQuarto();
+    boolean annoncerMatchNul();
+    
     
 }
