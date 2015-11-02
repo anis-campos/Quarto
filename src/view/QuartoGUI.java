@@ -125,9 +125,13 @@ public class QuartoGUI extends JFrame implements Observer {
         jPieceJ1.setMaximumSize(new Dimension(100, 100));
 
         bDonnerJ1 = new JButton("Donner à J2");
-        bDonnerJ1.addActionListener((ActionEvent e) -> {
-            if(jPieceJ1.getComponentCount()==1)
+        bDonnerJ1.addActionListener( new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                  if(jPieceJ1.getComponentCount()==1)
                 donnerPiece(((JLabel) jPieceJ1.getComponent(0)).getText());
+            }
         });
 
         JLabel j1 = new JLabel("JOUEUR 1");
@@ -154,10 +158,15 @@ public class QuartoGUI extends JFrame implements Observer {
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        bDonnerJ2.addActionListener((ActionEvent e) -> {
-            if(jPieceJ2.getComponentCount()==1)
+        bDonnerJ2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                  if(jPieceJ2.getComponentCount()==1)
                 donnerPiece(((JLabel) jPieceJ2.getComponent(0)).getText());
-        });
+            }
+        }          
+        );
         
         j2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(j2);
