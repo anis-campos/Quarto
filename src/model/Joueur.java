@@ -20,8 +20,9 @@ public class Joueur {
         this.numeroJoueur = numeroJoueur;
     }
 
-    NumeroJoueur getNumeroJoueur() {
+    public NumeroJoueur getNumeroJoueur() {
         return numeroJoueur;
      }
+    
     
 }

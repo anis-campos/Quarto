@@ -6,6 +6,8 @@
 package view;
 
 import controlleur.IControlleur;
+import controlleur.observables.Notification;
+import controlleur.observables.PieceDonneeNotification;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -53,15 +55,15 @@ public class QuartoGUI extends JFrame implements Observer {
 
         this.controleur = controleur;
 
-        
         initComponents();
-        
+
         courant = controleur.getJoueurCourant();
-        
-        if(courant==NumeroJoueur.J1)
+
+        if (courant == NumeroJoueur.J1) {
             bDonnerJ2.setEnabled(false);
-        else
+        } else {
             bDonnerJ1.setEnabled(false);
+        }
 
     }
 
@@ -167,7 +169,7 @@ public class QuartoGUI extends JFrame implements Observer {
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        bDonnerJ2.addActionListener(new ButtonDonnerClickListener() );
+        bDonnerJ2.addActionListener(new ButtonDonnerClickListener());
 
         j2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(j2);
@@ -196,7 +198,7 @@ public class QuartoGUI extends JFrame implements Observer {
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(QuartoGUI.class.getResourceAsStream("/images/" + piece + ".png")));
             Image image = imageIcon.getImage();
             Image scaledInstance = image.getScaledInstance(96, 96, java.awt.Image.SCALE_SMOOTH);
-           
+
             return new ImageIcon(scaledInstance);
         } catch (IOException ex) {
             Logger.getLogger(QuartoGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,20 +206,54 @@ public class QuartoGUI extends JFrame implements Observer {
         return null;
     }
 
-           
-  
+    private JPanel getPanelJoueur(NumeroJoueur num) {
+        JPanel panel;
+        if (num == NumeroJoueur.J1) {
+            panel = jPieceJ1;
+        } else {
+            panel = jPieceJ2;
+        }
+
+        return panel;
+    }
 
     @Override
     public void update(Observable o, Object arg) {
         //TODO : Deplacer les pieces
+        Notification notif = (Notification) arg;
+
+        if (notif instanceof PieceDonneeNotification) {
+            PieceDonneeNotification donner = (PieceDonneeNotification) notif;
+            JPanel panelSource = getPanelJoueur(donner.source);
+            NumeroJoueur destination;
+            switch (donner.source) {
+            case J1:
+                destination = NumeroJoueur.J2;
+                break;
+            case J2:
+                destination = NumeroJoueur.J1;
+                break;
+           default:
+               destination = null;
+        }
+            JPanel panelDestination = getPanelJoueur(destination);
+            JLabel lab = (JLabel) panelSource.getComponent(0);
+            panelSource.removeAll();
+            panelDestination.add(cloneLabel(lab));
+            
+        }
+        
+          this.revalidate();
+          this.repaint();
+       
     }
 
-    public JLabel cloneLabel(JLabel label){
+    public JLabel cloneLabel(JLabel label) {
         JLabel lab = new JLabel(label.getIcon());
         lab.setName(label.getName());
         return lab;
     }
-    
+
     public class ButtonDonnerClickListener implements ActionListener {
 
         @Override
@@ -225,29 +261,29 @@ public class QuartoGUI extends JFrame implements Observer {
 
             JButton button = (JButton) e.getSource();
             String nomPiece;
-            if(button==bDonnerJ1){
+            if (button == bDonnerJ1) {
                 nomPiece = jPieceJ1.getComponent(0).getName();
-            }else
-            {
+            } else {
                 nomPiece = jPieceJ2.getComponent(0).getName();
             }
             controleur.donnerPiece(nomPiece);
         }
-        
+
     }
-    
+
     public class PieceClickListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel lab = (JLabel) e.getSource();
             JPanel panel;
-            if(controleur.getJoueurCourant()==NumeroJoueur.J1){
+            if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
                 panel = jPieceJ1;
-            }else
+            } else {
                 panel = jPieceJ2;
-            
-            if(panel.getComponentCount()==1){
+            }
+
+            if (panel.getComponentCount() == 1) {
                 JLabel labPresent = (JLabel) panel.getComponent(0);
                 JLabel piece = pieces.get(labPresent.getName());
                 piece.setVisible(true);
