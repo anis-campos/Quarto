@@ -23,8 +23,8 @@ public class PartieTest {
 
     @Before
     public void setUp() {
-        j1 = new Joueur("Joueur1", false);
-        j2 = new Joueur("Joueur2", false);
+        j1 = new Joueur("Joueur1", false,NumeroJoueur.J1);
+        j2 = new Joueur("Joueur2", false,NumeroJoueur.J2);
     }
 
     @After

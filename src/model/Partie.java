@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Map;
 public class Partie {
 
     private final Map<Coord, Piece> plateauJeu;
-    private final ArrayList<Piece> plateauPiece;
+    private final ArrayList<Piece> listPiece;
     private Piece caseJoueur1;
     private Piece caseJoueur2;
     private final Joueur joueur1;
@@ -36,14 +37,14 @@ public class Partie {
 
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
         this.plateauJeu = new HashMap<>();
-        this.plateauPiece = new ArrayList<>();
+        this.listPiece = new ArrayList<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
         Courant = joueur1;
         this.parametres = parametres;
         this.pieceFactory();
         //TEST
-        System.out.println(this.plateauPiece.toString());
+        System.out.println(this.listPiece.toString());
         //ENDTEST
     }
 
@@ -89,8 +90,16 @@ public class Partie {
             //laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord(((i + 1) % 4) + 1, (i / 4) + 1));
             //Map from 0-0 to 1-7
             laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif());
-            plateauPiece.add(laPiece);
+            listPiece.add(laPiece);
         }
+    }
+
+    public List<String> getListPieceDisponible() {
+        List<String> rep = new ArrayList<>();
+        for (Piece piece : listPiece) {
+           rep.add(piece.getName());
+        }
+        return rep;
     }
 
 }

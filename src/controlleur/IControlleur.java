@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import java.util.List;
 import model.Coord;
 import model.Joueur;
 import model.Piece;
@@ -21,6 +22,8 @@ public interface IControlleur {
     boolean annoncerMatchNul();
     
     Joueur getJoueurCourant();
+    
+    List<String> getListPieceDisponible();
     
     
 }
