@@ -22,7 +22,6 @@ import javax.swing.*;
 import model.Coord;
 import model.NumeroJoueur;
 
-
 /**
  * @author Anis
  */
@@ -47,8 +46,6 @@ public class QuartoGUI extends JFrame implements Observer {
     private NumeroJoueur courant;
     private final IControlleur controleur;
 
-    
-
     private JPanel layeredPane;
 
     public QuartoGUI(IControlleur controleur) {
@@ -57,6 +54,7 @@ public class QuartoGUI extends JFrame implements Observer {
 
         this.controleur = controleur;
 
+        courant = controleur.getJoueurCourant();
         initComponents();
 
     }
@@ -109,21 +107,12 @@ public class QuartoGUI extends JFrame implements Observer {
         jPieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
 
         for (String piece : controleur.getListPieceDisponible()) {
-            
-              JLabel jLabel = new JLabel();
-              jLabel.setName(piece);
-              
-              pieces.put(piece, jLabel);
-              
-              
-        }
-        
-        for (int i = 0; i < 16; i++) {
-            
-            JLabel jLabel = new JLabel();
-            jLabel.setText("PIECE_" + i);
 
-            pieces.put("PIECE_" + i, jLabel);
+            JLabel jLabel = new JLabel(getImageFile(piece));
+            jLabel.setName(piece);
+            //jLabel.setText(piece);
+
+            pieces.put(piece, jLabel);
 
             jLabel.addMouseListener(new PieceClickListener());
             jLabel.setBackground(Color.WHITE);
@@ -211,12 +200,15 @@ public class QuartoGUI extends JFrame implements Observer {
         layeredPane.add(jPieces, BorderLayout.SOUTH);
 
     }
-    
-     public static BufferedImage getImageFile(String piece) {
-        
+
+    public static ImageIcon getImageFile(String piece) {
 
         try {
-            return ImageIO.read(QuartoGUI.class.getResourceAsStream("/images/"+piece+".png"));
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(QuartoGUI.class.getResourceAsStream("/images/" + piece + ".png")));
+            Image image = imageIcon.getImage();
+            Image scaledInstance = image.getScaledInstance(96, 96, java.awt.Image.SCALE_SMOOTH);
+           
+            return new ImageIcon(scaledInstance);
         } catch (IOException ex) {
             Logger.getLogger(QuartoGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -244,8 +236,8 @@ public class QuartoGUI extends JFrame implements Observer {
 
     void placerPiece(JLabel lab) {
         if (courant == NumeroJoueur.J1) {
-            if (jPieceJ1.getComponents().length > 0) {
-                String nom = ((JLabel) jPieceJ1.getComponent(0)).getText();
+            if (jPieceJ1.getComponentCount() > 0) {
+                String nom = ((JLabel) jPieceJ1.getComponent(0)).getName();
                 pieces.get(nom).setVisible(true);
                 jPieceJ1.removeAll();
             }
@@ -253,8 +245,8 @@ public class QuartoGUI extends JFrame implements Observer {
             jPieceJ1.add(lab);
 
         } else {
-            if (jPieceJ2.getComponents().length > 0) {
-                String nom = ((JLabel) jPieceJ2.getComponent(0)).getText();
+            if (jPieceJ2.getComponentCount() > 0) {
+                String nom = ((JLabel) jPieceJ2.getComponent(0)).getName();
                 pieces.get(nom).setVisible(true);
                 jPieceJ2.removeAll();
             }
@@ -262,7 +254,6 @@ public class QuartoGUI extends JFrame implements Observer {
 
         }
     }
-    
 
     @Override
     public void update(Observable o, Object arg) {
@@ -275,7 +266,7 @@ public class QuartoGUI extends JFrame implements Observer {
         public void mouseClicked(MouseEvent e) {
             JLabel lab = (JLabel) e.getSource();
             lab.setVisible(false);
-            placerPiece(new JLabel(lab.getText()));
+            placerPiece(new JLabel(lab.getIcon()));
 
         }
 

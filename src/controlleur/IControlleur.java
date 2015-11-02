@@ -8,6 +8,7 @@ package controlleur;
 import java.util.List;
 import model.Coord;
 import model.Joueur;
+import model.NumeroJoueur;
 import model.Piece;
 
 /**
@@ -21,7 +22,7 @@ public interface IControlleur {
     boolean annoncerQuarto();
     boolean annoncerMatchNul();
     
-    Joueur getJoueurCourant();
+    NumeroJoueur getJoueurCourant();
     
     List<String> getListPieceDisponible();
     
