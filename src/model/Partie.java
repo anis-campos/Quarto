@@ -16,48 +16,47 @@ import java.util.Map;
 public class Partie {
 
     private final Map<Coord, Piece> plateauJeu;
-    private final ArrayList<Piece> plateauPiece;
+    private final ArrayList<Piece> listPiece;
     private Piece caseJoueur1;
     private Piece caseJoueur2;
     private final Joueur joueur1;
     private final Joueur joueur2;
     private Parametre parametres;
-    
+
     private Joueur Courant;
-    
-    
-        //TEST
+
+    //TEST
     public static void main(String[] args) {
         Parametre p = new Parametre(true, false, true, true, true);
         Joueur j1 = new Joueur("Joueur1", false);
         Joueur j2 = new Joueur("Joueur2", false);
         Partie partie = new Partie(p, j1, j2);
     }
-        //ENDTEST
+    //ENDTEST
 
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
         this.plateauJeu = new HashMap<>();
-        this.plateauPiece = new ArrayList<>();
+        this.listPiece = new ArrayList<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
         Courant = joueur1;
         this.parametres = parametres;
         this.pieceFactory();
         //TEST
-        System.out.println(this.plateauPiece.toString());
+        System.out.println(this.listPiece.toString());
         //ENDTEST
     }
-    
-    public Joueur getJoueurCourant(){
+
+    public Joueur getJoueurCourant() {
         return Courant;
     }
-    
-    
-    public void changerJoueurCourant(){
-        if(Courant==joueur1)
-            Courant=joueur2;
-        else
-            Courant=joueur1;
+
+    public void changerJoueurCourant() {
+        if (Courant == joueur1) {
+            Courant = joueur2;
+        } else {
+            Courant = joueur1;
+        }
     }
 
     //Création des 16 pièces pour initialiser une partie
@@ -90,7 +89,16 @@ public class Partie {
             //laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord(((i + 1) % 4) + 1, (i / 4) + 1));
             //Map from 0-0 to 1-7
             laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif());
-            plateauPiece.add(laPiece);
+            listPiece.add(laPiece);
         }
+    }
+
+    public boolean donnerPiece(Piece piece) {
+
+        boolean result = true;
+
+        changerJoueurCourant();
+        return result;
+
     }
 }
