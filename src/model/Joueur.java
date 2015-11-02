@@ -12,12 +12,16 @@ package model;
 public class Joueur {
     private String nom;
     private Boolean isBot;
+    private NumeroJoueur numeroJoueur;
 
-    public Joueur(String nom, Boolean isBot) {
+    public Joueur(String nom, Boolean isBot, NumeroJoueur numeroJoueur) {
         this.nom = nom;
         this.isBot = isBot;
+        this.numeroJoueur = numeroJoueur;
     }
-    
-    
+
+    NumeroJoueur getNumeroJoueur() {
+        return numeroJoueur;
+     }
     
 }

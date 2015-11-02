@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.util.Observer;
 import javax.swing.*;
 import model.Joueur;
+import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
 
@@ -25,8 +26,8 @@ public class LauncherQuarto {
         //Dimension dim = new Dimension(992, 540);
         
         Parametre p = new Parametre(true, false, true, true, true);
-        Joueur j1 = new Joueur("Joueur1", false);
-        Joueur j2 = new Joueur("Joueur2", false);
+        Joueur j1 = new Joueur("Joueur1", false,NumeroJoueur.J1);
+        Joueur j2 = new Joueur("Joueur2", false,NumeroJoueur.J2);
         Partie partie = new Partie(p, j1, j2);
 
         ControllerLocal controllerLocal = new ControllerLocal(partie);
