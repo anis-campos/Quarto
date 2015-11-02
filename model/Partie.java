@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelquarto;
+package model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +68,10 @@ public class Partie {
         //ex: parametre hauteur == true -> il y a des pieces hautes et basses (return true ou false)
         //ex: parametre hauteur == false -> toutes les pièces sont hautes (return true)
         for (int i = 0; i < 16; i++) {
-            laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord(((i + 1) % 4) + 1, (i / 4) + 1));
+            //for a 1-1 to 4-4 plateau
+            //laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord(((i + 1) % 4) + 1, (i / 4) + 1));
+            //Map from 0-0 to 1-7
+            laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif(), new Coord((i % 2), (i / 2)));
             plateauPiece.put(laPiece.coord, laPiece);
         }
     }

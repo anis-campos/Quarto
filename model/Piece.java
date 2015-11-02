@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelquarto;
+package model;
 
 
 /**
@@ -16,7 +16,7 @@ public class Piece {
     protected Boolean grand;
     protected Boolean fonce;
     protected Boolean plein;
-    protected String nomPiece;
+    protected String nomFichierPiece;
     protected Coord coord;
     
     //Les valeurs par défaut sont à TRUE
@@ -25,7 +25,7 @@ public class Piece {
         this.grand = grand;
         this.fonce = fonce;
         this.plein = plein;
-        this.nomPiece = this.getName()+".png";
+        this.nomFichierPiece = this.getName()+".png";
         this.coord = coord;
     }
 
