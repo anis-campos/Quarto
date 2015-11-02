@@ -119,11 +119,22 @@ public class QuartoCalculator {
         int x, y;
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
+        Piece pieceCourante;
         if (x != 0 && y != 3) {
             carreHD.add(plateau.get(coordDernierePiece));
-            carreHD.add(plateau.get(new Coord(x - 1, y)));
-            carreHD.add(plateau.get(new Coord(x - 1, y + 1)));
-            carreHD.add(plateau.get(new Coord(x, y + 1)));
+
+            pieceCourante = plateau.get(new Coord(x - 1, y));
+            if (pieceCourante != null) {
+                carreHD.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x - 1, y + 1));
+            if (pieceCourante != null) {
+                carreHD.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x, y + 1));
+            if (pieceCourante != null) {
+                carreHD.add(pieceCourante);
+            }
         }
     }
 
@@ -131,11 +142,22 @@ public class QuartoCalculator {
         int x, y;
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
+        Piece pieceCourante;
         if (x != 0 && y != 0) {
             carreHG.add(plateau.get(coordDernierePiece));
-            carreHG.add(plateau.get(new Coord(x - 1, y)));
-            carreHG.add(plateau.get(new Coord(x - 1, y - 1)));
-            carreHG.add(plateau.get(new Coord(x, y - 1)));
+
+            pieceCourante = plateau.get(new Coord(x - 1, y));
+            if (pieceCourante != null) {
+                carreHG.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x - 1, y - 1));
+            if (pieceCourante != null) {
+                carreHG.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x, y - 1));
+            if (pieceCourante != null) {
+                carreHG.add(pieceCourante);
+            }
         }
     }
 
@@ -143,11 +165,22 @@ public class QuartoCalculator {
         int x, y;
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
+        Piece pieceCourante;
         if (x != 3 && y != 3) {
             carreBD.add(plateau.get(coordDernierePiece));
-            carreBD.add(plateau.get(new Coord(x + 1, y)));
-            carreBD.add(plateau.get(new Coord(x, y + 1)));
-            carreBD.add(plateau.get(new Coord(x + 1, y + 1)));
+
+            pieceCourante = plateau.get(new Coord(x + 1, y));
+            if (pieceCourante != null) {
+                carreBD.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x, y + 1));
+            if (pieceCourante != null) {
+                carreBD.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x + 1, y + 1));
+            if (pieceCourante != null) {
+                carreBD.add(pieceCourante);
+            }
         }
     }
 
@@ -155,11 +188,22 @@ public class QuartoCalculator {
         int x, y;
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
+        Piece pieceCourante;
         if (x != 3 && y != 0) {
             carreBG.add(plateau.get(coordDernierePiece));
-            carreBG.add(plateau.get(new Coord(x, y - 1)));
-            carreBG.add(plateau.get(new Coord(x + 1, y - 1)));
-            carreBG.add(plateau.get(new Coord(x + 1, y)));
+
+            pieceCourante = plateau.get(new Coord(x, y - 1));
+            if (pieceCourante != null) {
+                carreBG.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x + 1, y - 1));
+            if (pieceCourante != null) {
+                carreBG.add(pieceCourante);
+            }
+            pieceCourante = plateau.get(new Coord(x + 1, y));
+            if (pieceCourante != null) {
+                carreBG.add(pieceCourante);
+            }
         }
     }
 
@@ -173,8 +217,8 @@ public class QuartoCalculator {
     }
 
     private static Boolean listContainsQuarto(ArrayList<Piece> list, Parametre p) {
-        if (list.size() < 4) {
-            return false;//il n'y a pas 4 pieces alignées
+        if (list.size() != 4) {
+            return false;//il n'y a pas 4 pieces dans la liste
         } else {
             //Compter les instances d'un caractère particulier
             //Grand, Petit, Carre, rond, Clair,Fonce,Creux,Plein

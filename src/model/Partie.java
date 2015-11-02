@@ -22,23 +22,40 @@ public class Partie {
     private final Joueur joueur1;
     private final Joueur joueur2;
     private final Parametre parametres;
-        //TEST
+
+    //TEST
+
     public static void main(String[] args) {
-        Parametre p = new Parametre(true, false, true, true, true);
+        Parametre p = new Parametre(true, true, true, true, true);
         Joueur j1 = new Joueur("Joueur1", false);
         Joueur j2 = new Joueur("Joueur2", false);
         Partie partie = new Partie(p, j1, j2);
         testQuarto(p);
     }
-    private static void testQuarto(Parametre p){
-        Map<Coord, Piece> plateauTest =  new HashMap<>();
-        plateauTest.put(new Coord(1,0), new Piece(true,true,true,true));
-        plateauTest.put(new Coord(1,1), new Piece(true,false,true,true));
-        plateauTest.put(new Coord(1,2), new Piece(true,true,false,true));
-        plateauTest.put(new Coord(2,1), new Piece(true,false,false,true));
-        QuartoCalculator:thereIsQuarto(plateauTest, p, new Coord(1,1));
+
+    private static void testQuarto(Parametre p) {
+        Map<Coord, Piece> plateauTest = new HashMap<>();
+        plateauTest.put(new Coord(0, 0), new Piece(true, false, true, true));
+        plateauTest.put(new Coord(0, 1), new Piece(true, false, true, false));
+        plateauTest.put(new Coord(0, 2), new Piece(true, false, false, true));
+        plateauTest.put(new Coord(0, 3), new Piece(true, false, false, false));
+//        plateauTest.put(new Coord(1, 0), new Piece(true, true, true, true));
+//        plateauTest.put(new Coord(1, 1), new Piece(true, false, true, true));
+//        plateauTest.put(new Coord(1, 2), new Piece(true, true, false, true));
+//        plateauTest.put(new Coord(1, 3), new Piece(true, false, false, true));
+//        plateauTest.put(new Coord(2, 0), new Piece(true, true, true, true));
+//        plateauTest.put(new Coord(2, 1), new Piece(true, false, true, true));
+//        plateauTest.put(new Coord(2, 2), new Piece(true, true, false, true));
+//        plateauTest.put(new Coord(2, 3), new Piece(true, false, false, true));
+//        plateauTest.put(new Coord(3, 0), new Piece(true, true, true, true));
+//        plateauTest.put(new Coord(3, 1), new Piece(true, false, true, true));
+//        plateauTest.put(new Coord(3, 2), new Piece(true, true, false, true));
+//        plateauTest.put(new Coord(3, 3), new Piece(true, false, false, true));
+        //System.out.println(
+                QuartoCalculator:thereIsQuarto(plateauTest, p, new Coord(1, 1)).toString();
+                       // );
     }
-        //ENDTEST
+    //ENDTEST
 
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
         this.plateauJeu = new HashMap<>();
@@ -47,9 +64,6 @@ public class Partie {
         this.joueur2 = joueur2;
         this.parametres = parametres;
         this.pieceFactory();
-        //TEST
-        System.out.println(this.plateauPiece.toString());
-        //ENDTEST
     }
 
     //Création des 16 pièces pour initialiser une partie
