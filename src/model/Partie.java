@@ -114,17 +114,17 @@ public class Partie {
     public void donnerPiece(Piece piece) {
 
         if (this.Courant == joueur1) {
-            caseJoueur2 =  caseJoueur1;//à cha,nger
+            caseJoueur2 =  piece;
         } else {
-            caseJoueur1 = caseJoueur2;
+            caseJoueur1 = piece;
         }
-        changerJoueurCourant();
         
+        listPiece.remove(piece);
     }
    public Piece findPieceAvailable(String nomPiece){
        
        for( Piece piece :listPiece){
-           if (piece.getName()==nomPiece)
+           if (piece.getName() == null ? nomPiece == null : piece.getName().equals(nomPiece))
                return piece;
        }
       return null;
