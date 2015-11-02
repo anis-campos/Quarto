@@ -28,8 +28,8 @@ public class Partie {
     //TEST
     public static void main(String[] args) {
         Parametre p = new Parametre(true, false, true, true, true);
-        Joueur j1 = new Joueur("Joueur1", false);
-        Joueur j2 = new Joueur("Joueur2", false);
+        Joueur j1 = new Joueur("Joueur1", false,NumeroJoueur.J1);
+        Joueur j2 = new Joueur("Joueur2", false,NumeroJoueur.J2);
         Partie partie = new Partie(p, j1, j2);
     }
     //ENDTEST
@@ -47,8 +47,8 @@ public class Partie {
         //ENDTEST
     }
 
-    public Joueur getJoueurCourant() {
-        return Courant;
+    public NumeroJoueur getJoueurCourant(){
+        return Courant.getNumeroJoueur();
     }
 
     public void changerJoueurCourant() {

@@ -15,6 +15,8 @@ import java.util.Observer;
 import javax.swing.*;
 
 import model.Coord;
+import model.Joueur;
+import model.NumeroJoueur;
 
 /**
  * @author Anis
@@ -37,13 +39,10 @@ public class QuartoGUI extends JFrame implements Observer {
     private JButton bDonnerJ1;
     private JButton bDonnerJ2;
 
-    private Joueur courant = Joueur.J1;
+    private NumeroJoueur courant;
     private final IControlleur controleur;
 
-    enum Joueur {
-
-        J1, J2
-    }
+    
 
     private JPanel layeredPane;
 
@@ -198,26 +197,26 @@ public class QuartoGUI extends JFrame implements Observer {
     }
 
     void donnerPiece(String nom) {
-        if (courant == Joueur.J1) {
+        if (courant == NumeroJoueur.J1) {
             if (jPieceJ2.getComponents().length > 0) {
                 jPieceJ2.removeAll();
             }
             jPieceJ1.removeAll();
             jPieceJ2.add(new JLabel(nom));
-            courant = Joueur.J2;
+            courant = NumeroJoueur.J2;
         } else {
             if (jPieceJ1.getComponents().length > 0) {
                 jPieceJ1.removeAll();
             }
             jPieceJ2.removeAll();
             jPieceJ1.add(new JLabel(nom));
-            courant = Joueur.J1;
+            courant = NumeroJoueur.J1;
 
         }
     }
 
     void placerPiece(JLabel lab) {
-        if (courant == Joueur.J1) {
+        if (courant == NumeroJoueur.J1) {
             if (jPieceJ1.getComponents().length > 0) {
                 String nom = ((JLabel) jPieceJ1.getComponent(0)).getText();
                 pieces.get(nom).setVisible(true);
