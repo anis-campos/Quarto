@@ -51,5 +51,5 @@ public class ControllerLocal extends Observable implements IControlleur {
     public Joueur getJoueurCourant() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }
