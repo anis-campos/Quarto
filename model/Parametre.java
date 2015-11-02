@@ -9,7 +9,7 @@ package model;
  *
  * @author timotheetroncy
  */
-class Parametre {
+public class Parametre {
 
     private final Boolean hauteur;
     private final Boolean creux;
