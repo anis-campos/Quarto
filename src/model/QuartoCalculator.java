@@ -41,18 +41,13 @@ public class QuartoCalculator {
         remplirHorizontal(plateau, coordDernierePiece.x);
         remplirDiagDesc(plateau, coordDernierePiece);
         remplirDiagMont(plateau, coordDernierePiece);
-//        if (p.quartoCarreActif()) {
-//
-//            remplirCarreHD();
-//
-//            remplirCarreHG();
-//
-//            remplirCarreBD();
-//
-//            remplirCarreBG();
-//        }
-        checkQuarto(p);
-        return true;
+        if (p.quartoCarreActif()) {
+            remplirCarreHD(plateau, coordDernierePiece);
+            remplirCarreHG(plateau, coordDernierePiece);
+            remplirCarreBD(plateau, coordDernierePiece);
+            remplirCarreBG(plateau, coordDernierePiece);
+        }
+        return checkQuarto(p);
     }
 
     private static void emptyData() {
@@ -120,29 +115,61 @@ public class QuartoCalculator {
         }
     }
 
-    private static void remplirCarreHD(Map<Coord, Piece> plateau, Parametre p, Coord coordDernierePiece) {
-
+    private static void remplirCarreHD(Map<Coord, Piece> plateau, Coord coordDernierePiece) {
+        int x, y;
+        x = coordDernierePiece.x;
+        y = coordDernierePiece.y;
+        if (x != 0 && y != 3) {
+            carreHD.add(plateau.get(coordDernierePiece));
+            carreHD.add(plateau.get(new Coord(x - 1, y)));
+            carreHD.add(plateau.get(new Coord(x - 1, y + 1)));
+            carreHD.add(plateau.get(new Coord(x, y + 1)));
+        }
     }
 
-    private static void remplirCarreHG(Map<Coord, Piece> plateau, Parametre p, Coord coordDernierePiece) {
-
+    private static void remplirCarreHG(Map<Coord, Piece> plateau, Coord coordDernierePiece) {
+        int x, y;
+        x = coordDernierePiece.x;
+        y = coordDernierePiece.y;
+        if (x != 0 && y != 0) {
+            carreHG.add(plateau.get(coordDernierePiece));
+            carreHG.add(plateau.get(new Coord(x - 1, y)));
+            carreHG.add(plateau.get(new Coord(x - 1, y - 1)));
+            carreHG.add(plateau.get(new Coord(x, y - 1)));
+        }
     }
 
-    private static void remplirCarreBD(Map<Coord, Piece> plateau, Parametre p, Coord coordDernierePiece) {
-
+    private static void remplirCarreBD(Map<Coord, Piece> plateau, Coord coordDernierePiece) {
+        int x, y;
+        x = coordDernierePiece.x;
+        y = coordDernierePiece.y;
+        if (x != 3 && y != 3) {
+            carreBD.add(plateau.get(coordDernierePiece));
+            carreBD.add(plateau.get(new Coord(x + 1, y)));
+            carreBD.add(plateau.get(new Coord(x, y + 1)));
+            carreBD.add(plateau.get(new Coord(x + 1, y + 1)));
+        }
     }
 
-    private static void remplirCarreBG(Map<Coord, Piece> plateau, Parametre p, Coord coordDernierePiece) {
-
+    private static void remplirCarreBG(Map<Coord, Piece> plateau, Coord coordDernierePiece) {
+        int x, y;
+        x = coordDernierePiece.x;
+        y = coordDernierePiece.y;
+        if (x != 3 && y != 0) {
+            carreBG.add(plateau.get(coordDernierePiece));
+            carreBG.add(plateau.get(new Coord(x, y - 1)));
+            carreBG.add(plateau.get(new Coord(x + 1, y - 1)));
+            carreBG.add(plateau.get(new Coord(x + 1, y)));
+        }
     }
 
     private static Boolean checkQuarto(Parametre p) {
         Boolean thereIsQuarto = listContainsQuarto(vertical, p) || listContainsQuarto(horizontal, p) || listContainsQuarto(diagMont, p) || listContainsQuarto(diagDesc, p);
-        //if (!p.quartoCarreActif()) {
+        if (!p.quartoCarreActif()) {
             return thereIsQuarto;
-        //} else {
-            //return thereIsQuarto || .....p;
-        //}
+        } else {
+            return thereIsQuarto || listContainsQuarto(carreHD, p) || listContainsQuarto(carreHG, p) || listContainsQuarto(carreBD, p) || listContainsQuarto(carreBG, p);
+        }
     }
 
     private static Boolean listContainsQuarto(ArrayList<Piece> list, Parametre p) {
@@ -153,44 +180,45 @@ public class QuartoCalculator {
             //Grand, Petit, Carre, rond, Clair,Fonce,Creux,Plein
             int[] compteurs = {0, 0, 0, 0, 0, 0, 0, 0};
             for (int i = 0; i <= 3; i++) {
-                
+
                 if (p.formeActif()) {
-                    if(list.get(i).carre){
-                        compteurs[2]+=1;
-                    }else{
-                        compteurs[3]+=1;
+                    if (list.get(i).carre) {
+                        compteurs[2] += 1;
+                    } else {
+                        compteurs[3] += 1;
                     }
                 }
                 if (p.couleurActif()) {
-                    if(list.get(i).fonce){
-                        compteurs[5]+=1;
-                    }else{
-                        compteurs[4]+=1;
+                    if (list.get(i).fonce) {
+                        compteurs[5] += 1;
+                    } else {
+                        compteurs[4] += 1;
                     }
                 }
                 if (p.creuxActif()) {
-                    if(list.get(i).plein){
-                        compteurs[7]+=1;
-                    }else{
-                        compteurs[6]+=1;
+                    if (list.get(i).plein) {
+                        compteurs[7] += 1;
+                    } else {
+                        compteurs[6] += 1;
                     }
                 }
                 if (p.hauteurActif()) {
-                    if(list.get(i).grand){
-                        compteurs[0]+=1;
-                    }else{
-                        compteurs[1]+=1;
+                    if (list.get(i).grand) {
+                        compteurs[0] += 1;
+                    } else {
+                        compteurs[1] += 1;
                     }
                 }
             }
-            
+
             return isThere4InArray(compteurs);
         }
 
     }
-    private static Boolean isThere4InArray(int[] compteurs){
+
+    private static Boolean isThere4InArray(int[] compteurs) {
         for (int i = 0; i <= 7; i++) {
-            if(compteurs[i]==4){
+            if (compteurs[i] == 4) {
                 return true;
             }
         }
