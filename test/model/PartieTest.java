@@ -8,10 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import src.model.Joueur;
-import src.model.Parametre;
-import src.model.Partie;
-
 /**
  *
  * @author Anis

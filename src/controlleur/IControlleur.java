@@ -7,9 +7,7 @@ package controlleur;
 
 import java.util.List;
 import model.Coord;
-import model.Joueur;
 import model.NumeroJoueur;
-import model.Piece;
 
 /**
  *

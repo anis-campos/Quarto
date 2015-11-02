@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.model;
+package model;
 
 
 /**
@@ -60,7 +60,6 @@ public class Piece {
 
     @Override
     protected Piece clone(){
-        return new Piece(carre, grand, fonce, plein);
         return new Piece(carre, grand, fonce, plein);
     }
     
