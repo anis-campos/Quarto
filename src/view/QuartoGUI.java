@@ -20,10 +20,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import model.Coord;
-import model.Couleur;
-import model.Joueur;
 import model.NumeroJoueur;
-import tools.ChessImageProvider;
+
 
 /**
  * @author Anis
@@ -218,9 +216,9 @@ public class QuartoGUI extends JFrame implements Observer {
         
 
         try {
-            return ImageIO.read(ChessImageProvider.class.getResourceAsStream("/images/"+piece+".png"));
+            return ImageIO.read(QuartoGUI.class.getResourceAsStream("/images/"+piece+".png"));
         } catch (IOException ex) {
-            Logger.getLogger(ChessImageProvider.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuartoGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

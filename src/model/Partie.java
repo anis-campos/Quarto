@@ -102,4 +102,8 @@ public class Partie {
         return rep;
     }
 
+    public boolean donnerPiece(Piece piece) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
