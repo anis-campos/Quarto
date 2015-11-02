@@ -8,7 +8,6 @@ package controlleur;
 import java.util.List;
 import java.util.Observable;
 import model.Coord;
-import model.Joueur;
 import model.NumeroJoueur;
 import model.Partie;
 import model.Piece;

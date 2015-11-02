@@ -140,7 +140,8 @@ public class QuartoGUI extends JFrame implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jPieceJ1.getComponentCount() == 1) {
-                    donnerPiece(((JLabel) jPieceJ1.getComponent(0)).getText());
+                    JLabel label =  (JLabel) jPieceJ1.getComponent(0);
+                    donnerPiece(cloneLabel(label));
                 }
             }
         });
@@ -174,7 +175,8 @@ public class QuartoGUI extends JFrame implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jPieceJ2.getComponentCount() == 1) {
-                    donnerPiece(((JLabel) jPieceJ2.getComponent(0)).getText());
+                    JLabel label =  (JLabel) jPieceJ2.getComponent(0);
+                    donnerPiece(cloneLabel(label));
                 }
             }
         }
@@ -215,20 +217,20 @@ public class QuartoGUI extends JFrame implements Observer {
         return null;
     }
 
-    void donnerPiece(String nom) {
+    void donnerPiece(JLabel label) {
         if (courant == NumeroJoueur.J1) {
-            if (jPieceJ2.getComponents().length > 0) {
+            if (jPieceJ2.getComponentCount() > 0) {
                 jPieceJ2.removeAll();
             }
             jPieceJ1.removeAll();
-            jPieceJ2.add(new JLabel(nom));
+            jPieceJ2.add(label);
             courant = NumeroJoueur.J2;
         } else {
-            if (jPieceJ1.getComponents().length > 0) {
+            if (jPieceJ1.getComponentCount() > 0) {
                 jPieceJ1.removeAll();
             }
             jPieceJ2.removeAll();
-            jPieceJ1.add(new JLabel(nom));
+            jPieceJ1.add(label);
             courant = NumeroJoueur.J1;
 
         }
@@ -260,13 +262,18 @@ public class QuartoGUI extends JFrame implements Observer {
         //TODO : Deplacer les pieces
     }
 
+    public JLabel cloneLabel(JLabel label){
+        JLabel lab = new JLabel(label.getIcon());
+        lab.setName(label.getName());
+        return lab;
+    }
+    
     public class PieceClickListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             JLabel lab = (JLabel) e.getSource();
-            lab.setVisible(false);
-            placerPiece(new JLabel(lab.getIcon()));
+            placerPiece(cloneLabel(lab));
 
         }
 
