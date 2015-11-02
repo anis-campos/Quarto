@@ -32,8 +32,9 @@ public class ControllerLocal extends Observable implements IControlleur {
     @Override
     public boolean donnerPiece(Piece piece) {
         boolean result=true;
-        partie.donnerPiece();
+        partie.donnerPiece(piece);
         //Avertir changement
+        setChanged();
         return result;
 
     }

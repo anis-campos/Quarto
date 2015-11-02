@@ -224,7 +224,7 @@ public class QuartoGUI extends JFrame implements Observer {
             }
             jPieceJ1.removeAll();
             jPieceJ2.add(label);
-            courant = NumeroJoueur.J2;
+           
         } else {
             if (jPieceJ1.getComponentCount() > 0) {
                 jPieceJ1.removeAll();

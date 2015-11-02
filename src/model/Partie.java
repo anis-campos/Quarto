@@ -102,10 +102,10 @@ public class Partie {
         return rep;
     }
 
-    public void donnerPiece() {
+    public void donnerPiece(Piece piece) {
 
         if (this.Courant == joueur1) {
-            caseJoueur2 = caseJoueur1;
+            caseJoueur2 =  caseJoueur1;//a cha,nger
         } else {
             caseJoueur1 = caseJoueur2;
         }
