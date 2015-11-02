@@ -20,10 +20,9 @@ import model.Coord;
  */
 public class QuartoGUI extends JFrame implements Observer {
 
-
     private Map<JPanel, Coord> cases;
 
-    private Map<JLabel, String> pieces;
+    private Map<String , JLabel> pieces;
 
     private JPanel jEntete;
 
@@ -39,10 +38,10 @@ public class QuartoGUI extends JFrame implements Observer {
 
     private Joueur courant = Joueur.J1;
 
-    enum Joueur{
-        J1,J2
-    }
+    enum Joueur {
 
+        J1, J2
+    }
 
     private JPanel layeredPane;
 
@@ -50,19 +49,7 @@ public class QuartoGUI extends JFrame implements Observer {
         super();
         initComponents();
 
-        this.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                System.out.println(e);
-            }
-
-
-        });
-
-
-
     }
-
 
     void initComponents() {
 
@@ -70,7 +57,6 @@ public class QuartoGUI extends JFrame implements Observer {
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
         jPlateau = new JPanel();
-
 
         GridLayout grid = new GridLayout(4, 4);
         grid.setHgap(5);
@@ -81,16 +67,6 @@ public class QuartoGUI extends JFrame implements Observer {
 
         for (int i = 0; i < 16; i++) {
             JPanel jPanel = new JPanel();
-            jPanel.addComponentListener(new ComponentAdapter() {
-                @Override
-                public void componentResized(ComponentEvent e) {
-                    super.componentResized(e);
-                    JPanel toto = (JPanel) e.getComponent();
-                    Coord c = cases.get(toto);
-                    if (c.x == 0 && c.y == 0)
-                        System.out.println("Taille de la case (0,0) : " + toto.getWidth() + "x" + toto.getHeight());
-                }
-            });
             jPanel.setBackground(Color.WHITE);
             jPanel.setPreferredSize(new Dimension(100, 100));
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -98,7 +74,6 @@ public class QuartoGUI extends JFrame implements Observer {
             jPlateau.add(jPanel);
         }
         /////////////////////////////////////////////////////////////////
-
 
         //CONSTRUCTION DE L'ENTETE
         /////////////////////////////////////////////////////////////////
@@ -109,7 +84,6 @@ public class QuartoGUI extends JFrame implements Observer {
         lab.setFont(new Font("Arial", Font.BOLD, 48));
         jEntete.add(lab);
         /////////////////////////////////////////////////////////////////
-
 
         //CONSTRUCTION DES PIECES
         /////////////////////////////////////////////////////////////////
@@ -128,57 +102,16 @@ public class QuartoGUI extends JFrame implements Observer {
             JLabel jLabel = new JLabel();
             jLabel.setText("PIECE_" + i);
 
-            pieces.put(jLabel,"PIECE_" + i);
+            pieces.put("PIECE_" + i,jLabel);
 
-            jLabel.addComponentListener(new ComponentAdapter() {
-                @Override
-                public void componentResized(ComponentEvent e) {
-                    super.componentResized(e);
-                    JLabel toto = (JLabel) e.getComponent();
-                    if (toto.getText().matches("PIECE_1"))
-                        System.out.println("Taille de la piece 1 : " + toto.getWidth() + "x" + toto.getHeight());
-                }
-            });
-
-            jLabel.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    JLabel lab = (JLabel)e.getSource();
-                    lab.setVisible(false);
-                    placerPiece(new JLabel(lab.getText()));
-
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-
-                }
-            });
+            jLabel.addMouseListener(new PieceClickListener());
             jLabel.setBackground(Color.WHITE);
             jLabel.setBorder(BorderFactory.createLineBorder(Color.black));
             jLabel.setPreferredSize(new Dimension(100, 100));
             jPieces.add(jLabel);
         }
 
-
         /////////////////////////////////////////////////////////////////
-
-
         //CONSTRUCTION DE LA ZONE JOUEUR 1
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
@@ -192,6 +125,10 @@ public class QuartoGUI extends JFrame implements Observer {
         jPieceJ1.setMaximumSize(new Dimension(100, 100));
 
         bDonnerJ1 = new JButton("Donner à J2");
+        bDonnerJ1.addActionListener((ActionEvent e) -> {
+            if(jPieceJ1.getComponentCount()==1)
+                donnerPiece(((JLabel) jPieceJ1.getComponent(0)).getText());
+        });
 
         JLabel j1 = new JLabel("JOUEUR 1");
         jZoneJ1.add(j1);
@@ -200,7 +137,6 @@ public class QuartoGUI extends JFrame implements Observer {
         j1.setAlignmentX(Component.CENTER_ALIGNMENT);
         bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
         /////////////////////////////////////////////////////////////////
-
 
         //CONSTRUCTION DE LA ZONE JOUEUR 2
         /////////////////////////////////////////////////////////////////
@@ -217,21 +153,22 @@ public class QuartoGUI extends JFrame implements Observer {
         JLabel j2 = new JLabel("JOUEUR 2");
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        bDonnerJ2.addActionListener((ActionEvent e) -> {
+            if(jPieceJ2.getComponentCount()==1)
+                donnerPiece(((JLabel) jPieceJ2.getComponent(0)).getText());
+        });
+        
         j2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(j2);
         jZoneJ2.add(jPieceJ2);
         jZoneJ2.add(bDonnerJ2);
 
         /////////////////////////////////////////////////////////////////
-
-
-
-
         Box Centre = Box.createHorizontalBox();
         Centre.add(jZoneJ1);
         Centre.add(jPlateau);
         Centre.add(jZoneJ2);
-
 
         this.layeredPane = new JPanel();
         this.setContentPane(layeredPane);
@@ -241,16 +178,45 @@ public class QuartoGUI extends JFrame implements Observer {
         layeredPane.add(Centre, BorderLayout.CENTER);
         layeredPane.add(jPieces, BorderLayout.SOUTH);
 
-
     }
 
-    void placerPiece(JLabel lab){
-        if(courant == Joueur.J1){
-            jPieceJ2.add(lab);
+    void donnerPiece(String nom){
+         if (courant == Joueur.J1) {
+            if (jPieceJ2.getComponents().length > 0) {
+                jPieceJ2.removeAll();
+            }
+            jPieceJ1.removeAll();
+            jPieceJ2.add(new JLabel(nom));
             courant = Joueur.J2;
-        }else{
-            jPieceJ1.add(lab);
+        } else {
+            if (jPieceJ1.getComponents().length > 0) {
+                jPieceJ1.removeAll();
+            }
+            jPieceJ2.removeAll();
+            jPieceJ1.add(new JLabel(nom));
             courant = Joueur.J1;
+ 
+        }
+    }
+    
+    void placerPiece(JLabel lab) {
+        if (courant == Joueur.J1) {
+            if (jPieceJ1.getComponents().length > 0) {
+                String nom  = ((JLabel)jPieceJ1.getComponent(0)).getText();
+                pieces.get(nom).setVisible(true);
+                jPieceJ1.removeAll();
+            }
+
+            jPieceJ1.add(lab);
+      
+        } else {
+            if (jPieceJ2.getComponents().length > 0) {
+                String nom  = ((JLabel)jPieceJ2.getComponent(0)).getText();
+                pieces.get(nom).setVisible(true);
+                jPieceJ2.removeAll();
+            }
+            jPieceJ2.add(lab);
+ 
         }
     }
 
@@ -259,5 +225,35 @@ public class QuartoGUI extends JFrame implements Observer {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public class PieceClickListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            JLabel lab = (JLabel) e.getSource();
+            lab.setVisible(false);
+            placerPiece(new JLabel(lab.getText()));
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
 
 }
