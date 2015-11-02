@@ -17,8 +17,8 @@ import model.Piece;
  */
 public interface IControlleur {
      
-    boolean poserPiece(Piece piece, Coord coord);
-    boolean donnerPiece(Piece piece);
+    boolean poserPiece(String nomPiece, Coord coord);
+    boolean donnerPiece(String nomPiece);
     boolean annoncerQuarto();
     boolean annoncerMatchNul();
     

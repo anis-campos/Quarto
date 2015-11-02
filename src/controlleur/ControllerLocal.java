@@ -25,18 +25,21 @@ public class ControllerLocal extends Observable implements IControlleur {
     }
 
     @Override
-    public boolean poserPiece(Piece piece, Coord coord) {
+    public boolean poserPiece(String nomPiece, Coord coord) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean donnerPiece(Piece piece) {
-        boolean result=true;
-        partie.donnerPiece(piece);
-        //Avertir changement
-        setChanged();
-        return result;
+    public boolean donnerPiece(String nomPiece) {
+        Piece piece;
+        piece = partie.findPieceAvailable(nomPiece);
+        if (piece != null) {
+            partie.donnerPiece(piece);
+        } else {
+            return false;
 
+        }
+        return true;
     }
 
     @Override
@@ -49,7 +52,6 @@ public class ControllerLocal extends Observable implements IControlleur {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
     @Override
     public List<String> getListPieceDisponible() {
 
@@ -60,5 +62,5 @@ public class ControllerLocal extends Observable implements IControlleur {
     public NumeroJoueur getJoueurCourant() {
         return partie.getJoueurCourant();
     }
-    
+
 }

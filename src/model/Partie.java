@@ -105,12 +105,20 @@ public class Partie {
     public void donnerPiece(Piece piece) {
 
         if (this.Courant == joueur1) {
-            caseJoueur2 =  caseJoueur1;//a cha,nger
+            caseJoueur2 =  caseJoueur1;//à cha,nger
         } else {
             caseJoueur1 = caseJoueur2;
         }
         changerJoueurCourant();
         
     }
+   public Piece findPieceAvailable(String nomPiece){
+       
+       for( Piece piece :listPiece){
+           if (piece.getName()==nomPiece)
+               return piece;
+       }
+      return null;
+   }
 
 }
