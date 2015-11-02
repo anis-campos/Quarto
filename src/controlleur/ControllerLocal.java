@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Observable;
 import model.Coord;
 import model.Joueur;
+import model.NumeroJoueur;
 import model.Partie;
 import model.Piece;
 
@@ -48,15 +49,16 @@ public class ControllerLocal extends Observable implements IControlleur {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Joueur getJoueurCourant() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public List<String> getListPieceDisponible() {
 
         return partie.getListPieceDisponible();
+    }
+
+    @Override
+    public NumeroJoueur getJoueurCourant() {
+        return partie.getJoueurCourant();
     }
     
 }
