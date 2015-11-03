@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import controlleur.observables.PieceDonneeNotification;
 import java.util.List;
 import java.util.Observable;
 import model.Coord;
@@ -35,6 +36,9 @@ public class ControllerLocal extends Observable implements IControlleur {
         piece = partie.findPieceAvailable(nomPiece);
         if (piece != null) {
             partie.donnerPiece(piece);
+            setChanged();
+            notifyObservers(new  PieceDonneeNotification(nomPiece, null, partie.getJoueurCourant()));
+            partie.changerJoueurCourant();
         } else {
             return false;
 
