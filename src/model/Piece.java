@@ -22,14 +22,18 @@ public class Piece {
     private static int instanciationNb = 0;
 
     //Les valeurs par défaut sont à TRUE
-    public Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein) {
-        this.id = ++instanciationNb;
+    public Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein) throws Exception {
+        ++instanciationNb;
+        if (instanciationNb > 16) {
+            throw new Exception("Il y a un new Piece en trop dans le code");
+        }else{
+        this.id = instanciationNb;
         this.carre = carre;
         this.grand = grand;
         this.fonce = fonce;
         this.plein = plein;
         this.nomFichierPiece = this.getName() + ".png";
-
+        }
     }
 
     private Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein, int id) {
