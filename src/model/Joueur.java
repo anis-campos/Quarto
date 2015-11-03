@@ -10,9 +10,9 @@ package model;
  * @author timotheetroncy
  */
 public class Joueur {
-    private String nom;
-    private Boolean isBot;
-    private NumeroJoueur numeroJoueur;
+    private final String nom;
+    private final Boolean isBot;
+    private final NumeroJoueur numeroJoueur;
 
     public Joueur(String nom, Boolean isBot, NumeroJoueur numeroJoueur) {
         this.nom = nom;

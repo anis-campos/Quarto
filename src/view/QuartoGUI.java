@@ -24,7 +24,7 @@ import controlleur.IControlleur;
 /**
  * @author Anis
  */
-public class QuartoGUI extends JFrame implements Observer {
+public final class QuartoGUI extends JFrame implements Observer {
 
     private Map<JPanel, Coord> cases;
 
@@ -42,7 +42,7 @@ public class QuartoGUI extends JFrame implements Observer {
     private JButton bDonnerJ1;
     private JButton bDonnerJ2;
 
-    private NumeroJoueur courant;
+    private final NumeroJoueur courant;
     private final IControlleur controleur;
 
     private JPanel layeredPane;
