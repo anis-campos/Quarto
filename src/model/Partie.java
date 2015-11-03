@@ -33,18 +33,6 @@ public class Partie {
         this.pieceFactory();
     }
 
-    public NumeroJoueur getJoueurCourant() {
-        return Courant.getNumeroJoueur();
-    }
-
-    public void changerJoueurCourant() {
-        if (Courant == joueur1) {
-            Courant = joueur2;
-        } else {
-            Courant = joueur1;
-        }
-    }
-
     //Création des 16 pièces pour initialiser une partie
     //La pièceFactory prend en compte les paramètres de jeu
     private void pieceFactory() {
@@ -79,7 +67,19 @@ public class Partie {
         }
     }
 
-    public List<String> getListPieceDisponible() {
+    public NumeroJoueur getNumeroJoueurCourant() {
+        return Courant.getNumeroJoueur();
+    }
+
+    public void changerJoueurCourant() {
+        if (Courant == joueur1) {
+            Courant = joueur2;
+        } else {
+            Courant = joueur1;
+        }
+    }
+
+    public List<String> getListPieceNameDisponibles() {
         List<String> rep = new ArrayList<>();
         for (Piece piece : listPiece) {
             rep.add(piece.getName());
@@ -90,20 +90,21 @@ public class Partie {
     public void donnerPiece(Piece piece) {
 
         if (this.Courant == joueur1) {
-            caseJoueur2 =  caseJoueur1;//à cha,nger
+            caseJoueur2 = caseJoueur1;//à cha,nger
         } else {
             caseJoueur1 = caseJoueur2;
         }
         changerJoueurCourant();
-        
+
     }
-    
-   public Piece findPieceAvailable(String nomPiece){
-       
-       for( Piece piece :listPiece){
-           if (piece.getName().equals(nomPiece))
-               return piece;
-       }
-      return null;
-   }
+
+    public Piece findPieceAvailable(String nomPiece) {
+
+        for (Piece piece : listPiece) {
+            if (piece.getName().equals(nomPiece)) {
+                return piece;
+            }
+        }
+        return null;
+    }
 }

@@ -50,11 +50,11 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     public List<String> getListPieceDisponible() {
 
-        return partie.getListPieceDisponible();
+        return partie.getListPieceNameDisponibles();
     }
 
     public NumeroJoueur getJoueurCourant() {
-        return partie.getJoueurCourant();
+        return partie.getNumeroJoueurCourant();
     }
 
 }
