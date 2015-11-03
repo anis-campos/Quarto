@@ -5,7 +5,6 @@
  */
 package view;
 
-import controlleur.IControlleur;
 import controlleur.observables.Notification;
 import controlleur.observables.PieceDonneeNotification;
 import java.awt.*;

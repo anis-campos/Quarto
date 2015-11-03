@@ -18,7 +18,7 @@ public class Piece {
     protected Boolean fonce;
     protected Boolean plein;
     protected String nomFichierPiece;
-    private int id;
+    private final int id;
     private static int instanciationNb = 0;
 
     //Les valeurs par défaut sont à TRUE

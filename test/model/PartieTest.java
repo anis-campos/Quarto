@@ -42,18 +42,18 @@ public class PartieTest {
     public void testQuartoCalculator() {
         //ajouter des asserts
         Map<Coord, Piece> plateauTest = new HashMap<>();
-        partie.plateauJeu.addPiece(new Coord(0, 0), new Piece(true, false, true, true));
-        partie.plateauJeu.addPiece(new Coord(0, 1), new Piece(true, false, true, false));
-        partie.plateauJeu.addPiece(new Coord(0, 2), new Piece(true, false, false, true));
-        partie.plateauJeu.addPiece(new Coord(0, 3), new Piece(true, false, false, false));
-        System.out.println(thereIsQuarto(partie.plateauJeu, p, new Coord(0, 1)).toString());
+        partie.getPlateauJeu().addPiece(new Coord(0, 0), new Piece(true, false, true, true));
+        partie.getPlateauJeu().addPiece(new Coord(0, 1), new Piece(false, true, true, false));
+        partie.getPlateauJeu().addPiece(new Coord(0, 2), new Piece(true, false, false, true));
+        partie.getPlateauJeu().addPiece(new Coord(0, 3), new Piece(true, false, false, false));
+        System.out.println(thereIsQuarto(partie.getPlateauJeu(), p, new Coord(0, 1)).toString());
     }
     @Test
     public void testPlateauJeu() {
-        partie.plateauJeu.addPiece(new Coord(0, 0), new Piece(true, false, true, true));
-        partie.plateauJeu.addPiece(new Coord(0, 1), new Piece(true, true, true, true));
-        partie.plateauJeu.addPiece(new Coord(2, 1), new Piece(true, true, true, false));
-        partie.plateauJeu.removePieceFromCoord(new Coord(2, 1));
-        System.out.println(partie.plateauJeu);
+        partie.getPlateauJeu().addPiece(new Coord(0, 0), new Piece(true, false, true, true));
+        partie.getPlateauJeu().addPiece(new Coord(0, 1), new Piece(true, true, true, true));
+        partie.getPlateauJeu().addPiece(new Coord(2, 1), new Piece(true, true, true, false));
+        partie.getPlateauJeu().removePieceFromCoord(new Coord(2, 1));
+        System.out.println(partie.getPlateauJeu());
     }
 }
