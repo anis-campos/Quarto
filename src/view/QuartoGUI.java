@@ -22,7 +22,6 @@ import model.Coord;
 import model.NumeroJoueur;
 import controlleur.IControlleur;
 
-
 /**
  * @author Anis
  */
@@ -44,10 +43,14 @@ public final class QuartoGUI extends JFrame implements Observer {
     private JButton bDonnerJ1;
     private JButton bDonnerJ2;
 
+    private JButton bValiderJ1;
+    private JButton bValiderJ2;
+
     private final NumeroJoueur courant;
     private final IControlleur controleur;
 
     private JPanel layeredPane;
+    private EtatGUI etat;
 
     public QuartoGUI(IControlleur controleur) {
 
@@ -60,9 +63,11 @@ public final class QuartoGUI extends JFrame implements Observer {
         courant = controleur.getJoueurCourant();
 
         if (courant == NumeroJoueur.J1) {
-            bDonnerJ2.setEnabled(false);
+            etat = EtatGUI.J1DoitChoisir;
+            UpdateScreen(etat);
         } else {
-            bDonnerJ1.setEnabled(false);
+            etat = EtatGUI.J2DoitChoisir;
+            UpdateScreen(etat);
         }
 
     }
@@ -151,6 +156,7 @@ public final class QuartoGUI extends JFrame implements Observer {
         jZoneJ1.add(bDonnerJ1);
         j1.setAlignmentX(Component.CENTER_ALIGNMENT);
         bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        bValiderJ1 = new JButton("Valider");
         /////////////////////////////////////////////////////////////////
 
         //CONSTRUCTION DE LA ZONE JOUEUR 2
@@ -170,7 +176,7 @@ public final class QuartoGUI extends JFrame implements Observer {
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         bDonnerJ2.addActionListener(new ButtonDonnerClickListener());
-
+        bValiderJ2 = new JButton("Valider");
         j2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(j2);
         jZoneJ2.add(jPieceJ2);
@@ -227,25 +233,29 @@ public final class QuartoGUI extends JFrame implements Observer {
             JPanel panelSource = getPanelJoueur(donner.source);
             NumeroJoueur destination;
             switch (donner.source) {
-            case J1:
-                destination = NumeroJoueur.J2;
-                break;
-            case J2:
-                destination = NumeroJoueur.J1;
-                break;
-           default:
-               destination = null;
-        }
+                case J1:
+                    destination = NumeroJoueur.J2;
+                    etat = EtatGUI.J2DoitPlacer;
+                    UpdateScreen(etat);
+                    break;
+                case J2:
+                    destination = NumeroJoueur.J1;
+                    etat = EtatGUI.J1DoitPlacer;
+                    UpdateScreen(etat);
+                    break;
+                default:
+                    destination = null;
+            }
             JPanel panelDestination = getPanelJoueur(destination);
             JLabel lab = (JLabel) panelSource.getComponent(0);
             panelSource.removeAll();
             panelDestination.add(cloneLabel(lab));
-            
+
         }
-        
-          this.revalidate();
-          this.repaint();
-       
+
+        this.revalidate();
+        this.repaint();
+
     }
 
     public JLabel cloneLabel(JLabel label) {
@@ -263,6 +273,7 @@ public final class QuartoGUI extends JFrame implements Observer {
             String nomPiece;
             if (button == bDonnerJ1) {
                 nomPiece = jPieceJ1.getComponent(0).getName();
+
             } else {
                 nomPiece = jPieceJ2.getComponent(0).getName();
             }
@@ -271,26 +282,34 @@ public final class QuartoGUI extends JFrame implements Observer {
 
     }
 
+    //Choix de la pièce
     public class PieceClickListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            JLabel lab = (JLabel) e.getSource();
-            JPanel panel;
-            if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-                panel = jPieceJ1;
-            } else {
-                panel = jPieceJ2;
-            }
+            if (etat == EtatGUI.J1DoitChoisir || etat == EtatGUI.J2DoitChoisir) {
 
-            if (panel.getComponentCount() == 1) {
-                JLabel labPresent = (JLabel) panel.getComponent(0);
-                JLabel piece = pieces.get(labPresent.getName());
-                piece.setVisible(true);
-                panel.removeAll();
+                JLabel lab = (JLabel) e.getSource();
+                JPanel panel;
+                if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
+                    panel = jPieceJ1;
+                    etat = EtatGUI.J1DoitDonner;
+                    UpdateScreen(etat);
+                } else {
+                    panel = jPieceJ2;
+                    etat = EtatGUI.J2DoitDonner;
+                    UpdateScreen(etat);
+                }
+
+                if (panel.getComponentCount() == 1) {
+                    JLabel labPresent = (JLabel) panel.getComponent(0);
+                    JLabel piece = pieces.get(labPresent.getName());
+                    piece.setVisible(true);
+                    panel.removeAll();
+                }
+                lab.setVisible(false);
+                panel.add(cloneLabel(lab));
             }
-            lab.setVisible(false);
-            panel.add(cloneLabel(lab));
         }
 
         @Override
@@ -310,6 +329,40 @@ public final class QuartoGUI extends JFrame implements Observer {
 
         @Override
         public void mouseExited(MouseEvent e) {
+
+        }
+    }
+
+    public void UpdateScreen(EtatGUI etat) {
+        switch (etat) {
+            case J1DoitChoisir:
+                bDonnerJ1.setVisible(false);
+                bDonnerJ2.setVisible(false);
+                break;
+            case J1DoitDonner:
+                bDonnerJ1.setVisible(true);
+                break;
+            case J1DoitPlacer:
+                bDonnerJ2.setVisible(false);
+                break;
+            case J2DoitChoisir:
+                break;
+            case J2DoitDonner:
+                bDonnerJ2.setVisible(true);
+                break;
+            case J2DoitPlacer:
+                bDonnerJ1.setVisible(false);
+                break;
+            case J1AAnnonceQuarto:
+                break;
+            case J2AAnnonceQuarto:
+                break;
+            case J1AAnnonceMatchNull:
+                break;
+            case J2AAnnonceMatchNull:
+                break;
+            default:
+                break;
 
         }
     }
