@@ -19,8 +19,8 @@ public class PlateauJeu {
     private final HashMap<Piece, Coord> plateauJeuPieceCoord;
 
     public PlateauJeu() {
-        this.plateauJeuCoordPiece = new HashMap<Coord, Piece>();
-        this.plateauJeuPieceCoord = new HashMap<Piece, Coord>();
+        this.plateauJeuCoordPiece = new HashMap<>();
+        this.plateauJeuPieceCoord = new HashMap<>();
     }
 
     public void addPiece(Coord coord, Piece piece) {
@@ -28,27 +28,39 @@ public class PlateauJeu {
         plateauJeuPieceCoord.put(piece, coord);
     }
 
-    public void removePieceFromCoord(Coord coord) {
+    public Boolean removePieceFromCoord(Coord coord) {
         Piece pieceCourante = plateauJeuCoordPiece.get(coord);
-        plateauJeuCoordPiece.remove(coord);
-        plateauJeuPieceCoord.remove(pieceCourante);
+        if (pieceCourante != null) {
+            plateauJeuCoordPiece.remove(coord);
+            plateauJeuPieceCoord.remove(pieceCourante);
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    public void removePieceFromPiece(Piece piece) {
+    
+    //attention à l'id (clone de piece ok ! new piece NOK)
+    public Boolean removePieceFromPiece(Piece piece) {
         Coord coord = plateauJeuPieceCoord.get(piece);
-        plateauJeuPieceCoord.remove(piece);
-        plateauJeuCoordPiece.remove(coord);
+        if (coord != null) {
+            plateauJeuPieceCoord.remove(piece);
+            plateauJeuCoordPiece.remove(coord);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Piece getPieceFromCoord(Coord coord) {
         return plateauJeuCoordPiece.get(coord);
     }
 
+    //attention à l'id (clone de piece ok ! new piece NOK)
     public Coord getCoordFromPiece(Piece piece) {
         return plateauJeuPieceCoord.get(piece);
     }
 
-    public ArrayList<Piece> getPieceList() throws Exception {
+    public ArrayList<Piece> getClonedPieceList() throws Exception {
         //nécéssite de cloner les pièces pour préserver l'encapsulation (intégrité du modèle)
         ArrayList laListe = new ArrayList();
         for (Map.Entry<Piece, Coord> pc : plateauJeuPieceCoord.entrySet()) {
@@ -57,13 +69,18 @@ public class PlateauJeu {
         return laListe;
     }
 
-    public ArrayList<Coord> getCoordList() throws Exception {
+    public ArrayList<Coord> getClonedCoordList() throws Exception {
         //nécéssite de cloner les coordonnées pour préserver l'encapsulation (intégrité du modèle)
         ArrayList laListe = new ArrayList();
         for (Map.Entry<Piece, Coord> pc : plateauJeuPieceCoord.entrySet()) {
             laListe.add(pc.getValue().clone());
         }
         return laListe;
+    }
+
+    public void removeAll() {
+        plateauJeuCoordPiece.clear();
+        plateauJeuPieceCoord.clear();
     }
 
     @Override

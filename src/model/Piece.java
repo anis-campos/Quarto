@@ -7,7 +7,6 @@ package model;
 
 import java.util.Objects;
 
-
 /**
  *
  * @author Anis
@@ -19,15 +18,27 @@ public class Piece {
     protected Boolean fonce;
     protected Boolean plein;
     protected String nomFichierPiece;
+    private int id;
+    private static int instanciationNb = 0;
 
-    
     //Les valeurs par défaut sont à TRUE
     public Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein) {
+        this.id = ++instanciationNb;
         this.carre = carre;
         this.grand = grand;
         this.fonce = fonce;
         this.plein = plein;
-        this.nomFichierPiece = this.getName()+".png";
+        this.nomFichierPiece = this.getName() + ".png";
+
+    }
+
+    private Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein, int id) {
+        this.id = id;
+        this.carre = carre;
+        this.grand = grand;
+        this.fonce = fonce;
+        this.plein = plein;
+        this.nomFichierPiece = this.getName() + ".png";
 
     }
 
@@ -35,44 +46,46 @@ public class Piece {
     public String toString() {
         return this.getName();
     }
+
     public String getName() {
         String string = "";
-        if(carre){
-            string+="CARRE_";
-        }else{
-            string+="ROND_";
+        if (carre) {
+            string += "CARRE_";
+        } else {
+            string += "ROND_";
         }
-        if(grand){
-            string+="GRAND_";
-        }else{
-            string+="PETIT_";
+        if (grand) {
+            string += "GRAND_";
+        } else {
+            string += "PETIT_";
         }
-        if(fonce){
-            string+="FONCE_";
-        }else{
-            string+="CLAIR_";
+        if (fonce) {
+            string += "FONCE_";
+        } else {
+            string += "CLAIR_";
         }
-        if(plein){
-            string+="PLEIN";
-        }else{
-            string+="CREUX";
+        if (plein) {
+            string += "PLEIN";
+        } else {
+            string += "CREUX";
         }
         return string;
     }
 
     @Override
-    protected Piece clone() throws CloneNotSupportedException{
-        return new Piece(carre, grand, fonce, plein);
+    protected Piece clone() throws CloneNotSupportedException {
+        return new Piece(carre, grand, fonce, plein, id);
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.carre);
-        hash = 67 * hash + Objects.hashCode(this.grand);
-        hash = 67 * hash + Objects.hashCode(this.fonce);
-        hash = 67 * hash + Objects.hashCode(this.plein);
-        hash = 67 * hash + Objects.hashCode(this.nomFichierPiece);
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.carre);
+        hash = 53 * hash + Objects.hashCode(this.grand);
+        hash = 53 * hash + Objects.hashCode(this.fonce);
+        hash = 53 * hash + Objects.hashCode(this.plein);
+        hash = 53 * hash + Objects.hashCode(this.nomFichierPiece);
+        hash = 53 * hash + this.id;
         return hash;
     }
 
@@ -106,7 +119,5 @@ public class Piece {
     public int compareTo(Boolean b) {
         return carre.compareTo(b);
     }
-    
-    
-    
+
 }
