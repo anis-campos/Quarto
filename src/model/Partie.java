@@ -121,6 +121,7 @@ public class Partie {
         
         listPiece.remove(piece);
     }
+    
    public Piece findPieceAvailable(String nomPiece){
        
        for( Piece piece :listPiece){
