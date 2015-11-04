@@ -26,7 +26,7 @@ public class NotificationPieceDonnee extends Notification {
                     break;
                 case J2:
                     destination = NumeroJoueur.J1;             
-                    break;
+                    break;  
                 default:
                     destination = null;
             }

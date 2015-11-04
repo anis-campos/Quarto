@@ -6,7 +6,7 @@
 package view;
 
 import controlleur.observables.Notification;
-import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationPieceDonnee;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -20,6 +20,7 @@ import javax.swing.*;
 import model.Coord;
 import model.NumeroJoueur;
 import controlleur.IControlleur;
+import controlleur.observables.NotificationPieceSelectionnee;
 
 /**
  * @author Anis
@@ -28,6 +29,7 @@ public final class QuartoGUI extends JPanel implements Observer {
 
     private HashMap<JPanel, Coord> cases;
 
+    //Map string=name  label
     private HashMap<String, JLabel> pieces;
 
     private JPanel jEntete;
@@ -47,7 +49,6 @@ public final class QuartoGUI extends JPanel implements Observer {
 
     private final NumeroJoueur courant;
     private final IControlleur controleur;
-
 
     private EtatGUI etat;
 
@@ -189,12 +190,12 @@ public final class QuartoGUI extends JPanel implements Observer {
         Centre.add(jZoneJ2);
 
         /*this.layeredPane = new JPanel();
-        this.setContentPane(layeredPane);
-        layeredPane.setLayout(new BorderLayout(20, 20));
+         this.setContentPane(layeredPane);
+         layeredPane.setLayout(new BorderLayout(20, 20));
 
-        layeredPane.add(jEntete, BorderLayout.NORTH);
-        layeredPane.add(Centre, BorderLayout.CENTER);
-        layeredPane.add(jPieces, BorderLayout.SOUTH);*/
+         layeredPane.add(jEntete, BorderLayout.NORTH);
+         layeredPane.add(Centre, BorderLayout.CENTER);
+         layeredPane.add(jPieces, BorderLayout.SOUTH);*/
         this.setLayout(new BorderLayout(20, 20));
 
         this.add(jEntete, BorderLayout.NORTH);
@@ -233,20 +234,27 @@ public final class QuartoGUI extends JPanel implements Observer {
         //TODO : Deplacer les pieces
         Notification notif = (Notification) arg;
 
-        if (notif instanceof NotificationPieceSelectionnee) {
-            NotificationPieceSelectionnee donner = (NotificationPieceSelectionnee) notif;
-            JPanel panelSource = getPanelJoueur(donner.source); 
-            UpdateScreen(donner.etatSuivant);
-            JPanel panelDestination = getPanelJoueur(donner.destination);
-            JLabel lab = (JLabel) panelSource.getComponent(0);
-            panelSource.removeAll();
-            panelDestination.add(cloneLabel(lab));
+        if (notif instanceof NotificationPieceDonnee) {
+            NotificationPieceDonnee donner = (NotificationPieceDonnee) notif;
+            notifDonnerPiece(donner);
+        } else if (notif instanceof NotificationPieceSelectionnee) {
+            NotificationPieceSelectionnee selectionner = (NotificationPieceSelectionnee) notif;
+            NotifSelectionnerPiece(selectionner);
 
         }
 
+        UpdateScreen(notif.etatSuivant);
         this.revalidate();
         this.repaint();
 
+    }
+
+    private void notifDonnerPiece(NotificationPieceDonnee donner) {
+        JPanel panelSource = getPanelJoueur(donner.source);
+        JPanel panelDestination = getPanelJoueur(donner.destination);
+        JLabel lab = (JLabel) panelSource.getComponent(0);
+        panelSource.removeAll();
+        panelDestination.add(cloneLabel(lab));
     }
 
     public JLabel cloneLabel(JLabel label) {
@@ -255,19 +263,36 @@ public final class QuartoGUI extends JPanel implements Observer {
         return lab;
     }
 
+    private void NotifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
+        
+        JLabel lab = pieces.get(selectionnee.NomPiece);
+        
+        JPanel panel;
+        panel=getPanelJoueur(selectionnee.source);
+
+        if (panel.getComponentCount() == 1) {
+            JLabel labPresent = (JLabel) panel.getComponent(0);
+            JLabel piece = pieces.get(labPresent.getName());
+            piece.setVisible(true);
+            panel.removeAll();
+        }
+        lab.setVisible(false);
+        panel.add(cloneLabel(lab));
+    }
+
     public class ButtonDonnerClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            JButton button = (JButton) e.getSource();
-            String nomPiece;
-            if (button == bDonnerJ1) {
-                nomPiece = jPieceJ1.getComponent(0).getName();
-
-            } else {
-                nomPiece = jPieceJ2.getComponent(0).getName();
-            }
+//
+//            JButton button = (JButton) e.getSource();
+//            String nomPiece;
+//            if (button == bDonnerJ1) {
+//                nomPiece = jPieceJ1.getComponent(0).getName();
+//
+//            } else {
+//                nomPiece = jPieceJ2.getComponent(0).getName();
+//            }
             controleur.donnerPieceAdversaire();
         }
 
@@ -298,34 +323,34 @@ public final class QuartoGUI extends JPanel implements Observer {
 
     }
 
-    //Choix de la pièce
+//Choix de la pièce
     public class PieceClickListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (etat == EtatGUI.J1DoitChoisir || etat == EtatGUI.J2DoitChoisir) {
 
-                JLabel lab = (JLabel) e.getSource();
-                JPanel panel;
-                if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-                    panel = jPieceJ1;
-                    etat = EtatGUI.J1DoitDonner;
-                    UpdateScreen(etat);
-                } else {
-                    panel = jPieceJ2;
-                    etat = EtatGUI.J2DoitDonner;
-                    UpdateScreen(etat);
-                }
+            JLabel lab = (JLabel) e.getSource();
+//                JPanel panel;
+//                if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
+//                    panel = jPieceJ1;
+//                    etat = EtatGUI.J1DoitDonner;
+//                    UpdateScreen(etat);
+//                } else {
+//                    panel = jPieceJ2;
+//                    etat = EtatGUI.J2DoitDonner;
+//                    UpdateScreen(etat);
+//                }
+//
+//                if (panel.getComponentCount() == 1) {
+//                    JLabel labPresent = (JLabel) panel.getComponent(0);
+//                    JLabel piece = pieces.get(labPresent.getName());
+//                    piece.setVisible(true);
+//                    panel.removeAll();
+//                }
+//                lab.setVisible(false);
+//                panel.add(cloneLabel(lab));
+            controleur.selectionPiece(lab.getName());
 
-                if (panel.getComponentCount() == 1) {
-                    JLabel labPresent = (JLabel) panel.getComponent(0);
-                    JLabel piece = pieces.get(labPresent.getName());
-                    piece.setVisible(true);
-                    panel.removeAll();
-                }
-                lab.setVisible(false);
-                panel.add(cloneLabel(lab));
-            }
         }
 
         @Override
