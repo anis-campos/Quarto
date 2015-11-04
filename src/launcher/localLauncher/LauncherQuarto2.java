@@ -5,16 +5,10 @@
  */
 package launcher.localLauncher;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.util.Observer;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import view.JPanelJeu;
 import view.JPanelMenu;
 import view.JPanelParametres;
 import view.fenetrePrincipale;
@@ -39,27 +33,27 @@ public class LauncherQuarto2 {
         cardLayout.setHgap(10);
         cardLayout.setVgap(10);
         JPanel menu = new JPanelMenu();
-        JPanel jeu = new JPanelJeu();
         JPanel parametres = new JPanelParametres();
 
         generalPanel.setLayout(cardLayout);
         generalPanel.setVisible(true);
         generalPanel.setEnabled(true);
+        generalPanel.setName("generalPanel");
         menu.setVisible(true);
         menu.setEnabled(true);
-        jeu.setVisible(true);
-        jeu.setEnabled(true);
+        menu.setName("menu");
         parametres.setVisible(true);
         parametres.setEnabled(true);
+        parametres.setName("parametres");
 
         generalPanel.add("menu", menu);
-        generalPanel.add("jeu", jeu);
         generalPanel.add("parametres", parametres);
 
         cardLayout.show(generalPanel, "menu");
 
         frame.setContentPane(generalPanel);
         frame.repaint();
+        frame.revalidate();
 
     }
 }

@@ -5,8 +5,15 @@
  */
 package view;
 
+import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.Observer;
+import javax.swing.JPanel;
+import model.Joueur;
+import model.NumeroJoueur;
+import model.Parametre;
+import model.Partie;
 
 /**
  *
@@ -33,6 +40,8 @@ public class JPanelMenu extends javax.swing.JPanel {
         jButtonParametrer = new javax.swing.JButton();
         jButtonCommencer = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setName("menu"); // NOI18N
         setOpaque(false);
 
         jButtonParametrer.setText("Paramétrer Partie");
@@ -42,7 +51,7 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         });
 
-        jButtonCommencer.setText("Commencer");
+        jButtonCommencer.setText("Commencer nouvelle partie");
         jButtonCommencer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCommencerActionPerformed(evt);
@@ -54,7 +63,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap(104, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -62,12 +71,12 @@ public class JPanelMenu extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(85, 85, 85)
                 .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -77,8 +86,27 @@ public class JPanelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonParametrerActionPerformed
 
     private void jButtonCommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCommencerActionPerformed
-        //instanciation de la partie
+        Parametre p = new Parametre(true, true, true, true, true);
+        Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
+        Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
+        Partie partie = new Partie(p, j1, j2);
+        ControllerLocal controllerLocal = new ControllerLocal(partie);
+        JPanel panel = new QuartoGUI(controllerLocal);
+        controllerLocal.addObserver((Observer) panel);
+        panel.setName("jeu");//important
+        
         CardLayout cl = (CardLayout) this.getParent().getLayout();
+
+        //on remove le component jeu
+        Component[] components = this.getParent().getComponents();
+        for (Component c : components) {
+            if (c.getName().equals("jeu")) {
+                cl.removeLayoutComponent(c);
+                this.getParent().remove(c);
+            }
+        }
+        this.getParent().add("jeu", panel);
+        
         cl.show(this.getParent(), "jeu");
     }//GEN-LAST:event_jButtonCommencerActionPerformed
 

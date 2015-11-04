@@ -25,21 +25,18 @@ public class LauncherQuarto {
         //Dimension dim = new Dimension(992, 540);
         
         Parametre p = new Parametre(true, true, true, true, true);
-        Joueur j1 = new Joueur("Joueur1", false,NumeroJoueur.J1);
-        Joueur j2 = new Joueur("Joueur2", false,NumeroJoueur.J2);
+        Joueur j1 = new Joueur("Joueur 1", false,NumeroJoueur.J1);
+        Joueur j2 = new Joueur("Joueur 2", false,NumeroJoueur.J2);
         Partie partie = new Partie(p, j1, j2);
-
+        
         ControllerLocal controllerLocal = new ControllerLocal(partie);
 
-        JFrame frame = new QuartoGUI(controllerLocal);
+        JPanel panel = new QuartoGUI(controllerLocal);
         
-        controllerLocal.addObserver((Observer) frame);
+        controllerLocal.addObserver((Observer) panel);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocation(600, 10);
+        panel.setLocation(600, 10);
         //frame.setPreferredSize(dim);
-        frame.setResizable(false);
-        frame.pack();
-        frame.setVisible(true);
+        panel.setVisible(true);
     }
 }

@@ -26,7 +26,7 @@ import controlleur.IControlleur;
 /**
  * @author Anis
  */
-public final class QuartoGUI extends JFrame implements Observer {
+public final class QuartoGUI extends JPanel implements Observer {
 
     private Map<JPanel, Coord> cases;
 
@@ -183,7 +183,7 @@ public final class QuartoGUI extends JFrame implements Observer {
         Centre.add(jZoneJ2);
 
         this.layeredPane = new JPanel();
-        this.setContentPane(layeredPane);
+        this.add(layeredPane);
         layeredPane.setLayout(new BorderLayout(20, 20));
 
         layeredPane.add(jEntete, BorderLayout.NORTH);
