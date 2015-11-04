@@ -21,15 +21,16 @@ import javax.swing.*;
 import model.Coord;
 import model.NumeroJoueur;
 import controlleur.IControlleur;
+import java.util.Hashtable;
 
 /**
  * @author Anis
  */
 public final class QuartoGUI extends JFrame implements Observer {
 
-    private Map<JPanel, Coord> cases;
+    private HashMap<JPanel, Coord> cases;
 
-    private Map<String, JLabel> pieces;
+    private HashMap<String, JLabel> pieces;
 
     private JPanel jEntete;
 
@@ -92,6 +93,7 @@ public final class QuartoGUI extends JFrame implements Observer {
             jPanel.setPreferredSize(new Dimension(100, 100));
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
             cases.put(jPanel, new Coord((i - 1) / 4, (i - 1) % 4));
+            jPanel.addMouseListener(new CaseClickListener());
             jPlateau.add(jPanel);
         }
         /////////////////////////////////////////////////////////////////
@@ -278,6 +280,31 @@ public final class QuartoGUI extends JFrame implements Observer {
                 nomPiece = jPieceJ2.getComponent(0).getName();
             }
             controleur.donnerPiece(nomPiece);
+        }
+
+    }
+
+    public class CaseClickListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            throw new UnsupportedOperationException("Fonction non implémenté");
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
         }
 
     }

@@ -13,5 +13,12 @@ public enum EntreeGUI {
     Plateau,
     DonnerJ1,
     DonnerJ2,
-    ListePiece
+    ListePiece,
+    Quarto,
+    PasQuarto,
+    ListePieceVide,
+    J1AnnonceQuarto,
+    J2AnnonceQuarto,
+    J1AnnonceMatchNUll,
+    J2AnnonceMatchNull,
 }
