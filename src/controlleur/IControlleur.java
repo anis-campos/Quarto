@@ -16,7 +16,8 @@ import model.NumeroJoueur;
 public interface IControlleur {
      
     boolean poserPiece(String nomPiece, Coord coord);
-    boolean donnerPiece(String nomPiece);
+    boolean donnerPieceAdversaire();
+    boolean selectionPiece(String nomPiece);
     boolean annoncerQuarto();
     boolean annoncerMatchNul();
     

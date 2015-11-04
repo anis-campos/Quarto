@@ -22,13 +22,14 @@ public enum EtatGUI {
     J2DernierTour,
     
     J1AAnnonceQuarto,
-    J2AAnnonceQuarto,
-    
-    J1AAnnonceMatchNull,
-    J2AAnnonceMatchNull,
+    J2AAnnonceQuarto,  
     
     J1ATrouveUnQuarto,
     J2ATrouveUnQuarto,
+    
+    J1AAnnonceMatchNull,
+    J2AAnnonceMatchNull,
+
 
     J1EtJ2OntAnnoncerMatchNull,
     

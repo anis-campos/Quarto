@@ -30,10 +30,13 @@ public class LauncherQuarto {
         Partie partie = new Partie(p, j1, j2);
 
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-
-        JFrame frame = new QuartoGUI(controllerLocal);
+        QuartoGUI quartoGUI = new QuartoGUI(controllerLocal);
+        controllerLocal.addObserver(quartoGUI);
+        JFrame frame = new JFrame();
         
-        controllerLocal.addObserver((Observer) frame);
+        frame.setContentPane(quartoGUI);
+        
+      
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation(600, 10);

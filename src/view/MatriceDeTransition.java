@@ -7,7 +7,6 @@ package view;
 
 import java.util.EnumMap;
 import java.util.Map;
-import model.NumeroJoueur;
 
 /**
  *
@@ -66,7 +65,7 @@ public class MatriceDeTransition {
     }
 
     //Obtention du singleton
-    static MatriceDeTransition getInstance() {
+    public static MatriceDeTransition getInstance() {
         if (singleton == null) {
             return singleton = new MatriceDeTransition();
         } else {

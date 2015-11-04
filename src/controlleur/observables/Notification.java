@@ -6,6 +6,7 @@
 package controlleur.observables;
 
 import model.Coord;
+import view.EtatGUI;
 
 /**
  *
@@ -14,15 +15,18 @@ import model.Coord;
 public abstract class Notification {
 
     
-    public final Coord coord;
     
-    public final String nomPiece;
+  
+    
+    public final EtatGUI etatSuivant;
+    public final EtatGUI etatActuel;
 
-    public Notification(String nomPiece, Coord coord) {
-        this.coord = coord;
-        this.nomPiece = nomPiece;
+    public Notification( EtatGUI etatSuivant, EtatGUI etatActuel) {
+  
+        this.etatSuivant = etatSuivant;
+        this.etatActuel = etatActuel;
     }
-    
-    
+
+  
         
 }

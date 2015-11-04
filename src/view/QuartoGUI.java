@@ -6,12 +6,11 @@
 package view;
 
 import controlleur.observables.Notification;
-import controlleur.observables.PieceDonneeNotification;
+import controlleur.observables.NotificationPieceSelectionnee;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
@@ -21,12 +20,11 @@ import javax.swing.*;
 import model.Coord;
 import model.NumeroJoueur;
 import controlleur.IControlleur;
-import java.util.Hashtable;
 
 /**
  * @author Anis
  */
-public final class QuartoGUI extends JFrame implements Observer {
+public final class QuartoGUI extends JPanel implements Observer {
 
     private HashMap<JPanel, Coord> cases;
 
@@ -50,7 +48,7 @@ public final class QuartoGUI extends JFrame implements Observer {
     private final NumeroJoueur courant;
     private final IControlleur controleur;
 
-    private JPanel layeredPane;
+
     private EtatGUI etat;
 
     public QuartoGUI(IControlleur controleur) {
@@ -190,13 +188,18 @@ public final class QuartoGUI extends JFrame implements Observer {
         Centre.add(jPlateau);
         Centre.add(jZoneJ2);
 
-        this.layeredPane = new JPanel();
+        /*this.layeredPane = new JPanel();
         this.setContentPane(layeredPane);
         layeredPane.setLayout(new BorderLayout(20, 20));
 
         layeredPane.add(jEntete, BorderLayout.NORTH);
         layeredPane.add(Centre, BorderLayout.CENTER);
-        layeredPane.add(jPieces, BorderLayout.SOUTH);
+        layeredPane.add(jPieces, BorderLayout.SOUTH);*/
+        this.setLayout(new BorderLayout(20, 20));
+
+        this.add(jEntete, BorderLayout.NORTH);
+        this.add(Centre, BorderLayout.CENTER);
+        this.add(jPieces, BorderLayout.SOUTH);
 
     }
 
@@ -230,25 +233,11 @@ public final class QuartoGUI extends JFrame implements Observer {
         //TODO : Deplacer les pieces
         Notification notif = (Notification) arg;
 
-        if (notif instanceof PieceDonneeNotification) {
-            PieceDonneeNotification donner = (PieceDonneeNotification) notif;
-            JPanel panelSource = getPanelJoueur(donner.source);
-            NumeroJoueur destination;
-            switch (donner.source) {
-                case J1:
-                    destination = NumeroJoueur.J2;
-                    etat = EtatGUI.J2DoitPlacer;
-                    UpdateScreen(etat);
-                    break;
-                case J2:
-                    destination = NumeroJoueur.J1;
-                    etat = EtatGUI.J1DoitPlacer;
-                    UpdateScreen(etat);
-                    break;
-                default:
-                    destination = null;
-            }
-            JPanel panelDestination = getPanelJoueur(destination);
+        if (notif instanceof NotificationPieceSelectionnee) {
+            NotificationPieceSelectionnee donner = (NotificationPieceSelectionnee) notif;
+            JPanel panelSource = getPanelJoueur(donner.source); 
+            UpdateScreen(donner.etatSuivant);
+            JPanel panelDestination = getPanelJoueur(donner.destination);
             JLabel lab = (JLabel) panelSource.getComponent(0);
             panelSource.removeAll();
             panelDestination.add(cloneLabel(lab));
@@ -279,7 +268,7 @@ public final class QuartoGUI extends JFrame implements Observer {
             } else {
                 nomPiece = jPieceJ2.getComponent(0).getName();
             }
-            controleur.donnerPiece(nomPiece);
+            controleur.donnerPieceAdversaire();
         }
 
     }
