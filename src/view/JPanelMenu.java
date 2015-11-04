@@ -14,6 +14,7 @@ import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
+import model.Piece;
 
 /**
  *
@@ -89,9 +90,10 @@ public class JPanelMenu extends javax.swing.JPanel {
         Parametre p = new Parametre(true, true, true, true, true);
         Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
+        Piece.instanciationNb=0;
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new QuartoGUI(controllerLocal);
+        JPanel panel = new JPanelQuarto(controllerLocal);
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//important
         

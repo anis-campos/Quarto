@@ -5,13 +5,18 @@
  */
 package controlleur;
 
-import controlleur.observables.PieceDonneeNotification;
+import controlleur.observables.NotificationPieceDonnee;
+import controlleur.observables.NotificationPieceSelectionnee;
 import java.util.List;
 import java.util.Observable;
 import model.Coord;
+import model.Joueur;
 import model.NumeroJoueur;
 import model.Partie;
 import model.Piece;
+import view.EntreeGUI;
+import view.EtatGUI;
+import view.MatriceDeTransition;
 
 /**
  *
@@ -20,9 +25,11 @@ import model.Piece;
 public class ControllerLocal extends Observable implements IControlleur {
 
     Partie partie;
+    EtatGUI etatActuel;
 
     public ControllerLocal(Partie partie) {
         this.partie = partie;
+        this.etatActuel = EtatGUI.J1DoitChoisir;
     }
 
     @Override
@@ -31,19 +38,33 @@ public class ControllerLocal extends Observable implements IControlleur {
     }
 
     @Override
-    public boolean donnerPiece(String nomPiece) {
-        Piece piece;
-        piece = partie.findPieceAvailable(nomPiece);
-        if (piece != null) {
-            partie.donnerPiece(piece);
-            setChanged();
-            notifyObservers(new  PieceDonneeNotification(nomPiece, null, partie.getJoueurCourant()));
+    public boolean donnerPieceAdversaire() {
+        boolean rep = partie.donnerPieceAdversaire();
+        if (rep) {
+            EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
+            EtatGUI etatSuivant = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
+            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatSuivant);
             partie.changerJoueurCourant();
-        } else {
-            return false;
-
+            setChanged();
+            notifyObservers(notif);
         }
-        return true;
+        return rep;
+    }
+
+    @Override
+    public boolean selectionPiece(String nomPiece) {
+
+        boolean rep = partie.selectionPiece(nomPiece);
+        if (rep) {
+            EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
+            EtatGUI etatSuivant = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(getJoueurCourant(), nomPiece, etatActuel, etatSuivant);
+            partie.changerJoueurCourant();
+            setChanged();
+            notifyObservers(notif);
+        }
+
+        return rep;
     }
 
     @Override

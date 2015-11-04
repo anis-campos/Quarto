@@ -24,14 +24,14 @@ public class Partie {
     private final Joueur joueur2;
     private final Parametre parametres;
 
-    private Joueur Courant;
+    private Joueur joueurCourant;
 
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
         this.plateauJeu = new PlateauJeu();
         this.listPiece = new ArrayList<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
-        Courant = joueur1;
+        joueurCourant = joueur1;
         this.parametres = parametres;
         this.pieceFactory();
     }
@@ -83,15 +83,29 @@ public class Partie {
         return rep;
     }
 
-    public void donnerPiece(Piece piece) {
+    public boolean selectionPiece(String nomPiece) {
 
-        if (this.Courant == joueur1) {
-            caseJoueur2 = piece;
-        } else {
-            caseJoueur1 = piece;
+        Piece piece = findPieceAvailable(nomPiece);
+        if (piece != null) {
+            if (this.joueurCourant == joueur1) {
+                caseJoueur2 = piece;
+            } else {
+                caseJoueur1 = piece;
+            }
+            listPiece.remove(piece);
+            return true;
         }
-
-        listPiece.remove(piece);
+        
+        return false;
+    }
+    
+    public boolean donnerPieceAdversaire(){
+        if (this.joueurCourant == joueur1) {
+                caseJoueur2 = caseJoueur1;
+            } else {
+                caseJoueur1 = caseJoueur2;
+            }
+        return true;
     }
 
     public Piece findPieceAvailable(String nomPiece) {
@@ -105,23 +119,23 @@ public class Partie {
     }
 
     public NumeroJoueur getNumeroJoueurCourant() {
-        return Courant.getNumeroJoueur();
+        return joueurCourant.getNumeroJoueur();
     }
 
     public void changerJoueurCourant() {
-        if (Courant == joueur1) {
-            Courant = joueur2;
+        if (joueurCourant == joueur1) {
+            joueurCourant = joueur2;
         } else {
-            Courant = joueur1;
+            joueurCourant = joueur1;
         }
     }
 
     public NumeroJoueur getJoueurCourant() {
-        return Courant.getNumeroJoueur();
+        return joueurCourant.getNumeroJoueur();
     }
 
     public PlateauJeu getPlateauJeu() {
         return plateauJeu;
     }
-    
+
 }

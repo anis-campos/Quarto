@@ -12,7 +12,7 @@ import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
-import view.QuartoGUI;
+import view.JPanelQuarto;
 
 
 /**
@@ -30,13 +30,19 @@ public class LauncherQuarto {
         Partie partie = new Partie(p, j1, j2);
         
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-
-        JPanel panel = new QuartoGUI(controllerLocal);
+        JPanelQuarto quartoGUI = new JPanelQuarto(controllerLocal);
+        controllerLocal.addObserver(quartoGUI);
+        JFrame frame = new JFrame();
         
-        controllerLocal.addObserver((Observer) panel);
+        frame.setContentPane(quartoGUI);
+        
+      
 
-        panel.setLocation(600, 10);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLocation(600, 10);
         //frame.setPreferredSize(dim);
-        panel.setVisible(true);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

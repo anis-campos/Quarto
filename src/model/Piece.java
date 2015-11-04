@@ -19,7 +19,7 @@ public class Piece {
     protected Boolean plein;
     protected String nomFichierPiece;
     private final int id;
-    private static int instanciationNb = 0;
+    public static int instanciationNb = 0;
 
     //Les valeurs par défaut sont à TRUE
     public Piece(Boolean carre, Boolean grand, Boolean fonce, Boolean plein) throws Exception {
