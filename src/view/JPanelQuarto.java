@@ -90,7 +90,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             jPanel.setBackground(Color.WHITE);
             jPanel.setPreferredSize(new Dimension(100, 100));
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-            cases.put(jPanel, new Coord((i - 1) / 4, (i - 1) % 4));
+            cases.put(jPanel, new Coord(i/4, i%4));
             jPanel.addMouseListener(new CaseClickListener());
             jPlateau.add(jPanel);
         }
@@ -289,7 +289,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            throw new UnsupportedOperationException("Fonction non implémenté");
+            System.out.println(cases.get(e.getSource()));
+            
         }
 
         @Override
