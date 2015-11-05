@@ -5,19 +5,19 @@
  */
 package controlleur;
 
+import model.EntreeGUI;
+import model.EtatGUI;
+import model.SortieGUI;
+import model.MatriceDeSortie;
+import model.MatriceDeTransition;
 import controlleur.observables.NotificationPieceDonnee;
 import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
 import java.util.List;
 import java.util.Observable;
 import model.Coord;
-import model.Joueur;
 import model.NumeroJoueur;
 import model.Partie;
-import model.Piece;
-import view.EntreeGUI;
-import view.EtatGUI;
-import view.MatriceDeTransition;
 
 /**
  *
@@ -103,6 +103,16 @@ public class ControllerLocal extends Observable implements IControlleur {
     @Override
     public List<String> getListPiecePlacee() {
         return partie.getListPieceNamePlacees();
+    }
+
+    @Override
+    public EtatGUI getEtatCourant() {
+        return etatActuel;
+    }
+
+    @Override
+    public SortieGUI getSortieGui() {
+        return MatriceDeSortie.getInstance().getEtatSortie(etatActuel);
     }
 
 }

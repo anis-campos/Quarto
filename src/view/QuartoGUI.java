@@ -5,6 +5,7 @@
  */
 package view;
 
+import model.EtatGUI;
 import controlleur.observables.Notification;
 import controlleur.observables.NotificationPieceDonnee;
 import java.awt.*;

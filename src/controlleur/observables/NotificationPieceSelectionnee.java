@@ -6,7 +6,7 @@
 package controlleur.observables;
 
 import model.NumeroJoueur;
-import view.EtatGUI;
+import model.EtatGUI;
 
 /**
  *
