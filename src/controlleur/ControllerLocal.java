@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import controlleur.observables.NotificationQuartoDetecte;
 import model.EntreeGUI;
 import model.EtatGUI;
 import model.SortieGUI;
@@ -37,12 +38,19 @@ public class ControllerLocal extends Observable implements IControlleur {
     public boolean poserPiece(Coord coord) {
         boolean rep = partie.poserPiece(coord);
         if (rep) {
+            boolean quarto = partie.thereIsQuarto(coord);
             EtatGUI etatprecedent = etatActuel;
             EntreeGUI entree = EntreeGUI.Plateau;
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
             NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent);
             setChanged();
             notifyObservers(notif);
+
+            if (quarto) {
+                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(getJoueurCourant(), etatActuel, etatprecedent);
+                setChanged();
+                notifyObservers(notifQuarto);
+            }
         }
         return rep;
     }

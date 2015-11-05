@@ -23,6 +23,7 @@ import model.NumeroJoueur;
 import controlleur.IControlleur;
 import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationQuartoDetecte;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -75,8 +76,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
             etat = EtatGUI.J2DoitChoisir;
         }
         UpdateScreen(etat);
-        
-}
+
+    }
 
     void initComponents() {
 
@@ -284,6 +285,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
         } else if (notif instanceof NotificationPiecePlacee) {
             NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
             NotifPlacerPiece(placee);
+        }
+        if (notif instanceof NotificationQuartoDetecte) {
+            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+            JDialog QuartoPopup = new JDialog(frame,"Fin de Partie",true);
+            QuartoPopup.setVisible(true);
         }
 
         UpdateScreen(notif.nouvelEtat);

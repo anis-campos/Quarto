@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import  model.QuartoCalculator;
 /**
  *
  * @author timotheetroncy
@@ -180,6 +180,9 @@ public class Partie {
             rep.add(piece.getName());
         }
         return rep;
+    }
+    public boolean  thereIsQuarto( Coord coordDernierePiece){
+       return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece);
     }
 
 }
