@@ -8,8 +8,12 @@ package view;
 import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Observer;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -37,6 +41,7 @@ public class JPanelMenu extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jButtonParametrer = new javax.swing.JButton();
         jButtonCommencer = new javax.swing.JButton();
@@ -44,6 +49,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setName("menu"); // NOI18N
         setOpaque(false);
+        setLayout(new java.awt.GridBagLayout());
 
         jButtonParametrer.setText("Paramétrer Partie");
         jButtonParametrer.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +57,14 @@ public class JPanelMenu extends javax.swing.JPanel {
                 jButtonParametrerActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 33;
+        gridBagConstraints.ipady = 59;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(87, 106, 0, 107);
+        add(jButtonParametrer, gridBagConstraints);
 
         jButtonCommencer.setText("Commencer nouvelle partie");
         jButtonCommencer.addActionListener(new java.awt.event.ActionListener() {
@@ -58,27 +72,14 @@ public class JPanelMenu extends javax.swing.JPanel {
                 jButtonCommencerActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(105, 105, 105))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = -33;
+        gridBagConstraints.ipady = 59;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 106, 96, 107);
+        add(jButtonCommencer, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonParametrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonParametrerActionPerformed
@@ -90,13 +91,13 @@ public class JPanelMenu extends javax.swing.JPanel {
         Parametre p = new Parametre(true, true, true, true, true);
         Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
-        Piece.instanciationNb=0;
+        Piece.instanciationNb = 0;
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
         JPanel panel = new JPanelQuarto(controllerLocal);
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//important
-        
+
         CardLayout cl = (CardLayout) this.getParent().getLayout();
 
         //on remove le component jeu
@@ -108,8 +109,15 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         }
         this.getParent().add("jeu", panel);
-        
+
         cl.show(this.getParent(), "jeu");
+
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        frame.pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+
+
     }//GEN-LAST:event_jButtonCommencerActionPerformed
 
 

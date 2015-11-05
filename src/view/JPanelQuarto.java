@@ -55,7 +55,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     private final IControlleur controleur;
 
-    private EtatGUI etat;
+    private JPanel layeredPane;
+
     private JButton bAnnoncerQuartoJ1;
     private JButton bAnnoncerQuartoJ2;
 
@@ -67,13 +68,15 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         initComponents();
 
+        EtatGUI etat;
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             etat = EtatGUI.J1DoitChoisir;
         } else {
             etat = EtatGUI.J2DoitChoisir;
         }
         UpdateScreen(etat);
-    }
+        
+}
 
     void initComponents() {
 
@@ -121,9 +124,22 @@ public final class JPanelQuarto extends JPanel implements Observer {
         /////////////////////////////////////////////////////////////////
         jEntete = new JPanel();
         jEntete.setLayout(new GridBagLayout());
-        JLabel lab = new JLabel("QUARTO");
-        lab.setFont(new Font("Arial", Font.BOLD, 48));
-        jEntete.add(lab);
+
+        JLabel Titre = new JLabel("QUARTO");
+        Titre.setFont(new Font("Arial", Font.BOLD, 48));
+
+        bAfficherMenu = new JButton("Afficher le Menu");
+        bAfficherMenu.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout cl = (CardLayout) layeredPane.getParent().getParent().getLayout();
+                cl.show(layeredPane.getParent().getParent(), "menu");
+            }
+        });
+
+        jEntete.add(Titre);
+        jEntete.add(bAfficherMenu);
         /////////////////////////////////////////////////////////////////
 
         //CONSTRUCTION DES PIECES
@@ -217,18 +233,14 @@ public final class JPanelQuarto extends JPanel implements Observer {
         Centre.add(jPlateau);
         Centre.add(jZoneJ2);
 
-        /*this.layeredPane = new JPanel();
-         this.setContentPane(layeredPane);
-         layeredPane.setLayout(new BorderLayout(20, 20));
+        layeredPane = new JPanel();
+        layeredPane.setLayout(new BorderLayout(20, 20));
 
-         layeredPane.add(jEntete, BorderLayout.NORTH);
-         layeredPane.add(Centre, BorderLayout.CENTER);
-         layeredPane.add(jPieces, BorderLayout.SOUTH);*/
-        this.setLayout(new BorderLayout(20, 20));
+        layeredPane.add(jEntete, BorderLayout.NORTH);
+        layeredPane.add(Centre, BorderLayout.CENTER);
+        layeredPane.add(jPieces, BorderLayout.SOUTH);
 
-        this.add(jEntete, BorderLayout.NORTH);
-        this.add(Centre, BorderLayout.CENTER);
-        this.add(jPieces, BorderLayout.SOUTH);
+        this.add(layeredPane);
 
     }
 
