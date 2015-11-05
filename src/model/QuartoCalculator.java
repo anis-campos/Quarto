@@ -274,4 +274,5 @@ public class QuartoCalculator {
         }
         return false;
     }
+ 
 }
