@@ -294,8 +294,9 @@ public final class QuartoGUI extends JPanel implements Observer {
         JPanel panel = mapCaseByCoord.get(placee.casePlateau);
         JPanel panelJoueur = getPanelJoueur(placee.joueurSource);
         if (panelJoueur.getComponentCount() == 1) {
-            JLabel piece = (JLabel) panel.getComponent(0);
-            panel.add(piece);
+            JLabel piece = (JLabel) panelJoueur.getComponent(0);
+            panel.add(cloneLabel(piece));
+            
         }
 
     }
@@ -319,6 +320,7 @@ public final class QuartoGUI extends JPanel implements Observer {
             if (panelJoueur.getComponentCount() == 1) {
                 JLabel piece = (JLabel) panelJoueur.getComponent(0);
                 controleur.poserPiece(coord);
+                panelJoueur.removeAll();
             }
 
         }

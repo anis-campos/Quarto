@@ -76,39 +76,64 @@ public class Partie {
         return rep;
     }
 
-    public boolean poserPiece(Coord coord ){
+    public boolean poserPiece(Coord coord) {
         return plateauJeu.addPiece(coord, getPieceJoueurCourant());
     }
-    
-    private Piece getPieceJoueurCourant(){
-        if(joueurCourant == joueur1)
-            return caseJoueur1;
-        else 
-            return caseJoueur2;
-    }
-    
-    public boolean selectionPiece(String nomPiece) {
 
+    private Piece getPieceJoueurCourant() {
+        if (joueurCourant == joueur1) {
+            return caseJoueur1;
+        } else {
+            return caseJoueur2;
+        }
+    }
+
+    private Piece getPieceAdversaire() {
+        if (joueurCourant == joueur1) {
+            return caseJoueur2;
+        } else {
+            return caseJoueur1;
+        }
+    }
+
+    private void setPieceJoueurCourant(Piece piece) {
+        if (joueurCourant == joueur1) {
+            caseJoueur1 = piece;
+        } else {
+            caseJoueur2 = piece;
+        }
+    }
+
+    private void setPieceJoueurAdversaire(Piece piece) {
+        if (joueurCourant == joueur1) {
+            caseJoueur2 = piece;
+        } else {
+            caseJoueur1 = piece;
+        }
+    }
+
+    public boolean selectionPiece(String nomPiece) {
         Piece piece = findPieceAvailable(nomPiece);
         if (piece != null) {
-            if (this.joueurCourant == joueur1) {
-                caseJoueur2 = piece;
-            } else {
-                caseJoueur1 = piece;
+            Piece pieceJoueurCourant = getPieceJoueurCourant();
+            if (pieceJoueurCourant != null) {
+                listPiece.add(pieceJoueurCourant);
+                setPieceJoueurCourant(null);
             }
+            setPieceJoueurCourant(piece);
             listPiece.remove(piece);
             return true;
         }
-        
+
         return false;
     }
-    
-    public boolean donnerPieceAdversaire(){
-        if (this.joueurCourant == joueur1) {
-                caseJoueur2 = caseJoueur1;
-            } else {
-                caseJoueur1 = caseJoueur2;
-            }
+
+    public boolean donnerPieceAdversaire() {
+        
+        Piece pieceJoueurCourant = getPieceJoueurCourant();
+        setPieceJoueurAdversaire(pieceJoueurCourant);
+        setPieceJoueurCourant(null);
+       
         return true;
     }
 
@@ -143,7 +168,7 @@ public class Partie {
     }
 
     public List<String> getListPieceNamePlacees() {
-      List<String> rep = new ArrayList<>();
+        List<String> rep = new ArrayList<>();
         for (Piece piece : plateauJeu.getClonedPieceList()) {
             rep.add(piece.getName());
         }
