@@ -17,7 +17,6 @@ public class NotificationPieceDonnee extends Notification {
     public NotificationPieceDonnee(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
         super(joueurSource, nouvelEtat, etatPrecedent);
     }
-    
-    
-    
+
+   
 }

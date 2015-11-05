@@ -71,7 +71,7 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
           
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, EntreeGUI.ListePiece);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(getJoueurCourant(), nomPiece, etatprecedent,etatActuel);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece,getJoueurCourant(),etatActuel,etatprecedent);
             setChanged();
             notifyObservers(notif);
         }

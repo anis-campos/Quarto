@@ -29,8 +29,7 @@ import controlleur.observables.NotificationPieceSelectionnee;
 public final class QuartoGUI extends JPanel implements Observer {
 
     private HashMap<JPanel, Coord> mapCoordByCase;
-    private HashMap<Coord,JPanel> mapCaseByCoord;
-
+    private HashMap<Coord, JPanel> mapCaseByCoord;
 
     //Map string=name  label
     private HashMap<String, JLabel> pieces;
@@ -50,10 +49,11 @@ public final class QuartoGUI extends JPanel implements Observer {
     private JButton bValiderJ1;
     private JButton bValiderJ2;
 
-    private final NumeroJoueur courant;
     private final IControlleur controleur;
 
     private EtatGUI etat;
+    private JButton bAnnoncerQuartoJ1;
+    private JButton bAnnoncerQuartoJ2;
 
     public QuartoGUI(IControlleur controleur) {
 
@@ -62,8 +62,6 @@ public final class QuartoGUI extends JPanel implements Observer {
         this.controleur = controleur;
 
         initComponents();
-
-
 
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             etat = EtatGUI.J1DoitChoisir;
@@ -95,7 +93,7 @@ public final class QuartoGUI extends JPanel implements Observer {
             jPanel.setBackground(Color.WHITE);
             jPanel.setPreferredSize(new Dimension(100, 100));
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-            Coord coord =  new Coord(i/ 4, i% 4);
+            Coord coord = new Coord(i / 4, i % 4);
             mapCoordByCase.put(jPanel, coord);
             mapCaseByCoord.put(coord, jPanel);
             jPanel.addMouseListener(new CaseClickListener());
@@ -250,8 +248,8 @@ public final class QuartoGUI extends JPanel implements Observer {
             NotificationPieceSelectionnee selectionner = (NotificationPieceSelectionnee) notif;
             NotifSelectionnerPiece(selectionner);
 
-        }else if(notif instanceof NotificationPiecePlacee){
-            NotificationPiecePlacee placee = (NotificationPiecePlacee)notif;
+        } else if (notif instanceof NotificationPiecePlacee) {
+            NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
             NotifPlacerPiece(placee);
         }
 
@@ -280,7 +278,7 @@ public final class QuartoGUI extends JPanel implements Observer {
         JLabel lab = pieces.get(selectionnee.NomPiece);
 
         JPanel panel;
-        panel=getPanelJoueur(selectionnee.source);
+        panel = getPanelJoueur(selectionnee.joueurSource);
 
         if (panel.getComponentCount() == 1) {
             JLabel labPresent = (JLabel) panel.getComponent(0);
@@ -290,6 +288,16 @@ public final class QuartoGUI extends JPanel implements Observer {
         }
         lab.setVisible(false);
         panel.add(cloneLabel(lab));
+    }
+
+    private void NotifPlacerPiece(NotificationPiecePlacee placee) {
+        JPanel panel = mapCaseByCoord.get(placee.casePlateau);
+        JPanel panelJoueur = getPanelJoueur(placee.joueurSource);
+        if (panelJoueur.getComponentCount() == 1) {
+            JLabel piece = (JLabel) panel.getComponent(0);
+            panel.add(piece);
+        }
+
     }
 
     public class ButtonDonnerClickListener implements ActionListener {
@@ -308,11 +316,11 @@ public final class QuartoGUI extends JPanel implements Observer {
             JPanel caseClickee = (JPanel) e.getSource();
             Coord coord = mapCoordByCase.get(caseClickee);
             JPanel panelJoueur = getPanelJoueur(controleur.getJoueurCourant());
-            if(panelJoueur.getComponentCount()==1){
+            if (panelJoueur.getComponentCount() == 1) {
                 JLabel piece = (JLabel) panelJoueur.getComponent(0);
                 controleur.poserPiece(coord);
             }
-            
+
         }
 
         @Override
@@ -331,6 +339,14 @@ public final class QuartoGUI extends JPanel implements Observer {
         public void mouseExited(MouseEvent e) {
         }
 
+    }
+
+    private static class ButtonAnnoncerQuartoClickListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+//            controleur.annoncerQuarto();
+        }
     }
 
 //Choix de la pièce
