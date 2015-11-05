@@ -76,6 +76,17 @@ public class Partie {
         return rep;
     }
 
+    public boolean poserPiece(Coord coord ){
+        return plateauJeu.addPiece(coord, getPieceJoueurCourant());
+    }
+    
+    private Piece getPieceJoueurCourant(){
+        if(joueurCourant == joueur1)
+            return caseJoueur1;
+        else 
+            return caseJoueur2;
+    }
+    
     public boolean selectionPiece(String nomPiece) {
 
         Piece piece = findPieceAvailable(nomPiece);

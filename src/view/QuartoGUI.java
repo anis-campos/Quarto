@@ -20,6 +20,7 @@ import javax.swing.*;
 import model.Coord;
 import model.NumeroJoueur;
 import controlleur.IControlleur;
+import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
 
 /**
@@ -27,7 +28,9 @@ import controlleur.observables.NotificationPieceSelectionnee;
  */
 public final class QuartoGUI extends JPanel implements Observer {
 
-    private HashMap<JPanel, Coord> cases;
+    private HashMap<JPanel, Coord> mapCoordByCase;
+    private HashMap<Coord,JPanel> mapCaseByCoord;
+
 
     //Map string=name  label
     private HashMap<String, JLabel> pieces;
@@ -47,9 +50,6 @@ public final class QuartoGUI extends JPanel implements Observer {
     private JButton bValiderJ1;
     private JButton bValiderJ2;
 
-    private JButton bAnnoncerQuartoJ1;
-    private JButton bAnnoncerQuartoJ2;
-
     private final NumeroJoueur courant;
     private final IControlleur controleur;
 
@@ -63,9 +63,9 @@ public final class QuartoGUI extends JPanel implements Observer {
 
         initComponents();
 
-        courant = controleur.getJoueurCourant();
 
-        if (courant == NumeroJoueur.J1) {
+
+        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             etat = EtatGUI.J1DoitChoisir;
             UpdateScreen(etat);
         } else {
@@ -87,14 +87,17 @@ public final class QuartoGUI extends JPanel implements Observer {
         grid.setVgap(5);
         jPlateau.setLayout(grid);
 
-        cases = new HashMap<>();
+        mapCoordByCase = new HashMap<>();
+        mapCaseByCoord = new HashMap<>();
 
         for (int i = 0; i < 16; i++) {
             JPanel jPanel = new JPanel();
             jPanel.setBackground(Color.WHITE);
             jPanel.setPreferredSize(new Dimension(100, 100));
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-            cases.put(jPanel, new Coord((i - 1) / 4, (i - 1) % 4));
+            Coord coord =  new Coord(i/ 4, i% 4);
+            mapCoordByCase.put(jPanel, coord);
+            mapCaseByCoord.put(coord, jPanel);
             jPanel.addMouseListener(new CaseClickListener());
             jPlateau.add(jPanel);
         }
@@ -247,17 +250,20 @@ public final class QuartoGUI extends JPanel implements Observer {
             NotificationPieceSelectionnee selectionner = (NotificationPieceSelectionnee) notif;
             NotifSelectionnerPiece(selectionner);
 
+        }else if(notif instanceof NotificationPiecePlacee){
+            NotificationPiecePlacee placee = (NotificationPiecePlacee)notif;
+            NotifPlacerPiece(placee);
         }
 
-        UpdateScreen(notif.etatSuivant);
+        UpdateScreen(notif.nouvelEtat);
         this.revalidate();
         this.repaint();
 
     }
 
     private void notifDonnerPiece(NotificationPieceDonnee donner) {
-        JPanel panelSource = getPanelJoueur(donner.source);
-        JPanel panelDestination = getPanelJoueur(donner.destination);
+        JPanel panelSource = getPanelJoueur(donner.joueurSource);
+        JPanel panelDestination = getPanelJoueur(donner.joueurAdversaire);
         JLabel lab = (JLabel) panelSource.getComponent(0);
         panelSource.removeAll();
         panelDestination.add(cloneLabel(lab));
@@ -274,7 +280,7 @@ public final class QuartoGUI extends JPanel implements Observer {
         JLabel lab = pieces.get(selectionnee.NomPiece);
 
         JPanel panel;
-        panel = getPanelJoueur(selectionnee.source);
+        panel=getPanelJoueur(selectionnee.source);
 
         if (panel.getComponentCount() == 1) {
             JLabel labPresent = (JLabel) panel.getComponent(0);
@@ -284,14 +290,6 @@ public final class QuartoGUI extends JPanel implements Observer {
         }
         lab.setVisible(false);
         panel.add(cloneLabel(lab));
-    }
-
-    private static class ButtonAnnoncerQuartoClickListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-//            controleur.annoncerQuarto();
-        }
     }
 
     public class ButtonDonnerClickListener implements ActionListener {
@@ -307,7 +305,14 @@ public final class QuartoGUI extends JPanel implements Observer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            throw new UnsupportedOperationException("Fonction non implémenté");
+            JPanel caseClickee = (JPanel) e.getSource();
+            Coord coord = mapCoordByCase.get(caseClickee);
+            JPanel panelJoueur = getPanelJoueur(controleur.getJoueurCourant());
+            if(panelJoueur.getComponentCount()==1){
+                JLabel piece = (JLabel) panelJoueur.getComponent(0);
+                controleur.poserPiece(coord);
+            }
+            
         }
 
         @Override

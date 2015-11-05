@@ -6,6 +6,7 @@
 package controlleur;
 
 import controlleur.observables.NotificationPieceDonnee;
+import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
 import java.util.List;
 import java.util.Observable;
@@ -33,8 +34,17 @@ public class ControllerLocal extends Observable implements IControlleur {
     }
 
     @Override
-    public boolean poserPiece(String nomPiece, Coord coord) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean poserPiece(Coord coord) {
+          boolean rep = partie.poserPiece(coord);
+           if (rep) {
+            EtatGUI etatprecedent = etatActuel;
+            EntreeGUI entree = EntreeGUI.Plateau;
+            etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
+            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord,getJoueurCourant(),etatActuel, etatprecedent);
+            setChanged();
+            notifyObservers(notif);
+        }
+        return rep;
     }
 
     @Override
@@ -61,7 +71,7 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
           
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, EntreeGUI.ListePiece);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(getJoueurCourant(), nomPiece, etatActuel ,etatprecedent);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(getJoueurCourant(), nomPiece, etatprecedent,etatActuel);
             setChanged();
             notifyObservers(notif);
         }

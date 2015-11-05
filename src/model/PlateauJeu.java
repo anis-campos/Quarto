@@ -25,9 +25,17 @@ public class PlateauJeu {
         this.plateauJeuPieceCoord = new HashMap<>();
     }
 
-    public void addPiece(Coord coord, Piece piece) {
-        plateauJeuCoordPiece.put(coord, piece);
-        plateauJeuPieceCoord.put(piece, coord);
+    public boolean addPiece(Coord coord, Piece piece) {
+        if (!isPieceHere(coord)) {
+            plateauJeuCoordPiece.put(coord, piece);
+            plateauJeuPieceCoord.put(piece, coord);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPieceHere(Coord coord) {
+        return plateauJeuCoordPiece.get(coord) != null;
     }
 
     public Boolean removePieceFromCoord(Coord coord) {
@@ -40,7 +48,7 @@ public class PlateauJeu {
             return false;
         }
     }
-    
+
     //attention à l'id (clone de piece ok ! new piece NOK)
     public Boolean removePieceFromPiece(Piece piece) {
         Coord coord = plateauJeuPieceCoord.get(piece);
