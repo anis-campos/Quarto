@@ -35,12 +35,12 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public boolean poserPiece(Coord coord) {
-          boolean rep = partie.poserPiece(coord);
-           if (rep) {
+        boolean rep = partie.poserPiece(coord);
+        if (rep) {
             EtatGUI etatprecedent = etatActuel;
             EntreeGUI entree = EntreeGUI.Plateau;
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord,getJoueurCourant(),etatActuel, etatprecedent);
+            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent);
             setChanged();
             notifyObservers(notif);
         }
@@ -55,7 +55,7 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(),  etatActuel,etatprecedent);
+            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent);
             partie.changerJoueurCourant();
             setChanged();
             notifyObservers(notif);
@@ -69,9 +69,9 @@ public class ControllerLocal extends Observable implements IControlleur {
         boolean rep = partie.selectionPiece(nomPiece);
         if (rep) {
             EtatGUI etatprecedent = etatActuel;
-          
+
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, EntreeGUI.ListePiece);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece,getJoueurCourant(),etatActuel,etatprecedent);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece, getJoueurCourant(), etatActuel, etatprecedent);
             setChanged();
             notifyObservers(notif);
         }
@@ -102,7 +102,7 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public List<String> getListPiecePlacee() {
-      return partie.getListPieceNamePlacees();
+        return partie.getListPieceNamePlacees();
     }
 
 }
