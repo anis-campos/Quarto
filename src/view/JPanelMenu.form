@@ -26,12 +26,13 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="104" max="32767" attributes="0"/>
+              <EmptySpace pref="109" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jButtonContinuer" min="-2" pref="183" max="-2" attributes="0"/>
                   <Component id="jButtonCommencer" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
                   <Component id="jButtonParametrer" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,7 +43,9 @@
               <Component id="jButtonParametrer" min="-2" pref="88" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButtonCommencer" min="-2" pref="88" max="-2" attributes="0"/>
-              <EmptySpace pref="94" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jButtonContinuer" min="-2" pref="88" max="-2" attributes="0"/>
+              <EmptySpace pref="72" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,6 +54,7 @@
     <Component class="javax.swing.JButton" name="jButtonParametrer">
       <Properties>
         <Property name="text" type="java.lang.String" value="Param&#xe9;trer Partie"/>
+        <Property name="name" type="java.lang.String" value="jButtonParametrer" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonParametrerActionPerformed"/>
@@ -59,9 +63,20 @@
     <Component class="javax.swing.JButton" name="jButtonCommencer">
       <Properties>
         <Property name="text" type="java.lang.String" value="Commencer nouvelle partie"/>
+        <Property name="name" type="java.lang.String" value="jButtonCommencer" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCommencerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonContinuer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Continuer Partie"/>
+        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="jButtonContinuer" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonContinuerActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

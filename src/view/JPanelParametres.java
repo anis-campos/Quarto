@@ -84,6 +84,11 @@ public class JPanelParametres extends javax.swing.JPanel {
 
         Creux.setSelected(true);
         Creux.setText("Creux");
+        Creux.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreuxActionPerformed(evt);
+            }
+        });
 
         Couleur.setSelected(true);
         Couleur.setText("Couleur");
@@ -95,6 +100,11 @@ public class JPanelParametres extends javax.swing.JPanel {
 
         Forme.setSelected(true);
         Forme.setText("Forme");
+        Forme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -240,11 +250,15 @@ public class JPanelParametres extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TailleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TailleActionPerformed
-        // TODO add your handling code here:
+        if (!this.Couleur.isSelected() && !this.Creux.isSelected() && !this.Forme.isSelected()) {
+            this.Taille.setSelected(true);
+        }
     }//GEN-LAST:event_TailleActionPerformed
 
     private void CouleurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CouleurActionPerformed
-        // TODO add your handling code here:
+        if (!this.Taille.isSelected() && !this.Creux.isSelected() && !this.Forme.isSelected()) {
+            this.Couleur.setSelected(true);
+        }
     }//GEN-LAST:event_CouleurActionPerformed
 
     private void QuartoCarreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuartoCarreActionPerformed
@@ -261,7 +275,7 @@ public class JPanelParametres extends javax.swing.JPanel {
 //        Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
 //        Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
 
-        Piece.instanciationNb=0;
+        Piece.instanciationNb = 0;
         Partie partie = new Partie(getParametres(), getJoueur1(), getJoueur2());
         ControllerLocal controllerLocal = new ControllerLocal(partie);
         JPanel panel = new JPanelQuarto(controllerLocal);
@@ -270,14 +284,26 @@ public class JPanelParametres extends javax.swing.JPanel {
 
         CardLayout cl = (CardLayout) this.getParent().getLayout();
 
-        //on remove le component jeu
+        
         Component[] components = this.getParent().getComponents();
         for (Component c : components) {
+            //on remove le component jeu
             if (c.getName().equals("jeu")) {
                 cl.removeLayoutComponent(c);
                 this.getParent().remove(c);
             }
+            //On vient activer le bouton Continuer Partie
+            if (c.getName().equals("menu")) {
+                JPanel menuPanel = (JPanel) c;
+                Component[] menuComps = menuPanel.getComponents();
+                for (Component button : menuComps) {
+                    if (button.getName().equals("jButtonContinuer")) {
+                        button.setEnabled(true);
+                    }
+                }
+            }
         }
+        
         this.getParent().add("jeu", panel);
 
         cl.show(this.getParent(), "jeu");
@@ -287,16 +313,28 @@ public class JPanelParametres extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_joueur2ActionPerformed
 
+    private void FormeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormeActionPerformed
+        if (!this.Couleur.isSelected() && !this.Creux.isSelected() && !this.Taille.isSelected()) {
+            this.Forme.setSelected(true);
+        }
+    }//GEN-LAST:event_FormeActionPerformed
+
+    private void CreuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreuxActionPerformed
+        if (!this.Couleur.isSelected() && !this.Taille.isSelected() && !this.Forme.isSelected()) {
+            this.Creux.setSelected(true);
+        }
+    }//GEN-LAST:event_CreuxActionPerformed
+
     private Parametre getParametres() {
-        return new Parametre(this.Forme.isSelected(), this.Taille.isSelected(), this.Couleur.isSelected(),this.Creux.isSelected(), this.QuartoCarre.isSelected());
+        return new Parametre(this.Forme.isSelected(), this.Taille.isSelected(), this.Couleur.isSelected(), this.Creux.isSelected(), this.QuartoCarre.isSelected());
     }
 
     private Joueur getJoueur1() {
-        return new Joueur(this.joueur1.getText(),false,NumeroJoueur.J1);
+        return new Joueur(this.joueur1.getText(), false, NumeroJoueur.J1);
     }
 
     private Joueur getJoueur2() {
-        return new Joueur(this.joueur2.getText(),false,NumeroJoueur.J2);
+        return new Joueur(this.joueur2.getText(), false, NumeroJoueur.J2);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

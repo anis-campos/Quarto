@@ -146,6 +146,9 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Creux"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreuxActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="Couleur">
           <Properties>
@@ -161,6 +164,9 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Forme"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FormeActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

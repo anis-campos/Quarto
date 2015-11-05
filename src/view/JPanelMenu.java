@@ -40,12 +40,14 @@ public class JPanelMenu extends javax.swing.JPanel {
 
         jButtonParametrer = new javax.swing.JButton();
         jButtonCommencer = new javax.swing.JButton();
+        jButtonContinuer = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setName("menu"); // NOI18N
         setOpaque(false);
 
         jButtonParametrer.setText("Paramétrer Partie");
+        jButtonParametrer.setName("jButtonParametrer"); // NOI18N
         jButtonParametrer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonParametrerActionPerformed(evt);
@@ -53,9 +55,19 @@ public class JPanelMenu extends javax.swing.JPanel {
         });
 
         jButtonCommencer.setText("Commencer nouvelle partie");
+        jButtonCommencer.setName("jButtonCommencer"); // NOI18N
         jButtonCommencer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCommencerActionPerformed(evt);
+            }
+        });
+
+        jButtonContinuer.setText("Continuer Partie");
+        jButtonContinuer.setEnabled(false);
+        jButtonContinuer.setName("jButtonContinuer"); // NOI18N
+        jButtonContinuer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonContinuerActionPerformed(evt);
             }
         });
 
@@ -64,11 +76,12 @@ public class JPanelMenu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+                .addContainerGap(109, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(105, 105, 105))
+                .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,7 +90,9 @@ public class JPanelMenu extends javax.swing.JPanel {
                 .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -110,11 +125,18 @@ public class JPanelMenu extends javax.swing.JPanel {
         this.getParent().add("jeu", panel);
         
         cl.show(this.getParent(), "jeu");
+        this.jButtonContinuer.setEnabled(true);
     }//GEN-LAST:event_jButtonCommencerActionPerformed
+
+    private void jButtonContinuerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContinuerActionPerformed
+        CardLayout cl = (CardLayout) this.getParent().getLayout();
+        cl.show(this.getParent(), "jeu");
+    }//GEN-LAST:event_jButtonContinuerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCommencer;
+    private javax.swing.JButton jButtonContinuer;
     private javax.swing.JButton jButtonParametrer;
     // End of variables declaration//GEN-END:variables
 }
