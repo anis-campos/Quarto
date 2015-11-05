@@ -45,7 +45,7 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatprecedent, etatActuel);
+            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(),  etatActuel,etatprecedent);
             partie.changerJoueurCourant();
             setChanged();
             notifyObservers(notif);
@@ -61,7 +61,7 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
           
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, EntreeGUI.ListePiece);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(getJoueurCourant(), nomPiece, etatprecedent,etatActuel);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(getJoueurCourant(), nomPiece, etatActuel ,etatprecedent);
             setChanged();
             notifyObservers(notif);
         }
