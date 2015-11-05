@@ -8,6 +8,8 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -60,11 +62,15 @@ public class PlateauJeu {
         return plateauJeuPieceCoord.get(piece);
     }
 
-    public ArrayList<Piece> getClonedPieceList() throws Exception {
+    public ArrayList<Piece> getClonedPieceList() {
         //nécéssite de cloner les pièces pour préserver l'encapsulation (intégrité du modèle)
         ArrayList laListe = new ArrayList();
         for (Map.Entry<Piece, Coord> pc : plateauJeuPieceCoord.entrySet()) {
-            laListe.add(pc.getKey().clone());
+            try {
+                laListe.add(pc.getKey().clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(PlateauJeu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return laListe;
     }

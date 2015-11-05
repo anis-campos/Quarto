@@ -90,4 +90,9 @@ public class ControllerLocal extends Observable implements IControlleur {
         return partie.getNumeroJoueurCourant();
     }
 
+    @Override
+    public List<String> getListPiecePlacee() {
+      return partie.getListPieceNamePlacees();
+    }
+
 }

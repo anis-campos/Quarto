@@ -7,23 +7,28 @@ package controlleur;
 
 import java.util.List;
 import model.Coord;
-import model.NumeroJoueur;  
+import model.NumeroJoueur;
 
 /**
  *
  * @author Anis
  */
 public interface IControlleur {
-     
+
     boolean poserPiece(String nomPiece, Coord coord);
+
     boolean donnerPieceAdversaire();
+
     boolean selectionPiece(String nomPiece);
+
     boolean annoncerQuarto();
+
     boolean annoncerMatchNul();
-    
+
     NumeroJoueur getJoueurCourant();
-    
+
     List<String> getListPieceDisponible();
-    
-    
+
+    List<String> getListPiecePlacee();
+
 }

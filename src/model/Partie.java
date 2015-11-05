@@ -131,4 +131,12 @@ public class Partie {
         return plateauJeu;
     }
 
+    public List<String> getListPieceNamePlacees() {
+      List<String> rep = new ArrayList<>();
+        for (Piece piece : plateauJeu.getClonedPieceList()) {
+            rep.add(piece.getName());
+        }
+        return rep;
+    }
+
 }
