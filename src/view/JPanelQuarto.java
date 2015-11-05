@@ -5,8 +5,9 @@
  */
 package view;
 
+import model.EtatGUI;
 import controlleur.observables.Notification;
-import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationPieceDonnee;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -20,14 +21,20 @@ import javax.swing.*;
 import model.Coord;
 import model.NumeroJoueur;
 import controlleur.IControlleur;
+import controlleur.observables.NotificationPiecePlacee;
+import controlleur.observables.NotificationPieceSelectionnee;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author Anis
  */
 public final class JPanelQuarto extends JPanel implements Observer {
 
-    private HashMap<JPanel, Coord> cases;
+    private HashMap<JPanel, Coord> mapCoordByCase;
+    private HashMap<Coord, JPanel> mapCaseByCoord;
 
+    //Map string=name  label
     private HashMap<String, JLabel> pieces;
 
     private JPanel jEntete;
@@ -46,10 +53,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private JButton bValiderJ1;
     private JButton bValiderJ2;
 
-    private final NumeroJoueur courant;
     private final IControlleur controleur;
 
     private EtatGUI etat;
+    private JButton bAnnoncerQuartoJ1;
+    private JButton bAnnoncerQuartoJ2;
 
     public JPanelQuarto(IControlleur controleur) {
 
@@ -59,16 +67,12 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         initComponents();
 
-        courant = controleur.getJoueurCourant();
-
-        if (courant == NumeroJoueur.J1) {
+        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             etat = EtatGUI.J1DoitChoisir;
-            UpdateScreen(etat);
         } else {
             etat = EtatGUI.J2DoitChoisir;
-            UpdateScreen(etat);
         }
-
+        UpdateScreen(etat);
     }
 
     void initComponents() {
@@ -82,15 +86,31 @@ public final class JPanelQuarto extends JPanel implements Observer {
         grid.setHgap(5);
         grid.setVgap(5);
         jPlateau.setLayout(grid);
+        jPlateau.addPropertyChangeListener(new PropertyChangeListener() {
 
-        cases = new HashMap<>();
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("enabled")) {
+                    boolean etat = (boolean) evt.getNewValue();
+                    for (Component component : jPlateau.getComponents()) {
+
+                        component.setEnabled(etat);
+                    }
+                }
+            }
+        });
+        mapCoordByCase = new HashMap<>();
+        mapCaseByCoord = new HashMap<>();
 
         for (int i = 0; i < 16; i++) {
             JPanel jPanel = new JPanel();
             jPanel.setBackground(Color.WHITE);
             jPanel.setPreferredSize(new Dimension(100, 100));
+            jPanel.setName("case no " + i);
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-            cases.put(jPanel, new Coord(i/4, i%4));
+            Coord coord = new Coord(i / 4, i % 4);
+            mapCoordByCase.put(jPanel, coord);
+            mapCaseByCoord.put(coord, jPanel);
             jPanel.addMouseListener(new CaseClickListener());
             jPlateau.add(jPanel);
         }
@@ -104,18 +124,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
         JLabel lab = new JLabel("QUARTO");
         lab.setFont(new Font("Arial", Font.BOLD, 48));
         jEntete.add(lab);
-        bAfficherMenu = new JButton("Afficher Menu");
-        bAfficherMenu.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                JPanel quarto = (JPanel) jEntete.getParent();
-                CardLayout cl = (CardLayout) quarto.getParent().getLayout();
-                cl.show(quarto.getParent(), "menu");
-            }
-        });
-        jEntete.add(bAfficherMenu);
         /////////////////////////////////////////////////////////////////
 
         //CONSTRUCTION DES PIECES
@@ -161,14 +169,19 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         bDonnerJ1 = new JButton("Donner à J2");
         bDonnerJ1.addActionListener(new ButtonDonnerClickListener());
+        bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        bAnnoncerQuartoJ1 = new JButton("Annoncer Quarto");
+        bAnnoncerQuartoJ1.setAlignmentX(CENTER_ALIGNMENT);
+        bAnnoncerQuartoJ1.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
         JLabel j1 = new JLabel("JOUEUR 1");
+        j1.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ1.add(j1);
         jZoneJ1.add(jPieceJ1);
         jZoneJ1.add(bDonnerJ1);
-        j1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        bValiderJ1 = new JButton("Valider");
+
+        jZoneJ1.add(bAnnoncerQuartoJ1);
         /////////////////////////////////////////////////////////////////
 
         //CONSTRUCTION DE LA ZONE JOUEUR 2
@@ -184,16 +197,20 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPieceJ2.setMaximumSize(new Dimension(100, 100));
 
         JLabel j2 = new JLabel("JOUEUR 2");
+
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         bDonnerJ2.addActionListener(new ButtonDonnerClickListener());
-        bValiderJ2 = new JButton("Valider");
+
+        bAnnoncerQuartoJ2 = new JButton("Annoncer Quarto");
+        bAnnoncerQuartoJ2.setAlignmentX(CENTER_ALIGNMENT);
+        bAnnoncerQuartoJ2.addActionListener(new ButtonAnnoncerQuartoClickListener());
+
         j2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(j2);
         jZoneJ2.add(jPieceJ2);
         jZoneJ2.add(bDonnerJ2);
-
+        jZoneJ2.add(bAnnoncerQuartoJ2);
         /////////////////////////////////////////////////////////////////
         Box Centre = Box.createHorizontalBox();
         Centre.add(jZoneJ1);
@@ -245,20 +262,30 @@ public final class JPanelQuarto extends JPanel implements Observer {
         //TODO : Deplacer les pieces
         Notification notif = (Notification) arg;
 
-        if (notif instanceof NotificationPieceSelectionnee) {
-            NotificationPieceSelectionnee donner = (NotificationPieceSelectionnee) notif;
-            JPanel panelSource = getPanelJoueur(donner.source);
-            UpdateScreen(donner.etatSuivant);
-            JPanel panelDestination = getPanelJoueur(donner.destination);
-            JLabel lab = (JLabel) panelSource.getComponent(0);
-            panelSource.removeAll();
-            panelDestination.add(cloneLabel(lab));
+        if (notif instanceof NotificationPieceDonnee) {
+            NotificationPieceDonnee donner = (NotificationPieceDonnee) notif;
+            notifDonnerPiece(donner);
+        } else if (notif instanceof NotificationPieceSelectionnee) {
+            NotificationPieceSelectionnee selectionner = (NotificationPieceSelectionnee) notif;
+            NotifSelectionnerPiece(selectionner);
 
+        } else if (notif instanceof NotificationPiecePlacee) {
+            NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
+            NotifPlacerPiece(placee);
         }
 
+        UpdateScreen(notif.nouvelEtat);
         this.revalidate();
         this.repaint();
 
+    }
+
+    private void notifDonnerPiece(NotificationPieceDonnee donner) {
+        JPanel panelSource = getPanelJoueur(donner.joueurSource);
+        JPanel panelDestination = getPanelJoueur(donner.joueurAdversaire);
+        JLabel lab = (JLabel) panelSource.getComponent(0);
+        panelSource.removeAll();
+        panelDestination.add(cloneLabel(lab));
     }
 
     public JLabel cloneLabel(JLabel label) {
@@ -267,20 +294,39 @@ public final class JPanelQuarto extends JPanel implements Observer {
         return lab;
     }
 
+    private void NotifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
+
+        JLabel lab = pieces.get(selectionnee.NomPiece);
+
+        JPanel panel;
+        panel = getPanelJoueur(selectionnee.joueurSource);
+
+        if (panel.getComponentCount() == 1) {
+            JLabel labPresent = (JLabel) panel.getComponent(0);
+            JLabel piece = pieces.get(labPresent.getName());
+            piece.setVisible(true);
+            panel.removeAll();
+        }
+        lab.setVisible(false);
+        panel.add(cloneLabel(lab));
+    }
+
+    private void NotifPlacerPiece(NotificationPiecePlacee placee) {
+        JPanel panel = mapCaseByCoord.get(placee.casePlateau);
+        JPanel panelJoueur = getPanelJoueur(placee.joueurSource);
+        if (panelJoueur.getComponentCount() == 1) {
+            JLabel piece = (JLabel) panelJoueur.getComponent(0);
+            panel.add(cloneLabel(piece));
+
+        }
+
+    }
+
     public class ButtonDonnerClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            JButton button = (JButton) e.getSource();
-            String nomPiece;
-            if (button == bDonnerJ1) {
-                nomPiece = jPieceJ1.getComponent(0).getName();
-
-            } else {
-                nomPiece = jPieceJ2.getComponent(0).getName();
-            }
-            //controleur.donnerPieceAdversaire(nomPiece);
+            controleur.donnerPieceAdversaire();
         }
 
     }
@@ -289,8 +335,17 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println(cases.get(e.getSource()));
-            
+            if (((JPanel) e.getSource()).isEnabled()) {
+                JPanel caseClickee = (JPanel) e.getSource();
+                Coord coord = mapCoordByCase.get(caseClickee);
+                JPanel panelJoueur = getPanelJoueur(controleur.getJoueurCourant());
+                if (panelJoueur.getComponentCount() == 1) {
+                    JLabel piece = (JLabel) panelJoueur.getComponent(0);
+                    controleur.poserPiece(coord);
+                    panelJoueur.removeAll();
+                }
+
+            }
         }
 
         @Override
@@ -311,33 +366,22 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    //Choix de la pièce
+    private static class ButtonAnnoncerQuartoClickListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+//            controleur.annoncerQuarto();
+        }
+    }
+
+//Choix de la pièce
     public class PieceClickListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (etat == EtatGUI.J1DoitChoisir || etat == EtatGUI.J2DoitChoisir) {
-
+            if (jPieces.isEnabled()) {
                 JLabel lab = (JLabel) e.getSource();
-                JPanel panel;
-                if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-                    panel = jPieceJ1;
-                    etat = EtatGUI.J1DoitDonner;
-                    UpdateScreen(etat);
-                } else {
-                    panel = jPieceJ2;
-                    etat = EtatGUI.J2DoitDonner;
-                    UpdateScreen(etat);
-                }
-
-                if (panel.getComponentCount() == 1) {
-                    JLabel labPresent = (JLabel) panel.getComponent(0);
-                    JLabel piece = pieces.get(labPresent.getName());
-                    piece.setVisible(true);
-                    panel.removeAll();
-                }
-                lab.setVisible(false);
-                panel.add(cloneLabel(lab));
+                controleur.selectionPiece(lab.getName());
             }
         }
 
@@ -367,32 +411,70 @@ public final class JPanelQuarto extends JPanel implements Observer {
             case J1DoitChoisir:
                 bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(false);
+                jPlateau.setEnabled(false);
+                jPieces.setEnabled(true);
                 break;
             case J1DoitDonner:
                 bDonnerJ1.setVisible(true);
+                jPlateau.setEnabled(false);
+                jPieces.setEnabled(true);
                 break;
             case J1DoitPlacer:
+                bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(false);
+                jPlateau.setEnabled(true);
+                jPieces.setEnabled(false);
                 break;
             case J2DoitChoisir:
+                bDonnerJ1.setVisible(false);
+                bDonnerJ2.setVisible(false);
+                jPlateau.setEnabled(false);
+                jPieces.setEnabled(true);
                 break;
             case J2DoitDonner:
+                bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(true);
+                jPlateau.setEnabled(false);
+                jPieces.setEnabled(true);
                 break;
             case J2DoitPlacer:
+                bDonnerJ2.setVisible(false);
                 bDonnerJ1.setVisible(false);
+                jPlateau.setEnabled(true);
+                jPieces.setEnabled(false);
                 break;
             case J1AAnnonceQuarto:
+
                 break;
             case J2AAnnonceQuarto:
+
                 break;
+
             case J1AAnnonceMatchNull:
                 break;
             case J2AAnnonceMatchNull:
                 break;
             default:
                 break;
+        }
+        annoncerQuartoDisplay();
+    }
 
+    private void annoncerQuartoDisplay() {
+        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
+            if (controleur.getListPiecePlacee().size() <= 3) {
+                bAnnoncerQuartoJ1.setVisible(false);
+                bAnnoncerQuartoJ2.setVisible(false);
+            } else {
+                bAnnoncerQuartoJ1.setVisible(true);
+            }
+        } else {
+            if (controleur.getListPiecePlacee().size() <= 3) {
+                bAnnoncerQuartoJ2.setVisible(false);
+                bAnnoncerQuartoJ1.setVisible(false);
+            } else {
+                bAnnoncerQuartoJ1.setVisible(true);
+            }
         }
     }
 

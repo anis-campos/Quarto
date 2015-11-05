@@ -8,6 +8,8 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,9 +25,17 @@ public class PlateauJeu {
         this.plateauJeuPieceCoord = new HashMap<>();
     }
 
-    public void addPiece(Coord coord, Piece piece) {
-        plateauJeuCoordPiece.put(coord, piece);
-        plateauJeuPieceCoord.put(piece, coord);
+    public boolean addPiece(Coord coord, Piece piece) {
+        if (!isPieceHere(coord)) {
+            plateauJeuCoordPiece.put(coord, piece);
+            plateauJeuPieceCoord.put(piece, coord);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPieceHere(Coord coord) {
+        return plateauJeuCoordPiece.get(coord) != null;
     }
 
     public Boolean removePieceFromCoord(Coord coord) {
@@ -38,7 +48,7 @@ public class PlateauJeu {
             return false;
         }
     }
-    
+
     //attention à l'id (clone de piece ok ! new piece NOK)
     public Boolean removePieceFromPiece(Piece piece) {
         Coord coord = plateauJeuPieceCoord.get(piece);
@@ -60,11 +70,15 @@ public class PlateauJeu {
         return plateauJeuPieceCoord.get(piece);
     }
 
-    public ArrayList<Piece> getClonedPieceList() throws Exception {
+    public ArrayList<Piece> getClonedPieceList() {
         //nécéssite de cloner les pièces pour préserver l'encapsulation (intégrité du modèle)
         ArrayList laListe = new ArrayList();
         for (Map.Entry<Piece, Coord> pc : plateauJeuPieceCoord.entrySet()) {
-            laListe.add(pc.getKey().clone());
+            try {
+                laListe.add(pc.getKey().clone());
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(PlateauJeu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return laListe;
     }

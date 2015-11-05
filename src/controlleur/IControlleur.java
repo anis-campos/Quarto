@@ -5,9 +5,11 @@
  */
 package controlleur;
 
+import model.EtatGUI;
+import model.SortieGUI;
 import java.util.List;
 import model.Coord;
-import model.NumeroJoueur;  
+import model.NumeroJoueur;
 
 /**
  *
@@ -15,15 +17,23 @@ import model.NumeroJoueur;
  */
 public interface IControlleur {
      
-    boolean poserPiece(String nomPiece, Coord coord);
+    boolean poserPiece( Coord coord);
     boolean donnerPieceAdversaire();
+
     boolean selectionPiece(String nomPiece);
+
     boolean annoncerQuarto();
+
     boolean annoncerMatchNul();
-    
+
     NumeroJoueur getJoueurCourant();
     
+    EtatGUI getEtatCourant();
+    
+    SortieGUI getSortieGui();
+
     List<String> getListPieceDisponible();
-    
-    
+
+    List<String> getListPiecePlacee();
+
 }

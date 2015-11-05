@@ -6,7 +6,7 @@
 package controlleur.observables;
 
 import model.NumeroJoueur;
-import view.EtatGUI;
+import model.EtatGUI;
 
 /**
  *
@@ -15,26 +15,11 @@ import view.EtatGUI;
 public class NotificationPieceSelectionnee extends Notification {
 
     public final String NomPiece;
-    public final NumeroJoueur source;
-    public final NumeroJoueur destination;
 
-    public NotificationPieceSelectionnee(NumeroJoueur source, String nomPiece, EtatGUI etatSuivant, EtatGUI etatActuel) {
-        super(etatSuivant, etatActuel);
-        this.NomPiece = nomPiece;
-        this.source = source;
-        switch (source) {
-                case J1:
-                    destination = NumeroJoueur.J2;
-                    break;
-                case J2:
-                    destination = NumeroJoueur.J1;             
-                    break;
-                default:
-                    destination = null;
-            }
+    public NotificationPieceSelectionnee(String NomPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+        super(joueurSource, nouvelEtat, etatPrecedent);
+        this.NomPiece = NomPiece;
     }
-
-
- 
-
+   
+    
 }
