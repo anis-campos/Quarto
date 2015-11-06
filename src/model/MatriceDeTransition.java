@@ -36,7 +36,9 @@ public class MatriceDeTransition {
 
         //Ajout des transitions.
         matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.DonnerJ1, EtatGUI.J2DoitPlacer);
+        matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.ListePiece, EtatGUI.J1DoitDonner);
         matrice.get(EtatGUI.J2DoitDonner).put(EntreeGUI.DonnerJ2, EtatGUI.J1DoitPlacer);
+        matrice.get(EtatGUI.J2DoitDonner).put(EntreeGUI.ListePiece, EtatGUI.J2DoitDonner);
         matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DoitDonner).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
 
