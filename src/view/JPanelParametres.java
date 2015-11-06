@@ -8,8 +8,12 @@ package view;
 import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Observer;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -305,6 +309,11 @@ public class JPanelParametres extends javax.swing.JPanel {
         this.getParent().add("jeu", panel);
 
         cl.show(this.getParent(), "jeu");
+        
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        frame.pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
     }//GEN-LAST:event_CommencerPartieActionPerformed
 
     private void joueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joueur2ActionPerformed
