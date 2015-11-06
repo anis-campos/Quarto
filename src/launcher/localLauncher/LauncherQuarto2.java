@@ -5,7 +5,6 @@
  */
 package launcher.localLauncher;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JFrame;
