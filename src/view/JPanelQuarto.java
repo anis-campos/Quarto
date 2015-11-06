@@ -62,6 +62,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private JButton bAnnoncerQuartoJ2;
 
     JTextArea jTextArea1;
+   
 
     public JPanelQuarto(IControlleur controleur) {
 
@@ -194,7 +195,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerQuartoJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ1.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
-        JLabel j1 = new JLabel("JOUEUR 1");
+        JLabel j1 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J1));
         j1.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ1.add(j1);
         jZoneJ1.add(jPieceJ1);
@@ -215,7 +216,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPieceJ2.setBackground(Color.white);
         jPieceJ2.setMaximumSize(new Dimension(100, 100));
 
-        JLabel j2 = new JLabel("JOUEUR 2");
+        JLabel j2 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J2));
 
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
