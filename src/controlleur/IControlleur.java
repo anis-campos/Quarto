@@ -54,16 +54,40 @@ public interface IControlleur {
      */
     boolean annoncerMatchNul();
 
+    /**
+     * Confirmer le Match Null
+     * @return 
+     */
     boolean confirmerMatchNull();
 
+    /**
+     * Permet de recuperer le joueur courant
+     * @return Le numero de joueur
+     */
     NumeroJoueur getJoueurCourant();
 
+    /**
+     * Permet de recuperer l'etat courant
+     * @return L'etat de la GUI
+     */
     EtatGUI getEtatCourant();
 
+    /**
+     * Permet de recuperer l'etat de sortie de la GUI
+     * @return PartieEnCour ou PartieTerminee
+     */
     SortieGUI getSortieGui();
 
+    /**
+     * Obtenir la liste des pièces disponibles
+     * @return Une liste de nom de pièces
+     */
     List<String> getListPieceDisponible();
 
+    /**
+     * Obtenir la liste des pièces placées dans le plateau
+     * @return Une liste de nom de pièces
+     */
     List<String> getListPiecePlacee();
 
 }
