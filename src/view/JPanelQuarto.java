@@ -186,8 +186,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPieceJ1.setPreferredSize(new Dimension(100, 100));
         jPieceJ1.setBackground(Color.white);
         jPieceJ1.setMaximumSize(new Dimension(100, 100));
+        
 
-        bDonnerJ1 = new JButton("Donner à J2");
+        bDonnerJ1 = new JButton("Donner à "+" "+controleur.getNomJoueur(NumeroJoueur.J2));
         bDonnerJ1.addActionListener(new ButtonDonnerClickListener());
         bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -218,7 +219,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         JLabel j2 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J2));
 
-        bDonnerJ2 = new JButton("Donner à J1");
+        bDonnerJ2 = new JButton("Donner à "+" "+controleur.getNomJoueur(NumeroJoueur.J1));
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
         bDonnerJ2.addActionListener(new ButtonDonnerClickListener());
 
