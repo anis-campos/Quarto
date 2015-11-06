@@ -26,6 +26,7 @@ import controlleur.observables.NotificationPieceSelectionnee;
 import controlleur.observables.NotificationQuartoDetecte;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import model.Joueur;
 
 /**
  * @author Anis
@@ -51,13 +52,17 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private JButton bDonnerJ2;
     private JButton bAfficherMenu;
 
-
     private final IControlleur controleur;
 
     private JPanel layeredPane;
 
     private JButton bAnnoncerQuartoJ1;
     private JButton bAnnoncerQuartoJ2;
+
+    private JLabel jLabelJ2;
+    private JLabel jLabelJ1;
+    private int initFontSize = 12;
+    private int fontSizeToUse = 14;// TODO = A changer et faire mieux pour gérer les FONTs
 
     JTextArea jTextArea1;
 
@@ -196,9 +201,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerQuartoJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ1.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
-        JLabel j1 = new JLabel("JOUEUR 1");
-        j1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jZoneJ1.add(j1);
+        jLabelJ1 = new JLabel("JOUEUR 1");
+        jLabelJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jZoneJ1.add(jLabelJ1);
         jZoneJ1.add(jPieceJ1);
         jZoneJ1.add(bDonnerJ1);
 
@@ -217,7 +222,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPieceJ2.setBackground(Color.white);
         jPieceJ2.setMaximumSize(dimensionCase);
 
-        JLabel j2 = new JLabel("JOUEUR 2");
+        jLabelJ2 = new JLabel("JOUEUR 2");
 
         bDonnerJ2 = new JButton("Donner à J1");
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -227,8 +232,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerQuartoJ2.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ2.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
-        j2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jZoneJ2.add(j2);
+        jLabelJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jZoneJ2.add(jLabelJ2);
         jZoneJ2.add(jPieceJ2);
         jZoneJ2.add(bDonnerJ2);
         jZoneJ2.add(bAnnoncerQuartoJ2);
@@ -296,11 +301,13 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         return panel;
     }
-/**
- * Met à jour la vue du jeu suite à une action du joueur
- * @param o
- * @param arg Notification de l'action réalisée
- */
+
+    /**
+     * Met à jour la vue du jeu suite à une action du joueur
+     *
+     * @param o
+     * @param arg Notification de l'action réalisée
+     */
     @Override
     public void update(Observable o, Object arg) {
         //TODO : Deplacer les pieces
@@ -336,10 +343,13 @@ public final class JPanelQuarto extends JPanel implements Observer {
         this.repaint();
 
     }
-/**
- * Met à jour l'interface à l'aide de la matrice d'état
- * @param etat Etat du jeu (définit les éléments à afficher activer/désactiver)
- */
+
+    /**
+     * Met à jour l'interface à l'aide de la matrice d'état
+     *
+     * @param etat Etat du jeu (définit les éléments à afficher
+     * activer/désactiver)
+     */
     public void updateScreen(EtatGUI etat) {
         switch (etat) {
             case J1DoitChoisir:
@@ -391,13 +401,17 @@ public final class JPanelQuarto extends JPanel implements Observer {
             default:
                 break;
         }
+        majLabelJoueur();
         jTextArea1.setText("Le jeux est passé en état :" + etat);
         annoncerQuartoDisplay();
     }
-/**
- * Réalise l'action de donner une pièce à l'adversaire en terme d'interface
- * @param donner Notification à l'interface après avoir mis à jour le model (envoyée par le controller pour mettre à jour la vue)
- */
+
+    /**
+     * Réalise l'action de donner une pièce à l'adversaire en terme d'interface
+     *
+     * @param donner Notification à l'interface après avoir mis à jour le model
+     * (envoyée par le controller pour mettre à jour la vue)
+     */
     private void notifDonnerPiece(NotificationPieceDonnee donner) {
         JPanel panelSource = getPanelJoueur(donner.joueurSource);
         JPanel panelDestination = getPanelJoueur(donner.joueurAdversaire);
@@ -405,11 +419,13 @@ public final class JPanelQuarto extends JPanel implements Observer {
         panelSource.removeAll();
         panelDestination.add(cloneLabel(lab));
     }
-/**
- * Clone un label passer en paramètre 
- * @param label Label à cloner 
- * @return 
- */
+
+    /**
+     * Clone un label passer en paramètre
+     *
+     * @param label Label à cloner
+     * @return
+     */
     public JLabel cloneLabel(JLabel label) {
         JLabel lab = new JLabel(label.getIcon());
         lab.setName(label.getName());
@@ -418,7 +434,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     /**
      * Réalise l'action de selectionner une pièce à partir de la liste de pièce
-     * @param selectionnee Notification de Selection de la pièce (envoyée par le controlleur pour mettre à jour la vue)
+     *
+     * @param selectionnee Notification de Selection de la pièce (envoyée par le
+     * controlleur pour mettre à jour la vue)
      */
     private void notifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
 
@@ -436,10 +454,12 @@ public final class JPanelQuarto extends JPanel implements Observer {
         lab.setVisible(false);
         panel.add(cloneLabel(lab));
     }
-/**
- * Place la pièce du joueur sur le plateau de jeu
- * @param placee Notification du placement de la pièce sur le plateau
- */
+
+    /**
+     * Place la pièce du joueur sur le plateau de jeu
+     *
+     * @param placee Notification du placement de la pièce sur le plateau
+     */
     private void notifPlacerPiece(NotificationPiecePlacee placee) {
         JPanel panel = mapCaseByCoord.get(placee.casePlateau);
         JPanel panelJoueur = getPanelJoueur(placee.joueurSource);
@@ -450,9 +470,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
         }
 
     }
-/**
- * Gère l'affichage des boutons AnnoncerQuarto selon le joueur qui joue
- */
+
+    /**
+     * Gère l'affichage des boutons AnnoncerQuarto selon le joueur qui joue
+     */
     private void annoncerQuartoDisplay() {
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             if (controleur.getListPiecePlacee().size() <= 3) {
@@ -554,6 +575,17 @@ public final class JPanelQuarto extends JPanel implements Observer {
         @Override
         public void mouseExited(MouseEvent e) {
 
+        }
+    }
+
+    private void majLabelJoueur() {
+
+        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
+            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, fontSizeToUse));
+            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.PLAIN, initFontSize));
+        } else {
+            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, initFontSize));
+            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.PLAIN, fontSizeToUse));
         }
     }
 
