@@ -8,8 +8,12 @@ package view;
 import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Observer;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -127,6 +131,13 @@ public class JPanelMenu extends javax.swing.JPanel {
         
         cl.show(this.getParent(), "jeu");
         this.jButtonContinuer.setEnabled(true);
+        
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        frame.pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+
+        
     }//GEN-LAST:event_jButtonCommencerActionPerformed
 
     private void jButtonContinuerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContinuerActionPerformed

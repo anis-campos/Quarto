@@ -183,7 +183,7 @@ public class Partie {
         return rep;
     }
     public boolean  thereIsQuarto( Coord coordDernierePiece){
-       return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece);
+       return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, new ArrayList<>());
     }
 
 }

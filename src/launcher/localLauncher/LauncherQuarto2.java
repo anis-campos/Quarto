@@ -7,8 +7,11 @@ package launcher.localLauncher;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import view.JPanelMenu;
 import view.JPanelParametres;
@@ -26,8 +29,7 @@ public class LauncherQuarto2 {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation(600, 10);
         frame.setResizable(true);
-        frame.pack();
-        frame.setVisible(true);
+      
 
         JPanel generalPanel = new JPanel();
         CardLayout cardLayout = new CardLayout();
@@ -56,8 +58,12 @@ public class LauncherQuarto2 {
         cardLayout.show(generalPanel, "menu");
 
         frame.setContentPane(generalPanel);
-        frame.repaint();
-        frame.revalidate();
-
+       
+        
+      
+        frame.pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+        frame.setVisible(true);
     }
 }

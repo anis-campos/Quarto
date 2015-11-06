@@ -241,10 +241,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
         JPanel panel = new JPanel(new GridBagLayout());
         jTextArea1 = new JTextArea("Instructions sur le jeu");
         jTextArea1.setRows(2);
-        jTextArea1.setFont(new Font("arial",Font.BOLD,20));
+        jTextArea1.setFont(new Font("arial", Font.BOLD, 20));
         panel.add(jTextArea1);
         Pied.add(panel);
-        Pied.add(Box.createRigidArea(new Dimension(1,10)));
+        Pied.add(Box.createRigidArea(new Dimension(1, 10)));
         Pied.add(jPanelListePieces);
 
         layeredPane = new JPanel();
@@ -301,8 +301,16 @@ public final class JPanelQuarto extends JPanel implements Observer {
         }
         if (notif instanceof NotificationQuartoDetecte) {
             JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-            JDialog QuartoPopup = new JDialog(frame,"Fin de Partie",true);
+
+            frame.pack();
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+            JDialog QuartoPopup = new JDialog(frame, "Fin de Partie", true);
+            QuartoPopup.add(new JLabel("BRAVO VOUS AVEZ GANGEZ !!!"));
+            QuartoPopup.pack();
+            QuartoPopup.setLocation(dim.width / 2 - QuartoPopup.getSize().width / 2, dim.height / 2 - QuartoPopup.getSize().height / 2);
             QuartoPopup.setVisible(true);
+
         }
 
         UpdateScreen(notif.nouvelEtat);
@@ -488,7 +496,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             default:
                 break;
         }
-        jTextArea1.setText("Le jeux est passé en état :"+etat);
+        jTextArea1.setText("Le jeux est passé en état :" + etat);
         annoncerQuartoDisplay();
     }
 
