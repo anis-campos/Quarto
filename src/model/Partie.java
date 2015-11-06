@@ -186,4 +186,11 @@ public class Partie {
        return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, new ArrayList<ArrayList<Coord>>());
     }
 
+    public String getNameJoueurFromNumero(NumeroJoueur nj) {
+        if (joueur1.getNumeroJoueur() == nj) {
+            return joueur1.getName();
+        } else {
+            return joueur2.getName();
+        }
+    }
 }

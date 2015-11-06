@@ -35,5 +35,7 @@ public interface IControlleur {
     List<String> getListPieceDisponible();
 
     List<String> getListPiecePlacee();
+    
+    String getNomJoueur(NumeroJoueur nj);
 
 }

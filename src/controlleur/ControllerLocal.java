@@ -123,4 +123,13 @@ public class ControllerLocal extends Observable implements IControlleur {
         return MatriceDeSortie.getInstance().getEtatSortie(etatActuel);
     }
 
+    @Override
+    public String getNomJoueur(NumeroJoueur nj) {
+        
+        return partie.getNameJoueurFromNumero(nj);
+        
+    }
+    
+    
+   
 }
