@@ -8,6 +8,7 @@ package view;
 import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.Observer;
 import javax.swing.JPanel;
 import model.Joueur;
@@ -276,7 +277,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         Piece.instanciationNb = 0;
         Partie partie = new Partie(getParametres(), getJoueur1(), getJoueur2());
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal);
+        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(90,90));
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//Important
 

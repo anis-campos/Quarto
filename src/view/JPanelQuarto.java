@@ -61,11 +61,18 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     JTextArea jTextArea1;
 
-    public JPanelQuarto(IControlleur controleur) {
+    private Dimension dimensionCase;
+
+    private final double pourcentagePiece;
+
+    public JPanelQuarto(IControlleur controleur, Dimension dimensionCase) {
 
         super();
+        this.pourcentagePiece = 0.95;
 
         this.controleur = controleur;
+
+        this.dimensionCase = dimensionCase;
 
         initComponents();
 
@@ -106,7 +113,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         for (int i = 0; i < 16; i++) {
             JPanel jPanel = new JPanel();
             jPanel.setBackground(Color.WHITE);
-            jPanel.setPreferredSize(new Dimension(100, 100));
+            jPanel.setPreferredSize(dimensionCase);
             jPanel.setName("case no " + i);
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black));
             Coord coord = new Coord(i / 4, i % 4);
@@ -155,7 +162,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         for (String piece : controleur.getListPieceDisponible()) {
 
-            JLabel jLabel = new JLabel(getImageFile(piece));
+            JLabel jLabel = new JLabel(getImageFile(piece,dimensionCase,pourcentagePiece));
             jLabel.setName(piece);
             //jLabel.setText(piece);
 
@@ -164,7 +171,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             jLabel.addMouseListener(new PieceClickListener());
             jLabel.setBackground(Color.WHITE);
             jLabel.setBorder(BorderFactory.createLineBorder(Color.black));
-            jLabel.setPreferredSize(new Dimension(100, 100));
+            jLabel.setPreferredSize(dimensionCase);
             jPanelListePieces.add(jLabel);
         }
 
@@ -177,9 +184,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jZoneJ1.setPreferredSize(new Dimension(210, 210));
 
         jPieceJ1 = new JPanel();
-        jPieceJ1.setPreferredSize(new Dimension(100, 100));
+        jPieceJ1.setPreferredSize(dimensionCase);
         jPieceJ1.setBackground(Color.white);
-        jPieceJ1.setMaximumSize(new Dimension(100, 100));
+        jPieceJ1.setMaximumSize(dimensionCase);
 
         bDonnerJ1 = new JButton("Donner à J2");
         bDonnerJ1.addActionListener(new ButtonDonnerClickListener());
@@ -206,9 +213,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jZoneJ2.setPreferredSize(new Dimension(210, 210));
 
         jPieceJ2 = new JPanel();
-        jPieceJ2.setPreferredSize(new Dimension(100, 100));
+        jPieceJ2.setPreferredSize(dimensionCase);
         jPieceJ2.setBackground(Color.white);
-        jPieceJ2.setMaximumSize(new Dimension(100, 100));
+        jPieceJ2.setMaximumSize(dimensionCase);
 
         JLabel j2 = new JLabel("JOUEUR 2");
 
@@ -259,12 +266,12 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * @param piece Le nom de la pièce
      * @return Un ImageIcon de la pièce
      */
-    public static ImageIcon getImageFile(String piece) {
+    public static ImageIcon getImageFile(String piece, Dimension dimensionCase,double pourcentageImage) {
 
         try {
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(JPanelQuarto.class.getResourceAsStream("/images/" + piece + ".png")));
             Image image = imageIcon.getImage();
-            Image scaledInstance = image.getScaledInstance(96, 96, java.awt.Image.SCALE_SMOOTH);
+            Image scaledInstance = image.getScaledInstance((int)(dimensionCase.height * pourcentageImage), (int)(dimensionCase.width*pourcentageImage), java.awt.Image.SCALE_SMOOTH);
 
             return new ImageIcon(scaledInstance);
         } catch (IOException ex) {
@@ -275,7 +282,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     /**
      * Recupère le JPanel du joueur ( contenant normalement une pièce )
-     * @param num Le NumeroJoueur du joueur 
+     *
+     * @param num Le NumeroJoueur du joueur
      * @return Le JPanel de ce joueur
      */
     private JPanel getPanelJoueur(NumeroJoueur num) {
@@ -376,9 +384,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
                 break;
 
-            case J1AAnnonceMatchNull:
+            case J2PeutConfirmerMatchNull:
                 break;
-            case J2AAnnonceMatchNull:
+            case J1PeutConfirmerMatchNull:
                 break;
             default:
                 break;

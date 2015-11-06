@@ -52,18 +52,22 @@ public class MatriceDeTransition {
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J1DernierTour);
-        matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J2DernierTour);
+        matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J1DernierTour);
 
         matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.Quarto, EtatGUI.J1ATrouveUnQuarto);
         matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.PasQuarto, EtatGUI.J2ATrouveUnQuarto);
         matrice.get(EtatGUI.J2AAnnonceQuarto).put(EntreeGUI.Quarto, EtatGUI.J2ATrouveUnQuarto);
         matrice.get(EtatGUI.J2AAnnonceQuarto).put(EntreeGUI.PasQuarto, EtatGUI.J1ATrouveUnQuarto);
 
-        matrice.get(EtatGUI.J2DernierTour).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
-        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceMatchNUll, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
-        matrice.get(EtatGUI.J2DernierTour).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
+        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1PeutConfirmerMatchNull);
+        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceMatchNUll, EtatGUI.J2PeutConfirmerMatchNull);
+        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
         matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
-
+        
+        matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceMatchNUll, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
+        matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
+        matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
+        matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
     }
 
     //Obtention du singleton
