@@ -71,16 +71,13 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         initComponents();
 
-        EtatGUI etat;
-        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-            etat = EtatGUI.J1DoitChoisir;
-        } else {
-            etat = EtatGUI.J2DoitChoisir;
-        }
-        UpdateScreen(etat);
+        updateScreen(controleur.getEtatCourant());
 
     }
 
+    /**
+     * Fonction d'initialisation des composants de la GUI
+     */
     void initComponents() {
 
         //CONSTRUCTION DU PLATEAU
@@ -258,6 +255,12 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
+    /**
+     * Permet de recuprer l'image d'une pièce grace à son nom
+     *
+     * @param piece Le nom de la pièce
+     * @return Un ImageIcon de la pièce
+     */
     public static ImageIcon getImageFile(String piece) {
 
         try {
@@ -272,6 +275,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
         return null;
     }
 
+    /**
+     * Recupère le JPanel du joueur ( contenant normalement une pièce )
+     * @param num Le NumeroJoueur du joueur 
+     * @return Le JPanel de ce joueur
+     */
     private JPanel getPanelJoueur(NumeroJoueur num) {
         JPanel panel;
         if (num == NumeroJoueur.J1) {
@@ -293,11 +301,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
             notifDonnerPiece(donner);
         } else if (notif instanceof NotificationPieceSelectionnee) {
             NotificationPieceSelectionnee selectionner = (NotificationPieceSelectionnee) notif;
-            NotifSelectionnerPiece(selectionner);
+            notifSelectionnerPiece(selectionner);
 
         } else if (notif instanceof NotificationPiecePlacee) {
             NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
-            NotifPlacerPiece(placee);
+            notifPlacerPiece(placee);
         }
         if (notif instanceof NotificationQuartoDetecte) {
             JFrame frame = (JFrame) SwingUtilities.getRoot(this);
@@ -313,139 +321,13 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         }
 
-        UpdateScreen(notif.nouvelEtat);
+        updateScreen(notif.nouvelEtat);
         this.revalidate();
         this.repaint();
 
     }
 
-    private void notifDonnerPiece(NotificationPieceDonnee donner) {
-        JPanel panelSource = getPanelJoueur(donner.joueurSource);
-        JPanel panelDestination = getPanelJoueur(donner.joueurAdversaire);
-        JLabel lab = (JLabel) panelSource.getComponent(0);
-        panelSource.removeAll();
-        panelDestination.add(cloneLabel(lab));
-    }
-
-    public JLabel cloneLabel(JLabel label) {
-        JLabel lab = new JLabel(label.getIcon());
-        lab.setName(label.getName());
-        return lab;
-    }
-
-    private void NotifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
-
-        JLabel lab = pieces.get(selectionnee.NomPiece);
-
-        JPanel panel;
-        panel = getPanelJoueur(selectionnee.joueurSource);
-
-        if (panel.getComponentCount() == 1) {
-            JLabel labPresent = (JLabel) panel.getComponent(0);
-            JLabel piece = pieces.get(labPresent.getName());
-            piece.setVisible(true);
-            panel.removeAll();
-        }
-        lab.setVisible(false);
-        panel.add(cloneLabel(lab));
-    }
-
-    private void NotifPlacerPiece(NotificationPiecePlacee placee) {
-        JPanel panel = mapCaseByCoord.get(placee.casePlateau);
-        JPanel panelJoueur = getPanelJoueur(placee.joueurSource);
-        if (panelJoueur.getComponentCount() == 1) {
-            JLabel piece = (JLabel) panelJoueur.getComponent(0);
-            panel.add(cloneLabel(piece));
-
-        }
-
-    }
-
-    public class ButtonDonnerClickListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            controleur.donnerPieceAdversaire();
-        }
-
-    }
-
-    public class CaseClickListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (((JPanel) e.getSource()).isEnabled()) {
-                JPanel caseClickee = (JPanel) e.getSource();
-                Coord coord = mapCoordByCase.get(caseClickee);
-                JPanel panelJoueur = getPanelJoueur(controleur.getJoueurCourant());
-                if (panelJoueur.getComponentCount() == 1) {
-                    JLabel piece = (JLabel) panelJoueur.getComponent(0);
-                    controleur.poserPiece(coord);
-                    panelJoueur.removeAll();
-                }
-
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
-
-    }
-
-    private static class ButtonAnnoncerQuartoClickListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-//            controleur.annoncerQuarto();
-        }
-    }
-
-//Choix de la pièce
-    public class PieceClickListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (jPanelListePieces.isEnabled()) {
-                JLabel lab = (JLabel) e.getSource();
-                controleur.selectionPiece(lab.getName());
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    }
-
-    public void UpdateScreen(EtatGUI etat) {
+    public void updateScreen(EtatGUI etat) {
         switch (etat) {
             case J1DoitChoisir:
                 bDonnerJ1.setVisible(false);
@@ -500,6 +382,48 @@ public final class JPanelQuarto extends JPanel implements Observer {
         annoncerQuartoDisplay();
     }
 
+    private void notifDonnerPiece(NotificationPieceDonnee donner) {
+        JPanel panelSource = getPanelJoueur(donner.joueurSource);
+        JPanel panelDestination = getPanelJoueur(donner.joueurAdversaire);
+        JLabel lab = (JLabel) panelSource.getComponent(0);
+        panelSource.removeAll();
+        panelDestination.add(cloneLabel(lab));
+    }
+
+    public JLabel cloneLabel(JLabel label) {
+        JLabel lab = new JLabel(label.getIcon());
+        lab.setName(label.getName());
+        return lab;
+    }
+
+    private void notifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
+
+        JLabel lab = pieces.get(selectionnee.NomPiece);
+
+        JPanel panel;
+        panel = getPanelJoueur(selectionnee.joueurSource);
+
+        if (panel.getComponentCount() == 1) {
+            JLabel labPresent = (JLabel) panel.getComponent(0);
+            JLabel piece = pieces.get(labPresent.getName());
+            piece.setVisible(true);
+            panel.removeAll();
+        }
+        lab.setVisible(false);
+        panel.add(cloneLabel(lab));
+    }
+
+    private void notifPlacerPiece(NotificationPiecePlacee placee) {
+        JPanel panel = mapCaseByCoord.get(placee.casePlateau);
+        JPanel panelJoueur = getPanelJoueur(placee.joueurSource);
+        if (panelJoueur.getComponentCount() == 1) {
+            JLabel piece = (JLabel) panelJoueur.getComponent(0);
+            panel.add(cloneLabel(piece));
+
+        }
+
+    }
+
     private void annoncerQuartoDisplay() {
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             if (controleur.getListPiecePlacee().size() <= 3) {
@@ -515,6 +439,92 @@ public final class JPanelQuarto extends JPanel implements Observer {
             } else {
                 bAnnoncerQuartoJ1.setVisible(true);
             }
+        }
+    }
+
+    //------------------------------------------------------------------------------------
+    //--------------------- Classes Listeners pour les actions ---------------------------
+    //------------------------------------------------------------------------------------
+    public class ButtonDonnerClickListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controleur.donnerPieceAdversaire();
+        }
+
+    }
+
+    public class CaseClickListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (((JPanel) e.getSource()).isEnabled()) {
+                JPanel caseClickee = (JPanel) e.getSource();
+                Coord coord = mapCoordByCase.get(caseClickee);
+                JPanel panelJoueur = getPanelJoueur(controleur.getJoueurCourant());
+                if (panelJoueur.getComponentCount() == 1) {
+                    JLabel piece = (JLabel) panelJoueur.getComponent(0);
+                    controleur.poserPiece(coord);
+                    panelJoueur.removeAll();
+                }
+
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+
+    }
+
+    private static class ButtonAnnoncerQuartoClickListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+//            controleur.annoncerQuarto();
+        }
+    }
+
+    public class PieceClickListener implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (jPanelListePieces.isEnabled()) {
+                JLabel lab = (JLabel) e.getSource();
+                controleur.selectionPiece(lab.getName());
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 
