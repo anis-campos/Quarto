@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static model.QuartoCalculator.thereIsQuarto;
@@ -41,22 +42,12 @@ public class testQuartoCalculator {
         try {
             partie.getPlateauJeu().addPiece(new Coord(0, 0), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
             partie.getPlateauJeu().addPiece(new Coord(0, 1), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(0, 2), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(0, 3), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 0), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 1), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 2), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 3), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(2, 0), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(2, 1), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(2, 2), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(2, 3), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(3, 0), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(3, 1), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(3, 2), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(3, 3), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-
-            System.out.println(QuartoCalculator.thereIsQuarto(partie.getPlateauJeu(), p, new Coord(2, 1)).toString());
+            partie.getPlateauJeu().addPiece(new Coord(1, 0), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(1, 1), partie.findPieceAvailable("CARRE_GRAND_CLAIR_PLEIN"));
+            
+            ArrayList<ArrayList<Coord>> quartoCoordList = new ArrayList();
+            System.out.println(QuartoCalculator.thereIsQuarto(partie.getPlateauJeu(), p, new Coord(0, 0),quartoCoordList).toString());
+            System.out.println(quartoCoordList);
         } catch (Exception ex) {
             Logger.getLogger(testQuartoCalculator.class.getName()).log(Level.SEVERE, null, ex);
         }

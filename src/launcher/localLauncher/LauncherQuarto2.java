@@ -6,6 +6,7 @@
 package launcher.localLauncher;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -35,10 +36,13 @@ public class LauncherQuarto2 {
         JPanel menu = new JPanelMenu();
         JPanel parametres = new JPanelParametres();
 
+        
         generalPanel.setLayout(cardLayout);
         generalPanel.setVisible(true);
         generalPanel.setEnabled(true);
         generalPanel.setName("generalPanel");
+        generalPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        generalPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
         menu.setVisible(true);
         menu.setEnabled(true);
         menu.setName("menu");

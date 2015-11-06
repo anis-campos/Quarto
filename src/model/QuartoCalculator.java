@@ -32,7 +32,7 @@ public class QuartoCalculator {
     private static ArrayList<Piece> carreBG;//carré bas gauche
 
     //La coordonnée coordDernierePiece doit être une clé valide de la map plateau
-    public static Boolean thereIsQuarto(PlateauJeu plateau, Parametre p, Coord coordDernierePiece) {
+    public static Boolean thereIsQuarto(PlateauJeu plateau, Parametre p, Coord coordDernierePiece, ArrayList<ArrayList<Coord>> listeDeCoordRetour) {
         emptyData();
         remplirVertical(plateau, coordDernierePiece.y);
         remplirHorizontal(plateau, coordDernierePiece.x);
@@ -44,7 +44,7 @@ public class QuartoCalculator {
             remplirCarreBD(plateau, coordDernierePiece);
             remplirCarreBG(plateau, coordDernierePiece);
         }
-        return checkQuarto(p);
+        return checkQuarto(p, plateau, listeDeCoordRetour);
     }
 
     private static void emptyData() {
@@ -213,13 +213,46 @@ public class QuartoCalculator {
         }
     }
 
-    private static Boolean checkQuarto(Parametre p) {
-        Boolean thereIsQuarto = listContainsQuarto(vertical, p) || listContainsQuarto(horizontal, p) || listContainsQuarto(diagMont, p) || listContainsQuarto(diagDesc, p);
-        if (!p.quartoCarreActif()) {
-            return thereIsQuarto;
-        } else {
-            return thereIsQuarto || listContainsQuarto(carreHD, p) || listContainsQuarto(carreHG, p) || listContainsQuarto(carreBD, p) || listContainsQuarto(carreBG, p);
+    private static Boolean checkQuarto(Parametre p, PlateauJeu plateau, ArrayList<ArrayList<Coord>> listeDeCoordRetour) {
+        if (listContainsQuarto(vertical, p)) {
+            fillArrayOfQuartoCoords(vertical, plateau, listeDeCoordRetour);
         }
+        if (listContainsQuarto(horizontal, p)) {
+            fillArrayOfQuartoCoords(horizontal, plateau, listeDeCoordRetour);
+        }
+        if (listContainsQuarto(diagMont, p)) {
+            fillArrayOfQuartoCoords(diagMont, plateau, listeDeCoordRetour);
+        }
+        if (listContainsQuarto(diagDesc, p)) {
+            fillArrayOfQuartoCoords(diagDesc, plateau, listeDeCoordRetour);
+        }
+        //ajouter les Quartos par défaut
+        if (!p.quartoCarreActif()) {
+            return !listeDeCoordRetour.isEmpty();
+        } else {
+            if (listContainsQuarto(carreHD, p)) {
+                fillArrayOfQuartoCoords(carreHD, plateau, listeDeCoordRetour);
+            }
+            if (listContainsQuarto(carreHG, p)) {
+                fillArrayOfQuartoCoords(carreHG, plateau, listeDeCoordRetour);
+            }
+            if (listContainsQuarto(carreBD, p)) {
+                fillArrayOfQuartoCoords(carreBD, plateau, listeDeCoordRetour);
+            }
+            if (listContainsQuarto(carreBG, p)) {
+                fillArrayOfQuartoCoords(carreBG, plateau, listeDeCoordRetour);
+            }
+            //ajouter les Quartos carrés
+            return !listeDeCoordRetour.isEmpty();
+        }
+    }
+
+    private static void fillArrayOfQuartoCoords(ArrayList<Piece> listPieces, PlateauJeu plateau, ArrayList<ArrayList<Coord>> listeDeCoordRetour) {
+        ArrayList<Coord> coordList = new ArrayList();
+        for (Piece pieceCourante : listPieces) {
+            coordList.add(plateau.getCoordFromPiece(pieceCourante).clone());
+        }
+        listeDeCoordRetour.add(coordList);
     }
 
     private static Boolean listContainsQuarto(ArrayList<Piece> list, Parametre p) {

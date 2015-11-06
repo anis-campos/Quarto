@@ -144,12 +144,13 @@ public class Partie {
         return true;
     }
 
+    //retourne la première instance de pièce trouvée dans la liste de piece ayant le nomPiece
     public Piece findPieceAvailable(String nomPiece) {
 
         for (Piece piece : listPiece) {
-            if (piece.getName() == null ? nomPiece == null : piece.getName().equals(nomPiece)) {
-                return piece;
-            }
+                if(piece.getName().equals(nomPiece)){
+                    return piece;
+                }
         }
         return null;
     }
