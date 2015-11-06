@@ -42,7 +42,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     private JPanel jPlateau;
 
-    private JPanel jPieces;
+    private JPanel jPanelListePieces;
 
     private JPanel jPieceJ1;
     private JPanel jPieceJ2;
@@ -60,6 +60,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     private JButton bAnnoncerQuartoJ1;
     private JButton bAnnoncerQuartoJ2;
+
+    JTextArea jTextArea1;
 
     public JPanelQuarto(IControlleur controleur) {
 
@@ -146,15 +148,15 @@ public final class JPanelQuarto extends JPanel implements Observer {
         //CONSTRUCTION DES PIECES
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
-        jPieces = new JPanel();
+        jPanelListePieces = new JPanel();
 
         pieces = new HashMap<>();
 
         grid = new GridLayout(2, 8);
         grid.setHgap(5);
         grid.setVgap(5);
-        jPieces.setLayout(grid);
-        jPieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
+        jPanelListePieces.setLayout(grid);
+        jPanelListePieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
 
         for (String piece : controleur.getListPieceDisponible()) {
 
@@ -168,7 +170,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             jLabel.setBackground(Color.WHITE);
             jLabel.setBorder(BorderFactory.createLineBorder(Color.black));
             jLabel.setPreferredSize(new Dimension(100, 100));
-            jPieces.add(jLabel);
+            jPanelListePieces.add(jLabel);
         }
 
         /////////////////////////////////////////////////////////////////
@@ -234,12 +236,23 @@ public final class JPanelQuarto extends JPanel implements Observer {
         Centre.add(jPlateau);
         Centre.add(jZoneJ2);
 
+        Box Pied = Box.createVerticalBox();
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        jTextArea1 = new JTextArea("Instructions sur le jeu");
+        jTextArea1.setRows(2);
+        jTextArea1.setFont(new Font("arial",Font.BOLD,20));
+        panel.add(jTextArea1);
+        Pied.add(panel);
+        Pied.add(Box.createRigidArea(new Dimension(1,10)));
+        Pied.add(jPanelListePieces);
+
         layeredPane = new JPanel();
         layeredPane.setLayout(new BorderLayout(20, 20));
 
         layeredPane.add(jEntete, BorderLayout.NORTH);
         layeredPane.add(Centre, BorderLayout.CENTER);
-        layeredPane.add(jPieces, BorderLayout.SOUTH);
+        layeredPane.add(Pied, BorderLayout.SOUTH);
 
         this.add(layeredPane);
 
@@ -397,7 +410,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (jPieces.isEnabled()) {
+            if (jPanelListePieces.isEnabled()) {
                 JLabel lab = (JLabel) e.getSource();
                 controleur.selectionPiece(lab.getName());
             }
@@ -430,36 +443,36 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(false);
                 jPlateau.setEnabled(false);
-                jPieces.setEnabled(true);
+                jPanelListePieces.setEnabled(true);
                 break;
             case J1DoitDonner:
                 bDonnerJ1.setVisible(true);
                 jPlateau.setEnabled(false);
-                jPieces.setEnabled(true);
+                jPanelListePieces.setEnabled(true);
                 break;
             case J1DoitPlacer:
                 bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(false);
                 jPlateau.setEnabled(true);
-                jPieces.setEnabled(false);
+                jPanelListePieces.setEnabled(false);
                 break;
             case J2DoitChoisir:
                 bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(false);
                 jPlateau.setEnabled(false);
-                jPieces.setEnabled(true);
+                jPanelListePieces.setEnabled(true);
                 break;
             case J2DoitDonner:
                 bDonnerJ1.setVisible(false);
                 bDonnerJ2.setVisible(true);
                 jPlateau.setEnabled(false);
-                jPieces.setEnabled(true);
+                jPanelListePieces.setEnabled(true);
                 break;
             case J2DoitPlacer:
                 bDonnerJ2.setVisible(false);
                 bDonnerJ1.setVisible(false);
                 jPlateau.setEnabled(true);
-                jPieces.setEnabled(false);
+                jPanelListePieces.setEnabled(false);
                 break;
             case J1AAnnonceQuarto:
 
@@ -475,6 +488,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             default:
                 break;
         }
+        jTextArea1.setText("Le jeux est passé en état :"+etat);
         annoncerQuartoDisplay();
     }
 
