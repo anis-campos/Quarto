@@ -8,6 +8,8 @@ package view;
 import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

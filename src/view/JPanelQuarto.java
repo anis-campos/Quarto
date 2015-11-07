@@ -65,8 +65,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private int fontSizeToUse = 14;// TODO = A changer et faire mieux pour gérer les FONTs
 
     JTextArea jTextArea1;
+    private final double pourcentagePiece;
+    private final Dimension dimensionCase;
 
-    public JPanelQuarto(IControlleur controleur) {
+    public JPanelQuarto(IControlleur controleur,Dimension dimensionCase) {
 
         super();
         this.pourcentagePiece = 0.95;
@@ -189,7 +191,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPieceJ1.setBackground(Color.white);
         jPieceJ1.setMaximumSize(new Dimension(100, 100));
 
-        bDonnerJ1 = new JButton("Donner à J2");
+        bDonnerJ1 = new JButton("Donner à "+controleur.getNomJoueur(NumeroJoueur.J2));
         bDonnerJ1.addActionListener(new ButtonDonnerClickListener());
         bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -197,9 +199,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerQuartoJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ1.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
-        JLabel j1 = new JLabel("JOUEUR 1");
-        j1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jZoneJ1.add(j1);
+        jLabelJ1 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J1));
+        jLabelJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jZoneJ1.add(jLabelJ1);
         jZoneJ1.add(jPieceJ1);
         jZoneJ1.add(bDonnerJ1);
 
@@ -218,7 +220,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPieceJ2.setBackground(Color.white);
         jPieceJ2.setMaximumSize(dimensionCase);
 
-        JLabel j2 = new JLabel("JOUEUR 2");
+        jLabelJ2 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J2));
 
         bDonnerJ2 = new JButton("Donner à "+" "+controleur.getNomJoueur(NumeroJoueur.J1));
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
