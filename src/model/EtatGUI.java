@@ -17,7 +17,7 @@ public enum EtatGUI {
     J2DoitChoisir,
     J1DoitPlacer,
     J2DoitPlacer,
-    
+   
     J1DernierTour,
     J2DernierTour,
     
@@ -27,8 +27,8 @@ public enum EtatGUI {
     J1ATrouveUnQuarto,
     J2ATrouveUnQuarto,
     
-    J1AAnnonceMatchNull,
-    J2AAnnonceMatchNull,
+    J2PeutConfirmerMatchNull,
+    J1PeutConfirmerMatchNull,
 
 
     J1EtJ2OntAnnoncerMatchNull,

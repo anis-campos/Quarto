@@ -11,7 +11,5 @@ package model;
  */
 public enum SortieGUI {
     PartieEnCours,
-    J1AGagne,
-    J2AGagne,
-    MatchNull
+    PartieTerminee,
 }

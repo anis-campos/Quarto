@@ -113,7 +113,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         Piece.instanciationNb=0;
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal);
+        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(90,90));
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//important
         

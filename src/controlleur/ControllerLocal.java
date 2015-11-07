@@ -123,13 +123,18 @@ public class ControllerLocal extends Observable implements IControlleur {
         return MatriceDeSortie.getInstance().getEtatSortie(etatActuel);
     }
 
+}
     @Override
     public String getNomJoueur(NumeroJoueur nj) {
         
         return partie.getNameJoueurFromNumero(nj);
         
     }
-    
+
+    @Override
+    public boolean confirmerMatchNull() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
    
 }
