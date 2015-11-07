@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import controlleur.observables.Notification;
 import controlleur.observables.NotificationQuartoDetecte;
 import model.EntreeGUI;
 import model.EtatGUI;
@@ -16,6 +17,8 @@ import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
 import java.util.List;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Coord;
 import model.NumeroJoueur;
 import model.Partie;
@@ -38,21 +41,40 @@ public class ControllerLocal extends Observable implements IControlleur {
     public boolean poserPiece(Coord coord) {
         boolean rep = partie.poserPiece(coord);
         if (rep) {
-            boolean quarto = partie.thereIsQuarto(coord);
+
             EtatGUI etatprecedent = etatActuel;
             EntreeGUI entree = EntreeGUI.Plateau;
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent);
-            setChanged();
-            notifyObservers(notif);
+            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
 
+            envoyerNotification(notif);
+            boolean quarto = partie.thereIsQuarto(coord);
             if (quarto) {
-                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(getJoueurCourant(), etatActuel, etatprecedent);
-                setChanged();
-                notifyObservers(notifQuarto);
+                 etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto :  EtatGUI.J2ATrouveUnQuarto;
+                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
+                envoyerNotification(notifQuarto);
+
             }
         }
         return rep;
+    }
+
+    /**
+     * Permet d'envoyer une notification.
+     *
+     * @param notif
+     */
+    private void envoyerNotification(Notification notif) {
+        setChanged();
+        notifyObservers(notif);
+
+        // Faire une pause permet au controlleur d'envoyer plusieur notification
+        // Cela donne le temps à la GUI de traiter la notification précédente.
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ControllerLocal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -63,10 +85,9 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent);
+            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
             partie.changerJoueurCourant();
-            setChanged();
-            notifyObservers(notif);
+            envoyerNotification(notif);
         }
         return rep;
     }
@@ -79,9 +100,8 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatprecedent = etatActuel;
 
             etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, EntreeGUI.ListePiece);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece, getJoueurCourant(), etatActuel, etatprecedent);
-            setChanged();
-            notifyObservers(notif);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece, getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
+            envoyerNotification(notif);
         }
 
         return rep;
@@ -130,7 +150,7 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public String getNomJoueur(NumeroJoueur nj) {
-          return partie.getNameJoueurFromNumero(nj);
+        return partie.getNameJoueurFromNumero(nj);
     }
 
 }

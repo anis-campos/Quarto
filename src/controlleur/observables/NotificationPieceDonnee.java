@@ -7,6 +7,7 @@ package controlleur.observables;
 
 import model.NumeroJoueur;
 import model.EtatGUI;
+import model.SortieGUI;
 
 /**
  *
@@ -14,9 +15,10 @@ import model.EtatGUI;
  */
 public class NotificationPieceDonnee extends Notification {
 
-    public NotificationPieceDonnee(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
-        super(joueurSource, nouvelEtat, etatPrecedent);
+    public NotificationPieceDonnee(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
     }
 
+   
    
 }

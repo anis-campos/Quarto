@@ -7,6 +7,7 @@ package controlleur.observables;
 
 import model.EtatGUI;
 import model.NumeroJoueur;
+import model.SortieGUI;
 
 /**
  *
@@ -14,8 +15,10 @@ import model.NumeroJoueur;
  */
 public class NotificationQuartoDetecte  extends Notification {
 
-    public NotificationQuartoDetecte(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
-        super(joueurSource, nouvelEtat, etatPrecedent);
+    public NotificationQuartoDetecte(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
     }
+
+
     
 }

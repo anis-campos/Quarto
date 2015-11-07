@@ -7,6 +7,7 @@ package controlleur.observables;
 
 import model.NumeroJoueur;
 import model.EtatGUI;
+import model.SortieGUI;
 
 /**
  *
@@ -16,10 +17,11 @@ public class NotificationPieceSelectionnee extends Notification {
 
     public final String NomPiece;
 
-    public NotificationPieceSelectionnee(String NomPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
-        super(joueurSource, nouvelEtat, etatPrecedent);
+    public NotificationPieceSelectionnee(String NomPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
         this.NomPiece = NomPiece;
     }
+
    
     
 }

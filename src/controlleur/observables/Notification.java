@@ -7,6 +7,7 @@ package controlleur.observables;
 
 import model.NumeroJoueur;
 import model.EtatGUI;
+import model.SortieGUI;
 
 /**
  *
@@ -23,13 +24,16 @@ public abstract class Notification {
 
     public final NumeroJoueur joueurSource;
     public final NumeroJoueur joueurAdversaire;
+    public  final SortieGUI sortie;
     
-    public Notification(NumeroJoueur joueurSource,EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+    public Notification(NumeroJoueur joueurSource,EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
   
         this.nouvelEtat = nouvelEtat;
         this.etatPrecedent = etatPrecedent;
         
         this.joueurSource = joueurSource;
+        
+        this.sortie = sortie;
         switch (joueurSource) {
                 case J1:
                     joueurAdversaire = NumeroJoueur.J2;
@@ -40,6 +44,7 @@ public abstract class Notification {
                 default:
                     joueurAdversaire = null;
             }
+        
     }
 
   

@@ -8,6 +8,7 @@ package controlleur.observables;
 import model.Coord;
 import model.NumeroJoueur;
 import model.EtatGUI;
+import model.SortieGUI;
 
 /**
  *
@@ -15,13 +16,14 @@ import model.EtatGUI;
  */
 public class NotificationPiecePlacee extends Notification{
     
-    public Coord casePlateau;
+    public final Coord casePlateau;
 
-    public NotificationPiecePlacee(Coord casePlateau, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
-        super(joueurSource, nouvelEtat, etatPrecedent);
+    public NotificationPiecePlacee(Coord casePlateau, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
         this.casePlateau = casePlateau;
     }
 
+  
     
     
 }
