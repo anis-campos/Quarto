@@ -13,9 +13,9 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import static launcher.localLauncher.LauncherQuarto2.frame;
 import view.JPanelMenu;
 import view.JPanelParametres;
 import view.JPanelQuarto;
@@ -28,7 +28,7 @@ import view.fenetrePrincipale;
 public class LauncherQuartoTest {
      public static void main(String[] args) {
 
-        frame = new fenetrePrincipale();
+        JFrame frame = new fenetrePrincipale();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation(600, 10);
         frame.setResizable(true);
