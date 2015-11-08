@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import  model.QuartoCalculator;
+import model.QuartoCalculator;
+
 /**
  *
  * @author timotheetroncy
@@ -23,6 +24,7 @@ public class Partie {
     private final Joueur joueur1;
     private final Joueur joueur2;
     private final Parametre parametres;
+    private EtatGUI etatActuel;
 
     private Joueur joueurCourant;
 
@@ -33,7 +35,9 @@ public class Partie {
         this.joueur2 = joueur2;
         joueurCourant = joueur1;
         this.parametres = parametres;
+        this.etatActuel = EtatGUI.J1DoitChoisir;
         this.pieceFactory();
+        
     }
 
     //Création des 16 pièces pour initialiser une partie
@@ -71,7 +75,7 @@ public class Partie {
             } catch (Exception ex) {
                 Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 
@@ -136,11 +140,11 @@ public class Partie {
     }
 
     public boolean donnerPieceAdversaire() {
-        
+
         Piece pieceJoueurCourant = getPieceJoueurCourant();
         setPieceJoueurAdversaire(pieceJoueurCourant);
         setPieceJoueurCourant(null);
-       
+
         return true;
     }
 
@@ -148,9 +152,9 @@ public class Partie {
     public Piece findPieceAvailable(String nomPiece) {
 
         for (Piece piece : listPiece) {
-                if(piece.getName().equals(nomPiece)){
-                    return piece;
-                }
+            if (piece.getName().equals(nomPiece)) {
+                return piece;
+            }
         }
         return null;
     }
@@ -182,8 +186,9 @@ public class Partie {
         }
         return rep;
     }
-    public boolean  thereIsQuarto( Coord coordDernierePiece){
-       return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, new ArrayList<ArrayList<Coord>>());
+
+    public boolean thereIsQuarto(Coord coordDernierePiece) {
+        return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, new ArrayList<ArrayList<Coord>>());
     }
 
     public String getNameJoueurFromNumero(NumeroJoueur nj) {
@@ -192,5 +197,22 @@ public class Partie {
         } else {
             return joueur2.getName();
         }
+    }
+    
+    public EtatGUI getEtatGUI (){
+        return etatActuel;
+    }
+    
+    public EtatGUI passerEtatSuivant(EntreeGUI entree){
+        etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
+        return etatActuel;
+    }
+    
+    public SortieGUI getSortieGUI (){
+        return MatriceDeSortie.getInstance().getEtatSortie(etatActuel);
+    }
+    
+    public boolean isValidationAutoEnabled(){
+        return parametres.validationAutoActif();
     }
 }

@@ -106,7 +106,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals("enabled")) {
                 JLabelPiece source = (JLabelPiece) evt.getSource();
-                source.setIcon(imagePieces.get((Boolean) evt.getNewValue()));
+                source.setIcon(imagePieces.get(evt.getNewValue()));
             }
         }
     }

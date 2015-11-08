@@ -51,6 +51,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         Forme = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         QuartoCarre = new javax.swing.JCheckBox();
+        QuartoAutoValidation = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         joueur1 = new javax.swing.JTextField();
         joueur2 = new javax.swing.JTextField();
@@ -137,32 +138,39 @@ public class JPanelParametres extends javax.swing.JPanel {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Activation Quarto par assemblage carré groupé"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Paramètrage du Quarto"));
         jPanel5.setOpaque(false);
 
         QuartoCarre.setSelected(true);
-        QuartoCarre.setText("Carré groupé");
+        QuartoCarre.setText("Activation Quarto par assemblage carré groupé");
         QuartoCarre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 QuartoCarreActionPerformed(evt);
             }
         });
 
+        QuartoAutoValidation.setSelected(true);
+        QuartoAutoValidation.setText("Activation Validation automatique du Quarto");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(QuartoCarre)
-                .addContainerGap(170, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(QuartoAutoValidation)
+                    .addComponent(QuartoCarre))
+                .addGap(72, 72, 72))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(QuartoCarre)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(QuartoAutoValidation)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Joueurs"));
@@ -234,13 +242,10 @@ public class JPanelParametres extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -333,7 +338,14 @@ public class JPanelParametres extends javax.swing.JPanel {
     }//GEN-LAST:event_CreuxActionPerformed
 
     private Parametre getParametres() {
-        return new Parametre(this.Forme.isSelected(), this.Taille.isSelected(), this.Couleur.isSelected(), this.Creux.isSelected(), this.QuartoCarre.isSelected());
+        return new Parametre(
+                this.Forme.isSelected(), 
+                this.Taille.isSelected(), 
+                this.Couleur.isSelected(), 
+                this.Creux.isSelected(), 
+                this.QuartoCarre.isSelected(),
+                this.QuartoAutoValidation.isSelected()
+        );
     }
 
     private Joueur getJoueur1() {
@@ -349,6 +361,7 @@ public class JPanelParametres extends javax.swing.JPanel {
     private javax.swing.JCheckBox Couleur;
     private javax.swing.JCheckBox Creux;
     private javax.swing.JCheckBox Forme;
+    private javax.swing.JCheckBox QuartoAutoValidation;
     private javax.swing.JCheckBox QuartoCarre;
     private javax.swing.JButton RetourMenu;
     private javax.swing.JCheckBox Taille;

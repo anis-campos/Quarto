@@ -30,11 +30,10 @@ import model.Partie;
 public class ControllerLocal extends Observable implements IControlleur {
 
     Partie partie;
-    EtatGUI etatActuel;
 
     public ControllerLocal(Partie partie) {
         this.partie = partie;
-        this.etatActuel = EtatGUI.J1DoitChoisir;
+
     }
 
     @Override
@@ -42,16 +41,16 @@ public class ControllerLocal extends Observable implements IControlleur {
         boolean rep = partie.poserPiece(coord);
         if (rep) {
 
-            EtatGUI etatprecedent = etatActuel;
+            EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = EntreeGUI.Plateau;
-            etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
+            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
+            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
 
             envoyerNotification(notif);
             boolean quarto = partie.thereIsQuarto(coord);
-            if (quarto) {
-                 etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto :  EtatGUI.J2ATrouveUnQuarto;
-                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
+            if (quarto && partie.isValidationAutoEnabled()) {
+                etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto : EtatGUI.J2ATrouveUnQuarto;
+                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
                 envoyerNotification(notifQuarto);
 
             }
@@ -82,10 +81,10 @@ public class ControllerLocal extends Observable implements IControlleur {
         boolean rep = partie.donnerPieceAdversaire();
 
         if (rep) {
-            EtatGUI etatprecedent = etatActuel;
+            EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
-            etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
+            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
+            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
             partie.changerJoueurCourant();
             envoyerNotification(notif);
         }
@@ -97,10 +96,10 @@ public class ControllerLocal extends Observable implements IControlleur {
 
         boolean rep = partie.selectionPiece(nomPiece);
         if (rep) {
-            EtatGUI etatprecedent = etatActuel;
-
-            etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, EntreeGUI.ListePiece);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece, getJoueurCourant(), etatActuel, etatprecedent,getSortieGui());
+            EtatGUI etatprecedent = partie.getEtatGUI();
+            EntreeGUI entree =EntreeGUI.ListePiece;
+            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
             envoyerNotification(notif);
         }
 
@@ -135,12 +134,12 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public EtatGUI getEtatCourant() {
-        return etatActuel;
+        return partie.getEtatGUI();
     }
 
     @Override
     public SortieGUI getSortieGui() {
-        return MatriceDeSortie.getInstance().getEtatSortie(etatActuel);
+        return partie.getSortieGUI();
     }
 
     @Override

@@ -107,7 +107,7 @@ public class JPanelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonParametrerActionPerformed
 
     private void jButtonCommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCommencerActionPerformed
-        Parametre p = new Parametre(true, true, true, true, true);
+        Parametre p = new Parametre(true, true, true, true, true,true);
         Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
         Piece.instanciationNb=0;

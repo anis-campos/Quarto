@@ -16,13 +16,15 @@ public class Parametre {
     private final Boolean couleur;
     private final Boolean forme;
     private final Boolean quartoCarre;
+    private final Boolean validationAutomatiqueQuarto;
 
-    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre) {
+    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre,Boolean validationAutomatiqueQuarto) {
         this.hauteur = hauteur;
         this.creux = creux;
         this.couleur = couleur;
         this.forme = forme;
         this.quartoCarre = quartoCarre;
+        this.validationAutomatiqueQuarto = validationAutomatiqueQuarto;
     }
 
     public Boolean hauteurActif() {
@@ -42,6 +44,9 @@ public class Parametre {
     }
     public Boolean quartoCarreActif(){
         return quartoCarre;
+    }
+    public Boolean validationAutoActif(){
+        return validationAutomatiqueQuarto;
     }
 
 }
