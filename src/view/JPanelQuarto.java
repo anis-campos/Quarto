@@ -25,7 +25,6 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.SortieGUI;
 
 /**
  * @author Anis

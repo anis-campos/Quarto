@@ -5,20 +5,11 @@
  */
 package view;
 
-import controlleur.ControllerLocal;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.Observer;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
-import model.Partie;
-import model.Piece;
 
 /**
  *
@@ -110,39 +101,13 @@ public class JPanelMenu extends javax.swing.JPanel {
         Parametre p = new Parametre(true, true, true, true, true,true);
         Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
-        Piece.instanciationNb=0;
-        Partie partie = new Partie(p, j1, j2);
-        ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(90,90));
-        controllerLocal.addObserver((Observer) panel);
-        panel.setName("jeu");//important
-        
-        CardLayout cl = (CardLayout) this.getParent().getLayout();
-
-        //on remove le component jeu
-        Component[] components = this.getParent().getComponents();
-        for (Component c : components) {
-            if (c.getName().equals("jeu")) {
-                cl.removeLayoutComponent(c);
-                this.getParent().remove(c);
-            }
-        }
-        this.getParent().add("jeu", panel);
-        
-        cl.show(this.getParent(), "jeu");
-        this.jButtonContinuer.setEnabled(true);
-        
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        frame.pack();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
-
-        
+        PartieBuilder.buildPartie(p, j1, j2, this);
     }//GEN-LAST:event_jButtonCommencerActionPerformed
 
     private void jButtonContinuerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContinuerActionPerformed
         CardLayout cl = (CardLayout) this.getParent().getLayout();
         cl.show(this.getParent(), "jeu");
+        PartieBuilder.repackPartieQuarto(this);
     }//GEN-LAST:event_jButtonContinuerActionPerformed
 
 

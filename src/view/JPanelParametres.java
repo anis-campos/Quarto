@@ -5,20 +5,11 @@
  */
 package view;
 
-import controlleur.ControllerLocal;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.Observer;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
-import model.Partie;
-import model.Piece;
 
 /**
  *
@@ -278,47 +269,7 @@ public class JPanelParametres extends javax.swing.JPanel {
     }//GEN-LAST:event_RetourMenuActionPerformed
 
     private void CommencerPartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommencerPartieActionPerformed
-//        Parametre p = new Parametre(true, true, true, true, true);
-//        Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
-//        Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
-
-        Piece.instanciationNb = 0;
-        Partie partie = new Partie(getParametres(), getJoueur1(), getJoueur2());
-        ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(90,90));
-        controllerLocal.addObserver((Observer) panel);
-        panel.setName("jeu");//Important
-
-        CardLayout cl = (CardLayout) this.getParent().getLayout();
-
-        
-        Component[] components = this.getParent().getComponents();
-        for (Component c : components) {
-            //on remove le component jeu
-            if (c.getName().equals("jeu")) {
-                cl.removeLayoutComponent(c);
-                this.getParent().remove(c);
-            }
-            //On vient activer le bouton Continuer Partie
-            if (c.getName().equals("menu")) {
-                JPanel menuPanel = (JPanel) c;
-                Component[] menuComps = menuPanel.getComponents();
-                for (Component button : menuComps) {
-                    if (button.getName().equals("jButtonContinuer")) {
-                        button.setEnabled(true);
-                    }
-                }
-            }
-        }
-        
-        this.getParent().add("jeu", panel);
-
-        cl.show(this.getParent(), "jeu");
-        
-        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-        frame.pack();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+        PartieBuilder.buildPartie(getParametres(), getJoueur1(), getJoueur2(), this);
     }//GEN-LAST:event_CommencerPartieActionPerformed
 
     private void joueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joueur2ActionPerformed
