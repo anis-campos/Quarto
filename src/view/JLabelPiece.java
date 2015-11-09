@@ -2,18 +2,11 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -30,7 +23,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
     public String getNomPiece() {
         return nomPiece;
     }
-    private final HashMap<Boolean, ImageIcon> imagePieces;
+    private final ImageIcon imagePiece;
     private final double pourcentagePiece = 0.96;
     private final Dimension tailleCase;
     private final Runnable ActionOnClick;
@@ -45,17 +38,16 @@ public class JLabelPiece extends JLabel implements Cloneable {
     public JLabelPiece(String nomPiece, Dimension tailleCase, Runnable ActionOnClick) {
         super();
         this.nomPiece = nomPiece;
-        this.imagePieces = new HashMap<>();
+        
         this.tailleCase = tailleCase;
-
-        this.initMap();
 
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setPreferredSize(tailleCase);
         this.setMaximumSize(tailleCase);
 
-        this.setIcon(imagePieces.get(true));
+        this.imagePiece = getScaledImage("/images/" + nomPiece + ".png");
+        this.setIcon(imagePiece);
 
         this.setHorizontalAlignment(CENTER);
 
@@ -65,16 +57,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
         this.ActionOnClick = ActionOnClick;
     }
 
-    /**
-     * Initialise la map des images de cette pièce
-     */
-    private void initMap() {
 
-        imagePieces.put(Boolean.TRUE, getScaledImage("/images/" + nomPiece + ".png"));
-
-        imagePieces.put(Boolean.FALSE, getScaledImage("/images/" + nomPiece + ".png"));
-
-    }
 
     /**
      * Recupère l'image de la pièce et la redimensionne a la bonne taille
@@ -106,7 +89,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals("enabled")) {
                 JLabelPiece source = (JLabelPiece) evt.getSource();
-                //source.setIcon(imagePieces.get(evt.getNewValue()));
+                source.setDisabledIcon(imagePiece);
                 if((boolean)evt.getNewValue()){
                     source.setBorder(BorderFactory.createLineBorder(Color.black));
                 }else
