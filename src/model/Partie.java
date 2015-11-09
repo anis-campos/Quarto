@@ -7,6 +7,7 @@ package model;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -130,7 +131,7 @@ public class Partie {
     }
 
     public boolean selectionPiece(int idPiece) {
-        Piece piece = findPieceAvailable(idPiece);
+        Piece piece = popPieceAvailableById(idPiece);
         if (piece != null) {
             Piece pieceJoueurCourant = getPieceJoueurCourant();
             if (pieceJoueurCourant != null) {
@@ -138,7 +139,7 @@ public class Partie {
                 setPieceJoueurCourant(null);
             }
             setPieceJoueurCourant(piece);
-            listPiece.remove(piece);
+           
             return true;
         }
 
@@ -154,11 +155,26 @@ public class Partie {
         return true;
     }
 
-    //retourne la première instance de pièce trouvée dans la liste de piece ayant le nomPiece
-    public Piece findPieceAvailable(int idPiece) {
 
-        for (Piece piece : listPiece) {
+    
+    public Piece popPieceAvailableById(int idPiece) {
+
+        for (Iterator<Piece> it = listPiece.iterator(); it.hasNext();) {
+            Piece piece = it.next();
             if (piece.getId() == idPiece) {
+                it.remove();
+                return piece;
+            }
+        }
+        return null;
+    }
+    
+    public Piece popPieceAvailableByName(String pieceName) {
+
+        for (Iterator<Piece> it = listPiece.iterator(); it.hasNext();) {
+            Piece piece = it.next();
+            if (piece.getName().equalsIgnoreCase(pieceName)) {
+                it.remove();
                 return piece;
             }
         }

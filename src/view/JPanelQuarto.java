@@ -38,7 +38,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     //Map string=name  label
     private HashMap<Integer, JLabelPiece> listeDePiecesDisponibles;
 
-    private JPanel jEntete;
+    private Box jEntete;
 
     private JPanel jPlateau;
 
@@ -156,8 +156,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
         //CONSTRUCTION DE L'ENTETE
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
-        jEntete = new JPanel();
-        jEntete.setLayout(new GridBagLayout());
+        jEntete = Box.createVerticalBox();
+      
 
         JLabel Titre = new JLabel("QUARTO");
         Titre.setFont(new Font("Arial", Font.BOLD, 48));
@@ -171,9 +171,14 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 cl.show(layeredPane.getParent().getParent(), "menu");
             }
         });
-
-        jEntete.add(Titre);
-        jEntete.add(bAfficherMenu);
+        JPanel jPanel = new JPanel();
+        jPanel.add(Titre);
+        JPanel jPanel2 = new JPanel();
+        jPanel2.add(bAfficherMenu);
+        Titre.setAlignmentX(SwingConstants.CENTER);
+        bAfficherMenu.setAlignmentX(SwingConstants.CENTER);
+        jEntete.add(jPanel);
+        jEntete.add(jPanel2);
         /////////////////////////////////////////////////////////////////
 
         //CONSTRUCTION DES PIECES

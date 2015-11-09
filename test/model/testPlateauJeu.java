@@ -38,9 +38,9 @@ public class testPlateauJeu {
     @Test
     public void testPlateauJeu() {
         try {
-            partie.getPlateauJeu().addPiece(new Coord(0, 0), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(0, 1), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(2, 1), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(0, 0), partie.popPieceAvailableByName("CARRE_GRAND_CLAIR_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(0, 1), partie.popPieceAvailableByName("CARRE_GRAND_FONCE_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(2, 1), partie.popPieceAvailableByName("CARRE_PETIT_FONCE_CREUX"));
             partie.getPlateauJeu().removePieceFromCoord(new Coord(2, 1));
             System.out.println(partie.getPlateauJeu());
         } catch (Exception ex) {
