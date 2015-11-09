@@ -488,7 +488,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      */
     private void annoncerQuartoDisplay() {
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-            if (controleur.getListPiecePlacee().size() <= 3) {
+            if (controleur.getListPiecePlacee().size() <= 3 || controleur.getIsValidationAutoEnabled()) {
                 bAnnoncerQuartoJ1.setVisible(false);
                 bAnnoncerQuartoJ2.setVisible(false);
             } else {

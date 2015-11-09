@@ -10,6 +10,7 @@ import model.SortieGUI;
 import java.util.List;
 import model.Coord;
 import model.NumeroJoueur;
+import model.Parametre;
 
 /**
  *
@@ -92,4 +93,5 @@ public interface IControlleur {
     
     String getNomJoueur(NumeroJoueur nj);
 
+    Boolean getIsValidationAutoEnabled();
 }
