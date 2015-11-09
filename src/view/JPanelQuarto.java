@@ -88,15 +88,28 @@ public final class JPanelQuarto extends JPanel implements Observer {
         ArrayList<Point> listLocationPiece = new ArrayList<>();
         ArrayList<Point> listLocationCase = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            listLocationPiece.add(jPanelListePieces.getComponent(i).getLocationOnScreen());
+            Component component = jPanelListePieces.getComponent(i);
+            Point piece = component.getLocationOnScreen();
+            piece.translate(component.getWidth() / 2, component.getHeight() / 2);
+            listLocationPiece.add(piece);
         }
         for (int i = 0; i < 10; i++) {
-            listLocationCase.add(jPlateau.getComponent(i).getLocationOnScreen());
+            Component component = jPlateau.getComponent(i);
+            Point casePlateau = component.getLocationOnScreen();
+            casePlateau.translate(component.getWidth() / 2, component.getHeight() / 2);
+            listLocationCase.add(casePlateau);
         }
 
         for (int i = 0; i < 4; i++) {
             robotClick(bot, listLocationPiece.get(i));
-            Point bouton = i % 2 == 0 ? bDonnerJ1.getLocationOnScreen() : bDonnerJ2.getLocationOnScreen();
+            Point bouton;
+            if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
+                bouton = bDonnerJ1.getLocationOnScreen();
+                bouton.translate(bDonnerJ1.getWidth() / 2, bDonnerJ1.getHeight() / 2);
+            } else {
+                bouton = bDonnerJ2.getLocationOnScreen();
+                bouton.translate(bDonnerJ2.getWidth() / 2, bDonnerJ2.getHeight() / 2);
+            }
             robotClick(bot, bouton);
             robotClick(bot, listLocationCase.get(i));
         }
@@ -157,7 +170,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
         jEntete = Box.createVerticalBox();
-      
 
         JLabel Titre = new JLabel("QUARTO");
         Titre.setFont(new Font("Arial", Font.BOLD, 48));
@@ -206,8 +218,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
             }
         });
 
-        for (Map.Entry<Integer,String> IdEtNomPiece : controleur.getListPieceDisponible()) {
-            JLabelPiece jLabelPiece = new JLabelPiece(IdEtNomPiece.getKey(),IdEtNomPiece.getValue(), dimensionCase, new PieceClickAction(IdEtNomPiece.getKey()));
+        for (Map.Entry<Integer, String> IdEtNomPiece : controleur.getListPieceDisponible()) {
+            JLabelPiece jLabelPiece = new JLabelPiece(IdEtNomPiece.getKey(), IdEtNomPiece.getValue(), dimensionCase, new PieceClickAction(IdEtNomPiece.getKey()));
             listeDePiecesDisponibles.put(IdEtNomPiece.getKey(), jLabelPiece);
             jPanelListePieces.add(jLabelPiece);
         }
