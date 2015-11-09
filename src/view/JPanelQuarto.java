@@ -472,7 +472,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         if (!panelJoueurCourant.isEmpty()) {
             JLabelPiece labPresent = panelJoueurCourant.getPiece();
-            JLabelPiece piece = listeDePiecesDisponibles.get(labPresent.getNomPiece());
+            JLabelPiece piece = listeDePiecesDisponibles.get(labPresent.getId());
             piece.setVisible(true);
             panelJoueurCourant.removeAll();
         }
