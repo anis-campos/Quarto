@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.QuartoCalculator;
@@ -33,7 +34,7 @@ public class Partie {
         this.listPiece = new ArrayList<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
-        joueurCourant = joueur1;
+        joueurCourant = designe1Joueur();
         this.parametres = parametres;
         this.etatActuel = EtatGUI.J1DoitChoisir;
         this.pieceFactory();
@@ -214,5 +215,21 @@ public class Partie {
     
     public boolean isValidationAutoEnabled(){
         return parametres.validationAutoActif();
+    }
+    
+    public Joueur designe1Joueur(){
+        Random r = new Random();
+        int valeurMax = 3;
+        int valeurMin = 1;
+        int valeur = valeurMin + r.nextInt(valeurMax - valeurMin);
+        if (valeur==1){
+            joueurCourant = joueur1;   
+            etatActuel = EtatGUI.J1DoitChoisir;
+        }else{
+            joueurCourant = joueur2;
+            etatActuel = EtatGUI.J2DoitChoisir;
+        }
+        
+        return joueurCourant;
     }
 }
