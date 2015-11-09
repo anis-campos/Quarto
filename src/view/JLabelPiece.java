@@ -20,6 +20,8 @@ public class JLabelPiece extends JLabel implements Cloneable {
 
     private final String nomPiece;
 
+    private final int id;
+    
     public String getNomPiece() {
         return nomPiece;
     }
@@ -31,12 +33,16 @@ public class JLabelPiece extends JLabel implements Cloneable {
     /**
      * Constructeur de la pièce
      *
+     * @param id l'Id de la pièce (unique)
      * @param nomPiece Le nom de la pièce ( correspond au modèle )
      * @param tailleCase Taille d'une case du plateau
      * @param ActionOnClick L'action a executer lors du click
      */
-    public JLabelPiece(String nomPiece, Dimension tailleCase, Runnable ActionOnClick) {
+    public JLabelPiece(int id,String nomPiece, Dimension tailleCase, Runnable ActionOnClick) {
         super();
+        
+        this.id = id;
+        
         this.nomPiece = nomPiece;
         
         this.tailleCase = tailleCase;
@@ -72,7 +78,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
     }
 
     public JLabelPiece getClone() {
-        JLabelPiece jLabelPiece = new JLabelPiece(nomPiece, tailleCase, null);
+        JLabelPiece jLabelPiece = new JLabelPiece(id,nomPiece, tailleCase, null);
         jLabelPiece.setBorder(null);
         return jLabelPiece;
     }
@@ -114,5 +120,11 @@ public class JLabelPiece extends JLabel implements Cloneable {
         }
 
     }
+
+    public int getId() {
+        return id;
+    }
+    
+    
 
 }

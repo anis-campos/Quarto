@@ -15,11 +15,11 @@ import model.SortieGUI;
  */
 public class NotificationPieceSelectionnee extends Notification {
 
-    public final String NomPiece;
+    public final int idPiece;
 
-    public NotificationPieceSelectionnee(String NomPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+    public NotificationPieceSelectionnee(int idPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
         super(joueurSource, nouvelEtat, etatPrecedent, sortie);
-        this.NomPiece = NomPiece;
+        this.idPiece = idPiece;
     }
 
    

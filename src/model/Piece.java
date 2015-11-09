@@ -19,6 +19,7 @@ public class Piece {
     protected Boolean plein;
     protected String nomFichierPiece;
     private final int id;
+
     public static int instanciationNb = 0;
 
     //Les valeurs par défaut sont à TRUE
@@ -122,6 +123,11 @@ public class Piece {
 
     public int compareTo(Boolean b) {
         return carre.compareTo(b);
+    }
+    
+    
+    public int getId() {
+        return id;
     }
 
 }

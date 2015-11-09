@@ -39,10 +39,10 @@ public class testQuartoCalculator {
     @Test
     public void testPlateauJeu() {
         try {
-            partie.getPlateauJeu().addPiece(new Coord(0, 0), partie.findPieceAvailable("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(0, 1), partie.findPieceAvailable("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 0), partie.findPieceAvailable("CARRE_PETIT_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 1), partie.findPieceAvailable("CARRE_GRAND_CLAIR_PLEIN"));
+            partie.getPlateauJeu().addPiece(new Coord(0, 0), partie.popPieceAvailableByName("CARRE_GRAND_CLAIR_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(0, 1), partie.popPieceAvailableByName("CARRE_GRAND_FONCE_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(1, 0), partie.popPieceAvailableByName("CARRE_PETIT_FONCE_CREUX"));
+            partie.getPlateauJeu().addPiece(new Coord(1, 1), partie.popPieceAvailableByName("CARRE_GRAND_CLAIR_PLEIN"));
             
             ArrayList<ArrayList<Coord>> quartoCoordList = new ArrayList();
             System.out.println(QuartoCalculator.thereIsQuarto(partie.getPlateauJeu(), p, new Coord(0, 0),quartoCoordList).toString());
