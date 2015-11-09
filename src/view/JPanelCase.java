@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -50,6 +52,8 @@ public class JPanelCase extends JPanel {
         this.piece = null;
         this.addMouseListener(new CaseMouseAdapter());
         this.CaseClickAction = CaseClickAction;
+        
+        this.addPropertyChangeListener(new CasePropertyChangeListener());
     }
     
     public boolean isEmpty(){
@@ -65,6 +69,23 @@ public class JPanelCase extends JPanel {
         public void mouseClicked(MouseEvent e) {
            if(isEnabled()&& CaseClickAction!=null)
                CaseClickAction.run();
+        }
+    }
+    
+     private class CasePropertyChangeListener implements PropertyChangeListener {
+
+        public CasePropertyChangeListener() {
+        }
+
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            if (evt.getPropertyName().equals("enabled")) {
+                JPanelCase source = (JPanelCase) evt.getSource();
+                if((boolean)evt.getNewValue()){
+                    source.setBorder(BorderFactory.createLineBorder(Color.black));
+                }else
+                    source.setBorder(null);
+            }
         }
     }
 
