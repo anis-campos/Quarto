@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>view</OriginalElement>
+  <nodes>
+    <node x="569.0" y="502.0">view.fenetrePrincipale</node>
+    <node x="95.81333333333339" y="360.0">view.JPanelQuarto</node>
+    <node x="0.0" y="502.0">view.JDialogQuarto</node>
+    <node x="315.0" y="502.0">view.MaquetteQuartoGUI</node>
+    <node x="461.0" y="622.0">view.JPanelMenu</node>
+    <node x="131.78000000000003" y="0.0">view.JLabelPiece</node>
+    <node x="0.0" y="169.0">view.JPanelCase</node>
+    <node x="0.0" y="622.0">view.GUIImageTool</node>
+    <node x="244.0" y="622.0">view.JPanelParametres</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="view.JPanelQuarto" target="view.JLabelPiece">
+      <point x="134.8" y="-48.5" />
+      <point x="399.1133333333334" y="335.0" />
+      <point x="368.5" y="335.0" />
+      <point x="368.5" y="144.0" />
+      <point x="464.28000000000003" y="144.0" />
+      <point x="133.0" y="59.5" />
+    </edge>
+    <edge source="view.JPanelQuarto" target="view.JPanelCase">
+      <point x="-67.4" y="-48.5" />
+      <point x="196.91333333333338" y="335.0" />
+      <point x="173.5" y="335.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="view.JPanelCase" target="view.JLabelPiece">
+      <point x="0.0" y="-70.5" />
+      <point x="173.5" y="144.0" />
+      <point x="198.28000000000003" y="144.0" />
+      <point x="-133.0" y="59.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1030722749113844" x="310.49014867782427" y="398.85626529108015" />
+  <SelectedNodes>
+    <node>view.fenetrePrincipale</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

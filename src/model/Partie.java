@@ -238,7 +238,7 @@ public class Partie {
         return parametres.validationAutoActif();
     }
 
-    public final Joueur designe1Joueur() {
+    private final Joueur designe1Joueur() {
         if (parametres.joueurRandom()) {
             Random r = new Random();
             int valeurMax = 3;

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>model</OriginalElement>
+  <nodes>
+    <node x="1695.625" y="444.5">model.Joueur</node>
+    <node x="0.0" y="467.0">model.QuartoCalculator</node>
+    <node x="759.6250000000001" y="22.0">model.Piece</node>
+    <node x="247.38888888888914" y="799.5">controlleur.IControlleur</node>
+    <node x="497.1250000000001" y="1221.0">controlleur.ControllerLocal</node>
+    <node x="599.0000000000001" y="356.5">model.PlateauJeu</node>
+    <node x="1016.6250000000001" y="389.5">model.Parametre</node>
+    <node x="2053.625" y="302.0">model.EtatGUI</node>
+    <node x="2829.138888888889" y="456.0">model.SortieGUI</node>
+    <node x="2240.100694444445" y="909.5">model.MatriceDeTransition</node>
+    <node x="2709.138888888889" y="920.5">model.MatriceDeSortie</node>
+    <node x="1802.625" y="89.0">model.NumeroJoueur</node>
+    <node x="2506.625" y="357.0">model.EntreeGUI</node>
+    <node x="728.388888888889" y="744.0">model.Partie</node>
+    <node x="259.7256944444448" y="0.0">model.Coord</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.PlateauJeu" target="model.Piece">
+      <point x="82.5" y="-136.5" />
+      <point x="846.5000000000001" y="282.0" />
+      <point x="854.1250000000001" y="282.0" />
+      <point x="-63.0" y="104.0" />
+    </edge>
+    <edge source="model.Partie" target="model.PlateauJeu">
+      <point x="-187.1875" y="-213.5" />
+      <point x="840.701388888889" y="724.0" />
+      <point x="846.5000000000001" y="724.0" />
+      <point x="82.5" y="136.5" />
+    </edge>
+    <edge source="controlleur.ControllerLocal" target="controlleur.IControlleur">
+      <point x="-114.25" y="-169.5" />
+      <point x="611.3750000000001" y="1196.0" />
+      <point x="477.88888888888914" y="1196.0" />
+      <point x="0.0" y="158.0" />
+    </edge>
+    <edge source="model.QuartoCalculator" target="model.Piece">
+      <point x="144.75" y="-26.0" />
+      <point x="434.25" y="282.0" />
+      <point x="791.1250000000001" y="282.0" />
+      <point x="-126.0" y="104.0" />
+    </edge>
+    <edge source="model.Joueur" target="model.NumeroJoueur">
+      <point x="0.0" y="-48.5" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="model.MatriceDeTransition" target="model.EntreeGUI">
+      <point x="76.5" y="-48.0" />
+      <point x="2469.600694444445" y="724.0" />
+      <point x="2649.125" y="724.0" />
+      <point x="0.0" y="136.0" />
+    </edge>
+    <edge source="model.Partie" target="model.EtatGUI">
+      <point x="262.0625" y="-213.5" />
+      <point x="1289.9513888888891" y="724.0" />
+      <point x="2125.7916666666665" y="724.0" />
+      <point x="-144.33333333333348" y="191.0" />
+    </edge>
+    <edge source="model.MatriceDeSortie" target="model.SortieGUI">
+      <point x="64.5" y="-37.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="model.Partie" target="model.Parametre">
+      <point x="112.3125" y="-213.5" />
+      <point x="1140.2013888888891" y="704.0" />
+      <point x="1346.125" y="704.0" />
+      <point x="0.0" y="103.5" />
+    </edge>
+    <edge source="model.MatriceDeTransition" target="model.EtatGUI">
+      <point x="-76.5" y="-48.0" />
+      <point x="2316.600694444445" y="724.0" />
+      <point x="2270.125" y="724.0" />
+      <point x="0.0" y="191.0" />
+    </edge>
+    <edge source="model.PlateauJeu" target="model.Coord">
+      <point x="-82.5" y="-136.5" />
+      <point x="681.5000000000001" y="272.0" />
+      <point x="456.9756944444448" y="272.0" />
+      <point x="65.75" y="126.0" />
+    </edge>
+    <edge source="controlleur.ControllerLocal" target="model.Partie">
+      <point x="114.25" y="-169.5" />
+      <point x="839.8750000000001" y="1196.0" />
+      <point x="1027.8888888888891" y="1196.0" />
+      <point x="0.0" y="213.5" />
+    </edge>
+    <edge source="model.Partie" target="model.Piece">
+      <point x="-112.3125" y="-213.5" />
+      <point x="915.576388888889" y="724.0" />
+      <point x="984.1250000000001" y="724.0" />
+      <point x="984.1250000000001" y="282.0" />
+      <point x="917.1250000000001" y="282.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="model.QuartoCalculator" target="model.Coord">
+      <point x="-144.75" y="-26.0" />
+      <point x="144.75" y="282.0" />
+      <point x="325.4756944444448" y="282.0" />
+      <point x="-65.75" y="126.0" />
+    </edge>
+    <edge source="model.MatriceDeSortie" target="model.EtatGUI">
+      <point x="-64.5" y="-37.0" />
+      <point x="2773.638888888889" y="714.0" />
+      <point x="2414.4583333333335" y="714.0" />
+      <point x="144.33333333333348" y="191.0" />
+    </edge>
+    <edge source="model.Partie" target="model.Joueur">
+      <point x="187.1875" y="-213.5" />
+      <point x="1215.0763888888891" y="714.0" />
+      <point x="1864.625" y="714.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3500166833500167" x="1488.5" y="780.0" />
+  <SelectedNodes>
+    <node>model.Joueur</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
