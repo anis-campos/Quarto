@@ -61,7 +61,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private JLabel jLabelJ2;
     private JLabel jLabelJ1;
     private final int initFontSize = 12;
-    private final int fontSizeToUse = 14;// TODO = A changer et faire mieux pour gérer les FONTs
+    private final int fontSizeToUse = 15;// TODO = A changer et faire mieux pour gérer les FONTs
 
     JTextArea jTextArea1;
     private final double pourcentagePiece;
@@ -488,7 +488,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      */
     private void annoncerQuartoDisplay() {
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-            if (controleur.getListPiecePlacee().size() <= 3) {
+            if (controleur.getListPiecePlacee().size() <= 3 || controleur.getIsValidationAutoEnabled()) {
                 bAnnoncerQuartoJ1.setVisible(false);
                 bAnnoncerQuartoJ2.setVisible(false);
             } else {
@@ -513,8 +513,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
             jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, fontSizeToUse));
             jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.PLAIN, initFontSize));
         } else {
-            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, initFontSize));
-            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.PLAIN, fontSizeToUse));
+            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.PLAIN, initFontSize));
+            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.BOLD, fontSizeToUse));
         }
     }
 

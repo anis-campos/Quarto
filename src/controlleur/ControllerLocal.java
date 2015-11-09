@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coord;
 import model.NumeroJoueur;
+import model.Parametre;
 import model.Partie;
 
 /**
@@ -97,7 +98,7 @@ public class ControllerLocal extends Observable implements IControlleur {
         boolean rep = partie.selectionPiece(nomPiece);
         if (rep) {
             EtatGUI etatprecedent = partie.getEtatGUI();
-            EntreeGUI entree =EntreeGUI.ListePiece;
+            EntreeGUI entree = EntreeGUI.ListePiece;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
             NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(nomPiece, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
             envoyerNotification(notif);
@@ -152,4 +153,11 @@ public class ControllerLocal extends Observable implements IControlleur {
         return partie.getNameJoueurFromNumero(nj);
     }
 
+    @Override
+    public Boolean getIsValidationAutoEnabled() {
+        return partie.isValidationAutoEnabled();
+    }
+
 }
+
+
