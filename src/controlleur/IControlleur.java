@@ -8,9 +8,9 @@ package controlleur;
 import model.EtatGUI;
 import model.SortieGUI;
 import java.util.List;
+import java.util.Map;
 import model.Coord;
 import model.NumeroJoueur;
-import model.Parametre;
 
 /**
  *
@@ -36,10 +36,10 @@ public interface IControlleur {
     /**
      * Place la pièce sélectionnée dans la case du joueur courant
      *
-     * @param nomPiece Nom de la pièce sélectionnée
+     * @param idPiece Nom de la pièce sélectionnée
      * @return True = la pièce a été placée dans la case du joueur courant
      */
-    boolean selectionPiece(String nomPiece);
+    boolean selectionPiece(int idPiece);
 
     /**
      * Vérifie que le quarto annoncé est valide
@@ -83,7 +83,7 @@ public interface IControlleur {
      * Obtenir la liste des pièces disponibles
      * @return Une liste de nom de pièces
      */
-    List<String> getListPieceDisponible();
+    List<Map.Entry<Integer,String>> getListPieceDisponible();
 
     /**
      * Obtenir la liste des pièces placées dans le plateau
