@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
@@ -21,8 +22,9 @@ public class JPanelParametres extends javax.swing.JPanel {
      * Creates new form JPanelParametres
      */
     public JPanelParametres() {
+        this.minCharNumber = 3;
+        this.maxCharNumber = 10;
         initComponents();
-        
         this.QuartoAutoValidation.setVisible(false);
         
     }
@@ -173,12 +175,24 @@ public class JPanelParametres extends javax.swing.JPanel {
 
         joueur1.setText("Joueur 1\n");
         joueur1.setName("Joueur1\n"); // NOI18N
+        this.joueur1.setTransferHandler(null);
+        joueur1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                joueur1PropertyChange(evt);
+            }
+        });
+        joueur1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                J1KeyTyped(evt);
+            }
+        });
 
         joueur2.setText("Joueur 2");
         joueur2.setName("Joueur2"); // NOI18N
-        joueur2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                joueur2ActionPerformed(evt);
+        this.joueur2.setTransferHandler(null);
+        joueur2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                J2KeyTyped(evt);
             }
         });
 
@@ -200,15 +214,15 @@ public class JPanelParametres extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(JoueurRandom)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(joueur1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(joueur1)
                             .addComponent(joueur2))))
                 .addGap(89, 89, 89))
         );
@@ -288,10 +302,6 @@ public class JPanelParametres extends javax.swing.JPanel {
         PartieBuilder.buildPartie(getParametres(), getJoueur1(), getJoueur2(), this);
     }//GEN-LAST:event_CommencerPartieActionPerformed
 
-    private void joueur2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joueur2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_joueur2ActionPerformed
-
     private void FormeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormeActionPerformed
         if (!this.Couleur.isSelected() && !this.Creux.isSelected() && !this.Taille.isSelected()) {
             this.Forme.setSelected(true);
@@ -307,6 +317,22 @@ public class JPanelParametres extends javax.swing.JPanel {
     private void JoueurRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JoueurRandomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JoueurRandomActionPerformed
+
+    private void J1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_J1KeyTyped
+        if (this.joueur1.getText().length() >= this.maxCharNumber){
+            evt.consume();
+        }
+    }//GEN-LAST:event_J1KeyTyped
+
+    private void J2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_J2KeyTyped
+        if (this.joueur2.getText().length() >= this.maxCharNumber){
+            evt.consume();
+        }
+    }//GEN-LAST:event_J2KeyTyped
+
+    private void joueur1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_joueur1PropertyChange
+
+    }//GEN-LAST:event_joueur1PropertyChange
 
     private Parametre getParametres() {
         return new Parametre(
@@ -327,6 +353,8 @@ public class JPanelParametres extends javax.swing.JPanel {
     private Joueur getJoueur2() {
         return new Joueur(this.joueur2.getText(), false, NumeroJoueur.J2);
     }
+    private final int maxCharNumber;
+    private final int minCharNumber;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CommencerPartie;
