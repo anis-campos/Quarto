@@ -25,14 +25,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace pref="101" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButtonCommencer" min="-2" pref="183" max="-2" attributes="0"/>
-                  <Component id="jButtonParametrer" min="-2" pref="183" max="-2" attributes="0"/>
-                  <Component id="jButtonContinuer" min="-2" pref="183" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="86" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jButtonCommencer" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
+                  <Component id="jButtonParametrer" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jButtonContinuer" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="104" max="32767" attributes="0"/>
+              <EmptySpace pref="68" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
