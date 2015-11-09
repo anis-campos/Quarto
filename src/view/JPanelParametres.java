@@ -22,6 +22,9 @@ public class JPanelParametres extends javax.swing.JPanel {
      */
     public JPanelParametres() {
         initComponents();
+        
+        this.QuartoAutoValidation.setVisible(false);
+        
     }
 
     /**

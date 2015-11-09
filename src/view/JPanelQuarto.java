@@ -107,7 +107,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bot.mousePress(InputEvent.BUTTON1_MASK);
         bot.mouseRelease(InputEvent.BUTTON1_MASK);
         try {
-            Thread.sleep(750);
+            Thread.sleep(400);
         } catch (InterruptedException ex) {
             Logger.getLogger(JPanelQuarto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -326,6 +326,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
             NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
             notifPlacerPiece(placee);
         }
+        
+
+        updateScreen(notif.nouvelEtat);
+     
         if (notif instanceof NotificationQuartoDetecte) {
             JFrame frame = (JFrame) SwingUtilities.getRoot(this);
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -335,9 +339,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
             JOptionPane.showMessageDialog(frame, "BRAVO '"+ controleur.getNomJoueur(notif.joueurSource)+"' , VOUS AVEZ GAGNE !!!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
 
         }
-
-        updateScreen(notif.nouvelEtat);
-     
             
             
         this.revalidate();

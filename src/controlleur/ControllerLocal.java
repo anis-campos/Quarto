@@ -10,8 +10,6 @@ import controlleur.observables.NotificationQuartoDetecte;
 import model.EntreeGUI;
 import model.EtatGUI;
 import model.SortieGUI;
-import model.MatriceDeSortie;
-import model.MatriceDeTransition;
 import controlleur.observables.NotificationPieceDonnee;
 import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
@@ -68,13 +66,7 @@ public class ControllerLocal extends Observable implements IControlleur {
         setChanged();
         notifyObservers(notif);
 
-        // Faire une pause permet au controlleur d'envoyer plusieur notification
-        // Cela donne le temps à la GUI de traiter la notification précédente.
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ControllerLocal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @Override
