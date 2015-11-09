@@ -72,7 +72,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
 
         imagePieces.put(Boolean.TRUE, getScaledImage("/images/" + nomPiece + ".png"));
 
-        imagePieces.put(Boolean.FALSE, getScaledImage("/images/desactivees/" + nomPiece + ".png"));
+        imagePieces.put(Boolean.FALSE, getScaledImage("/images/" + nomPiece + ".png"));
 
     }
 
@@ -106,7 +106,11 @@ public class JLabelPiece extends JLabel implements Cloneable {
         public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals("enabled")) {
                 JLabelPiece source = (JLabelPiece) evt.getSource();
-                source.setIcon(imagePieces.get(evt.getNewValue()));
+                //source.setIcon(imagePieces.get(evt.getNewValue()));
+                if((boolean)evt.getNewValue()){
+                    source.setBorder(BorderFactory.createLineBorder(Color.black));
+                }else
+                    source.setBorder(null);
             }
         }
     }

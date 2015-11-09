@@ -60,16 +60,15 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private JLabel jLabelJ2;
     private JLabel jLabelJ1;
     private final int initFontSize = 12;
-    private final int fontSizeToUse = 15;// TODO = A changer et faire mieux pour gérer les FONTs
+    private final int fontSizeToUse = 24;// TODO = A changer et faire mieux pour gérer les FONTs
 
     JTextArea jTextArea1;
-    private final double pourcentagePiece;
     private final Dimension dimensionCase;
 
     public JPanelQuarto(IControlleur controleur, Dimension dimensionCase) {
 
         super();
-        this.pourcentagePiece = 0.95;
+       
 
         this.controleur = controleur;
 
@@ -77,6 +76,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         initComponents();
 
+        jTextArea1.setVisible(false);
+        
         updateScreen(controleur.getEtatCourant());
 
     }

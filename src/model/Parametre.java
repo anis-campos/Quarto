@@ -17,14 +17,18 @@ public class Parametre {
     private final Boolean forme;
     private final Boolean quartoCarre;
     private final Boolean validationAutomatiqueQuarto;
+    private final Boolean JoueurRandom;
 
-    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre,Boolean validationAutomatiqueQuarto) {
+    
+
+    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre,Boolean validationAutomatiqueQuarto,Boolean JoueurRandom) {
         this.hauteur = hauteur;
         this.creux = creux;
         this.couleur = couleur;
         this.forme = forme;
         this.quartoCarre = quartoCarre;
         this.validationAutomatiqueQuarto = validationAutomatiqueQuarto;
+        this.JoueurRandom = JoueurRandom;
     }
 
     public Boolean hauteurActif() {
@@ -48,5 +52,9 @@ public class Parametre {
     public Boolean validationAutoActif(){
         return validationAutomatiqueQuarto;
     }
+    public Boolean joueurRandom() {
+        return JoueurRandom;
+    }
+    
 
 }

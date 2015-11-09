@@ -34,11 +34,14 @@ public class Partie {
         this.listPiece = new ArrayList<>();
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
-        joueurCourant = designe1Joueur();
         this.parametres = parametres;
-        this.etatActuel = EtatGUI.J1DoitChoisir;
-        this.pieceFactory();
         
+          this.pieceFactory();
+        
+        joueurCourant = designe1Joueur();
+        
+      
+
     }
 
     //Création des 16 pièces pour initialiser une partie
@@ -199,37 +202,43 @@ public class Partie {
             return joueur2.getName();
         }
     }
-    
-    public EtatGUI getEtatGUI (){
+
+    public EtatGUI getEtatGUI() {
         return etatActuel;
     }
-    
-    public EtatGUI passerEtatSuivant(EntreeGUI entree){
+
+    public EtatGUI passerEtatSuivant(EntreeGUI entree) {
         etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
         return etatActuel;
     }
-    
-    public SortieGUI getSortieGUI (){
+
+    public SortieGUI getSortieGUI() {
         return MatriceDeSortie.getInstance().getEtatSortie(etatActuel);
     }
-    
-    public boolean isValidationAutoEnabled(){
+
+    public boolean isValidationAutoEnabled() {
         return parametres.validationAutoActif();
     }
-    
-    public Joueur designe1Joueur(){
-        Random r = new Random();
-        int valeurMax = 3;
-        int valeurMin = 1;
-        int valeur = valeurMin + r.nextInt(valeurMax - valeurMin);
-        if (valeur==1){
-            joueurCourant = joueur1;   
+
+    public final Joueur designe1Joueur() {
+        if (parametres.joueurRandom()) {
+            Random r = new Random();
+            int valeurMax = 3;
+            int valeurMin = 1;
+            int valeur = valeurMin + r.nextInt(valeurMax - valeurMin);
+            if (valeur == 1) {
+                joueurCourant = joueur1;
+                etatActuel = EtatGUI.J1DoitChoisir;
+            } else {
+                joueurCourant = joueur2;
+                etatActuel = EtatGUI.J2DoitChoisir;
+            }
+
+        } else {
+            joueurCourant = joueur1;
             etatActuel = EtatGUI.J1DoitChoisir;
-        }else{
-            joueurCourant = joueur2;
-            etatActuel = EtatGUI.J2DoitChoisir;
+
         }
-        
         return joueurCourant;
     }
 }
