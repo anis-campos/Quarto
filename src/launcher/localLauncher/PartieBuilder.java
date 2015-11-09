@@ -58,6 +58,12 @@ public class PartieBuilder {
 
         cl.show(targetPanel.getParent(), "jeu");
         
+        PartieBuilder.repackPartieQuarto(targetPanel);
+        
+    }
+    
+    public static void repackPartieQuarto(JPanel targetPanel){
+        
         JFrame frame = (JFrame) SwingUtilities.getRoot(targetPanel);
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

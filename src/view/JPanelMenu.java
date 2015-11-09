@@ -117,6 +117,7 @@ public class JPanelMenu extends javax.swing.JPanel {
     private void jButtonContinuerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContinuerActionPerformed
         CardLayout cl = (CardLayout) this.getParent().getLayout();
         cl.show(this.getParent(), "jeu");
+        PartieBuilder.repackPartieQuarto(this);
     }//GEN-LAST:event_jButtonContinuerActionPerformed
 
 
