@@ -9,9 +9,6 @@
     </Property>
     <Property name="name" type="java.lang.String" value="menu" noResource="true"/>
     <Property name="opaque" type="boolean" value="false"/>
-    <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[396, 461]"/>
-    </Property>
   </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -65,7 +62,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCommencer">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Commencer nouvelle partie"/>
+        <Property name="text" type="java.lang.String" value="Commencer une nouvelle partie"/>
         <Property name="name" type="java.lang.String" value="jButtonCommencer" noResource="true"/>
       </Properties>
       <Events>
@@ -74,7 +71,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonContinuer">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Continuer Partie"/>
+        <Property name="text" type="java.lang.String" value="Continuer la partie"/>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="jButtonContinuer" noResource="true"/>
       </Properties>

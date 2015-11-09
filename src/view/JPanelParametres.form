@@ -26,7 +26,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jPanel1" min="-2" pref="312" max="-2" attributes="0"/>
@@ -40,7 +40,7 @@
                   </Group>
                   <Component id="jPanel5" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="82" max="32767" attributes="0"/>
+              <EmptySpace pref="77" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,7 +67,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="CommencerPartie">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CommencerPartie"/>
+        <Property name="text" type="java.lang.String" value="Commencer la partie"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CommencerPartieActionPerformed"/>
@@ -75,7 +75,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="RetourMenu">
       <Properties>
-        <Property name="text" type="java.lang.String" value="RetourMenu"/>
+        <Property name="text" type="java.lang.String" value="Retour au menu"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RetourMenuActionPerformed"/>
@@ -209,7 +209,7 @@
         <Component class="javax.swing.JCheckBox" name="QuartoAutoValidation">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Activation Validation automatique du Quarto"/>
+            <Property name="text" type="java.lang.String" value="Activation de la validation automatique du Quarto"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -306,7 +306,7 @@
         <Component class="javax.swing.JCheckBox" name="JoueurRandom">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="D&#xe9;signiation al&#xe9;atoire du premier joueur"/>
+            <Property name="text" type="java.lang.String" value="D&#xe9;signation al&#xe9;atoire du premier joueur"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JoueurRandomActionPerformed"/>

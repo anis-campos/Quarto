@@ -59,14 +59,14 @@ public class JPanelParametres extends javax.swing.JPanel {
         setName("parametres"); // NOI18N
         setOpaque(false);
 
-        CommencerPartie.setText("CommencerPartie");
+        CommencerPartie.setText("Commencer la partie");
         CommencerPartie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CommencerPartieActionPerformed(evt);
             }
         });
 
-        RetourMenu.setText("RetourMenu");
+        RetourMenu.setText("Retour au menu");
         RetourMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RetourMenuActionPerformed(evt);
@@ -147,7 +147,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         });
 
         QuartoAutoValidation.setSelected(true);
-        QuartoAutoValidation.setText("Activation Validation automatique du Quarto");
+        QuartoAutoValidation.setText("Activation de la validation automatique du Quarto");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -201,7 +201,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         jLabel2.setText("Joueur 2");
 
         JoueurRandom.setSelected(true);
-        JoueurRandom.setText("Désigniation aléatoire du premier joueur");
+        JoueurRandom.setText("Désignation aléatoire du premier joueur");
         JoueurRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JoueurRandomActionPerformed(evt);
@@ -247,7 +247,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +258,7 @@ public class JPanelParametres extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CommencerPartie))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

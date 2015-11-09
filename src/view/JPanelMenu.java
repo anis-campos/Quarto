@@ -40,7 +40,6 @@ public class JPanelMenu extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setName("menu"); // NOI18N
         setOpaque(false);
-        setSize(new java.awt.Dimension(396, 461));
 
         jButtonParametrer.setText("Paramétrer Partie");
         jButtonParametrer.setName("jButtonParametrer"); // NOI18N
@@ -50,7 +49,7 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         });
 
-        jButtonCommencer.setText("Commencer nouvelle partie");
+        jButtonCommencer.setText("Commencer une nouvelle partie");
         jButtonCommencer.setName("jButtonCommencer"); // NOI18N
         jButtonCommencer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,7 +57,7 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         });
 
-        jButtonContinuer.setText("Continuer Partie");
+        jButtonContinuer.setText("Continuer la partie");
         jButtonContinuer.setEnabled(false);
         jButtonContinuer.setName("jButtonContinuer"); // NOI18N
         jButtonContinuer.addActionListener(new java.awt.event.ActionListener() {
