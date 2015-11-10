@@ -100,7 +100,7 @@ public class LauncherQuartoTest {
 
         try {
             //jeu.testQuarto();
-            jeu.testMAtchNull();
+            jeu.testDernierTour();
         } catch (AWTException ex) {
             Logger.getLogger(LauncherQuartoTest.class.getName()).log(Level.SEVERE, null, ex);
         }

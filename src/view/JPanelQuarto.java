@@ -124,7 +124,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    public void testMAtchNull() throws AWTException {
+    public void testDernierTour() throws AWTException {
        
             Integer[] listPiece = {
                 14, 4, 3, 11,
@@ -137,7 +137,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             Robot bot = new Robot();
 
             
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 16; i++) {
                 Component component = jPlateau.getComponent(i);
                 Point casePlateau = component.getLocationOnScreen();
                 casePlateau.translate(component.getWidth() / 2, component.getHeight() / 2);
