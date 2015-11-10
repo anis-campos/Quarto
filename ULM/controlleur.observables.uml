@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>controlleur.observables</OriginalElement>
+  <nodes>
+    <node x="1021.0" y="213.0">controlleur.observables.NotificationPiecePlacee</node>
+    <node x="802.0" y="0.0">controlleur.observables.Notification</node>
+    <node x="516.0" y="224.5">controlleur.observables.NotificationPieceDonnee</node>
+    <node x="1230.0" y="213.0">controlleur.observables.NotificationPieceSelectionnee</node>
+    <node x="0.0" y="224.5">controlleur.observables.NotificationQuartoDetecte</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="controlleur.observables.NotificationPieceSelectionnee" target="controlleur.observables.Notification">
+      <point x="0.0" y="-37.5" />
+      <point x="1340.0" y="183.0" />
+      <point x="1038.25" y="183.0" />
+      <point x="101.25" y="81.5" />
+    </edge>
+    <edge source="controlleur.observables.NotificationQuartoDetecte" target="controlleur.observables.Notification">
+      <point x="0.0" y="-26.0" />
+      <point x="248.0" y="183.0" />
+      <point x="835.75" y="183.0" />
+      <point x="-101.25" y="81.5" />
+    </edge>
+    <edge source="controlleur.observables.NotificationPiecePlacee" target="controlleur.observables.Notification">
+      <point x="0.0" y="-37.5" />
+      <point x="1115.5" y="193.0" />
+      <point x="970.75" y="193.0" />
+      <point x="33.75" y="81.5" />
+    </edge>
+    <edge source="controlleur.observables.NotificationPieceDonnee" target="controlleur.observables.Notification">
+      <point x="0.0" y="-26.0" />
+      <point x="758.5" y="193.0" />
+      <point x="903.25" y="193.0" />
+      <point x="-33.75" y="81.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7136054421768707" x="725.0" y="144.0" />
+  <SelectedNodes>
+    <node>controlleur.observables.NotificationQuartoDetecte</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
