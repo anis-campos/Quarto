@@ -28,6 +28,7 @@ public class Partie {
     private final Joueur joueur2;
     private final Parametre parametres;
     private EtatGUI etatActuel;
+    private Coord coordDernierePiecePlacee;
 
     private Joueur joueurCourant;
 
@@ -38,12 +39,10 @@ public class Partie {
         this.joueur1 = joueur1;
         this.joueur2 = joueur2;
         this.parametres = parametres;
-        
-          this.pieceFactory();
-        
+
+        this.pieceFactory();
+
         joueurCourant = designe1Joueur();
-        
-      
 
     }
 
@@ -86,15 +85,16 @@ public class Partie {
         }
     }
 
-    public List<Map.Entry<Integer,String>> getListPieceNameDisponibles() {
-        List<Map.Entry<Integer,String>> rep = new ArrayList<>();
+    public List<Map.Entry<Integer, String>> getListPieceNameDisponibles() {
+        List<Map.Entry<Integer, String>> rep = new ArrayList<>();
         for (Piece piece : listPiece) {
-            rep.add(new AbstractMap.SimpleEntry<>(piece.getId(),piece.getName()));
+            rep.add(new AbstractMap.SimpleEntry<>(piece.getId(), piece.getName()));
         }
         return rep;
     }
 
     public boolean poserPiece(Coord coord) {
+        coordDernierePiecePlacee = coord;
         return plateauJeu.addPiece(coord, getPieceJoueurCourant());
     }
 
@@ -139,7 +139,7 @@ public class Partie {
                 setPieceJoueurCourant(null);
             }
             setPieceJoueurCourant(piece);
-           
+
             return true;
         }
 
@@ -155,8 +155,6 @@ public class Partie {
         return true;
     }
 
-
-    
     public Piece popPieceAvailableById(int idPiece) {
 
         for (Iterator<Piece> it = listPiece.iterator(); it.hasNext();) {
@@ -168,7 +166,7 @@ public class Partie {
         }
         return null;
     }
-    
+
     public Piece popPieceAvailableByName(String pieceName) {
 
         for (Iterator<Piece> it = listPiece.iterator(); it.hasNext();) {
@@ -259,4 +257,9 @@ public class Partie {
         }
         return joueurCourant;
     }
+
+   public boolean annoncerQuarto(){
+      return thereIsQuarto(coordDernierePiecePlacee);
+  }
+
 }

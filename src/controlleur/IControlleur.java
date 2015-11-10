@@ -94,4 +94,6 @@ public interface IControlleur {
     String getNomJoueur(NumeroJoueur nj);
 
     Boolean getIsValidationAutoEnabled();
+    
+  
 }

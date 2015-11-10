@@ -354,6 +354,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
             JOptionPane.showMessageDialog(frame, "BRAVO '" + controleur.getNomJoueur(notif.joueurSource) + "' , VOUS AVEZ GAGNE !!!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
 
         }
+        
 
         this.revalidate();
         this.repaint();
@@ -422,6 +423,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 annoncerQuartoDisplay();
                 break;
             case J1AAnnonceQuarto:
+                
                 break;
             case J2AAnnonceQuarto:
                 break;

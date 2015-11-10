@@ -13,6 +13,7 @@ import model.SortieGUI;
 import controlleur.observables.NotificationPieceDonnee;
 import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationQuartoAnnoncer;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -64,7 +65,6 @@ public class ControllerLocal extends Observable implements IControlleur {
         setChanged();
         notifyObservers(notif);
 
-        
     }
 
     @Override
@@ -99,7 +99,19 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public boolean annoncerQuarto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = partie.annoncerQuarto();
+
+        EtatGUI etatprecedent = partie.getEtatGUI();
+        EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceQuarto : EntreeGUI.J2AnnonceQuarto;
+        EtatGUI etatActuel =partie.passerEtatSuivant(entree);
+        if (result) {
+            etatActuel = partie.passerEtatSuivant(EntreeGUI.Quarto);
+        } else {
+            etatActuel = partie.passerEtatSuivant(EntreeGUI.PasQuarto);
+        }
+        NotificationQuartoAnnoncer notif = new NotificationQuartoAnnoncer(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+        envoyerNotification(notif);
+        return result;
     }
 
     @Override
@@ -108,7 +120,7 @@ public class ControllerLocal extends Observable implements IControlleur {
     }
 
     @Override
-    public List<Map.Entry<Integer,String>> getListPieceDisponible() {
+    public List<Map.Entry<Integer, String>> getListPieceDisponible() {
 
         return partie.getListPieceNameDisponibles();
     }
@@ -149,5 +161,3 @@ public class ControllerLocal extends Observable implements IControlleur {
     }
 
 }
-
-
