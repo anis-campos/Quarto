@@ -45,13 +45,22 @@ public class ControllerLocal extends Observable implements IControlleur {
             NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
             envoyerNotification(notif);
 
+            
+            
             //Verification des quarto
             boolean quarto = partie.thereIsQuarto(coord);
             if (quarto && partie.isValidationAutoEnabled()) {
                 etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto : EtatGUI.J2ATrouveUnQuarto;
                 NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
                 envoyerNotification(notifQuarto);
-
+            }
+            
+            
+            
+            if(partie.isListPieceEmpty()){
+               etatActuel = partie.passerEtatSuivant(EntreeGUI.ListePieceVide);
+               NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+               envoyerNotification(notifQuarto);
             }
         }
         return rep;

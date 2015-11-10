@@ -52,7 +52,7 @@ public class MatriceDeTransition {
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J1DernierTour);
-        matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J1DernierTour);
+        matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J2DernierTour);
 
         matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.Quarto, EtatGUI.J1ATrouveUnQuarto);
         matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.PasQuarto, EtatGUI.J2ATrouveUnQuarto);

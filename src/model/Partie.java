@@ -33,6 +33,7 @@ public class Partie {
 
     private Joueur joueurCourant;
 
+
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
         Piece.instanciationNb = 0;//il ne doit y avoir que 16 pièces dans une partie
         this.plateauJeu = new PlateauJeu();
@@ -267,6 +268,10 @@ public class Partie {
 
     public ArrayList<ArrayList<Coord>> getQuartos() {
         return quartos;
+    }
+
+    public boolean isListPieceEmpty() {
+        return listPiece.isEmpty();
     }
 
    

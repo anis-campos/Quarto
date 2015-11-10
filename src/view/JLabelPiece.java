@@ -21,7 +21,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
     private final String nomPiece;
 
     private final int id;
-    
+
     public String getNomPiece() {
         return nomPiece;
     }
@@ -38,13 +38,13 @@ public class JLabelPiece extends JLabel implements Cloneable {
      * @param tailleCase Taille d'une case du plateau
      * @param ActionOnClick L'action a executer lors du click
      */
-    public JLabelPiece(int id,String nomPiece, Dimension tailleCase, Runnable ActionOnClick) {
+    public JLabelPiece(int id, String nomPiece, Dimension tailleCase, Runnable ActionOnClick) {
         super();
-        
+
         this.id = id;
-        
+
         this.nomPiece = nomPiece;
-        
+
         this.tailleCase = tailleCase;
 
         this.setBackground(Color.WHITE);
@@ -63,8 +63,6 @@ public class JLabelPiece extends JLabel implements Cloneable {
         this.ActionOnClick = ActionOnClick;
     }
 
-
-
     /**
      * Recupère l'image de la pièce et la redimensionne a la bonne taille
      *
@@ -78,7 +76,7 @@ public class JLabelPiece extends JLabel implements Cloneable {
     }
 
     public JLabelPiece getClone() {
-        JLabelPiece jLabelPiece = new JLabelPiece(id,nomPiece, tailleCase, null);
+        JLabelPiece jLabelPiece = new JLabelPiece(id, nomPiece, tailleCase, null);
         jLabelPiece.setBorder(null);
         return jLabelPiece;
     }
@@ -96,10 +94,11 @@ public class JLabelPiece extends JLabel implements Cloneable {
             if (evt.getPropertyName().equals("enabled")) {
                 JLabelPiece source = (JLabelPiece) evt.getSource();
                 source.setDisabledIcon(imagePiece);
-                if((boolean)evt.getNewValue()){
+                if ((boolean) evt.getNewValue()) {
                     source.setBorder(BorderFactory.createLineBorder(Color.black));
-                }else
+                } else {
                     source.setBorder(null);
+                }
             }
         }
     }
@@ -119,12 +118,11 @@ public class JLabelPiece extends JLabel implements Cloneable {
             }
         }
 
+
     }
 
     public int getId() {
         return id;
     }
-    
-    
 
 }

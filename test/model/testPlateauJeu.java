@@ -47,4 +47,5 @@ public class testPlateauJeu {
             Logger.getLogger(testPlateauJeu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
