@@ -88,5 +88,11 @@ public class JPanelCase extends JPanel {
             }
         }
     }
+     
+     public void surlignerCase(){
+         
+         this.setBackground(new Color(1.0f, 0, 0, 0.6f));
+         
+     }
 
 }

@@ -43,12 +43,13 @@ public class ControllerLocal extends Observable implements IControlleur {
             EntreeGUI entree = EntreeGUI.Plateau;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
             NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
-
             envoyerNotification(notif);
+            
+            //Verification des quarto
             boolean quarto = partie.thereIsQuarto(coord);
             if (quarto && partie.isValidationAutoEnabled()) {
                 etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto : EtatGUI.J2ATrouveUnQuarto;
-                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(partie.getQuartos(),getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
                 envoyerNotification(notifQuarto);
 
             }
@@ -99,17 +100,21 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public boolean annoncerQuarto() {
-        boolean result = partie.annoncerQuarto();
 
         EtatGUI etatprecedent = partie.getEtatGUI();
         EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceQuarto : EntreeGUI.J2AnnonceQuarto;
-        EtatGUI etatActuel =partie.passerEtatSuivant(entree);
+        //Mode un joueur à annoncé quarto
+        EtatGUI etatActuel = partie.passerEtatSuivant(entree);
+
+        //Veification du quarto
+        boolean result = partie.annoncerQuarto();
         if (result) {
             etatActuel = partie.passerEtatSuivant(EntreeGUI.Quarto);
         } else {
             etatActuel = partie.passerEtatSuivant(EntreeGUI.PasQuarto);
         }
-        NotificationQuartoAnnoncer notif = new NotificationQuartoAnnoncer(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+        
+        NotificationQuartoAnnoncer notif = new NotificationQuartoAnnoncer(partie.getQuartos(),getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
         envoyerNotification(notif);
         return result;
     }

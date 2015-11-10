@@ -29,6 +29,7 @@ public class Partie {
     private final Parametre parametres;
     private EtatGUI etatActuel;
     private Coord coordDernierePiecePlacee;
+    private ArrayList<ArrayList<Coord>> quartos;
 
     private Joueur joueurCourant;
 
@@ -40,6 +41,8 @@ public class Partie {
         this.joueur2 = joueur2;
         this.parametres = parametres;
 
+        this.quartos = new ArrayList<>();
+        
         this.pieceFactory();
 
         joueurCourant = designe1Joueur();
@@ -208,7 +211,7 @@ public class Partie {
     }
 
     public boolean thereIsQuarto(Coord coordDernierePiece) {
-        return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, new ArrayList<ArrayList<Coord>>());
+        return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, quartos);
     }
 
     public String getNameJoueurFromNumero(NumeroJoueur nj) {
@@ -262,4 +265,9 @@ public class Partie {
       return thereIsQuarto(coordDernierePiecePlacee);
   }
 
+    public ArrayList<ArrayList<Coord>> getQuartos() {
+        return quartos;
+    }
+
+   
 }

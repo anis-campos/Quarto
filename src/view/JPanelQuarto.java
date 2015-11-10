@@ -19,6 +19,7 @@ import model.NumeroJoueur;
 import controlleur.IControlleur;
 import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationQuartoAnnoncer;
 import controlleur.observables.NotificationQuartoDetecte;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -341,14 +342,23 @@ public final class JPanelQuarto extends JPanel implements Observer {
         } else if (notif instanceof NotificationPiecePlacee) {
             NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
             notifPlacerPiece(placee);
+        } else if( notif instanceof NotificationQuartoAnnoncer){
+            NotificationQuartoAnnoncer quartoAnnonce = (NotificationQuartoAnnoncer) notif;
+            
         }
+        
 
         updateScreen(notif.nouvelEtat);
 
         if (notif instanceof NotificationQuartoDetecte) {
+            
+                        NotificationQuartoDetecte quartoDetecte = (NotificationQuartoDetecte) notif;
+
             JFrame frame = (JFrame) SwingUtilities.getRoot(this);
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
+            surlignerQuartos(quartoDetecte.quartos);
+            
             Icon icon;
             icon = new ImageIcon(GUIImageTool.getImage("/images/trophy.png"));
             JOptionPane.showMessageDialog(frame, "BRAVO '" + controleur.getNomJoueur(notif.joueurSource) + "' , VOUS AVEZ GAGNE !!!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -542,6 +552,18 @@ public final class JPanelQuarto extends JPanel implements Observer {
         } else {
             jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.PLAIN, initFontSize));
             jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.BOLD, fontSizeToUse));
+        }
+    }
+
+    private void surlignerQuartos(ArrayList<ArrayList<Coord>>quartos) {
+
+        for (ArrayList<Coord> quarto : quartos) {
+            
+            for (Coord coord : quarto) {
+                mapCaseByCoord.get(coord).surlignerCase();
+            }
+
+            
         }
     }
 
