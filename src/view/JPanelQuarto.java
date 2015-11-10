@@ -125,41 +125,38 @@ public final class JPanelQuarto extends JPanel implements Observer {
     }
 
     public void testDernierTour() throws AWTException {
-       
-            Integer[] listPiece = {
-                14, 4, 3, 11,
-                5, 9, 16, 6,
-                12, 8, 2, 13,
-                1, 15, 10, 7
-            };
-            
-       
-            Robot bot = new Robot();
 
-            
-            for (int i = 0; i < 16; i++) {
-                Component component = jPlateau.getComponent(i);
-                Point casePlateau = component.getLocationOnScreen();
-                casePlateau.translate(component.getWidth() / 2, component.getHeight() / 2);
-                
-                JLabelPiece piece = listeDePiecesDisponibles.get(listPiece[i]);
-                Point locationOnScreen = piece.getLocationOnScreen();
-                locationOnScreen.translate(piece.getSize().width / 2, piece.getSize().height / 2);
-                
-                
-                robotClick(bot, locationOnScreen);
-                Point bouton;
-                if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-                    bouton = bDonnerJ1.getLocationOnScreen();
-                    bouton.translate(bDonnerJ1.getWidth() / 2, bDonnerJ1.getHeight() / 2);
-                } else {
-                    bouton = bDonnerJ2.getLocationOnScreen();
-                    bouton.translate(bDonnerJ2.getWidth() / 2, bDonnerJ2.getHeight() / 2);
-                }
-                robotClick(bot, bouton);
-                robotClick(bot, casePlateau);
+        Integer[] listPiece = {
+            14, 4, 3, 11,
+            5, 9, 16, 6,
+            12, 8, 2, 13,
+            1, 15, 10, 7
+        };
+
+        Robot bot = new Robot();
+
+        for (int i = 0; i < 16; i++) {
+            Component component = jPlateau.getComponent(i);
+            Point casePlateau = component.getLocationOnScreen();
+            casePlateau.translate(component.getWidth() / 2, component.getHeight() / 2);
+
+            JLabelPiece piece = listeDePiecesDisponibles.get(listPiece[i]);
+            Point locationOnScreen = piece.getLocationOnScreen();
+            locationOnScreen.translate(piece.getSize().width / 2, piece.getSize().height / 2);
+
+            robotClick(bot, locationOnScreen);
+            Point bouton;
+            if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
+                bouton = bDonnerJ1.getLocationOnScreen();
+                bouton.translate(bDonnerJ1.getWidth() / 2, bDonnerJ1.getHeight() / 2);
+            } else {
+                bouton = bDonnerJ2.getLocationOnScreen();
+                bouton.translate(bDonnerJ2.getWidth() / 2, bDonnerJ2.getHeight() / 2);
             }
-       
+            robotClick(bot, bouton);
+            robotClick(bot, casePlateau);
+        }
+
     }
 
     private void robotClick(Robot bot, Point p) {
@@ -296,14 +293,15 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerMatchNullJ1 = new JButton("Annoncer Match Null");
         bAnnoncerMatchNullJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerMatchNullJ1.addActionListener(new ButtonAnnoncerMatchNullClickListener());
+        bAnnoncerMatchNullJ1.setVisible(false);
 
         jLabelJ1 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J1));
         jLabelJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ1.add(jLabelJ1);
         jZoneJ1.add(jPieceJ1);
         jZoneJ1.add(bDonnerJ1);
-
         jZoneJ1.add(bAnnoncerQuartoJ1);
+        jZoneJ1.add(bAnnoncerMatchNullJ1);
         /////////////////////////////////////////////////////////////////
 
         //CONSTRUCTION DE LA ZONE JOUEUR 2
@@ -328,12 +326,14 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerMatchNullJ2 = new JButton("Annoncer Match Null");
         bAnnoncerMatchNullJ2.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerMatchNullJ2.addActionListener(new ButtonAnnoncerMatchNullClickListener());
+        bAnnoncerMatchNullJ2.setVisible(false);
 
         jLabelJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(jLabelJ2);
         jZoneJ2.add(jPieceJ2);
         jZoneJ2.add(bDonnerJ2);
         jZoneJ2.add(bAnnoncerQuartoJ2);
+        jZoneJ2.add(bAnnoncerMatchNullJ2);
         /////////////////////////////////////////////////////////////////
         Box Centre = Box.createHorizontalBox();
         Centre.add(jZoneJ1);
@@ -420,13 +420,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
             JOptionPane.showMessageDialog(frame, "BRAVO '" + controleur.getNomJoueur(notif.joueurSource) + "' , VOUS AVEZ GAGNE !!!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
 
         }
-        
-        if(notif instanceof NotificationDernierTour)
-        {
-              JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+
+        if (notif instanceof NotificationDernierTour) {
+            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-          
             Icon icon;
             icon = new ImageIcon(GUIImageTool.getImage("/images/trophy.png"));
             JOptionPane.showMessageDialog(frame, " MATCH NULL !!!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -453,6 +451,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 jPanelListePieces.setEnabled(true);
                 jPieceJ2.setEnabled(false);
                 jPieceJ1.setEnabled(true);
+
                 annoncerQuartoDisplay();
                 break;
             case J1DoitDonner:
@@ -511,9 +510,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
             case EtatNonDefinit:
                 break;
             case J1DernierTour:
+                annoncerQuartoDisplay();
                 bAnnoncerMatchNullJ1.setVisible(true);
                 break;
             case J2DernierTour:
+                annoncerQuartoDisplay();
                 bAnnoncerMatchNullJ2.setVisible(true);
                 break;
 
