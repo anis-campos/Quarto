@@ -6,6 +6,7 @@
 package controlleur;
 
 import controlleur.observables.Notification;
+import controlleur.observables.NotificationDernierTour;
 import controlleur.observables.NotificationQuartoDetecte;
 import model.EntreeGUI;
 import model.EtatGUI;
@@ -51,7 +52,12 @@ public class ControllerLocal extends Observable implements IControlleur {
                 etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto : EtatGUI.J2ATrouveUnQuarto;
                 NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
                 envoyerNotification(notifQuarto);
+            }
 
+            if (partie.isListPieceEmpty()) {
+                etatActuel = partie.passerEtatSuivant(EntreeGUI.ListePieceVide);
+                NotificationDernierTour notifQuarto = new NotificationDernierTour(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());;
+                envoyerNotification(notifQuarto);
             }
         }
         return rep;

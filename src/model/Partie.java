@@ -42,7 +42,7 @@ public class Partie {
         this.parametres = parametres;
 
         this.quartos = new ArrayList<>();
-        
+
         this.pieceFactory();
 
         joueurCourant = designe1Joueur();
@@ -97,8 +97,14 @@ public class Partie {
     }
 
     public boolean poserPiece(Coord coord) {
+
         coordDernierePiecePlacee = coord;
-        return plateauJeu.addPiece(coord, getPieceJoueurCourant());
+
+        boolean addPiece = plateauJeu.addPiece(coord, getPieceJoueurCourant());
+        if (addPiece) {
+            setPieceJoueurCourant(null);
+        }
+        return addPiece;
     }
 
     public Coord getDerniereCoord(){
@@ -264,13 +270,16 @@ public class Partie {
         return joueurCourant;
     }
 
-   public boolean annoncerQuarto(){
-      return thereIsQuarto(coordDernierePiecePlacee);
-  }
+    public boolean annoncerQuarto() {
+        return thereIsQuarto(coordDernierePiecePlacee);
+    }
 
     public ArrayList<ArrayList<Coord>> getQuartos() {
         return quartos;
     }
 
-   
+    public boolean isListPieceEmpty() {
+        return listPiece.isEmpty();
+    }
+
 }

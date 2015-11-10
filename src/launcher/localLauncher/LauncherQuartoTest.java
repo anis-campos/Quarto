@@ -99,16 +99,12 @@ public class LauncherQuartoTest {
         JPanelQuarto jeu = (JPanelQuarto) contentPane.getComponent(2);
 
         try {
-            jeu.test();
+            //jeu.testQuarto();
+            jeu.testDernierTour();
         } catch (AWTException ex) {
             Logger.getLogger(LauncherQuartoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        try {
-            Thread.sleep(100000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(LauncherQuartoTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
        
     }
       
