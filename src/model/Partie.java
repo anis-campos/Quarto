@@ -33,7 +33,6 @@ public class Partie {
 
     private Joueur joueurCourant;
 
-
     public Partie(Parametre parametres, Joueur joueur1, Joueur joueur2) {
         Piece.instanciationNb = 0;//il ne doit y avoir que 16 pièces dans une partie
         this.plateauJeu = new PlateauJeu();
@@ -43,7 +42,7 @@ public class Partie {
         this.parametres = parametres;
 
         this.quartos = new ArrayList<>();
-        
+
         this.pieceFactory();
 
         joueurCourant = designe1Joueur();
@@ -98,8 +97,14 @@ public class Partie {
     }
 
     public boolean poserPiece(Coord coord) {
+
         coordDernierePiecePlacee = coord;
-        return plateauJeu.addPiece(coord, getPieceJoueurCourant());
+
+        boolean addPiece = plateauJeu.addPiece(coord, getPieceJoueurCourant());
+        if (addPiece) {
+            setPieceJoueurCourant(null);
+        }
+        return addPiece;
     }
 
     private Piece getPieceJoueurCourant() {
@@ -262,9 +267,9 @@ public class Partie {
         return joueurCourant;
     }
 
-   public boolean annoncerQuarto(){
-      return thereIsQuarto(coordDernierePiecePlacee);
-  }
+    public boolean annoncerQuarto() {
+        return thereIsQuarto(coordDernierePiecePlacee);
+    }
 
     public ArrayList<ArrayList<Coord>> getQuartos() {
         return quartos;
@@ -274,5 +279,4 @@ public class Partie {
         return listPiece.isEmpty();
     }
 
-   
 }
