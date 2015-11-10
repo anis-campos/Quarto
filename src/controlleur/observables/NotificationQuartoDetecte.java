@@ -17,12 +17,16 @@ import model.SortieGUI;
  */
 public class NotificationQuartoDetecte extends Notification {
 
-    public final ArrayList<ArrayList<Coord>> quartos;
+    private final ArrayList<ArrayList<Coord>> quartos;
 
     public NotificationQuartoDetecte(ArrayList<ArrayList<Coord>> quartos, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
         super(joueurSource, nouvelEtat, etatPrecedent, sortie);
 
         this.quartos = quartos;
+    }
+    
+    public ArrayList<ArrayList<Coord>> getQuartos(){
+        return quartos;
     }
 
 }

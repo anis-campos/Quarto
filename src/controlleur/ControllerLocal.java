@@ -100,12 +100,11 @@ public class ControllerLocal extends Observable implements IControlleur {
 
     @Override
     public boolean annoncerQuarto() {
-
         EtatGUI etatprecedent = partie.getEtatGUI();
         EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceQuarto : EntreeGUI.J2AnnonceQuarto;
         //Mode un joueur à annoncé quarto
-        EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-
+        partie.passerEtatSuivant(entree);
+        EtatGUI etatActuel;
         //Veification du quarto
         boolean result = partie.annoncerQuarto();
         if (result) {

@@ -26,7 +26,6 @@ private final Image backgroundImage;
         this.minCharNumber = 3;
         this.maxCharNumber = 10;
         initComponents();
-        this.QuartoAutoValidation.setVisible(false);
         this.backgroundImage =  GUIImageTool.getImage("/images/wood_texture.jpg");
         
     }
@@ -148,7 +147,6 @@ private final Image backgroundImage;
             }
         });
 
-        QuartoAutoValidation.setSelected(true);
         QuartoAutoValidation.setText("Activation de la validation automatique du Quarto");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);

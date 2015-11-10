@@ -208,7 +208,6 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="QuartoAutoValidation">
           <Properties>
-            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Activation de la validation automatique du Quarto"/>
           </Properties>
         </Component>

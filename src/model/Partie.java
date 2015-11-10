@@ -101,6 +101,9 @@ public class Partie {
         return plateauJeu.addPiece(coord, getPieceJoueurCourant());
     }
 
+    public Coord getDerniereCoord(){
+        return coordDernierePiecePlacee;
+    }
     private Piece getPieceJoueurCourant() {
         if (joueurCourant == joueur1) {
             return caseJoueur1;

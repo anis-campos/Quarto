@@ -23,5 +23,9 @@ public class NotificationQuartoAnnoncer extends Notification {
         super(joueurSource, nouvelEtat, etatPrecedent, sortie);
         this.quartos = quartos;
     }
+    
+    public ArrayList<ArrayList<Coord>> getQuartos(){
+        return quartos;
+    }
 
 }

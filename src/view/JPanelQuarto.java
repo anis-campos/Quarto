@@ -146,7 +146,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPlateau.setLayout(grid);
         jPlateau.setOpaque(false);
         jPlateau.addPropertyChangeListener(new PropertyChangeListener() {
-         
+
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("enabled")) {
@@ -246,19 +246,18 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bDonnerJ1.addActionListener(new ButtonDonnerClickListener());
         bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        bAnnoncerQuartoJ1 = new JButton("Annoncer Quarto");
+        bAnnoncerQuartoJ1 = new JButton("Quarto!");
         bAnnoncerQuartoJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ1.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
         jLabelJ1 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J1));
         jLabelJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ1.add(jLabelJ1);
+        jZoneJ1.add(bAnnoncerQuartoJ1);
         jZoneJ1.add(jPieceJ1);
         jZoneJ1.add(bDonnerJ1);
 
-        jZoneJ1.add(bAnnoncerQuartoJ1);
         /////////////////////////////////////////////////////////////////
-
         //CONSTRUCTION DE LA ZONE JOUEUR 2
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
@@ -274,15 +273,16 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
         bDonnerJ2.addActionListener(new ButtonDonnerClickListener());
 
-        bAnnoncerQuartoJ2 = new JButton("Annoncer Quarto");
+        bAnnoncerQuartoJ2 = new JButton("Quarto!");
         bAnnoncerQuartoJ2.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ2.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
         jLabelJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jZoneJ2.add(jLabelJ2);
+        jZoneJ2.add(bAnnoncerQuartoJ2);
         jZoneJ2.add(jPieceJ2);
         jZoneJ2.add(bDonnerJ2);
-        jZoneJ2.add(bAnnoncerQuartoJ2);
+
         /////////////////////////////////////////////////////////////////
         Box Centre = Box.createHorizontalBox();
         Centre.add(jZoneJ1);
@@ -348,33 +348,50 @@ public final class JPanelQuarto extends JPanel implements Observer {
         } else if (notif instanceof NotificationPiecePlacee) {
             NotificationPiecePlacee placee = (NotificationPiecePlacee) notif;
             notifPlacerPiece(placee);
-        } else if( notif instanceof NotificationQuartoAnnoncer){
+        } else if (notif instanceof NotificationQuartoAnnoncer) {
             NotificationQuartoAnnoncer quartoAnnonce = (NotificationQuartoAnnoncer) notif;
-            
+
         }
-        
 
         updateScreen(notif.nouvelEtat);
 
         if (notif instanceof NotificationQuartoDetecte) {
-            
+
             NotificationQuartoDetecte quartoDetecte = (NotificationQuartoDetecte) notif;
 
-            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
-            //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
-            surlignerQuartos(quartoDetecte.quartos);
-            
-            Icon icon;
-            icon = new ImageIcon(GUIImageTool.getImage("/images/trophy.png"));
-            JOptionPane.showMessageDialog(frame, "BRAVO '" + controleur.getNomJoueur(notif.joueurSource) + "' , VOUS AVEZ GAGNE !!!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
+            printWinPopup(quartoDetecte.getQuartos(), controleur.getNomJoueur(notif.joueurSource));
 
         }
-        
+
+        if (notif instanceof NotificationQuartoAnnoncer) {
+
+            NotificationQuartoAnnoncer quartoAnnonce = (NotificationQuartoAnnoncer) notif;
+
+            if (quartoAnnonce.getQuartos().isEmpty()) {
+                printLoosePopup(controleur.getNomJoueur(notif.joueurSource));
+            } else {
+                printWinPopup(quartoAnnonce.getQuartos(), controleur.getNomJoueur(notif.joueurSource));
+            }
+
+        }
 
         this.revalidate();
         this.repaint();
 
+    }
+
+    private void printWinPopup(ArrayList<ArrayList<Coord>> quartosTrouves, String nomJoueur) {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        surlignerQuartos(quartosTrouves);
+
+        Icon icon = new ImageIcon(GUIImageTool.getImage("/images/trophy.png"));
+        JOptionPane.showMessageDialog(frame, "BRAVO '" + nomJoueur + "' , VOUS AVEZ GAGNE!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
+    }
+
+    private void printLoosePopup(String nomJoueur) {
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        Icon icon = new ImageIcon(GUIImageTool.getImage("/images/defeat.png"));
+        JOptionPane.showMessageDialog(frame, "DOMMAGE '" + nomJoueur + "' , VOUS AVEZ PERDU!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
     }
 
     /**
@@ -386,60 +403,60 @@ public final class JPanelQuarto extends JPanel implements Observer {
     private void updateScreen(EtatGUI etat) {
         switch (etat) {
             case J1DoitChoisir:
-                bDonnerJ1.setVisible(false);
-                bDonnerJ2.setVisible(false);
+                bDonnerJ1.setEnabled(false);
+                bDonnerJ2.setEnabled(false);
                 jPlateau.setEnabled(false);
                 jPanelListePieces.setEnabled(true);
                 jPieceJ2.setEnabled(false);
                 jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay();
+                annoncerQuartoDisplay(controleur.getJoueurCourant(), false);
                 break;
             case J1DoitDonner:
-                bDonnerJ1.setVisible(true);
+                bDonnerJ1.setEnabled(true);
                 jPlateau.setEnabled(false);
                 jPanelListePieces.setEnabled(true);
                 jPieceJ2.setEnabled(false);
                 jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay();
+                annoncerQuartoDisplay(controleur.getJoueurCourant(), false);
                 break;
             case J1DoitPlacer:
-                bDonnerJ1.setVisible(false);
-                bDonnerJ2.setVisible(false);
+                bDonnerJ1.setEnabled(false);
+                bDonnerJ2.setEnabled(false);
                 jPlateau.setEnabled(true);
                 jPanelListePieces.setEnabled(false);
                 jPieceJ2.setEnabled(false);
                 jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay();
+                annoncerQuartoDisplay(controleur.getJoueurCourant(), true);
                 break;
             case J2DoitChoisir:
-                bDonnerJ1.setVisible(false);
-                bDonnerJ2.setVisible(false);
+                bDonnerJ1.setEnabled(false);
+                bDonnerJ2.setEnabled(false);
                 jPlateau.setEnabled(false);
                 jPanelListePieces.setEnabled(true);
                 jPieceJ1.setEnabled(false);
                 jPieceJ2.setEnabled(true);
-                annoncerQuartoDisplay();
+                annoncerQuartoDisplay(controleur.getJoueurCourant(), false);
                 break;
             case J2DoitDonner:
-                bDonnerJ1.setVisible(false);
-                bDonnerJ2.setVisible(true);
+                bDonnerJ1.setEnabled(false);
+                bDonnerJ2.setEnabled(true);
                 jPlateau.setEnabled(false);
                 jPanelListePieces.setEnabled(true);
                 jPieceJ1.setEnabled(false);
                 jPieceJ2.setEnabled(true);
-                annoncerQuartoDisplay();
+                annoncerQuartoDisplay(controleur.getJoueurCourant(), false);
                 break;
             case J2DoitPlacer:
-                bDonnerJ2.setVisible(false);
-                bDonnerJ1.setVisible(false);
+                bDonnerJ2.setEnabled(false);
+                bDonnerJ1.setEnabled(false);
                 jPlateau.setEnabled(true);
                 jPanelListePieces.setEnabled(false);
                 jPieceJ1.setEnabled(false);
                 jPieceJ2.setEnabled(true);
-                annoncerQuartoDisplay();
+                annoncerQuartoDisplay(controleur.getJoueurCourant(), true);
                 break;
             case J1AAnnonceQuarto:
-                
+
                 break;
             case J2AAnnonceQuarto:
                 break;
@@ -459,8 +476,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
             case J1EtJ2OntAnnoncerMatchNull:
                 jPlateau.setEnabled(false);
                 jPanelListePieces.setEnabled(false);
-                bDonnerJ2.setVisible(false);
-                bDonnerJ1.setVisible(false);
+                bDonnerJ2.setEnabled(false);
+                bDonnerJ1.setEnabled(false);
                 bAnnoncerQuartoJ1.setVisible(false);
                 bAnnoncerQuartoJ2.setVisible(false);
                 break;
@@ -529,21 +546,40 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Gère l'affichage des boutons AnnoncerQuarto selon le joueur qui joue
      */
-    private void annoncerQuartoDisplay() {
-        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-            if (controleur.getListPiecePlacee().size() <= 3 || controleur.getIsValidationAutoEnabled()) {
-                bAnnoncerQuartoJ1.setVisible(false);
-                bAnnoncerQuartoJ2.setVisible(false);
+    private void annoncerQuartoDisplay(NumeroJoueur numJoueurCourant, Boolean quartoAdversaire) {
+
+        if (!controleur.getIsValidationAutoEnabled()) {
+            bAnnoncerQuartoJ1.setVisible(true);
+            bAnnoncerQuartoJ2.setVisible(true);
+            //tant qu'il n'y a pas de pièce posées on grise les boutons Quarto
+            if (!controleur.getListPiecePlacee().isEmpty()) {
+                if (numJoueurCourant == NumeroJoueur.J1) {
+                    if (quartoAdversaire) {
+                        bAnnoncerQuartoJ1.setText("Quarto Adverse!");
+                    } else {
+                        bAnnoncerQuartoJ1.setText("Quarto!");
+                    }
+                    bAnnoncerQuartoJ1.setEnabled(true);
+                    bAnnoncerQuartoJ2.setEnabled(false);
+
+                } else {
+
+                    if (quartoAdversaire) {
+                        bAnnoncerQuartoJ2.setText("Quarto Adverse!");
+                    } else {
+                        bAnnoncerQuartoJ2.setText("Quarto!");
+                    }
+                    bAnnoncerQuartoJ2.setEnabled(true);
+                    bAnnoncerQuartoJ1.setEnabled(false);
+
+                }
             } else {
-                bAnnoncerQuartoJ1.setVisible(true);
+                bAnnoncerQuartoJ1.setEnabled(false);
+                bAnnoncerQuartoJ2.setEnabled(false);
             }
         } else {
-            if (controleur.getListPiecePlacee().size() <= 3 || controleur.getIsValidationAutoEnabled()) {
-                bAnnoncerQuartoJ2.setVisible(false);
-                bAnnoncerQuartoJ1.setVisible(false);
-            } else {
-                bAnnoncerQuartoJ1.setVisible(true);
-            }
+            bAnnoncerQuartoJ1.setVisible(false);
+            bAnnoncerQuartoJ2.setVisible(false);
         }
     }
 
@@ -567,20 +603,14 @@ public final class JPanelQuarto extends JPanel implements Observer {
         g.drawImage(backgroundImage, 0, 0, this);
     }
 
-            
-        
-    
-
-
-    private void surlignerQuartos(ArrayList<ArrayList<Coord>>quartos) {
+    private void surlignerQuartos(ArrayList<ArrayList<Coord>> quartos) {
 
         for (ArrayList<Coord> quarto : quartos) {
-            
+
             for (Coord coord : quarto) {
                 mapCaseByCoord.get(coord).surlignerCase();
             }
 
-            
         }
     }
 
@@ -633,7 +663,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      */
     private class CasePlateauClickAction implements Runnable {
 
-        private Coord coord;
+        private final Coord coord;
 
         public CasePlateauClickAction(Coord coord) {
             this.coord = coord;
