@@ -358,7 +358,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         if (notif instanceof NotificationQuartoDetecte) {
             
-                        NotificationQuartoDetecte quartoDetecte = (NotificationQuartoDetecte) notif;
+            NotificationQuartoDetecte quartoDetecte = (NotificationQuartoDetecte) notif;
 
             JFrame frame = (JFrame) SwingUtilities.getRoot(this);
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

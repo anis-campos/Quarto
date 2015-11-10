@@ -5,6 +5,8 @@
  */
 package controlleur.observables;
 
+import java.util.ArrayList;
+import model.Coord;
 import model.EtatGUI;
 import model.NumeroJoueur;
 import model.SortieGUI;
@@ -13,12 +15,14 @@ import model.SortieGUI;
  *
  * @author Flo
  */
-public class NotificationQuartoDetecte  extends Notification {
+public class NotificationQuartoDetecte extends Notification {
 
-    public NotificationQuartoDetecte(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+    public final ArrayList<ArrayList<Coord>> quartos;
+
+    public NotificationQuartoDetecte(ArrayList<ArrayList<Coord>> quartos, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
         super(joueurSource, nouvelEtat, etatPrecedent, sortie);
+
+        this.quartos = quartos;
     }
 
-
-    
 }
