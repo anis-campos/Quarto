@@ -28,7 +28,7 @@ public class PartieBuilder {
     public static void buildPartie(Parametre p, Joueur j1, Joueur j2, JPanel targetPanel){
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(90,90));
+        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(75,75));
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//Important
 

@@ -6,7 +6,8 @@
 package view;
 
 import java.awt.CardLayout;
-import java.awt.event.KeyEvent;
+import java.awt.Graphics;
+import java.awt.Image;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
@@ -17,7 +18,7 @@ import model.Parametre;
  * @author timotheetroncy
  */
 public class JPanelParametres extends javax.swing.JPanel {
-
+private final Image backgroundImage;
     /**
      * Creates new form JPanelParametres
      */
@@ -26,6 +27,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         this.maxCharNumber = 10;
         initComponents();
         this.QuartoAutoValidation.setVisible(false);
+        this.backgroundImage =  GUIImageTool.getImage("/images/wood_texture.jpg");
         
     }
 
@@ -376,4 +378,9 @@ public class JPanelParametres extends javax.swing.JPanel {
     private javax.swing.JTextField joueur1;
     private javax.swing.JTextField joueur2;
     // End of variables declaration//GEN-END:variables
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
+    }
 }

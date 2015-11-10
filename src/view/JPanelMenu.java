@@ -6,6 +6,8 @@
 package view;
 
 import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
@@ -17,11 +19,13 @@ import model.Parametre;
  */
 public class JPanelMenu extends javax.swing.JPanel {
 
+    private Image backgroundImage;
     /**
      * Creates new form JPanelMenu
      */
     public JPanelMenu() {
         initComponents();
+        this.backgroundImage =  GUIImageTool.getImage("/images/wood_texture.jpg");
     }
 
     /**
@@ -37,7 +41,8 @@ public class JPanelMenu extends javax.swing.JPanel {
         jButtonCommencer = new javax.swing.JButton();
         jButtonContinuer = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setAlignmentX(0.0F);
+        setAlignmentY(0.0F);
         setName("menu"); // NOI18N
         setOpaque(false);
 
@@ -71,23 +76,23 @@ public class JPanelMenu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(88, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonParametrer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
                 .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,4 +120,11 @@ public class JPanelMenu extends javax.swing.JPanel {
     private javax.swing.JButton jButtonContinuer;
     private javax.swing.JButton jButtonParametrer;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
+    }
+
 }

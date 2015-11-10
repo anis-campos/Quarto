@@ -32,8 +32,8 @@ public class LauncherQuarto2 {
 
         JPanel generalPanel = new JPanel();
         CardLayout cardLayout = new CardLayout();
-        cardLayout.setHgap(10);
-        cardLayout.setVgap(10);
+        cardLayout.setHgap(0);
+        cardLayout.setVgap(0);
         JPanel menu = new JPanelMenu();
         JPanel parametres = new JPanelParametres();
 

@@ -65,6 +65,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     JTextArea jTextArea1;
     private final Dimension dimensionCase;
+    private Image backgroundImage;
 
     public JPanelQuarto(IControlleur controleur, Dimension dimensionCase) {
 
@@ -79,6 +80,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jTextArea1.setVisible(false);
 
         updateScreen(controleur.getEtatCourant());
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
 
     }
 
@@ -141,8 +143,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         grid.setHgap(5);
         grid.setVgap(5);
         jPlateau.setLayout(grid);
+        jPlateau.setOpaque(false);
         jPlateau.addPropertyChangeListener(new PropertyChangeListener() {
-
+         
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("enabled")) {
@@ -170,8 +173,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
         /////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////
         jEntete = Box.createVerticalBox();
-
+        jEntete.setOpaque(false);
         JLabel Titre = new JLabel("QUARTO");
+        Titre.setOpaque(false);
         Titre.setFont(new Font("Arial", Font.BOLD, 48));
 
         bAfficherMenu = new JButton("Afficher le Menu");
@@ -184,8 +188,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
             }
         });
         JPanel jPanel = new JPanel();
+        jPanel.setOpaque(false);
         jPanel.add(Titre);
         JPanel jPanel2 = new JPanel();
+        jPanel2.setOpaque(false);
         jPanel2.add(bAfficherMenu);
         Titre.setAlignmentX(SwingConstants.CENTER);
         bAfficherMenu.setAlignmentX(SwingConstants.CENTER);
@@ -198,13 +204,14 @@ public final class JPanelQuarto extends JPanel implements Observer {
         /////////////////////////////////////////////////////////////////
         jPanelListePieces = new JPanel();
 
+        jPanelListePieces.setOpaque(false);
         listeDePiecesDisponibles = new HashMap<>();
 
         grid = new GridLayout(2, 8);
         grid.setHgap(5);
         grid.setVgap(5);
         jPanelListePieces.setLayout(grid);
-        jPanelListePieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
+        //jPanelListePieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
         jPanelListePieces.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -294,11 +301,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         layeredPane = new JPanel();
         layeredPane.setLayout(new BorderLayout(20, 20));
-
         layeredPane.add(jEntete, BorderLayout.NORTH);
         layeredPane.add(Centre, BorderLayout.CENTER);
         layeredPane.add(Pied, BorderLayout.SOUTH);
-
+        layeredPane.setOpaque(false);
         this.add(layeredPane);
 
     }
@@ -541,6 +547,12 @@ public final class JPanelQuarto extends JPanel implements Observer {
             jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.PLAIN, initFontSize));
             jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.BOLD, fontSizeToUse));
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
     }
 
     //------------------------------------------------------------------------------------
