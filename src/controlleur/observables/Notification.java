@@ -15,10 +15,6 @@ import model.SortieGUI;
  */
 public abstract class Notification {
 
-    
-    
-  
-    
     public final EtatGUI nouvelEtat;
     public final EtatGUI etatPrecedent;
 
