@@ -56,12 +56,6 @@ public interface IControlleur {
     boolean annoncerMatchNul();
 
     /**
-     * Confirmer le Match Null
-     * @return 
-     */
-    boolean confirmerMatchNull();
-
-    /**
      * Permet de recuperer le joueur courant
      * @return Le numero de joueur
      */

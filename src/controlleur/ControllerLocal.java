@@ -5,16 +5,10 @@
  */
 package controlleur;
 
-import controlleur.observables.Notification;
-import controlleur.observables.NotificationDernierTour;
-import controlleur.observables.NotificationQuartoDetecte;
+import controlleur.observables.*;
 import model.EntreeGUI;
 import model.EtatGUI;
 import model.SortieGUI;
-import controlleur.observables.NotificationPieceDonnee;
-import controlleur.observables.NotificationPiecePlacee;
-import controlleur.observables.NotificationPieceSelectionnee;
-import controlleur.observables.NotificationQuartoAnnoncer;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -119,15 +113,34 @@ public class ControllerLocal extends Observable implements IControlleur {
             etatActuel = partie.passerEtatSuivant(EntreeGUI.PasQuarto);
         }
 
-        NotificationQuartoAnnoncer notif = new NotificationQuartoAnnoncer(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+        NotificationQuartoAnnonce notif = new NotificationQuartoAnnonce(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
         envoyerNotification(notif);
         return result;
     }
 
     @Override
     public boolean annoncerMatchNul() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (partie.getEtatGUI() == EtatGUI.J2DernierTour || partie.getEtatGUI() == EtatGUI.J1DernierTour) {
+            EtatGUI etatprecedent = partie.getEtatGUI();
+            EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
+            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
+            NotificationMatchNullAnnonce notif = new NotificationMatchNullAnnonce(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            partie.changerJoueurCourant();
+            envoyerNotification(notif);
+            return true;
+        }
+
+        if (partie.getEtatGUI() == EtatGUI.J1PeutConfirmerMatchNull || partie.getEtatGUI() == EtatGUI.J2PeutConfirmerMatchNull) {
+            EtatGUI etatprecedent = partie.getEtatGUI();
+            EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
+            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
+            NotificationMatchNullConfirme notif = new NotificationMatchNullConfirme(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            envoyerNotification(notif);
+        }
+
+        return false;
     }
+
 
     @Override
     public List<Map.Entry<Integer, String>> getListPieceDisponible() {
@@ -153,11 +166,6 @@ public class ControllerLocal extends Observable implements IControlleur {
     @Override
     public SortieGUI getSortieGui() {
         return partie.getSortieGUI();
-    }
-
-    @Override
-    public boolean confirmerMatchNull() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

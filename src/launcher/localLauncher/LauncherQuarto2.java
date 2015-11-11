@@ -21,6 +21,7 @@ import view.fenetrePrincipale;
  * @author timotheetroncy
  */
 public class LauncherQuarto2 {
+    public static JPanel generalPanel;
 
     public static void main(String[] args) {
 
@@ -30,7 +31,7 @@ public class LauncherQuarto2 {
         frame.setResizable(true);
       
 
-        JPanel generalPanel = new JPanel();
+        generalPanel = new JPanel();
         CardLayout cardLayout = new CardLayout();
         cardLayout.setHgap(0);
         cardLayout.setVgap(0);

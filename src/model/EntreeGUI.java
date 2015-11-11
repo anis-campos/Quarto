@@ -19,6 +19,6 @@ public enum EntreeGUI {
     ListePieceVide,
     J1AnnonceQuarto,
     J2AnnonceQuarto,
-    J1AnnonceMatchNUll,
+    J1AnnonceMatchNull,
     J2AnnonceMatchNull,
 }

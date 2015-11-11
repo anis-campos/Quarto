@@ -28,43 +28,36 @@ public class MatriceDeTransition {
             EnumMap<EntreeGUI, EtatGUI> map = new EnumMap<>(EntreeGUI.class);
             for (EntreeGUI entreeGUI : EntreeGUI.values()) {
                 map.put(entreeGUI, EtatGUI.EtatNonDefinit);
-
             }
             matrice.put(etatGUI, map);
-
         }
 
         //Ajout des transitions.
         matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.DonnerJ1, EtatGUI.J2DoitPlacer);
-        matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.ListePiece, EtatGUI.J1DoitDonner);
         matrice.get(EtatGUI.J2DoitDonner).put(EntreeGUI.DonnerJ2, EtatGUI.J1DoitPlacer);
+        matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.ListePiece, EtatGUI.J1DoitDonner);
         matrice.get(EtatGUI.J2DoitDonner).put(EntreeGUI.ListePiece, EtatGUI.J2DoitDonner);
         matrice.get(EtatGUI.J1DoitDonner).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DoitDonner).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
-
         matrice.get(EtatGUI.J1DoitPlacer).put(EntreeGUI.Plateau, EtatGUI.J1DoitChoisir);
         matrice.get(EtatGUI.J2DoitPlacer).put(EntreeGUI.Plateau, EtatGUI.J2DoitChoisir);
         matrice.get(EtatGUI.J1DoitPlacer).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DoitPlacer).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
-
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.ListePiece, EtatGUI.J1DoitDonner);
         matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.ListePiece, EtatGUI.J2DoitDonner);
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
         matrice.get(EtatGUI.J1DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J1DernierTour);
         matrice.get(EtatGUI.J2DoitChoisir).put(EntreeGUI.ListePieceVide, EtatGUI.J2DernierTour);
-
         matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.Quarto, EtatGUI.J1ATrouveUnQuarto);
-        matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.PasQuarto, EtatGUI.J2ATrouveUnQuarto);
         matrice.get(EtatGUI.J2AAnnonceQuarto).put(EntreeGUI.Quarto, EtatGUI.J2ATrouveUnQuarto);
         matrice.get(EtatGUI.J2AAnnonceQuarto).put(EntreeGUI.PasQuarto, EtatGUI.J1ATrouveUnQuarto);
-
-        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1PeutConfirmerMatchNull);
-        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceMatchNUll, EtatGUI.J2PeutConfirmerMatchNull);
-        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
+        matrice.get(EtatGUI.J1AAnnonceQuarto).put(EntreeGUI.PasQuarto, EtatGUI.J2ATrouveUnQuarto);
+        matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceMatchNull, EtatGUI.J2PeutConfirmerMatchNull);
+        matrice.get(EtatGUI.J2DernierTour).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1PeutConfirmerMatchNull);
         matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
-        
-        matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceMatchNUll, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
+        matrice.get(EtatGUI.J2DernierTour).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
+        matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
         matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
         matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
