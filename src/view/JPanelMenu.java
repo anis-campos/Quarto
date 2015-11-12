@@ -9,10 +9,8 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.JPanel;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
-import model.NumeroJoueur;
 import model.Parametre;
 
 /**
