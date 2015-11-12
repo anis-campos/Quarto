@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 import model.Joueur;
 import model.Parametre;
 import model.Partie;
+import view.GUIResolutionTool;
 import view.JPanelQuarto;
 
 /**
@@ -28,7 +29,7 @@ public class PartieBuilder {
     public static void buildPartie(Parametre p, Joueur j1, Joueur j2, JPanel targetPanel){
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal,new Dimension(75,75));
+        JPanel panel = new JPanelQuarto(controllerLocal,GUIResolutionTool.getSizeOfCase());
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//Important
 

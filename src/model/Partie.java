@@ -98,10 +98,9 @@ public class Partie {
 
     public boolean poserPiece(Coord coord) {
 
-        coordDernierePiecePlacee = coord;
-
         boolean addPiece = plateauJeu.addPiece(coord, getPieceJoueurCourant());
         if (addPiece) {
+            coordDernierePiecePlacee = coord;
             setPieceJoueurCourant(null);
         }
         return addPiece;
@@ -220,6 +219,7 @@ public class Partie {
     }
 
     public boolean thereIsQuarto(Coord coordDernierePiece) {
+        quartos =  new ArrayList<ArrayList<Coord>>();
         return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, quartos);
     }
 
