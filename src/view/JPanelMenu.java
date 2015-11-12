@@ -6,8 +6,10 @@
 package view;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.JPanel;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
@@ -20,12 +22,13 @@ import model.Parametre;
 public class JPanelMenu extends javax.swing.JPanel {
 
     private Image backgroundImage;
+
     /**
      * Creates new form JPanelMenu
      */
     public JPanelMenu() {
         initComponents();
-        this.backgroundImage =  GUIImageTool.getImage("/images/wood_texture.jpg");
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
     }
 
     /**
@@ -102,9 +105,16 @@ public class JPanelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonParametrerActionPerformed
 
     private void jButtonCommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCommencerActionPerformed
-        Parametre p = new Parametre(true, true, true, true, true,false,true);
-        Joueur j1 = new Joueur("Joueur 1", false, NumeroJoueur.J1);
-        Joueur j2 = new Joueur("Joueur 2", false, NumeroJoueur.J2);
+        JPanelParametres panelParametres = null;
+        Component[] components = this.getParent().getComponents();
+        for (Component c : components) {
+            if (c.getName().equals("parametres")) {
+                panelParametres = (JPanelParametres) c;
+            }
+        }
+        Parametre p = getParametres(panelParametres);
+        Joueur j1 = panelParametres.getJoueur1();
+        Joueur j2 = panelParametres.getJoueur2();
         PartieBuilder.buildPartie(p, j1, j2, this);
     }//GEN-LAST:event_jButtonCommencerActionPerformed
 
@@ -113,7 +123,17 @@ public class JPanelMenu extends javax.swing.JPanel {
         cl.show(this.getParent(), "jeu");
         PartieBuilder.repackPartieQuarto(this);
     }//GEN-LAST:event_jButtonContinuerActionPerformed
-
+    private Parametre getParametres(JPanelParametres panelParametres) {
+        return new Parametre(
+                panelParametres.getForme().isSelected(),
+                panelParametres.getTaille().isSelected(),
+                panelParametres.getCouleur().isSelected(),
+                panelParametres.getCreux().isSelected(),
+                panelParametres.getQuartoCarre().isSelected(),
+                panelParametres.getQuartoAutoValidation().isSelected(),
+                panelParametres.getJoueurRandom().isSelected()
+        );
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCommencer;
