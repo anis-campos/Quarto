@@ -8,6 +8,8 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.NumeroJoueur;
@@ -18,7 +20,9 @@ import model.Parametre;
  * @author timotheetroncy
  */
 public class JPanelParametres extends javax.swing.JPanel {
-private final Image backgroundImage;
+
+    private final Image backgroundImage;
+
     /**
      * Creates new form JPanelParametres
      */
@@ -26,8 +30,8 @@ private final Image backgroundImage;
         this.minCharNumber = 3;
         this.maxCharNumber = 10;
         initComponents();
-        this.backgroundImage =  GUIImageTool.getImage("/images/wood_texture.jpg");
-        
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
+
     }
 
     /**
@@ -55,6 +59,7 @@ private final Image backgroundImage;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         JoueurRandom = new javax.swing.JCheckBox();
+        jButtonReset = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setName("parametres"); // NOI18N
@@ -244,6 +249,13 @@ private final Image backgroundImage;
                 .addGap(21, 21, 21))
         );
 
+        jButtonReset.setText("Paramètres par défaut");
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -254,6 +266,8 @@ private final Image backgroundImage;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(RetourMenu)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonReset)
+                        .addGap(27, 27, 27)
                         .addComponent(CommencerPartie))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,17 +279,19 @@ private final Image backgroundImage;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,13 +337,13 @@ private final Image backgroundImage;
     }//GEN-LAST:event_JoueurRandomActionPerformed
 
     private void J1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_J1KeyTyped
-        if (this.joueur1.getText().length() >= this.maxCharNumber){
+        if (this.joueur1.getText().length() >= this.maxCharNumber) {
             evt.consume();
         }
     }//GEN-LAST:event_J1KeyTyped
 
     private void J2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_J2KeyTyped
-        if (this.joueur2.getText().length() >= this.maxCharNumber){
+        if (this.joueur2.getText().length() >= this.maxCharNumber) {
             evt.consume();
         }
     }//GEN-LAST:event_J2KeyTyped
@@ -336,24 +352,64 @@ private final Image backgroundImage;
 
     }//GEN-LAST:event_joueur1PropertyChange
 
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        this.QuartoCarre.setSelected(true);
+        this.JoueurRandom.setSelected(true);
+        this.QuartoAutoValidation.setSelected(false);
+        this.Taille.setSelected(true);
+        this.Forme.setSelected(true);
+        this.Creux.setSelected(true);
+        this.Couleur.setSelected(true);
+        this.joueur1.setText("Joueur 1");
+        this.joueur2.setText("Joueur 2");
+    }//GEN-LAST:event_jButtonResetActionPerformed
+
     private Parametre getParametres() {
         return new Parametre(
-                this.Forme.isSelected(), 
-                this.Taille.isSelected(), 
-                this.Couleur.isSelected(), 
-                this.Creux.isSelected(), 
+                this.Forme.isSelected(),
+                this.Taille.isSelected(),
+                this.Couleur.isSelected(),
+                this.Creux.isSelected(),
                 this.QuartoCarre.isSelected(),
                 this.QuartoAutoValidation.isSelected(),
                 this.JoueurRandom.isSelected()
         );
     }
 
-    private Joueur getJoueur1() {
+    public Joueur getJoueur1() {
         return new Joueur(this.joueur1.getText(), false, NumeroJoueur.J1);
     }
 
-    private Joueur getJoueur2() {
+    public Joueur getJoueur2() {
         return new Joueur(this.joueur2.getText(), false, NumeroJoueur.J2);
+    }
+
+    public JCheckBox getCouleur() {
+        return Couleur;
+    }
+
+    public JCheckBox getCreux() {
+        return Creux;
+    }
+
+    public JCheckBox getForme() {
+        return Forme;
+    }
+
+    public JCheckBox getJoueurRandom() {
+        return JoueurRandom;
+    }
+
+    public JCheckBox getQuartoAutoValidation() {
+        return QuartoAutoValidation;
+    }
+
+    public JCheckBox getQuartoCarre() {
+        return QuartoCarre;
+    }
+
+    public JCheckBox getTaille() {
+        return Taille;
     }
     private final int maxCharNumber;
     private final int minCharNumber;
@@ -368,6 +424,7 @@ private final Image backgroundImage;
     private javax.swing.JCheckBox QuartoCarre;
     private javax.swing.JButton RetourMenu;
     private javax.swing.JCheckBox Taille;
+    private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
