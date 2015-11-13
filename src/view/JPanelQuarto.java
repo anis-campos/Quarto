@@ -157,7 +157,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bot.mousePress(InputEvent.BUTTON1_MASK);
         bot.mouseRelease(InputEvent.BUTTON1_MASK);
         try {
-            Thread.sleep(200);
+            Thread.sleep(300);
         } catch (InterruptedException ex) {
             Logger.getLogger(JPanelQuarto.class.getName()).log(Level.SEVERE, null, ex);
         }
