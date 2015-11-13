@@ -219,7 +219,7 @@ public class Partie {
     }
 
     public boolean thereIsQuarto(Coord coordDernierePiece) {
-        quartos =  new ArrayList<ArrayList<Coord>>();
+        quartos =  new ArrayList<>();
         return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, quartos);
     }
 
