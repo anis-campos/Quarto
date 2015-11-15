@@ -34,9 +34,9 @@ public class LauncherQuartoTest {
 
     public static void main(String[] args) {
 
-        LauncherQuarto2.main(args);
+        LauncherQuarto.main(args);
 
-        testGUI(LauncherQuarto2.generalPanel);
+        testGUI(LauncherQuarto.generalPanel);
 
     }
 
