@@ -7,8 +7,11 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import launcher.localLauncher.PartieBuilder;
 import model.Joueur;
 import model.Parametre;
@@ -41,6 +44,7 @@ public class JPanelMenu extends javax.swing.JPanel {
         jButtonParametrer = new javax.swing.JButton();
         jButtonCommencer = new javax.swing.JButton();
         jButtonContinuer = new javax.swing.JButton();
+        jButtonAfficherRegle = new javax.swing.JButton();
 
         setAlignmentX(0.0F);
         setAlignmentY(0.0F);
@@ -72,28 +76,41 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         });
 
+        jButtonAfficherRegle.setText("Règles du jeu");
+        jButtonAfficherRegle.setMaximumSize(new java.awt.Dimension(161, 29));
+        jButtonAfficherRegle.setMinimumSize(new java.awt.Dimension(161, 29));
+        jButtonAfficherRegle.setName("afficherRegle"); // NOI18N
+        jButtonAfficherRegle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAfficherRegleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(88, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonParametrer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButtonAfficherRegle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCommencer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonParametrer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonContinuer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(134, Short.MAX_VALUE)
                 .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonAfficherRegle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -121,6 +138,17 @@ public class JPanelMenu extends javax.swing.JPanel {
         cl.show(this.getParent(), "jeu");
         PartieBuilder.repackPartieQuarto(this);
     }//GEN-LAST:event_jButtonContinuerActionPerformed
+
+    private void jButtonAfficherRegleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfficherRegleActionPerformed
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(getClass().getClassLoader().getResource("rules.pdf").getFile());
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+    }//GEN-LAST:event_jButtonAfficherRegleActionPerformed
     private Parametre getParametres(JPanelParametres panelParametres) {
         return new Parametre(
                 panelParametres.getForme().isSelected(),
@@ -134,6 +162,7 @@ public class JPanelMenu extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAfficherRegle;
     private javax.swing.JButton jButtonCommencer;
     private javax.swing.JButton jButtonContinuer;
     private javax.swing.JButton jButtonParametrer;

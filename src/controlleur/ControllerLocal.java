@@ -39,7 +39,6 @@ public class ControllerLocal extends Observable implements IControlleur {
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
             NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
             envoyerNotification(notif);
-
             //Verification des quarto
             boolean quarto = partie.thereIsQuarto(coord);
             if (quarto && partie.isValidationAutoEnabled()) {
