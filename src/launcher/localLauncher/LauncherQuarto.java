@@ -12,8 +12,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import view.JPanelMenu;
-import view.JPanelParametres;
+import view.JPanelMenuLocal;
+import view.JPanelParametresLocal;
 import view.fenetrePrincipale;
 
 /**
@@ -35,8 +35,8 @@ public class LauncherQuarto {
         CardLayout cardLayout = new CardLayout();
         cardLayout.setHgap(0);
         cardLayout.setVgap(0);
-        JPanel menu = new JPanelMenu();
-        JPanel parametres = new JPanelParametres();
+        JPanel menu = new JPanelMenuLocal();
+        JPanel parametres = new JPanelParametresLocal();
 
         
         generalPanel.setLayout(cardLayout);

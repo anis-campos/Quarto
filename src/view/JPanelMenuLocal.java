@@ -20,14 +20,14 @@ import model.Parametre;
  *
  * @author timotheetroncy
  */
-public class JPanelMenu extends javax.swing.JPanel {
+public class JPanelMenuLocal extends javax.swing.JPanel {
 
     private Image backgroundImage;
 
     /**
      * Creates new form JPanelMenu
      */
-    public JPanelMenu() {
+    public JPanelMenuLocal() {
         initComponents();
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
     }
@@ -90,19 +90,19 @@ public class JPanelMenu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButtonAfficherRegle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonCommencer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonParametrer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonContinuer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                    .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,7 +110,7 @@ public class JPanelMenu extends javax.swing.JPanel {
                 .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonAfficherRegle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -120,11 +120,11 @@ public class JPanelMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonParametrerActionPerformed
 
     private void jButtonCommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCommencerActionPerformed
-        JPanelParametres panelParametres = null;
+        JPanelParametresLocal panelParametres = null;
         Component[] components = this.getParent().getComponents();
         for (Component c : components) {
             if (c.getName().equals("parametres")) {
-                panelParametres = (JPanelParametres) c;
+                panelParametres = (JPanelParametresLocal) c;
             }
         }
         Parametre p = getParametres(panelParametres);
@@ -149,7 +149,7 @@ public class JPanelMenu extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jButtonAfficherRegleActionPerformed
-    private Parametre getParametres(JPanelParametres panelParametres) {
+    private Parametre getParametres(JPanelParametresLocal panelParametres) {
         return new Parametre(
                 panelParametres.getForme().isSelected(),
                 panelParametres.getTaille().isSelected(),
@@ -157,7 +157,8 @@ public class JPanelMenu extends javax.swing.JPanel {
                 panelParametres.getCreux().isSelected(),
                 panelParametres.getQuartoCarre().isSelected(),
                 panelParametres.getQuartoAutoValidation().isSelected(),
-                panelParametres.getJoueurRandom().isSelected()
+                panelParametres.getJoueurRandom().isSelected(),
+                panelParametres.getContreBot().isSelected()
         );
     }
 

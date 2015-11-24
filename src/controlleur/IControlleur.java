@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import java.util.ArrayList;
 import model.EtatGUI;
 import model.SortieGUI;
 import java.util.List;
@@ -88,6 +89,8 @@ public interface IControlleur {
     String getNomJoueur(NumeroJoueur nj);
 
     Boolean getIsValidationAutoEnabled();
+
+    public ArrayList<Coord> getAvailableCoords();
     
   
 }

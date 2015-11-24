@@ -5,6 +5,7 @@
  */
 package launcher.localLauncher;
 
+import IA.Bot;
 import controlleur.ControllerLocal;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -30,6 +31,9 @@ public class PartieBuilder {
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
         JPanel panel = new JPanelQuarto(controllerLocal,GUIResolutionTool.getSizeOfCase());
+        if(p.contreBot()){
+            controllerLocal.addObserver((Observer) new Bot(controllerLocal));
+        }
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//Important
 

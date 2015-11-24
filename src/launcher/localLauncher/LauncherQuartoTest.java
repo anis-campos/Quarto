@@ -21,8 +21,8 @@ import javax.swing.WindowConstants;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.OceanTheme;
-import view.JPanelMenu;
-import view.JPanelParametres;
+import view.JPanelMenuLocal;
+import view.JPanelParametresLocal;
 import view.JPanelQuarto;
 import view.fenetrePrincipale;
 

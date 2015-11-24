@@ -97,6 +97,19 @@ public class PlateauJeu {
         plateauJeuPieceCoord.clear();
     }
 
+    public ArrayList<Coord> getAvailableCoords() {
+        ArrayList<Coord> coordsDispos = new ArrayList();
+        for (int i = 0; i <= 3; i++) {
+            for (int j = 0; j <= 3; j++) {
+                Coord current = new Coord(i, j);
+                if (!isPieceHere(current)) {
+                    coordsDispos.add(current);
+                }
+            }
+        }
+        return coordsDispos;
+    }
+
     @Override
     public String toString() {
         return "PlateauJeu{" + "plateauJeuCoordPiece=" + plateauJeuCoordPiece + ", plateauJeuPieceCoord=" + plateauJeuPieceCoord + '}';

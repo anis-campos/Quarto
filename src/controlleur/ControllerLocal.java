@@ -6,6 +6,7 @@
 package controlleur;
 
 import controlleur.observables.*;
+import java.util.ArrayList;
 import model.EntreeGUI;
 import model.EtatGUI;
 import model.SortieGUI;
@@ -175,6 +176,11 @@ public class ControllerLocal extends Observable implements IControlleur {
     @Override
     public Boolean getIsValidationAutoEnabled() {
         return partie.isValidationAutoEnabled();
+    }
+
+    @Override
+    public ArrayList<Coord> getAvailableCoords() {
+        return partie.getAvailableCoords();
     }
 
 }

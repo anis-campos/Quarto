@@ -5,6 +5,7 @@
  */
 package model;
 
+import IA.Bot;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ public class Partie {
     private EtatGUI etatActuel;
     private Coord coordDernierePiecePlacee;
     private ArrayList<ArrayList<Coord>> quartos;
+    private Bot bot;
 
     private Joueur joueurCourant;
 
@@ -280,6 +282,10 @@ public class Partie {
 
     public boolean isListPieceEmpty() {
         return listPiece.isEmpty();
+    }
+
+    public ArrayList<Coord> getAvailableCoords() {
+        return this.plateauJeu.getAvailableCoords();
     }
 
 }

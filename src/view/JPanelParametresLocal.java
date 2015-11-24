@@ -19,14 +19,14 @@ import model.Parametre;
  *
  * @author timotheetroncy
  */
-public class JPanelParametres extends javax.swing.JPanel {
+public class JPanelParametresLocal extends javax.swing.JPanel {
 
     private final Image backgroundImage;
 
     /**
      * Creates new form JPanelParametres
      */
-    public JPanelParametres() {
+    public JPanelParametresLocal() {
         this.minCharNumber = 3;
         this.maxCharNumber = 10;
         initComponents();
@@ -59,6 +59,7 @@ public class JPanelParametres extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         JoueurRandom = new javax.swing.JCheckBox();
+        contreBot = new javax.swing.JCheckBox();
         jButtonReset = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -138,7 +139,7 @@ public class JPanelParametres extends javax.swing.JPanel {
                 .addComponent(Couleur)
                 .addGap(18, 18, 18)
                 .addComponent(Creux)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Paramètrage du Quarto"));
@@ -213,38 +214,50 @@ public class JPanelParametres extends javax.swing.JPanel {
             }
         });
 
+        contreBot.setText("Jouer contre la machine");
+        contreBot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contreBotActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(joueur1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                            .addComponent(joueur2))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(JoueurRandom)
-                        .addGap(89, 89, 89))))
+                        .addGap(89, 89, 89))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(joueur1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                    .addComponent(joueur2)))
+                            .addComponent(contreBot))
+                        .addGap(0, 0, 0))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(contreBot)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(joueur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(JoueurRandom)
                 .addGap(21, 21, 21))
         );
@@ -279,11 +292,11 @@ public class JPanelParametres extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -291,7 +304,7 @@ public class JPanelParametres extends javax.swing.JPanel {
                         .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -317,6 +330,7 @@ public class JPanelParametres extends javax.swing.JPanel {
     }//GEN-LAST:event_RetourMenuActionPerformed
 
     private void CommencerPartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommencerPartieActionPerformed
+
         PartieBuilder.buildPartie(getParametres(), getJoueur1(), getJoueur2(), this);
     }//GEN-LAST:event_CommencerPartieActionPerformed
 
@@ -364,6 +378,16 @@ public class JPanelParametres extends javax.swing.JPanel {
         this.joueur2.setText("Joueur 2");
     }//GEN-LAST:event_jButtonResetActionPerformed
 
+    private void contreBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contreBotActionPerformed
+        if(this.contreBot.isSelected()){
+            jLabel2.setVisible(false);
+            joueur2.setVisible(false);
+        }else{
+            jLabel2.setVisible(true);
+            joueur2.setVisible(true);
+        }
+    }//GEN-LAST:event_contreBotActionPerformed
+
     private Parametre getParametres() {
         return new Parametre(
                 this.Forme.isSelected(),
@@ -372,7 +396,8 @@ public class JPanelParametres extends javax.swing.JPanel {
                 this.Creux.isSelected(),
                 this.QuartoCarre.isSelected(),
                 this.QuartoAutoValidation.isSelected(),
-                this.JoueurRandom.isSelected()
+                this.JoueurRandom.isSelected(),
+                this.contreBot.isSelected()
         );
     }
 
@@ -381,7 +406,8 @@ public class JPanelParametres extends javax.swing.JPanel {
     }
 
     public Joueur getJoueur2() {
-        return new Joueur(this.joueur2.getText(), false, NumeroJoueur.J2);
+        Boolean j2IsBot = this.contreBot.isSelected();
+        return new Joueur((j2IsBot)?"BOT":this.joueur2.getText(), j2IsBot, NumeroJoueur.J2);
     }
 
     public JCheckBox getCouleur() {
@@ -411,6 +437,11 @@ public class JPanelParametres extends javax.swing.JPanel {
     public JCheckBox getTaille() {
         return Taille;
     }
+
+    public JCheckBox getContreBot() {
+        return contreBot;
+    }
+    
     private final int maxCharNumber;
     private final int minCharNumber;
 
@@ -424,6 +455,7 @@ public class JPanelParametres extends javax.swing.JPanel {
     private javax.swing.JCheckBox QuartoCarre;
     private javax.swing.JButton RetourMenu;
     private javax.swing.JCheckBox Taille;
+    private javax.swing.JCheckBox contreBot;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
