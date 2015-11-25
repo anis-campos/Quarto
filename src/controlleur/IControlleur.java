@@ -10,7 +10,6 @@ import model.EtatGUI;
 import model.SortieGUI;
 import java.util.List;
 import java.util.Map;
-import javafx.beans.Observable;
 import model.Coord;
 import model.NumeroJoueur;
 
