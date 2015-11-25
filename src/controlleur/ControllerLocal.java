@@ -23,9 +23,6 @@ public class ControllerLocal extends AbstractController {
         super(partie);
     }
 
-
-    
-
     @Override
     public boolean poserPiece(Coord coord) {
         boolean rep = partie.poserPiece(coord);

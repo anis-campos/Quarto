@@ -44,6 +44,13 @@ public abstract class Notification implements Serializable{
         
     }
 
+    @Override
+    public String toString() {
+        return "[ Etat_Actuel :"+nouvelEtat+" ; Etat_précedent :"+etatPrecedent+"; Joueur_Source:"+joueurSource+"; Joueur_Adversaire:"+joueurAdversaire+"]\n";
+    }
+    
+    
+
   
         
 }

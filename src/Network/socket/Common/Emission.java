@@ -1,6 +1,7 @@
 package Network.socket.Common;
 
 import controlleur.AbstractController;
+import controlleur.observables.Notification;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -41,7 +42,8 @@ public class Emission implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         try {
-            queue.put("Nouveau Message");
+            Notification notif = (Notification)arg;
+            queue.put("Nouveau Message\n\t"+notif.toString());
             out.writeObject(arg);
 
         } catch (InterruptedException ex) {
