@@ -38,7 +38,7 @@ public class MatriceDeSortie {
         
         matrice.put(EtatGUI.J1ATrouveUnQuarto, SortieGUI.PartieTerminee);
         matrice.put(EtatGUI.J2ATrouveUnQuarto, SortieGUI.PartieTerminee);
-        matrice.put(EtatGUI.J1EtJ2OntAnnoncerMatchNull, SortieGUI.PartieTerminee);
+        matrice.put(EtatGUI.J1EtJ2OntAnnonceMatchNull, SortieGUI.PartieTerminee);
        
     }
 

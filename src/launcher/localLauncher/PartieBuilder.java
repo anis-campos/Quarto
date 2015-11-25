@@ -64,15 +64,13 @@ public class PartieBuilder {
         
         //Si la partie est contre bot
         // Le bot est toujours J2
-        if(p.contreBot()){
+        if(partie.onePlayer()){
             Bot bot = new Bot(controllerLocal, partie);
             controllerLocal.addObserver(bot);
             controllerLocal.notifierBotPremierTour();
             panel.bAnnoncerQuartoJ2NotVisible();
             panel.bDonnerJ2NotVisible();
             panel.bAnnoncerMatchNullJ2NotVisible();
-
-
         }
         
     }
