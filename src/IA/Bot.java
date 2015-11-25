@@ -100,11 +100,12 @@ public class Bot implements Observer {
                 traitement.start();
                 break;
 
-            //case J2DernierTour:
-            //    break;
-            //case J2PeutConfirmerMatchNull:
+            case J2DernierTour:
+                //annoncer quarto ou annoncer match null
+                break;
+            case J2PeutConfirmerMatchNull:
                 //annoncer quarto ou confirmer match null
-            //    break;
+                break;
             default:
                 break;
         }

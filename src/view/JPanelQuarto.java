@@ -80,6 +80,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         updateScreen(controleur.getEtatCourant());
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
+        if (controleur.onePlayer()) {
+            bAnnoncerQuartoJ2NotVisible();
+            bDonnerJ2NotVisible();
+            bAnnoncerMatchNullJ2NotVisible();
+        }
 
     }
 
@@ -92,11 +97,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
     }
 
     public void bAnnoncerMatchNullJ2NotVisible() {
-         bAnnoncerMatchNullJ2.setVisible(false);
+        bAnnoncerMatchNullJ2.setVisible(false);
     }
 
- 
-    
     public void testQuarto() throws AWTException {
 
         Robot bot = new Robot();
@@ -451,23 +454,23 @@ public final class JPanelQuarto extends JPanel implements Observer {
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
             Icon icon;
-           
+
             JOptionPane.showMessageDialog(frame, " Attention, c'est le dernier tours !!! Vous avez deux choix : \n"
                     + "=> Annoncer un quarto.\n"
                     + "=> Declarer match nul.", "Fin de Partie", JOptionPane.WARNING_MESSAGE);
         }
 
         if (notif instanceof NotificationMatchNullAnnonce) {
-             JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
             JOptionPane.showMessageDialog(frame, " Attention, Votre adversaire a annoncé match null !!! Vous avez deux choix : \n"
                     + "=> Annoncer un quarto adverse.\n"
                     + "=> Confirmer le match nul.", "Fin de Partie", JOptionPane.WARNING_MESSAGE);
         }
-        
+
         if (notif instanceof NotificationMatchNullConfirme) {
-                         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
             //  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
             JOptionPane.showMessageDialog(frame, " MATCH NULL ! ", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE);
@@ -495,7 +498,8 @@ public final class JPanelQuarto extends JPanel implements Observer {
     public void enableJPanelListePieces() {
         jPanelListePieces.setEnabled(true);
     }
-        public void disableJPlateau() {
+
+    public void disableJPlateau() {
         jPlateau.setEnabled(false);
     }
 
@@ -503,7 +507,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jPanelListePieces.setEnabled(false);
     }
 
-    
     /**
      * Met à jour l'interface à l'aide de la matrice d'état
      *
@@ -539,10 +542,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 annoncerQuartoDisplay(true);
                 break;
             case J2DoitChoisir:
-                if(controleur.onePlayer()){
+                if (controleur.onePlayer()) {
                     jPanelListePieces.setEnabled(false);
                     jPieceJ2.setEnabled(false);
-                }else{
+                } else {
                     jPanelListePieces.setEnabled(true);
                     jPieceJ2.setEnabled(true);
                 }
@@ -553,11 +556,11 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 annoncerQuartoDisplay(false);
                 break;
             case J2DoitDonner:
-                if(controleur.onePlayer()){
+                if (controleur.onePlayer()) {
                     bDonnerJ2.setEnabled(false);
                     jPanelListePieces.setEnabled(false);
                     jPieceJ2.setEnabled(false);
-                }else{
+                } else {
                     bDonnerJ2.setEnabled(true);
                     jPanelListePieces.setEnabled(true);
                     jPieceJ2.setEnabled(true);
@@ -568,10 +571,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 annoncerQuartoDisplay(false);
                 break;
             case J2DoitPlacer:
-                if(controleur.onePlayer()){
+                if (controleur.onePlayer()) {
                     jPlateau.setEnabled(false);
                     jPieceJ2.setEnabled(false);
-                }else{
+                } else {
                     jPlateau.setEnabled(true);
                     jPieceJ2.setEnabled(true);
                 }
@@ -610,7 +613,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
             case J1ATrouveUnQuarto:
             case J2ATrouveUnQuarto:
-            case J1EtJ2OntAnnoncerMatchNull:
+            case J1EtJ2OntAnnonceMatchNull:
                 jPlateau.setEnabled(false);
                 jPanelListePieces.setEnabled(false);
                 bDonnerJ2.setEnabled(false);

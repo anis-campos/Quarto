@@ -31,6 +31,6 @@ public enum EtatGUI {
     J1PeutConfirmerMatchNull,
 
 
-    J1EtJ2OntAnnoncerMatchNull,
+    J1EtJ2OntAnnonceMatchNull,
     
 }

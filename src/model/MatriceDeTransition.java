@@ -57,8 +57,8 @@ public class MatriceDeTransition {
         matrice.get(EtatGUI.J2DernierTour).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1PeutConfirmerMatchNull);
         matrice.get(EtatGUI.J1DernierTour).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2DernierTour).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
-        matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
-        matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnoncerMatchNull);
+        matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnonceMatchNull);
+        matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceMatchNull, EtatGUI.J1EtJ2OntAnnonceMatchNull);
         matrice.get(EtatGUI.J1PeutConfirmerMatchNull).put(EntreeGUI.J1AnnonceQuarto, EtatGUI.J1AAnnonceQuarto);
         matrice.get(EtatGUI.J2PeutConfirmerMatchNull).put(EntreeGUI.J2AnnonceQuarto, EtatGUI.J2AAnnonceQuarto);
     }
