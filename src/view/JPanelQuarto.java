@@ -83,20 +83,20 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    public JButton getbDonnerJ2() {
-        return bDonnerJ2;
+    public void bDonnerJ2NotVisible() {
+        bDonnerJ2.setVisible(false);
     }
 
-    public JButton getbAnnoncerQuartoJ2() {
-        return bAnnoncerQuartoJ2;
+    public void bAnnoncerQuartoJ2NotVisible() {
+        bAnnoncerQuartoJ2.setVisible(false);
     }
 
-    public JButton getbAnnoncerMatchNullJ2() {
-        return bAnnoncerMatchNullJ2;
+    public void bAnnoncerMatchNullJ2NotVisible() {
+         bAnnoncerMatchNullJ2.setVisible(false);
     }
+
+ 
     
-    
-
     public void testQuarto() throws AWTException {
 
         Robot bot = new Robot();
