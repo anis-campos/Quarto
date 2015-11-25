@@ -31,7 +31,7 @@ public class PartieBuilder {
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
         JPanelQuarto panel = new JPanelQuarto(controllerLocal,GUIResolutionTool.getSizeOfCase());
-        controllerLocal.addObserver((Observer) panel);
+        controllerLocal.addObserver(panel);
         panel.setName("jeu");//Important
 
         CardLayout cl = (CardLayout) targetPanel.getParent().getLayout();
@@ -66,7 +66,7 @@ public class PartieBuilder {
         // Le bot est toujours J2
         if(p.contreBot()){
             Bot bot = new Bot(controllerLocal, partie);
-            controllerLocal.addObserver((Observer) bot);
+            controllerLocal.addObserver(bot);
             controllerLocal.notifierBotPremierTour();
             panel.bAnnoncerQuartoJ2NotVisible();
             panel.bDonnerJ2NotVisible();

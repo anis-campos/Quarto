@@ -22,7 +22,7 @@ public class Emission implements Runnable, Observer {
     public Emission(ObjectOutputStream out, AbstractController controller) {
         this.out = out;
         this.queue = new ArrayBlockingQueue<>(10);
-        controller.addObserver((Observer) this);
+        controller.addObserver(this);
         this.continu = true;
     }
 

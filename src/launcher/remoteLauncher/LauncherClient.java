@@ -26,8 +26,8 @@ import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
 import view.GUIResolutionTool;
-import view.JPanelMenu;
-import view.JPanelParametres;
+import view.JPanelMenuLocal;
+import view.JPanelParametresLocal;
 import view.JPanelQuarto;
 import view.fenetrePrincipale;
 
@@ -39,9 +39,9 @@ public class LauncherClient {
 
     public static void main(String[] args) {
 
-        Parametre p = new Parametre(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE);
-        Joueur j1 = new Joueur("Serveur", Boolean.FALSE, NumeroJoueur.J1);
-        Joueur j2 = new Joueur("Client", Boolean.FALSE, NumeroJoueur.J2);
+        Parametre p = new Parametre(true, true, true, true, true, true, false,true) ;
+        Joueur j1 = new Joueur("Serveur", false, NumeroJoueur.J1);
+        Joueur j2 = new Joueur("Client", false, NumeroJoueur.J2);
 
         Partie partie = new Partie(p, j1, j2);
         ControllerDistant controllerLocal = new ControllerDistant(ControllerDistant.Type.CLIENT, partie);
@@ -59,8 +59,8 @@ public class LauncherClient {
         CardLayout cardLayout = new CardLayout();
         cardLayout.setHgap(0);
         cardLayout.setVgap(0);
-        JPanel menu = new JPanelMenu();
-        JPanel parametres = new JPanelParametres();
+        JPanel menu = new JPanelMenuLocal();
+        JPanel parametres = new JPanelParametresLocal();
 
         generalPanel.setLayout(cardLayout);
         generalPanel.setVisible(true);

@@ -51,7 +51,7 @@ public class ControllerLocal extends AbstractController {
     }
     
     public boolean notifierBotPremierTour(){
-        if(partie.getJoueurCourant() == NumeroJoueur.J2){
+        if(partie.getNumeroJoueurCourant() == NumeroJoueur.J2){
                 //bot.update(controllerLocal, null);
                 //lancer le bot
                 this.envoyerNotification(new NotificationPremierTour(NumeroJoueur.J2,partie.getEtatGUI(),null,getSortieGui()));

@@ -25,7 +25,7 @@ public class testPlateauJeu {
 
     @Before
     public void setUp() {
-        p = new Parametre(true, true, true, true, true,true,true);
+        p = new Parametre(true, true, true, true, true,true,true,true);
         j1 = new Joueur("Joueur1", false, NumeroJoueur.J1);
         j2 = new Joueur("Joueur2", false, NumeroJoueur.J2);
         partie = new Partie(p, j1, j2);

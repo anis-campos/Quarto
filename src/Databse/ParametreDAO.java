@@ -29,13 +29,14 @@ public class ParametreDAO extends DAO<Parametre> {
             String sql = "CREATE TABLE if not exists " + this.nomTable
                     + "("
                     + "name TEXT RIMARY KEY NOT NULL,"
-                    + "forme BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)),"
-                    + "hauteur BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)),"
-                    + "couleur BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)),"
-                    + "creux BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)),"
-                    + "quartoCarre BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)),"
-                    + "validationAuto BOOLEAN NOT NULL CHECK (mycolumn IN (0,1)),"
-                    + "joueurRandom BOOLEAN NOT NULL CHECK (mycolumn IN (0,1))"
+                    + "forme BOOLEAN NOT NULL CHECK (forme IN (0,1)),"
+                    + "hauteur BOOLEAN NOT NULL CHECK (hauteur IN (0,1)),"
+                    + "couleur BOOLEAN NOT NULL CHECK (couleur IN (0,1)),"
+                    + "creux BOOLEAN NOT NULL CHECK (creux IN (0,1)),"
+                    + "quartoCarre BOOLEAN NOT NULL CHECK (quartoCarre IN (0,1)),"
+                    + "validationAuto BOOLEAN NOT NULL CHECK (validationAuto IN (0,1)),"
+                    + "joueurRandom BOOLEAN NOT NULL CHECK (joueurRandom IN (0,1)),"
+                    + "bot BOOLEAN NOT NULL CHECK (bot IN (0,1))"
                     + ") ";
             stmt.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -57,7 +58,8 @@ public class ParametreDAO extends DAO<Parametre> {
                      executeQuery.getBoolean("creux"),
                      executeQuery.getBoolean("quartoCarre"),
                      executeQuery.getBoolean("validationAuto"),
-                     executeQuery.getBoolean("joueurRandom")
+                     executeQuery.getBoolean("joueurRandom"),
+                     executeQuery.getBoolean("bot")
                     );
              return p;
         } catch (SQLException ex) {

@@ -5,8 +5,6 @@
  */
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -25,7 +23,7 @@ public class PartieTest {
     
     public PartieTest() {
         instance = new Partie(
-                new Parametre(true, true, true, true, true, true, true), 
+                new Parametre(true, true, true, true, true, true, true,true), 
                 new Joueur("J1", false, NumeroJoueur.J1), 
                 new Joueur("J2", false, NumeroJoueur.J2));
     }
