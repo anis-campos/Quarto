@@ -71,7 +71,7 @@ public class Bot implements Observer {
                     public void run() {
                         try {
                             Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto() ) {
+                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
                                 controller.annoncerQuarto();
                             } else {
                                 controller.selectionPiece(pickRandomPiece());
@@ -102,9 +102,43 @@ public class Bot implements Observer {
 
             case J2DernierTour:
                 //annoncer quarto ou annoncer match null
+                traitement = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1500);
+                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                                controller.annoncerQuarto();
+                            } else {
+                                controller.annoncerMatchNul();
+                            }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+                traitement.start();
                 break;
             case J2PeutConfirmerMatchNull:
                 //annoncer quarto ou confirmer match null
+                traitement = new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1500);
+                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                                controller.annoncerQuarto();
+                            } else {
+                                controller.annoncerMatchNul();
+                            }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+                traitement.start();
                 break;
             default:
                 break;
