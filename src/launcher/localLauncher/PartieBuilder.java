@@ -66,7 +66,7 @@ public class PartieBuilder {
         //Si la partie est contre bot
         // Le bot est toujours J2
         if(p.contreBot()){
-            Bot bot = new Bot(controllerLocal);
+            Bot bot = new Bot(controllerLocal, partie);
             controllerLocal.addObserver((Observer) bot);
             controllerLocal.notifierBotPremierTour();
         }

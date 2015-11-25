@@ -220,9 +220,9 @@ public class Partie {
         return rep;
     }
 
-    public boolean thereIsQuarto(Coord coordDernierePiece) {
+    public boolean thereIsQuarto() {
         quartos =  new ArrayList<>();
-        return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiece, quartos);
+        return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiecePlacee, quartos);
     }
 
     public String getNameJoueurFromNumero(NumeroJoueur nj) {
@@ -273,7 +273,7 @@ public class Partie {
     }
 
     public boolean annoncerQuarto() {
-        return thereIsQuarto(coordDernierePiecePlacee);
+        return thereIsQuarto();
     }
 
     public ArrayList<ArrayList<Coord>> getQuartos() {
@@ -287,5 +287,14 @@ public class Partie {
     public ArrayList<Coord> getAvailableCoords() {
         return this.plateauJeu.getAvailableCoords();
     }
+
+    public Parametre getParametres() {
+        return parametres;
+    }
+
+    public Coord getCoordDernierePiecePlacee() {
+        return coordDernierePiecePlacee;
+    }
+    
 
 }
