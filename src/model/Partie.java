@@ -295,6 +295,9 @@ public class Partie {
     public Coord getCoordDernierePiecePlacee() {
         return coordDernierePiecePlacee;
     }
-    
+
+    public boolean onePlayer() {
+        return joueur2.isBot();
+    }
 
 }

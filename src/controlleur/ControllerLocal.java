@@ -193,4 +193,11 @@ public class ControllerLocal extends Observable implements IControlleur {
         return partie.getAvailableCoords();
     }
 
+    @Override
+    public boolean onePlayer() {
+        return partie.onePlayer();
+    }
+    
+   
+
 }

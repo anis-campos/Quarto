@@ -28,5 +28,10 @@ public class Joueur {
     public String getName(){
         return nom;
     }
+
+    public Boolean isBot() {
+        return isBot;
+    }
+    
     
 }

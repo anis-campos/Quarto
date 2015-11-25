@@ -488,6 +488,22 @@ public final class JPanelQuarto extends JPanel implements Observer {
         JOptionPane.showMessageDialog(frame, "DOMMAGE '" + nomJoueur + "' , VOUS AVEZ PERDU!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
     }
 
+    public void enableJPlateau() {
+        jPlateau.setEnabled(true);
+    }
+
+    public void enableJPanelListePieces() {
+        jPanelListePieces.setEnabled(true);
+    }
+        public void disableJPlateau() {
+        jPlateau.setEnabled(false);
+    }
+
+    public void disableJPanelListePieces() {
+        jPanelListePieces.setEnabled(false);
+    }
+
+    
     /**
      * Met à jour l'interface à l'aide de la matrice d'état
      *
@@ -523,34 +539,49 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 annoncerQuartoDisplay(true);
                 break;
             case J2DoitChoisir:
+                if(controleur.onePlayer()){
+                    jPanelListePieces.setEnabled(false);
+                    jPieceJ2.setEnabled(false);
+                }else{
+                    jPanelListePieces.setEnabled(true);
+                    jPieceJ2.setEnabled(true);
+                }
                 bDonnerJ1.setEnabled(false);
                 bDonnerJ2.setEnabled(false);
                 jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(true);
                 jPieceJ1.setEnabled(false);
-                jPieceJ2.setEnabled(true);
                 annoncerQuartoDisplay(false);
                 break;
             case J2DoitDonner:
+                if(controleur.onePlayer()){
+                    bDonnerJ2.setEnabled(false);
+                    jPanelListePieces.setEnabled(false);
+                    jPieceJ2.setEnabled(false);
+                }else{
+                    bDonnerJ2.setEnabled(true);
+                    jPanelListePieces.setEnabled(true);
+                    jPieceJ2.setEnabled(true);
+                }
                 bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(true);
                 jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(true);
                 jPieceJ1.setEnabled(false);
-                jPieceJ2.setEnabled(true);
                 annoncerQuartoDisplay(false);
                 break;
             case J2DoitPlacer:
+                if(controleur.onePlayer()){
+                    jPlateau.setEnabled(false);
+                    jPieceJ2.setEnabled(false);
+                }else{
+                    jPlateau.setEnabled(true);
+                    jPieceJ2.setEnabled(true);
+                }
                 bDonnerJ2.setEnabled(false);
                 bDonnerJ1.setEnabled(false);
-                jPlateau.setEnabled(true);
                 jPanelListePieces.setEnabled(false);
                 jPieceJ1.setEnabled(false);
-                jPieceJ2.setEnabled(true);
                 annoncerQuartoDisplay(true);
                 break;
             case J1AAnnonceQuarto:
-
                 break;
             case J2AAnnonceQuarto:
                 break;

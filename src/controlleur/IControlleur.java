@@ -92,5 +92,6 @@ public interface IControlleur {
 
     public ArrayList<Coord> getAvailableCoords();
     
+    boolean onePlayer();
   
 }
