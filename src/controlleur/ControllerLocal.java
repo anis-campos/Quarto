@@ -56,6 +56,16 @@ public class ControllerLocal extends Observable implements IControlleur {
         }
         return rep;
     }
+    
+    public boolean notifierBotPremierTour(){
+        if(partie.getJoueurCourant() == NumeroJoueur.J2){
+                //bot.update(controllerLocal, null);
+                //lancer le bot
+                this.envoyerNotification(new NotificationPremierTour(NumeroJoueur.J2,partie.getEtatGUI(),null,getSortieGui()));
+                return true;
+            }
+        return false;
+    }
 
     /**
      * Permet d'envoyer une notification.

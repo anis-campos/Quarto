@@ -7,7 +7,6 @@ package IA;
 
 import controlleur.IControlleur;
 import controlleur.observables.Notification;
-import static java.lang.Math.random;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coord;
-import model.NumeroJoueur;
 
 /**
  *
