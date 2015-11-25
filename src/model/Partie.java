@@ -95,6 +95,7 @@ public class Partie {
         for (Piece piece : listPiece) {
             rep.add(new AbstractMap.SimpleEntry<>(piece.getId(), piece.getName()));
         }
+        
         return rep;
     }
 

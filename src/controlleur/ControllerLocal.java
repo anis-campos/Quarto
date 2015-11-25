@@ -9,10 +9,6 @@ import controlleur.observables.*;
 import java.util.ArrayList;
 import model.EntreeGUI;
 import model.EtatGUI;
-import model.SortieGUI;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
 import model.Coord;
 import model.NumeroJoueur;
 import model.Partie;
@@ -21,14 +17,14 @@ import model.Partie;
  *
  * @author Flo
  */
-public class ControllerLocal extends Observable implements IControlleur {
-
-    Partie partie;
+public class ControllerLocal extends AbstractController {
 
     public ControllerLocal(Partie partie) {
-        this.partie = partie;
-
+        super(partie);
     }
+
+
+    
 
     @Override
     public boolean poserPiece(Coord coord) {
@@ -67,16 +63,6 @@ public class ControllerLocal extends Observable implements IControlleur {
         return false;
     }
 
-    /**
-     * Permet d'envoyer une notification.
-     *
-     * @param notif
-     */
-    private void envoyerNotification(Notification notif) {
-        setChanged();
-        notifyObservers(notif);
-
-    }
 
     @Override
     public boolean donnerPieceAdversaire() {
@@ -152,41 +138,7 @@ public class ControllerLocal extends Observable implements IControlleur {
     }
 
 
-    @Override
-    public List<Map.Entry<Integer, String>> getListPieceDisponible() {
 
-        return partie.getListPieceNameDisponibles();
-    }
-
-    @Override
-    public NumeroJoueur getJoueurCourant() {
-        return partie.getNumeroJoueurCourant();
-    }
-
-    @Override
-    public List<String> getListPiecePlacee() {
-        return partie.getListPieceNamePlacees();
-    }
-
-    @Override
-    public EtatGUI getEtatCourant() {
-        return partie.getEtatGUI();
-    }
-
-    @Override
-    public SortieGUI getSortieGui() {
-        return partie.getSortieGUI();
-    }
-
-    @Override
-    public String getNomJoueur(NumeroJoueur nj) {
-        return partie.getNameJoueurFromNumero(nj);
-    }
-
-    @Override
-    public Boolean getIsValidationAutoEnabled() {
-        return partie.isValidationAutoEnabled();
-    }
 
     @Override
     public ArrayList<Coord> getAvailableCoords() {

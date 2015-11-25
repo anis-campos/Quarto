@@ -10,6 +10,7 @@ import model.EtatGUI;
 import model.SortieGUI;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.Observable;
 import model.Coord;
 import model.NumeroJoueur;
 
@@ -17,7 +18,7 @@ import model.NumeroJoueur;
  *
  * @author Anis
  */
-public interface IControlleur {
+public interface IControlleur{
 
     /**
      * Pose une piece sur le plateau de jeu de la partie
