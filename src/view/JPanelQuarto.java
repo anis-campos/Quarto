@@ -83,6 +83,20 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
+    public JButton getbDonnerJ2() {
+        return bDonnerJ2;
+    }
+
+    public JButton getbAnnoncerQuartoJ2() {
+        return bAnnoncerQuartoJ2;
+    }
+
+    public JButton getbAnnoncerMatchNullJ2() {
+        return bAnnoncerMatchNullJ2;
+    }
+    
+    
+
     public void testQuarto() throws AWTException {
 
         Robot bot = new Robot();
@@ -646,8 +660,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         NumeroJoueur numJoueurCourant = controleur.getJoueurCourant();
         if (!controleur.getIsValidationAutoEnabled()) {
-            bAnnoncerQuartoJ1.setVisible(true);
-            bAnnoncerQuartoJ2.setVisible(true);
             //tant qu'il n'y a pas de pièce posées on grise les boutons Quarto
             if (!controleur.getListPiecePlacee().isEmpty()) {
                 if (numJoueurCourant == NumeroJoueur.J1) {

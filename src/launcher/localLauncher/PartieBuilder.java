@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import model.Joueur;
-import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
 import view.GUIResolutionTool;
@@ -31,7 +30,7 @@ public class PartieBuilder {
     public static void buildPartie(Parametre p, Joueur j1, Joueur j2, JPanel targetPanel){
         Partie partie = new Partie(p, j1, j2);
         ControllerLocal controllerLocal = new ControllerLocal(partie);
-        JPanel panel = new JPanelQuarto(controllerLocal,GUIResolutionTool.getSizeOfCase());
+        JPanelQuarto panel = new JPanelQuarto(controllerLocal,GUIResolutionTool.getSizeOfCase());
         controllerLocal.addObserver((Observer) panel);
         panel.setName("jeu");//Important
 
@@ -69,6 +68,11 @@ public class PartieBuilder {
             Bot bot = new Bot(controllerLocal, partie);
             controllerLocal.addObserver((Observer) bot);
             controllerLocal.notifierBotPremierTour();
+            panel.getbAnnoncerQuartoJ2().setVisible(false);
+            panel.getbDonnerJ2().setVisible(false);
+            panel.getbAnnoncerMatchNullJ2().setVisible(false);
+
+
         }
         
     }
