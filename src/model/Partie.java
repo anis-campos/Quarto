@@ -203,9 +203,7 @@ public class Partie {
         }
     }
 
-    public NumeroJoueur getJoueurCourant() {
-        return joueurCourant.getNumeroJoueur();
-    }
+
 
     public PlateauJeu getPlateauJeu() {
         return plateauJeu;

@@ -1,12 +1,8 @@
 package controlleur;
 
-import java.util.List;
-import java.util.Map;
 import model.Coord;
-import model.EtatGUI;
 import model.NumeroJoueur;
 import model.Partie;
-import model.SortieGUI;
 
 /**
  * @author francoise.perrin
@@ -15,7 +11,49 @@ import model.SortieGUI;
  * la vue sous forme de Coord en 2 int
  *
  */
-public class ControllerDistant extends AbstractController {
+public class ControllerDistant extends ControllerLocal {
+
+    @Override
+    public boolean poserPiece(Coord coord) {
+
+        if (isGoodClient()) {
+
+            return super.poserPiece(coord);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean donnerPieceAdversaire() {
+        if (isGoodClient()) {
+            return super.donnerPieceAdversaire();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean selectionPiece(int idPiece) {
+        if (isGoodClient()) {
+            return super.selectionPiece(idPiece);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean annoncerQuarto() {
+        if (isGoodClient()) {
+            return super.annoncerQuarto();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean annoncerMatchNul() {
+        if (isGoodClient()) {
+            return super.annoncerMatchNul();
+        }
+        return false;
+    }
 
     public enum Type {
 
@@ -29,53 +67,10 @@ public class ControllerDistant extends AbstractController {
         this.type = type;
     }
 
- 
-    /*public ControllerDistant(ChessGame chessGame, Type type) {
-     super(chessGame);
-     this.type = type;
-     }
+    private boolean isGoodClient() {
+        NumeroJoueur j = partie.getNumeroJoueurCourant();
+        //return true;
+        return (type == Type.CLIENT && j == NumeroJoueur.J2) || (type == Type.SERVER && j == NumeroJoueur.J1);
+    }
 
-     @Override
-     public boolean move(Coord initCoord, Coord finalCoord) {
-
-     Couleur current = chessGame.getColorCurrentPlayer();
-
-     boolean ret = false;
-
-     if ((current == Couleur.NOIR && type == Type.CLIENT) || (current == Couleur.BLANC && type == Type.SERVER)) {
-     if (ret = chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y)) {
-     setChanged();
-     notifyObservers(new MoveNotification(initCoord, finalCoord));
-     }
-     } else {
-     chessGame.notifyIllegal();
-     }
-
-     return ret;
-
-     }
-
-     public boolean moveRemote(Coord initCoord, Coord finalCoord) {
-
-     Couleur current = chessGame.getColorCurrentPlayer();
-
-     if ((current == Couleur.BLANC && type == Type.CLIENT) || (current == Couleur.NOIR && type == Type.SERVER)) {
-     if (chessGame.move(initCoord.x, initCoord.y, finalCoord.x, finalCoord.y)) {
-     return true;
-     }
-     }
-     return false;
-
-     }
-
-     @Override
-     public boolean promote(Coord coord, String newType) {
-     if (chessGame.getColorCurrentPlayer() == Couleur.NOIR && chessGame.promote(coord.x, coord.y, newType)) {
-     setChanged();
-     notifyObservers(new PromotedNotification(coord, newType));
-     return true;
-     } else {
-     return false;
-     }
-     }*/
 }

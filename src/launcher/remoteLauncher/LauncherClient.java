@@ -5,19 +5,22 @@
  */
 package launcher.remoteLauncher;
 
-import Network.socket.server.Accepter_connexion;
+import Network.socket.client.Client;
 import controlleur.AbstractController;
 import controlleur.ControllerDistant;
-import controlleur.ControllerDistant.Type;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.net.ServerSocket;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import static launcher.remoteLauncher.LauncherServer.IP_SERVER;
+import static launcher.remoteLauncher.LauncherServer.PORT;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -32,10 +35,7 @@ import view.fenetrePrincipale;
  *
  * @author Anis
  */
-public class LauncherServer {
-
-    public static final int PORT = 5555;
-    public static String IP_SERVER = "127.0.0.1";
+public class LauncherClient {
 
     public static void main(String[] args) {
 
@@ -44,7 +44,7 @@ public class LauncherServer {
         Joueur j2 = new Joueur("Client", Boolean.FALSE, NumeroJoueur.J2);
 
         Partie partie = new Partie(p, j1, j2);
-        ControllerDistant controllerLocal = new ControllerDistant(Type.SERVER, partie);
+        ControllerDistant controllerLocal = new ControllerDistant(ControllerDistant.Type.CLIENT, partie);
 
         if (!Connexion(controllerLocal)) {
             return;
@@ -86,6 +86,7 @@ public class LauncherServer {
 
         cardLayout.show(generalPanel, "jeu");
 
+        frame.setTitle("MODE CLIENT");
         frame.setContentPane(generalPanel);
 
         frame.pack();
@@ -95,15 +96,21 @@ public class LauncherServer {
     }
 
     public static boolean Connexion(AbstractController controller) {
-        ServerSocket serverSocket;
         try {
-            serverSocket = new ServerSocket(PORT);
-            System.out.println("Le serveur est à l'écoute du port " + PORT);
-            Thread connectionServer = new Thread(new Accepter_connexion(serverSocket, controller));
-            connectionServer.start();
+
+            System.out.println("Demande de connexion");
+            Socket socket = new Socket(IP_SERVER, PORT);
+            System.out.println("Connexion tablie avec le serveur, authentification :"); // Si le message s'affiche c'est que je suis connect
+
+            Thread t1 = new Thread(new Client(socket, controller));
+            t1.start();
+
             return true;
-        } catch (Exception e) {
-            System.err.println("Le port " + PORT + " est déjà utilisé !\n" + e.getLocalizedMessage());
+
+        } catch (UnknownHostException e) {
+            System.err.println("Impossible de se connecter  l'adresse :" + IP_SERVER);
+        } catch (IOException e) {
+            System.err.println("Aucun serveur à l'écoute du port : " + PORT);
         }
 
         return false;

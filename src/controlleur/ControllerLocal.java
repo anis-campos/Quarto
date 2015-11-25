@@ -22,9 +22,6 @@ public class ControllerLocal extends AbstractController {
         super(partie);
     }
 
-
-    
-
     @Override
     public boolean poserPiece(Coord coord) {
         boolean rep = partie.poserPiece(coord);
@@ -51,7 +48,6 @@ public class ControllerLocal extends AbstractController {
         }
         return rep;
     }
-
 
     @Override
     public boolean donnerPieceAdversaire() {
@@ -125,8 +121,5 @@ public class ControllerLocal extends AbstractController {
 
         return false;
     }
-
-
-
 
 }
