@@ -5,6 +5,7 @@
  */
 package controlleur.observables;
 
+import java.io.Serializable;
 import model.NumeroJoueur;
 import model.EtatGUI;
 import model.SortieGUI;
@@ -13,7 +14,7 @@ import model.SortieGUI;
  *
  * @author Anis
  */
-public abstract class Notification {
+public abstract class Notification implements Serializable{
 
     public final EtatGUI nouvelEtat;
     public final EtatGUI etatPrecedent;
