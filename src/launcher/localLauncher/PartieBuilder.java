@@ -68,9 +68,9 @@ public class PartieBuilder {
             Bot bot = new Bot(controllerLocal, partie);
             controllerLocal.addObserver((Observer) bot);
             controllerLocal.notifierBotPremierTour();
-            panel.getbAnnoncerQuartoJ2().setVisible(false);
-            panel.getbDonnerJ2().setVisible(false);
-            panel.getbAnnoncerMatchNullJ2().setVisible(false);
+            panel.bAnnoncerQuartoJ2NotVisible();
+            panel.bDonnerJ2NotVisible();
+            panel.bAnnoncerMatchNullJ2NotVisible();
 
 
         }
