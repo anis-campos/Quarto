@@ -5,7 +5,7 @@
  */
 package launcher.remoteLauncher;
 
-import Network.socket.server.Accepter_connexion;
+import Network.Client_Serveur.Accepter_connexion;
 import controlleur.AbstractController;
 import controlleur.ControllerDistant;
 import controlleur.ControllerDistant.Type;

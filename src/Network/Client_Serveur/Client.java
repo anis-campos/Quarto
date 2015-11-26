@@ -1,11 +1,11 @@
-package Network.socket.client;
+package Network.Client_Serveur;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import Network.socket.Common.Emission;
-import Network.socket.Common.Reception;
+import Network.Client_Serveur.Emission;
+import Network.Client_Serveur.Reception;
 import controlleur.AbstractController;
 
 public class Client implements Runnable {

@@ -5,17 +5,16 @@
  */
 package Network.RMI.POC;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-
 /**
  *
  * @author Anis
  */
-public interface IService extends Remote {
+public class Constantes {
     
-    boolean connexion(String login, String password) throws RemoteException;
+    public static final String HOTE = "rmi://localhost";
     
+    public static final int PORT_RMI = 1099;
     
+    public static final String CONNEXION = "/Connexion";
     
 }

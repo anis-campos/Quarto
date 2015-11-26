@@ -1,4 +1,4 @@
-package Network.socket.Common;
+package Network.Client_Serveur;
 
 import controlleur.AbstractController;
 import controlleur.observables.Notification;

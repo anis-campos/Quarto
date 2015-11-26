@@ -5,7 +5,7 @@
  */
 package launcher.remoteLauncher;
 
-import Network.socket.client.Client;
+import Network.Client_Serveur.Client;
 import controlleur.AbstractController;
 import controlleur.ControllerDistant;
 import java.awt.CardLayout;

@@ -1,12 +1,12 @@
-package Network.socket.server;
+package Network.Client_Serveur;
 
-import Network.socket.Common.Emission;
+import Network.Client_Serveur.Emission;
 import controlleur.AbstractController;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import Network.socket.Common.Reception;
+import Network.Client_Serveur.Reception;
 
 public class PartieQuartoServeur implements Runnable {
 

@@ -5,6 +5,7 @@
  */
 package Network.RMI.POC;
 
+import static Network.RMI.POC.Constantes.*;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -20,11 +21,11 @@ public class Serveur {
 
     public static void main(String[] args) {
         try {
-            LocateRegistry.createRegistry(9999);
+            LocateRegistry.createRegistry(PORT_RMI);
 
-            ServiceImp serviceImp = new ServiceImp();
+            Login serviceImp = new Login();
 
-            String url = "rmi://localhost:9999/Connexion";
+            String url = "rmi:"+CONNEXION;
             System.out.println("Enregistrement de l'objet avec l'url : " + url);
             Naming.rebind(url, serviceImp);
 
