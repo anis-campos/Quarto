@@ -19,8 +19,8 @@ public class NotificationQuartoDetecte extends Notification {
 
     private final ArrayList<ArrayList<Coord>> quartos;
 
-    public NotificationQuartoDetecte(ArrayList<ArrayList<Coord>> quartos, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
-        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
+    public NotificationQuartoDetecte(ArrayList<ArrayList<Coord>> quartos, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+        super(joueurSource, nouvelEtat, etatPrecedent);
 
         this.quartos = quartos;
     }

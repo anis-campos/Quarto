@@ -11,6 +11,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.EtatGUI;
+import model.Joueur;
+import model.NumeroJoueur;
 
 public class Emission implements Runnable, Observer {
 
@@ -42,9 +45,11 @@ public class Emission implements Runnable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         try {
-            Notification notif = (Notification)arg;
-            queue.put("Nouveau Message\n\t"+notif.toString());
-            out.writeObject(arg);
+            Notification notif = (Notification) arg;
+
+
+            queue.put("Nouveau Message\n\t" + notif.toString());
+            out.writeObject(notif);
 
         } catch (InterruptedException ex) {
             Logger.getLogger(Emission.class.getName()).log(Level.SEVERE, null, ex);

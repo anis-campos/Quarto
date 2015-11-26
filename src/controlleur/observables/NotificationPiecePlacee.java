@@ -18,8 +18,8 @@ public class NotificationPiecePlacee extends Notification{
     
     public final Coord casePlateau;
 
-    public NotificationPiecePlacee(Coord casePlateau, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
-        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
+    public NotificationPiecePlacee(Coord casePlateau, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+        super(joueurSource, nouvelEtat, etatPrecedent);
         this.casePlateau = casePlateau;
     }
 

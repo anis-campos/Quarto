@@ -15,8 +15,8 @@ import model.SortieGUI;
  */
 public class NotificationMatchNullAnnonce extends Notification{
 
-    public NotificationMatchNullAnnonce(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
-        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
+    public NotificationMatchNullAnnonce(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+        super(joueurSource, nouvelEtat, etatPrecedent);
     }
     
 }

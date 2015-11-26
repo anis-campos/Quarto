@@ -17,8 +17,8 @@ public class NotificationPieceSelectionnee extends Notification {
 
     public final int idPiece;
 
-    public NotificationPieceSelectionnee(int idPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
-        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
+    public NotificationPieceSelectionnee(int idPiece, NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+        super(joueurSource, nouvelEtat, etatPrecedent);
         this.idPiece = idPiece;
     }
 

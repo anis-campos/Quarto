@@ -95,7 +95,7 @@ public class Partie {
         for (Piece piece : listPiece) {
             rep.add(new AbstractMap.SimpleEntry<>(piece.getId(), piece.getName()));
         }
-        
+
         return rep;
     }
 
@@ -109,9 +109,10 @@ public class Partie {
         return addPiece;
     }
 
-    public Coord getDerniereCoord(){
+    public Coord getDerniereCoord() {
         return coordDernierePiecePlacee;
     }
+
     private Piece getPieceJoueurCourant() {
         if (joueurCourant == joueur1) {
             return caseJoueur1;
@@ -205,8 +206,6 @@ public class Partie {
         }
     }
 
-
-
     public PlateauJeu getPlateauJeu() {
         return plateauJeu;
     }
@@ -220,7 +219,7 @@ public class Partie {
     }
 
     public boolean thereIsQuarto() {
-        quartos =  new ArrayList<>();
+        quartos = new ArrayList<>();
         return QuartoCalculator.thereIsQuarto(plateauJeu, parametres, coordDernierePiecePlacee, quartos);
     }
 
@@ -269,6 +268,16 @@ public class Partie {
 
         }
         return joueurCourant;
+    }
+
+    public void designeeJoueur(NumeroJoueur num) {
+        if (num == NumeroJoueur.J1) {
+            joueurCourant = joueur1;
+            etatActuel = EtatGUI.J1DoitChoisir;
+        } else {
+            joueurCourant = joueur2;
+            etatActuel = EtatGUI.J2DoitChoisir;
+        }
     }
 
     public boolean annoncerQuarto() {

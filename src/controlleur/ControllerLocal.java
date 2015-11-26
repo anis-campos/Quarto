@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import model.EntreeGUI;
 import model.EtatGUI;
 import model.Coord;
+import model.Joueur;
+import model.MatriceDeTransition;
 import model.NumeroJoueur;
 import model.Partie;
 
@@ -31,45 +33,46 @@ public class ControllerLocal extends AbstractController {
             EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = EntreeGUI.Plateau;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            NotificationPiecePlacee notif = new NotificationPiecePlacee(coord, getJoueurCourant(), etatActuel, etatprecedent);
             envoyerNotification(notif);
             //Verification des quarto
             boolean quarto = partie.thereIsQuarto();
             if (quarto && partie.isValidationAutoEnabled()) {
                 etatActuel = getJoueurCourant() == NumeroJoueur.J1 ? EtatGUI.J1ATrouveUnQuarto : EtatGUI.J2ATrouveUnQuarto;
-                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+                NotificationQuartoDetecte notifQuarto = new NotificationQuartoDetecte(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent);
                 envoyerNotification(notifQuarto);
             }
 
             if (partie.isListPieceEmpty()) {
                 etatActuel = partie.passerEtatSuivant(EntreeGUI.ListePieceVide);
-                NotificationDernierTour notifQuarto = new NotificationDernierTour(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());;
+                NotificationDernierTour notifQuarto = new NotificationDernierTour(getJoueurCourant(), etatActuel, etatprecedent);;
                 envoyerNotification(notifQuarto);
             }
         }
         return rep;
     }
-    
-    public boolean notifierBotPremierTour(){
-        if(partie.getNumeroJoueurCourant() == NumeroJoueur.J2){
-                //bot.update(controllerLocal, null);
-                //lancer le bot
-                this.envoyerNotification(new NotificationPremierTour(NumeroJoueur.J2,partie.getEtatGUI(),null,getSortieGui()));
-                return true;
-            }
+
+    public boolean notifierBotPremierTour() {
+        if (partie.getNumeroJoueurCourant() == NumeroJoueur.J2) {
+            //bot.update(controllerLocal, null);
+            //lancer le bot
+            this.envoyerNotification(new NotificationPremierTour(NumeroJoueur.J2, partie.getEtatGUI(), null));
+            return true;
+        }
         return false;
     }
 
-
     @Override
     public boolean donnerPieceAdversaire() {
+
         boolean rep = partie.donnerPieceAdversaire();
 
         if (rep) {
             EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            
+            NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent);
             partie.changerJoueurCourant();
             envoyerNotification(notif);
         }
@@ -84,7 +87,7 @@ public class ControllerLocal extends AbstractController {
             EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = EntreeGUI.ListePiece;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(idPiece, getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(idPiece, getJoueurCourant(), etatActuel, etatprecedent);
             envoyerNotification(notif);
         }
 
@@ -106,7 +109,7 @@ public class ControllerLocal extends AbstractController {
             etatActuel = partie.passerEtatSuivant(EntreeGUI.PasQuarto);
         }
 
-        NotificationQuartoAnnonce notif = new NotificationQuartoAnnonce(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+        NotificationQuartoAnnonce notif = new NotificationQuartoAnnonce(partie.getQuartos(), getJoueurCourant(), etatActuel, etatprecedent);
         envoyerNotification(notif);
         return result;
     }
@@ -117,7 +120,7 @@ public class ControllerLocal extends AbstractController {
             EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationMatchNullAnnonce notif = new NotificationMatchNullAnnonce(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            NotificationMatchNullAnnonce notif = new NotificationMatchNullAnnonce(getJoueurCourant(), etatActuel, etatprecedent);
             partie.changerJoueurCourant();
             envoyerNotification(notif);
             return true;
@@ -127,15 +130,12 @@ public class ControllerLocal extends AbstractController {
             EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationMatchNullConfirme notif = new NotificationMatchNullConfirme(getJoueurCourant(), etatActuel, etatprecedent, getSortieGui());
+            NotificationMatchNullConfirme notif = new NotificationMatchNullConfirme(getJoueurCourant(), etatActuel, etatprecedent);
             envoyerNotification(notif);
         }
 
         return false;
     }
-
-
-
 
     @Override
     public ArrayList<Coord> getAvailableCoords() {
@@ -146,7 +146,5 @@ public class ControllerLocal extends AbstractController {
     public boolean onePlayer() {
         return partie.onePlayer();
     }
-    
-   
 
 }

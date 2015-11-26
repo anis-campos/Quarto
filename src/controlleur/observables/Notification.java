@@ -21,16 +21,15 @@ public abstract class Notification implements Serializable{
 
     public final NumeroJoueur joueurSource;
     public final NumeroJoueur joueurAdversaire;
-    public  final SortieGUI sortie;
     
-    public Notification(NumeroJoueur joueurSource,EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
+    public Notification(NumeroJoueur joueurSource,EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
   
         this.nouvelEtat = nouvelEtat;
         this.etatPrecedent = etatPrecedent;
         
         this.joueurSource = joueurSource;
         
-        this.sortie = sortie;
+        
         switch (joueurSource) {
                 case J1:
                     joueurAdversaire = NumeroJoueur.J2;

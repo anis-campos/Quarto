@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.EtatGUI;
 
 public class Reception implements Runnable {
 
@@ -28,9 +29,12 @@ public class Reception implements Runnable {
             try {
                 Notification notif = (Notification) in.readObject();
 
+                if(notif.nouvelEtat==EtatGUI.EtatNonDefinit) continue;
+                
                 if (notif instanceof NotificationPieceDonnee) {
                     NotificationPieceDonnee donner = (NotificationPieceDonnee) notif;
                      System.out.println("Nouvelles Action recu recu : Pièce donnée ");
+                     
                     controler.donnerPieceAdversaire();
                 } else if (notif instanceof NotificationPieceSelectionnee) {
                     NotificationPieceSelectionnee selectionner = (NotificationPieceSelectionnee) notif;

@@ -40,10 +40,12 @@ public class LauncherClient {
     public static void main(String[] args) {
 
         Parametre p = new Parametre(true, true, true, true, true, true, false,true) ;
+        
         Joueur j1 = new Joueur("Serveur", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Client", false, NumeroJoueur.J2);
 
         Partie partie = new Partie(p, j1, j2);
+        partie.designeeJoueur(NumeroJoueur.J2);
         ControllerDistant controllerLocal = new ControllerDistant(ControllerDistant.Type.CLIENT, partie);
 
         if (!Connexion(controllerLocal)) {

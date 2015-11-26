@@ -15,8 +15,8 @@ import model.SortieGUI;
  */
 public class NotificationDernierTour extends Notification {
 
-    public NotificationDernierTour(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent, SortieGUI sortie) {
-        super(joueurSource, nouvelEtat, etatPrecedent, sortie);
+    public NotificationDernierTour(NumeroJoueur joueurSource, EtatGUI nouvelEtat, EtatGUI etatPrecedent) {
+        super(joueurSource, nouvelEtat, etatPrecedent);
     }
     
 }

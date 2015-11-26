@@ -55,6 +55,13 @@ public class ControllerDistant extends ControllerLocal {
         return false;
     }
 
+    @Override
+    public boolean onePlayer() {
+        return true;
+    }
+    
+    
+
     public enum Type {
 
         CLIENT, SERVER
@@ -69,8 +76,8 @@ public class ControllerDistant extends ControllerLocal {
 
     private boolean isGoodClient() {
         NumeroJoueur j = partie.getNumeroJoueurCourant();
-        //return true;
-        return (type == Type.CLIENT && j == NumeroJoueur.J2) || (type == Type.SERVER && j == NumeroJoueur.J1);
+        return true;
+        //return (type == Type.CLIENT && j == NumeroJoueur.J2) || (type == Type.SERVER && j == NumeroJoueur.J1);
     }
 
 }
