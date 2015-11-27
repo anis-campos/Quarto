@@ -9,6 +9,7 @@ import controlleur.observables.Notification;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import model.Coord;
 import model.EtatGUI;
 import model.NumeroJoueur;
 import model.Partie;
@@ -59,8 +60,22 @@ public abstract class AbstractController extends Observable implements IControll
 
     @Override
     public List<Map.Entry<Integer, String>> getListPieceDisponible() {
-
         return partie.getListPieceNameDisponibles();
+    }
+
+    @Override
+    public List<Map.Entry<Coord, String>> getListPiecePlateauJeu() {
+        return partie.getPiecesPlateauJeu();
+    }
+
+    @Override
+    public String getNamePieceJ1() {
+        return partie.getNamePieceJ1();
+    }
+
+    @Override
+    public String getNamePieceJ2() {
+        return partie.getNamePieceJ2();
     }
 
     /**

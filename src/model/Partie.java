@@ -307,5 +307,23 @@ public class Partie {
     public boolean onePlayer() {
         return joueur2.isBot();
     }
+    public List<Map.Entry<Coord, String>> getPiecesPlateauJeu(){
+        return plateauJeu.getPiecesPlateauJeu();
+    }
+    
+    public String getNamePieceJ1(){
+        if(caseJoueur1 != null){
+            return caseJoueur1.getName();
+        }else{
+            return null;
+        }
+    }
+    public String getNamePieceJ2(){
+        if(caseJoueur2 != null){
+            return caseJoueur2.getName();
+        }else{
+            return null;
+        }
+    }
 
 }

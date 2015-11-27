@@ -79,6 +79,12 @@ public interface IControlleur{
      * @return Une liste de nom de pièces
      */
     List<Map.Entry<Integer,String>> getListPieceDisponible();
+    
+    /**
+     * Obtenir la liste des pièces du plateauJeu
+     * @return Une liste de coord - nom de pièce
+     */
+    List<Map.Entry<Coord, String>> getListPiecePlateauJeu();
 
     /**
      * Obtenir la liste des pièces placées dans le plateau
@@ -91,6 +97,10 @@ public interface IControlleur{
     Boolean getIsValidationAutoEnabled();
 
     public ArrayList<Coord> getAvailableCoords();
+    
+    public String getNamePieceJ1();
+    
+    public String getNamePieceJ2();
     
     boolean onePlayer();
   
