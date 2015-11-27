@@ -7,24 +7,11 @@ package launcher.localLauncher;
 
 import java.awt.AWTException;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
-import javax.swing.plaf.metal.DefaultMetalTheme;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.OceanTheme;
-import view.JPanelMenuLocal;
-import view.JPanelParametresLocal;
 import view.JPanelQuarto;
-import view.fenetrePrincipale;
 
 /**
  *

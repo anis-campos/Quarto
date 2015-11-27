@@ -11,7 +11,6 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -71,8 +70,7 @@ public class PartieBuilder {
             panel.bAnnoncerQuartoJ2NotVisible();
             panel.bDonnerJ2NotVisible();
             panel.bAnnoncerMatchNullJ2NotVisible();
-        }
-        
+        }   
     }
     
     public static void repackPartieQuarto(JPanel targetPanel){

@@ -34,8 +34,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
     //Map string=name  label
     private HashMap<Integer, JLabelPiece> listeDePiecesDisponibles;
 
-    private Box jEntete;
-
     private JPanel jPlateau;
 
     private JPanel jPanelListePieces;
@@ -64,7 +62,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     JTextArea jTextArea1;
     private final Dimension dimensionCase;
-    private Image backgroundImage;
+    private final Image backgroundImage;
 
     public JPanelQuarto(IControlleur controleur, Dimension dimensionCase) {
 
@@ -74,7 +72,12 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         this.dimensionCase = dimensionCase;
 
+        listeDePiecesDisponibles = new HashMap<>();
+        mapCoordByCase = new HashMap<>();
+        mapCaseByCoord = new HashMap<>();
+
         initComponents();
+        initFromData();
 
         jTextArea1.setVisible(false);
 
@@ -184,10 +187,30 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * Fonction d'initialisation des composants de la GUI
      */
     private void initComponents() {
+        buildPlateauJeu();
+        Box entete = buildEntete();
+        buildListePieces();
 
-        //CONSTRUCTION DU PLATEAU
-        /////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////
+        Box Centre = Box.createHorizontalBox();
+        Centre.add(buildZoneJ1());
+        Centre.add(jPlateau);
+        Centre.add(buildZoneJ2());
+
+        Box Bottom = Box.createVerticalBox();
+        JPanel panel = new JPanel(new GridBagLayout());
+        jTextArea1 = new JTextArea("Instructions sur le jeu");
+        jTextArea1.setRows(2);
+        jTextArea1.setFont(new Font("arial", Font.BOLD, 20));
+        panel.add(jTextArea1);
+        Bottom.add(panel);
+        Bottom.add(Box.createRigidArea(new Dimension(1, 10)));
+        Bottom.add(jPanelListePieces);
+
+        placeBlocs(Centre, Bottom, entete);
+
+    }
+
+    private void buildPlateauJeu() {
         jPlateau = new JPanel();
 
         GridLayout grid = new GridLayout(4, 4);
@@ -208,8 +231,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 }
             }
         });
-        mapCoordByCase = new HashMap<>();
-        mapCaseByCoord = new HashMap<>();
 
         for (int i = 0; i < 16; i++) {
             Coord coord = new Coord(i / 4, i % 4);
@@ -218,12 +239,10 @@ public final class JPanelQuarto extends JPanel implements Observer {
             mapCaseByCoord.put(coord, jPanel);
             jPlateau.add(jPanel);
         }
-        /////////////////////////////////////////////////////////////////
+    }
 
-        //CONSTRUCTION DE L'ENTETE
-        /////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////
-        jEntete = Box.createVerticalBox();
+    private Box buildEntete() {
+        Box jEntete = Box.createVerticalBox();
         jEntete.setOpaque(false);
         JLabel Titre = new JLabel("QUARTO");
         Titre.setOpaque(false);
@@ -248,21 +267,16 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAfficherMenu.setAlignmentX(SwingConstants.CENTER);
         jEntete.add(jPanel);
         jEntete.add(jPanel2);
-        /////////////////////////////////////////////////////////////////
+        return jEntete;
+    }
 
-        //CONSTRUCTION DES PIECES
-        /////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////
+    private void buildListePieces() {
         jPanelListePieces = new JPanel();
-
         jPanelListePieces.setOpaque(false);
-        listeDePiecesDisponibles = new HashMap<>();
-
-        grid = new GridLayout(2, 8);
+        GridLayout grid = new GridLayout(2, 8);
         grid.setHgap(5);
         grid.setVgap(5);
         jPanelListePieces.setLayout(grid);
-        //jPanelListePieces.setBorder(BorderFactory.createTitledBorder("Liste des Pièces"));
         jPanelListePieces.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
@@ -275,37 +289,28 @@ public final class JPanelQuarto extends JPanel implements Observer {
                 }
             }
         });
+    }
 
-        for (Map.Entry<Integer, String> IdEtNomPiece : controleur.getListPieceDisponible()) {
-            JLabelPiece jLabelPiece = new JLabelPiece(IdEtNomPiece.getKey(), IdEtNomPiece.getValue(), dimensionCase, new PieceClickAction(IdEtNomPiece.getKey()));
-            listeDePiecesDisponibles.put(IdEtNomPiece.getKey(), jLabelPiece);
-            jPanelListePieces.add(jLabelPiece);
-        }
-
-        /////////////////////////////////////////////////////////////////
-        //CONSTRUCTION DE LA ZONE JOUEUR 1
-        /////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////
+    private Box buildZoneJ1() {
         Box jZoneJ1 = Box.createVerticalBox();
         jZoneJ1.setBackground(Color.red);
         jZoneJ1.setPreferredSize(new Dimension(210, 210));
 
         jPieceJ1 = new JPanelCase(dimensionCase, null);
 
-        bDonnerJ1 = new JButton("Donner à " + controleur.getNomJoueur(NumeroJoueur.J2));
+        bDonnerJ1 = new JButton();
         bDonnerJ1.addActionListener(new ButtonDonnerClickListener());
         bDonnerJ1.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        bAnnoncerQuartoJ1 = new JButton("Quarto!");
+        bAnnoncerQuartoJ1 = new JButton();
         bAnnoncerQuartoJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ1.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
         bAnnoncerMatchNullJ1 = new JButton("Annoncer Match Null");
         bAnnoncerMatchNullJ1.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerMatchNullJ1.addActionListener(new ButtonAnnoncerMatchNullClickListener());
-        bAnnoncerMatchNullJ1.setEnabled(false);
 
-        jLabelJ1 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J1), JLabel.CENTER);
+        jLabelJ1 = new JLabel("", JLabel.CENTER);//initFromData
 
         JPanel jLabelJ1Conteneur = new JPanel(new BorderLayout());
         jLabelJ1Conteneur.setOpaque(false);
@@ -322,31 +327,29 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jZoneJ1.add(bAnnoncerQuartoJ1);
         jZoneJ1.add(Box.createRigidArea(new Dimension(0, 10)));
         jZoneJ1.add(bAnnoncerMatchNullJ1);
+        return jZoneJ1;
+    }
 
-        /////////////////////////////////////////////////////////////////
-        //CONSTRUCTION DE LA ZONE JOUEUR 2
-        /////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////
+    private Box buildZoneJ2() {
         Box jZoneJ2 = Box.createVerticalBox();
         jZoneJ2.setBackground(Color.blue);
         jZoneJ2.setPreferredSize(new Dimension(210, 210));
 
         jPieceJ2 = new JPanelCase(dimensionCase, null);
 
-        bDonnerJ2 = new JButton("Donner à " + " " + controleur.getNomJoueur(NumeroJoueur.J1));
+        bDonnerJ2 = new JButton();
         bDonnerJ2.setAlignmentX(Component.CENTER_ALIGNMENT);
         bDonnerJ2.addActionListener(new ButtonDonnerClickListener());
 
-        bAnnoncerQuartoJ2 = new JButton("Quarto!");
+        bAnnoncerQuartoJ2 = new JButton();
         bAnnoncerQuartoJ2.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerQuartoJ2.addActionListener(new ButtonAnnoncerQuartoClickListener());
 
         bAnnoncerMatchNullJ2 = new JButton("Annoncer Match Null");
         bAnnoncerMatchNullJ2.setAlignmentX(CENTER_ALIGNMENT);
         bAnnoncerMatchNullJ2.addActionListener(new ButtonAnnoncerMatchNullClickListener());
-        bAnnoncerMatchNullJ2.setEnabled(false);
 
-        jLabelJ2 = new JLabel(controleur.getNomJoueur(NumeroJoueur.J2), JLabel.CENTER);
+        jLabelJ2 = new JLabel("", JLabel.CENTER);
         JPanel jLabelJ2Conteneur = new JPanel(new BorderLayout());
         jLabelJ2Conteneur.setOpaque(false);
         jLabelJ2Conteneur.add(jLabelJ2, BorderLayout.PAGE_END);
@@ -362,30 +365,56 @@ public final class JPanelQuarto extends JPanel implements Observer {
         jZoneJ2.add(bAnnoncerQuartoJ2);
         jZoneJ2.add(Box.createRigidArea(new Dimension(0, 10)));
         jZoneJ2.add(bAnnoncerMatchNullJ2);
-        /////////////////////////////////////////////////////////////////
-        Box Centre = Box.createHorizontalBox();
-        Centre.add(jZoneJ1);
-        Centre.add(jPlateau);
-        Centre.add(jZoneJ2);
+        return jZoneJ2;
+    }
 
-        Box Pied = Box.createVerticalBox();
-
-        JPanel panel = new JPanel(new GridBagLayout());
-        jTextArea1 = new JTextArea("Instructions sur le jeu");
-        jTextArea1.setRows(2);
-        jTextArea1.setFont(new Font("arial", Font.BOLD, 20));
-        panel.add(jTextArea1);
-        Pied.add(panel);
-        Pied.add(Box.createRigidArea(new Dimension(1, 10)));
-        Pied.add(jPanelListePieces);
-
+    private void placeBlocs(Box Centre, Box Bottom, Box entete) {
         layeredPane = new JPanel();
         layeredPane.setLayout(new BorderLayout(20, 20));
-        layeredPane.add(jEntete, BorderLayout.NORTH);
+        layeredPane.add(entete, BorderLayout.NORTH);
         layeredPane.add(Centre, BorderLayout.CENTER);
-        layeredPane.add(Pied, BorderLayout.SOUTH);
+        layeredPane.add(Bottom, BorderLayout.SOUTH);
         layeredPane.setOpaque(false);
         this.add(layeredPane);
+    }
+
+    public void initFromData() {
+
+        //CONSTRUCTION DES PIECES SUR les plateaux
+        for (Map.Entry<Integer, String> IdEtNomPiece : controleur.getListPieceDisponible()) {
+            JLabelPiece jLabelPiece = new JLabelPiece(IdEtNomPiece.getKey(), IdEtNomPiece.getValue(), dimensionCase, new PieceClickAction(IdEtNomPiece.getKey()));
+            listeDePiecesDisponibles.put(IdEtNomPiece.getKey(), jLabelPiece);
+            jPanelListePieces.add(jLabelPiece);
+        }
+        //CONSTRUCTION DES PIECES SUR PLATEAU JEU
+        for (Map.Entry<Coord, String> CoordEtNomPiece : controleur.getListPiecePlateauJeu()) {
+            JLabelPiece jLabelPiece = new JLabelPiece(-1, CoordEtNomPiece.getValue(), dimensionCase, null);
+            JPanelCase laCase = mapCaseByCoord.get(CoordEtNomPiece.getKey());
+            laCase.setPiece(jLabelPiece);
+        }
+
+        //CONSTRUCTION PIECE J1
+        String nameJ1 = controleur.getNamePieceJ1();
+        if (nameJ1 != null) {
+            JLabelPiece labelPieceJ1 = new JLabelPiece(-1, nameJ1, dimensionCase, null);
+            jPieceJ1.setPiece(labelPieceJ1);
+        }
+        //CONSTRUCTION PIECE J2
+        String nameJ2 = controleur.getNamePieceJ1();
+        if (nameJ2 != null) {
+            JLabelPiece labelPieceJ2 = new JLabelPiece(-1, nameJ2, dimensionCase, null);
+            jPieceJ2.setPiece(labelPieceJ2);
+        }
+
+        //INFOS JOUEURS
+        bDonnerJ1.setText("Donner à " + controleur.getNomJoueur(NumeroJoueur.J2));
+        bDonnerJ2.setText("Donner à " + controleur.getNomJoueur(NumeroJoueur.J1));
+        jLabelJ1.setText(controleur.getNomJoueur(NumeroJoueur.J1));
+        jLabelJ2.setText(controleur.getNomJoueur(NumeroJoueur.J2));
+        bAnnoncerQuartoJ1.setText("Quarto!");
+        bAnnoncerQuartoJ2.setText("Quarto!");
+        bAnnoncerMatchNullJ1.setEnabled(false);
+        bAnnoncerMatchNullJ2.setEnabled(false);
 
     }
 

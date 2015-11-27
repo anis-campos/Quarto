@@ -5,9 +5,12 @@
  */
 package model;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -108,6 +111,14 @@ public class PlateauJeu {
             }
         }
         return coordsDispos;
+    }
+    
+    public List<Map.Entry<Coord, String>> getPiecesPlateauJeu(){
+        List<Map.Entry<Coord, String>> liste = new ArrayList();
+        for (Map.Entry<Piece, Coord> pc : plateauJeuPieceCoord.entrySet()) {
+            liste.add(new AbstractMap.SimpleEntry<>(pc.getValue(), pc.getKey().getName()));
+        }
+        return liste;
     }
 
     @Override
