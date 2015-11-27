@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.POC;
+package RMI_POC;
 
-import static Network.RMI.POC.Constantes.*;
+import static RMI_POC.Constantes.*;
 import java.rmi.Naming;
 
 /**

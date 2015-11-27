@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.POC;
+package RMI_POC;
 
 import com.sun.javafx.css.CalculatedValue;
 import java.rmi.RemoteException;
@@ -25,7 +25,7 @@ public class Login extends UnicastRemoteObject implements ILogin {
          if(login.equals("scott") && password.length() == 6)
              return new Calculateur();
         
-         throw  new LoginException();
+         throw  new LoginException();   
     }
 
 }
