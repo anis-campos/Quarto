@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author timotheetroncy
  */
-public class Parametre {
+public class Parametre implements Serializable{
 
     private final Boolean hauteur;
     private final Boolean creux;

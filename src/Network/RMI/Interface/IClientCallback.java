@@ -5,15 +5,14 @@
  */
 package Network.RMI.Interface;
 
-import controlleur.observables.Notification;
+import java.io.Serializable;
 import java.rmi.Remote;
-import javafx.beans.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author Anis
  */
-public interface IClientCallback extends Remote {
-    
-    void update(Notification notif);
+public interface IClientCallback extends Remote,Observer,Serializable {
+ 
 }

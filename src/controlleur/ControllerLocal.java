@@ -146,5 +146,9 @@ public class ControllerLocal extends AbstractController {
     public boolean onePlayer() {
         return partie.onePlayer();
     }
+    
+    protected Partie getPartie(){
+        return partie;
+    }
 
 }

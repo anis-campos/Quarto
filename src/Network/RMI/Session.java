@@ -6,6 +6,7 @@
 package Network.RMI;
 
 import Databse.Compte;
+import Databse.CompteDAL;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ISession;
@@ -22,21 +23,19 @@ import model.Partie;
  *
  * @author Anis
  */
-public class Session extends UnicastRemoteObject implements ISession{
+public class Session extends UnicastRemoteObject implements ISession {
 
     Compte CompteJoueur;
-    
+
     Joueur joueur;
-    
+
     IClientCallback Client;
-    
-    
-    static ArrayList<PartieDistante> partiesEnAttente ;
-    
+
+    static ArrayList<PartieDistante> partiesEnAttente;
+
     static {
         partiesEnAttente = new ArrayList<>();
     }
-  
 
     public Session(Compte compteJoueur, IClientCallback client) throws RemoteException {
         this.CompteJoueur = compteJoueur;
@@ -59,25 +58,24 @@ public class Session extends UnicastRemoteObject implements ISession{
     public PartieItem creerPartie(Parametre p) throws RemoteException {
         PartieDistante partieDistante = new PartieDistante(p, joueur);
         partiesEnAttente.add(partieDistante);
-        int index = partiesEnAttente.indexOf(partieDistante); 
-        return new PartieItem(index,partieDistante.J1.getName(),"N/A",p.toString());
+        int index = partiesEnAttente.indexOf(partieDistante);
+        return new PartieItem(index, partieDistante.J1.getName(), "N/A", p.toString());
     }
 
     @Override
-    public IJeu creerPartieAvecAdversaire(Parametre p, Joueur Adversaire) throws RemoteException {
-        long idPartie = ServeurJeu.getInstance().creerPartie(p, joueur, Adversaire);
+    public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException {
+        long idPartie = ServeurJeu.getInstance().creerPartie(p, joueur, new Joueur(Adversaire.pseudo, false, NumeroJoueur.J2));
         return new InterfaceJeu(Client, CompteJoueur, ServeurJeu.instance.find(idPartie));
     }
 
-
     @Override
     public List<PartieItem> listePartie() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ServeurJeu.instance.getListItem();
     }
 
     @Override
-    public List<Joueur> listeJoueurs() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Compte> listeComptes() throws RemoteException {
+        return CompteDAL.getDAL().getComptes();
     }
 
     @Override
@@ -89,6 +87,5 @@ public class Session extends UnicastRemoteObject implements ISession{
     public IJeu reprendrePartie(long partieID) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
 }

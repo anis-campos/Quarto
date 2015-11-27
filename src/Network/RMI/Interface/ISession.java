@@ -5,7 +5,9 @@
  */
 package Network.RMI.Interface;
 
+import Databse.Compte;
 import Network.RMI.PartieItem;
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -15,7 +17,7 @@ import model.*;
  *
  * @author Anis
  */
-public interface ISession extends Remote {
+public interface ISession extends Remote,Serializable {
 
     void logout() throws RemoteException;
 
@@ -23,7 +25,7 @@ public interface ISession extends Remote {
 
     PartieItem creerPartie(Parametre p) throws RemoteException;
 
-    IJeu creerPartieAvecAdversaire(Parametre p, Joueur Adversaire) throws RemoteException;
+    IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException;
 
     IJeu rejoindrePartie(long partieID) throws RemoteException;
 
@@ -31,6 +33,6 @@ public interface ISession extends Remote {
 
     List<PartieItem> listePartie() throws RemoteException;
 
-    List<Joueur> listeJoueurs() throws RemoteException;
+    List<Compte> listeComptes() throws RemoteException;
 
 }

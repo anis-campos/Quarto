@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Joueur;
+import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
 
@@ -47,6 +48,16 @@ public class ServeurJeu {
     
     public ControlleurDistant find(long idPartie){
         return jeuEnCours.get(idPartie);
+    }
+
+    List<PartieItem> getListItem() {
+        List<PartieItem> rep = new ArrayList<>();
+        for (Long keySet : jeuEnCours.keySet()) {
+            System.out.println(keySet);
+            ControlleurDistant cd = jeuEnCours.get(keySet);
+            rep.add(new PartieItem(keySet, cd.getNomJoueur(NumeroJoueur.J1), cd.getNomJoueur(NumeroJoueur.J2), "Ajouter une methode dans le controlleur pour afficher les paramteres"));
+        }
+        return rep;
     }
 
 }

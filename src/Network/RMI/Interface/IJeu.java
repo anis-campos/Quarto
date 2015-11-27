@@ -6,13 +6,14 @@
 package Network.RMI.Interface;
 
 import controlleur.IControlleur;
+import java.io.Serializable;
 import java.rmi.Remote;
 
 /**
  *
  * @author Anis
  */
-public interface IJeu extends IControlleur,Remote{
+public interface IJeu extends IControlleur,Remote,Serializable{
     
     
 }

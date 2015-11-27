@@ -5,13 +5,14 @@
  */
 package Databse;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Anis
  */
-public class Compte {
+public class Compte implements Serializable{
 
     public String pseudo; //unique
 
@@ -28,6 +29,17 @@ public class Compte {
         this.Prenom = Prenom;
         this.naissance = naissance;
     }
+
+    @Override
+    public String toString() {
+        return "Compte utilisateur :" +
+                "\n\t pseudo  : "+pseudo+
+                "\n\t Nom     : "+Nom+
+                "\n\t Prenom  : "+Prenom+
+                "\n\t DDN     : " + naissance.toString()+"\n";
+    }
+    
+    
     
 
 

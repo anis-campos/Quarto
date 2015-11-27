@@ -5,10 +5,12 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Anis
  */
-public enum NumeroJoueur {
+public enum NumeroJoueur implements Serializable{
     J1, J2
 }

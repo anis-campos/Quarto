@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author timotheetroncy
  */
-public class Joueur {
+public class Joueur implements Serializable {
     private final String nom;
     private final Boolean isBot;
     private final NumeroJoueur numeroJoueur;

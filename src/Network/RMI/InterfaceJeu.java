@@ -20,17 +20,18 @@ public class InterfaceJeu implements IJeu {
 
     Compte Joueur;
 
-    IControlleurDistant controleurPartieServeur;
+    ControlleurDistant controleurPartieServeur;
 
     public InterfaceJeu(IClientCallback client, Compte Joeur, IControlleurDistant controleur) {
         this.client = client;
         this.Joueur = Joeur;
-        this.controleurPartieServeur = controleur;
+        this.controleurPartieServeur = (ControlleurDistant) controleur;
+        this.controleurPartieServeur.addObserver(client);
     }
 
     @Override
-    public boolean poserPiece(Coord coord) {
-        return controleurPartieServeur.poserPiece(Joueur, coord);
+    public boolean poserPiece(Coord coord) {    
+        return false;
     }
 
     @Override
@@ -45,57 +46,57 @@ public class InterfaceJeu implements IJeu {
 
     @Override
     public boolean annoncerQuarto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.annoncerMatchNul(Joueur);
     }
 
     @Override
     public boolean annoncerMatchNul() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.annoncerMatchNul(Joueur);
     }
 
     @Override
     public NumeroJoueur getJoueurCourant() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getJoueurCourant();
     }
 
     @Override
     public EtatGUI getEtatCourant() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getEtatCourant();
     }
 
     @Override
     public SortieGUI getSortieGui() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getSortieGui();
     }
 
     @Override
     public List<Map.Entry<Integer, String>> getListPieceDisponible() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getListPieceDisponible();
     }
 
     @Override
     public List<String> getListPiecePlacee() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getListPiecePlacee();
     }
 
     @Override
     public String getNomJoueur(NumeroJoueur nj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getNomJoueur(nj);
     }
 
     @Override
     public Boolean getIsValidationAutoEnabled() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return controleurPartieServeur.getIsValidationAutoEnabled();
     }
 
     @Override
     public ArrayList<Coord> getAvailableCoords() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public boolean onePlayer() {
-        return false;
+        return controleurPartieServeur.onePlayer();
     }
 
 }
