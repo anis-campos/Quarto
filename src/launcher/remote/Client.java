@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import static Network.Client_Serveur.LauncherServer.IP_SERVER;
 import static Network.Client_Serveur.LauncherServer.PORT;
+import java.awt.BorderLayout;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -33,10 +34,19 @@ import view.fenetrePrincipale;
  *
  * @author Anis
  */
-public class LauncherClient {
+public class Client {
 
     public static void main(String[] args) {
 
+        MenuReseau frame = new MenuReseau();
+        TestPane pane = new TestPane();
+        frame.getContentPane().add(pane,BorderLayout.CENTER);
+        
+        frame.setSize(new Dimension(600, 600));
+        
+        //frame.pack();
+        
+        frame.setVisible(true);
         
     }
 
