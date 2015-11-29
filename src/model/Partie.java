@@ -6,6 +6,7 @@
 package model;
 
 import IA.Bot;
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author timotheetroncy
  */
-public class Partie {
+public class Partie implements Serializable {
 
     private final PlateauJeu plateauJeu;
     private final ArrayList<Piece> listPiece;
@@ -179,6 +180,7 @@ public class Partie {
                 return piece;
             }
         }
+        Logger.getLogger(Partie.class.getName()).log(Level.WARNING, "Piece n'est pas dispo : " + idPiece);
         return null;
     }
 
@@ -236,8 +238,11 @@ public class Partie {
     }
 
     public EtatGUI passerEtatSuivant(EntreeGUI entree) {
-        etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-        return etatActuel;
+        EtatGUI etatSuivant = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
+        if (etatSuivant != EtatGUI.EtatNonDefinit) {
+            etatActuel = etatSuivant;
+        }
+        return etatSuivant;
     }
 
     public SortieGUI getSortieGUI() {

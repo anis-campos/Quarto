@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remoteLauncher;
+package Network.Client_Serveur;
 
-import Network.Client_Serveur.Client;
-import controlleur.AbstractController;
-import controlleur.ControllerDistant;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -19,8 +16,8 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import static launcher.remoteLauncher.LauncherServer.IP_SERVER;
-import static launcher.remoteLauncher.LauncherServer.PORT;
+import static Network.Client_Serveur.LauncherServer.IP_SERVER;
+import static Network.Client_Serveur.LauncherServer.PORT;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -97,7 +94,7 @@ public class LauncherClient {
         frame.setVisible(true);
     }
 
-    public static boolean Connexion(AbstractController controller) {
+    public static boolean Connexion(ControllerDistant controller) {
         try {
 
             System.out.println("Demande de connexion");

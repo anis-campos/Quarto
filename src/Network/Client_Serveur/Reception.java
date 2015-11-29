@@ -1,6 +1,5 @@
 package Network.Client_Serveur;
 
-import controlleur.AbstractController;
 import controlleur.observables.Notification;
 import controlleur.observables.NotificationPieceDonnee;
 import controlleur.observables.NotificationPiecePlacee;
@@ -13,10 +12,10 @@ import model.EtatGUI;
 
 public class Reception implements Runnable {
 
-    private final AbstractController controler;
+    private final ControllerDistant controler;
     private final ObjectInputStream in;
 
-    public Reception(ObjectInputStream in, AbstractController controller) {
+    public Reception(ObjectInputStream in, ControllerDistant controller) {
         this.in = in;
         this.controler = controller;
     }

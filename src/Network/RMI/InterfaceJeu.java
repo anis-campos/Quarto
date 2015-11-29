@@ -5,6 +5,7 @@
  */
 package Network.RMI;
 
+import controlleur.ControlleurDistant;
 import Databse.Compte;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
@@ -26,7 +27,7 @@ public class InterfaceJeu implements IJeu {
         this.client = client;
         this.Joueur = Joeur;
         this.controleurPartieServeur = (ControlleurDistant) controleur;
-        this.controleurPartieServeur.addObserver(client);
+        this.controleurPartieServeur.addObserver(client,Joeur);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class InterfaceJeu implements IJeu {
 
     @Override
     public ArrayList<Coord> getAvailableCoords() {
-        return null;
+        return controleurPartieServeur.getAvailableCoords();
     }
 
     @Override

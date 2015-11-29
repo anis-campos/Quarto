@@ -1,5 +1,6 @@
-package controlleur;
+package Network.Client_Serveur;
 
+import controlleur.ControllerLocal;
 import model.Coord;
 import model.NumeroJoueur;
 import model.Partie;
@@ -75,7 +76,6 @@ public class ControllerDistant extends ControllerLocal {
     }
 
     private boolean isGoodClient() {
-        NumeroJoueur j = partie.getNumeroJoueurCourant();
         return true;
         //return (type == Type.CLIENT && j == NumeroJoueur.J2) || (type == Type.SERVER && j == NumeroJoueur.J1);
     }

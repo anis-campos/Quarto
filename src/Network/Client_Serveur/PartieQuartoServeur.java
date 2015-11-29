@@ -1,12 +1,9 @@
 package Network.Client_Serveur;
 
-import Network.Client_Serveur.Emission;
-import controlleur.AbstractController;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import Network.Client_Serveur.Reception;
 
 public class PartieQuartoServeur implements Runnable {
 
@@ -14,10 +11,10 @@ public class PartieQuartoServeur implements Runnable {
     private ObjectInputStream in = null;
     private ObjectOutputStream out = null;
     private Thread t3, t4;
-    private final AbstractController controller;
+    private final ControllerDistant controller;
     private final InetAddress ClientIP;
 
-    PartieQuartoServeur(Socket lastSocket, AbstractController controller) {
+    PartieQuartoServeur(Socket lastSocket, ControllerDistant controller) {
         this.clientSocket = lastSocket;
         this.controller = controller;
         this.ClientIP = lastSocket.getInetAddress();

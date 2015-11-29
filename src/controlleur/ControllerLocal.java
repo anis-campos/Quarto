@@ -7,22 +7,73 @@ package controlleur;
 
 import controlleur.observables.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Observable;
 import model.EntreeGUI;
 import model.EtatGUI;
 import model.Coord;
-import model.Joueur;
-import model.MatriceDeTransition;
 import model.NumeroJoueur;
 import model.Partie;
+import model.SortieGUI;
 
 /**
  *
  * @author Flo
  */
-public class ControllerLocal extends AbstractController {
+public class ControllerLocal extends Observable implements IControlleur {
+
+    protected Partie partie;
 
     public ControllerLocal(Partie partie) {
-        super(partie);
+        this.partie = partie;
+    }
+
+    @Override
+    public NumeroJoueur getJoueurCourant() {
+        return partie.getNumeroJoueurCourant();
+    }
+
+    @Override
+    public List<String> getListPiecePlacee() {
+        return partie.getListPieceNamePlacees();
+    }
+
+    @Override
+    public EtatGUI getEtatCourant() {
+        return partie.getEtatGUI();
+    }
+
+    @Override
+    public SortieGUI getSortieGui() {
+        return partie.getSortieGUI();
+    }
+
+    @Override
+    public String getNomJoueur(NumeroJoueur nj) {
+        return partie.getNameJoueurFromNumero(nj);
+    }
+
+    @Override
+    public Boolean getIsValidationAutoEnabled() {
+        return partie.isValidationAutoEnabled();
+    }
+
+    @Override
+    public List<Map.Entry<Integer, String>> getListPieceDisponible() {
+
+        return partie.getListPieceNameDisponibles();
+    }
+
+    /**
+     * Permet d'envoyer une notification.
+     *
+     * @param notif
+     */
+    protected void envoyerNotification(Notification notif) {
+        setChanged();
+        notifyObservers(notif);
+
     }
 
     @Override
@@ -71,7 +122,7 @@ public class ControllerLocal extends AbstractController {
             EtatGUI etatprecedent = partie.getEtatGUI();
             EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.DonnerJ1 : EntreeGUI.DonnerJ2;
             EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            
+
             NotificationPieceDonnee notif = new NotificationPieceDonnee(getJoueurCourant(), etatActuel, etatprecedent);
             partie.changerJoueurCourant();
             envoyerNotification(notif);
@@ -116,22 +167,22 @@ public class ControllerLocal extends AbstractController {
 
     @Override
     public boolean annoncerMatchNul() {
-        if (partie.getEtatGUI() == EtatGUI.J2DernierTour || partie.getEtatGUI() == EtatGUI.J1DernierTour) {
-            EtatGUI etatprecedent = partie.getEtatGUI();
-            EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
-            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationMatchNullAnnonce notif = new NotificationMatchNullAnnonce(getJoueurCourant(), etatActuel, etatprecedent);
+        EtatGUI etatActuel = partie.getEtatGUI();
+        EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
+        EtatGUI etatSuivant = partie.passerEtatSuivant(entree);
+        Notification notif;
+
+        if (etatActuel == EtatGUI.J2DernierTour || etatActuel == EtatGUI.J1DernierTour) {
+            notif = new NotificationMatchNullAnnonce(getJoueurCourant(), etatSuivant, etatActuel);
             partie.changerJoueurCourant();
             envoyerNotification(notif);
             return true;
         }
 
-        if (partie.getEtatGUI() == EtatGUI.J1PeutConfirmerMatchNull || partie.getEtatGUI() == EtatGUI.J2PeutConfirmerMatchNull) {
-            EtatGUI etatprecedent = partie.getEtatGUI();
-            EntreeGUI entree = getJoueurCourant() == NumeroJoueur.J1 ? EntreeGUI.J1AnnonceMatchNull : EntreeGUI.J2AnnonceMatchNull;
-            EtatGUI etatActuel = partie.passerEtatSuivant(entree);
-            NotificationMatchNullConfirme notif = new NotificationMatchNullConfirme(getJoueurCourant(), etatActuel, etatprecedent);
+        if (etatActuel == EtatGUI.J1PeutConfirmerMatchNull || etatActuel == EtatGUI.J2PeutConfirmerMatchNull) {
+            notif = new NotificationMatchNullConfirme(getJoueurCourant(), etatSuivant, etatActuel);
             envoyerNotification(notif);
+            return true;
         }
 
         return false;
@@ -145,10 +196,6 @@ public class ControllerLocal extends AbstractController {
     @Override
     public boolean onePlayer() {
         return partie.onePlayer();
-    }
-    
-    protected Partie getPartie(){
-        return partie;
     }
 
 }

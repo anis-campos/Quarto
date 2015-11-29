@@ -11,15 +11,15 @@ import java.io.Serializable;
  *
  * @author Anis
  */
-public class PartieItem implements Serializable{
+public class PartieItem implements Serializable {
 
-    long ID;
+    public final long ID;
 
-    String NomJoueur1;
+    public final String NomJoueur1;
 
-    String NomJoueur2;
-    
-    String Parametres;
+    public final String NomJoueur2;
+
+    public final String Parametres;
 
     public PartieItem(long ID, String NomJoueur1, String NomJoueur2, String Parametres) {
         this.ID = ID;
@@ -27,8 +27,5 @@ public class PartieItem implements Serializable{
         this.NomJoueur2 = NomJoueur2;
         this.Parametres = Parametres;
     }
-    
-    
-
 
 }

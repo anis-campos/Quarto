@@ -1,6 +1,6 @@
 package Network.Client_Serveur;
 
-import controlleur.AbstractController;
+
 import controlleur.observables.Notification;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -22,7 +22,7 @@ public class Emission implements Runnable, Observer {
     private final BlockingQueue<String> queue;
     private boolean continu;
 
-    public Emission(ObjectOutputStream out, AbstractController controller) {
+    public Emission(ObjectOutputStream out, ControllerDistant controller) {
         this.out = out;
         this.queue = new ArrayBlockingQueue<>(10);
         controller.addObserver(this);

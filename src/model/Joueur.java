@@ -25,6 +25,12 @@ public class Joueur implements Serializable {
     public NumeroJoueur getNumeroJoueur() {
         return numeroJoueur;
      }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+    
     
     
     public String getName(){

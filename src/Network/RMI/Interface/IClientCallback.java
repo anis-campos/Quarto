@@ -5,14 +5,18 @@
  */
 package Network.RMI.Interface;
 
+import controlleur.observables.Notification;
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Observer;
 
 /**
  *
  * @author Anis
  */
-public interface IClientCallback extends Remote,Observer,Serializable {
+public interface IClientCallback extends Remote,Serializable {
  
+    public void notifyMe( Notification notif) throws RemoteException;
+    
 }

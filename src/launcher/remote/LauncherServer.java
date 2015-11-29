@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RMI_POC;
+package launcher.remote;
 
-import static RMI_POC.Constantes.*;
+import static Network.RMI.Constantes.CONNEXION;
+import static Network.RMI.Constantes.PORT_RMI;
+import Network.RMI.Login;
+import Network.RMI.Test.Serveur;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -17,15 +20,16 @@ import java.util.logging.Logger;
  *
  * @author Anis
  */
-public class Serveur {
+public class LauncherServer {
 
     public static void main(String[] args) {
+
         try {
             LocateRegistry.createRegistry(PORT_RMI);
 
             Login serviceImp = new Login();
 
-            String url = "rmi:"+CONNEXION;
+            String url = "rmi:" + CONNEXION;
             System.out.println("Enregistrement de l'objet avec l'url : " + url);
             Naming.rebind(url, serviceImp);
 
@@ -34,4 +38,5 @@ public class Serveur {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }

@@ -6,8 +6,8 @@
 package Network.RMI.Test;
 
 import Network.RMI.Login;
-import static RMI_POC.Constantes.CONNEXION;
-import static RMI_POC.Constantes.PORT_RMI;
+import static Network.RMI.Constantes.CONNEXION;
+import static Network.RMI.Constantes.PORT_RMI;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;

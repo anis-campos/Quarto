@@ -6,19 +6,20 @@
 package controlleur;
 
 import Databse.Compte;
+import java.io.Serializable;
 import java.util.ArrayList;
-import model.EtatGUI;
-import model.SortieGUI;
 import java.util.List;
 import java.util.Map;
 import model.Coord;
+import model.EtatGUI;
 import model.NumeroJoueur;
+import model.SortieGUI;
 
 /**
  * Identifie le joueur qui appel la méthode
  * @author Anis
  */
-public interface IControlleurDistant{
+public interface IControlleurDistant extends Serializable{
 
     /**
      * Pose une piece sur le plateau de jeu de la partie
@@ -62,6 +63,69 @@ public interface IControlleurDistant{
      */
     boolean annoncerMatchNul(Compte joueur);
 
+        /**
+     * Permet de recuperer le joueur courant
+     *
+     * @return Le numero de joueur
+     */
+    NumeroJoueur getJoueurCourant();
+
+    /**
+     * Permet de recuperer l'etat courant
+     *
+     * @return L'etat de la GUI
+     */
+    EtatGUI getEtatCourant();
+
+    /**
+     * Permet de recuperer l'etat de sortie de la GUI
+     *
+     * @return PartieEnCour ou PartieTerminee
+     */
+    SortieGUI getSortieGui();
+
+    /**
+     * Obtenir la liste des pièces disponibles
+     *
+     * @return Une liste de nom de pièces
+     */
+    List<Map.Entry<Integer, String>> getListPieceDisponible();
+
+    /**
+     * Obtenir la liste des pièces placées dans le plateau
+     *
+     * @return Une liste de nom de pièces
+     */
+    List<String> getListPiecePlacee();
+
+    /**
+     * Obtenir le nom d'un joeur
+     * @param numeroJoueur numéro du joueur
+     * @return Le nom du joueur
+     */
+    String getNomJoueur(NumeroJoueur numeroJoueur);
+
+    /**
+     * Etat de l'option validation automatique
+     * @return 
+     */
+    Boolean getIsValidationAutoEnabled();
+
+    /**
+     * La liste des coordonnées des cases vides sur le plateau
+     * @return 
+     */
+    public ArrayList<Coord> getAvailableCoords();
+    
+    /**
+     * Permet de verifier que les joueurs passées en paramètres sont ceux de la partie
+     * @param joueur1 Compte du joueur numéro 1
+     * @param joeur2 Compte du joueur numéro 1
+     * @return 
+     */
+    boolean VerifierJoueurs(Compte joueur1, Compte joeur2);
+    
+    public boolean onePlayer();
     
   
 }

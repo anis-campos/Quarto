@@ -6,19 +6,19 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import Network.Client_Serveur.Emission;
 import Network.Client_Serveur.Reception;
-import controlleur.AbstractController;
+
 
 public class Client implements Runnable {
 
     private final Socket socket;
-    private final AbstractController controler;
+    private final ControllerDistant controler;
  
     private Thread t4;
     private Thread t3;
     
 
 
-    public Client(Socket socket, AbstractController controller) {
+    public Client(Socket socket, ControllerDistant controller) {
         this.socket = socket;
         this.controler = controller;
     }

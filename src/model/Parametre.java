@@ -35,6 +35,22 @@ public class Parametre implements Serializable{
         this.contreBot = contreBot;
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "[Hauteur: %s, Surface: %s, Couleur: %s, Forme: %s, QuartoCarré: %s, ValidationAuto: %s, PremierJoueurAléatoire: %s, JeuContreBot: %s]",
+                hauteur,
+                creux,
+                couleur,
+                forme,
+                quartoCarre,
+                validationAutomatiqueQuarto,
+                joueurRamdom,
+                contreBot);
+    }
+    
+    
+
     public Boolean hauteurActif() {
         return hauteur;
     }

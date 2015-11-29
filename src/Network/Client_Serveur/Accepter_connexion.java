@@ -1,7 +1,6 @@
 package  Network.Client_Serveur;
 
 
-import controlleur.AbstractController;
 import java.io.*;
 import java.net.*;
 
@@ -11,11 +10,11 @@ public class Accepter_connexion implements Runnable {
     private Socket newClientSocket;
 
     public Thread receiver;
-    private final AbstractController controller;
+    private final ControllerDistant controller;
 
 
     
-    public Accepter_connexion(ServerSocket serverSocket, AbstractController controller) {
+    public Accepter_connexion(ServerSocket serverSocket, ControllerDistant controller) {
         this.controller = controller;
         this.socketserver = serverSocket;
 

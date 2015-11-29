@@ -5,6 +5,7 @@
  */
 package controlleur;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import model.EtatGUI;
 import model.SortieGUI;
@@ -17,7 +18,7 @@ import model.NumeroJoueur;
  *
  * @author Anis
  */
-public interface IControlleur{
+public interface IControlleur extends Serializable {
 
     /**
      * Pose une piece sur le plateau de jeu de la partie
@@ -58,40 +59,45 @@ public interface IControlleur{
 
     /**
      * Permet de recuperer le joueur courant
+     *
      * @return Le numero de joueur
      */
     NumeroJoueur getJoueurCourant();
 
     /**
      * Permet de recuperer l'etat courant
+     *
      * @return L'etat de la GUI
      */
     EtatGUI getEtatCourant();
 
     /**
      * Permet de recuperer l'etat de sortie de la GUI
+     *
      * @return PartieEnCour ou PartieTerminee
      */
     SortieGUI getSortieGui();
 
     /**
      * Obtenir la liste des pièces disponibles
+     *
      * @return Une liste de nom de pièces
      */
-    List<Map.Entry<Integer,String>> getListPieceDisponible();
+    List<Map.Entry<Integer, String>> getListPieceDisponible();
 
     /**
      * Obtenir la liste des pièces placées dans le plateau
+     *
      * @return Une liste de nom de pièces
      */
     List<String> getListPiecePlacee();
-    
+
     String getNomJoueur(NumeroJoueur nj);
 
     Boolean getIsValidationAutoEnabled();
 
     public ArrayList<Coord> getAvailableCoords();
-    
+
     boolean onePlayer();
-  
+
 }
