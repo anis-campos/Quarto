@@ -46,7 +46,7 @@ public class Client {
                 new Parametre(true, true, true, true, true, true, false, false),
                 sessionJ2.getCompteJoueurConnectee());
         jeuJ1.registerClientCallback(clientCallbackJ1);
-        
+
         final List<PartieItem> listePartie = sessionJ2.listePartie();
         if (listePartie.size() != 1) {
             throw new Exception("Execution non conforme");
@@ -63,24 +63,27 @@ public class Client {
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        Semaphore sem = new Semaphore(1);
+        final Semaphore sem = new Semaphore(1);
 
         executor.execute(new Runnable() {
 
             @Override
             public void run() {
                 try {
+
                     sem.acquire();
-                } catch (InterruptedException ex) {
+
+                    System.out.println(" [J1] - Selection de 1 : " + jeuJ1.selectionPiece(1));
+                    System.out.println(" [J1] - Selection de 2 : " + jeuJ1.selectionPiece(2));
+                    System.out.println(" [J1] - Selection de 3 : " + jeuJ1.selectionPiece(3));
+                    System.out.println(" [J1] - Selection de 1 : " + jeuJ1.selectionPiece(1));
+                    System.out.println(" [J1] - donner pièce 1 : " + jeuJ1.donnerPieceAdversaire());
+
+                    sem.release();
+
+                } catch (RemoteException | InterruptedException ex) {
                     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                System.out.println(" [J1] - Selection de 1 : " + jeuJ1.selectionPiece(1));
-                System.out.println(" [J1] - Selection de 2 : " + jeuJ1.selectionPiece(2));
-                System.out.println(" [J1] - Selection de 3 : " + jeuJ1.selectionPiece(3));
-                System.out.println(" [J1] - Selection de 1 : " + jeuJ1.selectionPiece(1));
-
-                System.out.println(" [J1] - donner pièce 1 : " + jeuJ1.donnerPieceAdversaire());
-                sem.release();
             }
         });
 
@@ -94,7 +97,7 @@ public class Client {
                     System.out.println(" [J2] - Pose de 1 en (3,3) : " + jeuJ2.poserPiece(new Coord(3, 3)));
                     System.out.println(" [J2] - Selection de 2 : " + jeuJ2.selectionPiece(2));
                     System.out.println(" [J1] - donner pièce 2 : " + jeuJ2.donnerPieceAdversaire());
-                } catch (InterruptedException ex) {
+                } catch (InterruptedException | RemoteException ex) {
                     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -104,19 +107,15 @@ public class Client {
 
         executor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
 
-    }
+        jeuJ1.quiterPartie();
 
-    public static IJeu getOrCreatepartie(ISession session, Compte compte) throws RemoteException {
-        try {
-            return session.creerPartieAvecAdversaire(
-                    new Parametre(true, true, true, true, true, true, false, false),
-                    compte);
-        } catch (RemoteException ex) {
+        jeuJ2.quiterPartie();
 
-        }
-        List<PartieItem> listePartie;
-        listePartie = session.listePartie();
-        return session.reprendrePartie(listePartie.get(0).ID);
+        sessionJ1.logout();
+
+        sessionJ2.logout();
+
+        System.exit(0);
 
     }
 

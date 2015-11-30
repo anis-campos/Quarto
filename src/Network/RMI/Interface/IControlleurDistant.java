@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlleur;
+package Network.RMI.Interface;
 
 import Databse.Compte;
 import java.io.Serializable;

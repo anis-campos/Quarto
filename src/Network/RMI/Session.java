@@ -56,6 +56,8 @@ public class Session extends UnicastRemoteObject implements ISession {
         //TODO: Fermer proprement la connexion de ce client.
         //       Notifier de a fermeture
         logger.warn(String.format(" Joueur: %s - IP: %s - DECONNECTE", CompteJoueur.pseudo, clientHost));
+        unexportObject(this, true);
+        
 
     }
 

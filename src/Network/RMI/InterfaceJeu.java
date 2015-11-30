@@ -5,7 +5,6 @@
  */
 package Network.RMI;
 
-import controlleur.ControlleurDistant;
 import Databse.Compte;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
@@ -15,94 +14,113 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import model.*;
+import org.apache.log4j.Logger;
 
 public class InterfaceJeu extends UnicastRemoteObject implements IJeu {
-
+    
     Compte Joueur;
-
+    
     ControlleurDistant controleurPartieServeur;
-
-    public InterfaceJeu(Compte joueur, ControlleurDistant controleur) throws RemoteException
-   {
-
+    
+    private static final Logger logger = Logger.getLogger(InterfaceJeu.class);
+    
+    public InterfaceJeu(Compte joueur, ControlleurDistant controleur) throws RemoteException {
+        
         this.Joueur = joueur;
         controleurPartieServeur = controleur;
         
     }
-
+    
     @Override
-    public boolean poserPiece(Coord coord) {
-        return controleurPartieServeur.poserPiece(Joueur,coord);
+    public boolean poserPiece(Coord coord) throws RemoteException {
+        return controleurPartieServeur.poserPiece(Joueur, coord);
     }
-
+    
     @Override
-    public boolean donnerPieceAdversaire() {
+    public boolean donnerPieceAdversaire() throws RemoteException {
         return controleurPartieServeur.donnerPieceAdversaire(Joueur);
     }
-
+    
     @Override
-    public boolean selectionPiece(int idPiece) {
+    public boolean selectionPiece(int idPiece) throws RemoteException {
         return controleurPartieServeur.selectionPiece(Joueur, idPiece);
     }
-
+    
     @Override
-    public boolean annoncerQuarto() {
+    public boolean annoncerQuarto() throws RemoteException {
         return controleurPartieServeur.annoncerMatchNul(Joueur);
     }
-
+    
     @Override
-    public boolean annoncerMatchNul() {
+    public boolean annoncerMatchNul() throws RemoteException {
         return controleurPartieServeur.annoncerMatchNul(Joueur);
     }
-
+    
     @Override
-    public NumeroJoueur getJoueurCourant() {
+    public NumeroJoueur getJoueurCourant() throws RemoteException {
         return controleurPartieServeur.getJoueurCourant();
     }
-
+    
     @Override
-    public EtatGUI getEtatCourant() {
+    public EtatGUI getEtatCourant() throws RemoteException {
         return controleurPartieServeur.getEtatCourant();
     }
-
+    
     @Override
-    public SortieGUI getSortieGui() {
+    public SortieGUI getSortieGui() throws RemoteException {
         return controleurPartieServeur.getSortieGui();
     }
-
+    
     @Override
-    public List<Map.Entry<Integer, String>> getListPieceDisponible() {
+    public List<Map.Entry<Integer, String>> getListPieceDisponible() throws RemoteException {
         return controleurPartieServeur.getListPieceDisponible();
     }
-
+    
     @Override
-    public List<String> getListPiecePlacee() {
+    public List<String> getListPiecePlacee() throws RemoteException {
         return controleurPartieServeur.getListPiecePlacee();
     }
-
+    
     @Override
-    public String getNomJoueur(NumeroJoueur nj) {
+    public String getNomJoueur(NumeroJoueur nj) throws RemoteException {
         return controleurPartieServeur.getNomJoueur(nj);
     }
-
+    
     @Override
-    public Boolean getIsValidationAutoEnabled() {
+    public Boolean getIsValidationAutoEnabled() throws RemoteException {
         return controleurPartieServeur.getIsValidationAutoEnabled();
     }
-
+    
     @Override
-    public ArrayList<Coord> getAvailableCoords() {
+    public ArrayList<Coord> getAvailableCoords() throws RemoteException {
         return controleurPartieServeur.getAvailableCoords();
     }
-
+    
     @Override
-    public boolean onePlayer() {
+    public boolean onePlayer() throws RemoteException {
         return controleurPartieServeur.onePlayer();
     }
-
+    
     @Override
     public void registerClientCallback(IClientCallback client) throws RemoteException {
         controleurPartieServeur.addObserver(client, Joueur);
     }
-
+    
+    @Override
+    public String getParametres() throws RemoteException {
+        return controleurPartieServeur.getParametres();
+    }
+    
+    @Override
+    public boolean VerifierJoueurs(Compte joueur1, Compte joeur2) throws RemoteException {
+        return controleurPartieServeur.VerifierJoueurs(joueur1, joeur2);
+    }
+    
+    @Override
+    public void quiterPartie() throws RemoteException {
+        //TODO notification que le joeuer a quiter la partie.
+        logger.warn(Joueur.pseudo + " à quité la partie !");
+        unexportObject(this, true);
+    }
+    
 }

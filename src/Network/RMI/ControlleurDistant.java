@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controlleur;
+package Network.RMI;
 
+import Network.RMI.Interface.IControlleurDistant;
 import Databse.Compte;
 import Network.RMI.Interface.IClientCallback;
 import controlleur.observables.*;
 import java.io.Serializable;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 import model.*;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 
 /**
  *

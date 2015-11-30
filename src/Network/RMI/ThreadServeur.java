@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.Test;
+package Network.RMI;
 
 import static Network.RMI.Constantes.CONNEXION;
 import static Network.RMI.Constantes.PORT_RMI;

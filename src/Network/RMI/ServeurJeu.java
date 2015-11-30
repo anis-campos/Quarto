@@ -5,8 +5,8 @@
  */
 package Network.RMI;
 
-import controlleur.ControlleurDistant;
 import Databse.Compte;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +46,7 @@ public class ServeurJeu {
 
     }
 
-    public long creerPartie(Parametre p, Joueur j1, Joueur j2) {
+    public long creerPartie(Parametre p, Joueur j1, Joueur j2) throws RemoteException {
         nbPartie++;
         jeuEnCours.put(nbPartie, new ControlleurDistant(new Partie(p, j1, j2)));
         logger.info(String.format("Partie créee : {\n\tparametres: %s,\n\tJ1: %s,\n\tJ2: %s }", p.toString(), j1, j2));

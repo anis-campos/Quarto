@@ -6,12 +6,9 @@
 package Network.RMI;
 
 import Network.RMI.Interface.IClientCallback;
-import controlleur.ControlleurDistant;
 import controlleur.observables.Notification;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import model.EtatGUI;
-import model.Joueur;
 import model.NumeroJoueur;
 import org.apache.log4j.Logger;
 
