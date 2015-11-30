@@ -35,9 +35,9 @@ public class Client {
         ClientCallback clientCallbackJ1 = new ClientCallback("cJ1", NumeroJoueur.J1);
         ClientCallback clientCallbackJ2 = new ClientCallback("cJ2", NumeroJoueur.J2);
 
-        ISession sessionJ1 = service.connexion("negga", "ytreza", clientCallbackJ1);
+        ISession sessionJ1 = service.connexion("negga", "ytreza");
 
-        ISession sessionJ2 = service.connexion("escroc", "azerty", clientCallbackJ2);
+        ISession sessionJ2 = service.connexion("escroc", "azerty");
 
         System.out.println("Clients Connectés !!!");
 

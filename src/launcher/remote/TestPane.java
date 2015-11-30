@@ -5,6 +5,7 @@
  */
 package launcher.remote;
 
+import Network.RMI.Interface.ILogin;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -21,76 +22,66 @@ import javax.swing.JPanel;
  *
  * @author Anis
  */
-public class TestPane extends JPanel {
+public final class TestPane extends JPanel {
 
-        private JPanel mainPane;
-        private JPanel navPane;
-        private List<String> pages;
-        private int currentPage;
+    private final JPanel mainPane;
+    private final JPanel navPane;
+    private final List<String> pages;
+    private int currentPage;
 
-        public TestPane() {
-            pages = new ArrayList<>(25);
-            
-            setLayout(new BorderLayout());
+    public TestPane() {
+        pages = new ArrayList<>(25);
 
-            mainPane = new JPanel(new CardLayout());
-            navPane = new JPanel();
+        setLayout(new BorderLayout());
 
-            addPageTo("Page" + 0, new Connexion());
-            for (int index = 1; index < 10; index++) {
-                addPageTo( "Page" + index, new JLabel("Page " + index, JLabel.CENTER));
+        mainPane = new JPanel(new CardLayout());
+        navPane = new JPanel();
+
+        JButton btnPrev = new JButton("<<");
+        JButton btnNext = new JButton(">>");
+
+        navPane.add(btnPrev);
+        navPane.add(btnNext);
+
+        btnPrev.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setCurrentPage(getCurrentPage() - 1);
             }
-
-            JButton btnPrev = new JButton("<<");
-            JButton btnNext = new JButton(">>");
-
-            navPane.add(btnPrev);
-            navPane.add(btnNext);
-
-            btnPrev.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setCurrentPage(getCurrentPage() - 1);
-                }
-            });
-            btnNext.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setCurrentPage(getCurrentPage() + 1);
-                }
-            });
-
-            add(mainPane);
-            add(navPane, BorderLayout.SOUTH);
-
-            setCurrentPage(0);
-        }
-
-        public int getCurrentPage() {
-            return currentPage;
-        }
-
-        protected void setCurrentPage(int page) {
-            if (pages.size() > 0) {
-                if (page < 0) {
-                    page = pages.size() - 1;
-                } else if (page >= pages.size()) {
-                    page = 0;
-                }
-
-                currentPage = page;
-                CardLayout layout = (CardLayout)mainPane.getLayout();
-                layout.show(mainPane, pages.get(currentPage));
+        });
+        btnNext.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setCurrentPage(getCurrentPage() + 1);
             }
-        }
+        });
 
-        @Override
-        public Dimension getPreferredSize() {
-            return new Dimension(200, 200);
-        }
+        add(mainPane);
+        add(navPane, BorderLayout.SOUTH);
 
-        protected void addPageTo( String name, Component comp) {
-            pages.add(name);
-            mainPane.add(comp, name);
+        setCurrentPage(0);
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int page) {
+        if (pages.size() > 0) {
+            currentPage = page;
+            CardLayout layout = (CardLayout) mainPane.getLayout();
+            layout.show(mainPane, pages.get(currentPage));
         }
     }
+    
+    public void toggleNavBar(){
+        navPane.setVisible(!navPane.isVisible());
+    }
+
+ 
+    public void addPage(String name, Component comp) {
+        pages.add(name);
+        mainPane.add(comp, name);
+    }
+
+}

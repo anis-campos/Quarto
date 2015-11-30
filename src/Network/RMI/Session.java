@@ -39,10 +39,9 @@ public class Session extends UnicastRemoteObject implements ISession {
     }
     private String clientHost;
 
-    public Session(Compte compteJoueur, IClientCallback client) throws RemoteException {
+    public Session(Compte compteJoueur) throws RemoteException {
         this.CompteJoueur = compteJoueur;
-        this.Client = client;
-      
+
         try {
             this.clientHost = getClientHost();
         } catch (ServerNotActiveException ex) {
@@ -57,10 +56,8 @@ public class Session extends UnicastRemoteObject implements ISession {
         //       Notifier de a fermeture
         logger.warn(String.format(" Joueur: %s - IP: %s - DECONNECTE", CompteJoueur.pseudo, clientHost));
         unexportObject(this, true);
-        
 
     }
-
 
     @Override
     public PartieItem creerPartie(Parametre p) throws RemoteException {
@@ -93,7 +90,7 @@ public class Session extends UnicastRemoteObject implements ISession {
     @Override
     public IJeu rejoindrePartie(long partieID) throws RemoteException {
         //TODO : Syncroniser la liste des parties imcomplete
-        return new InterfaceJeu( CompteJoueur, ServeurJeu.instance.find(partieID));
+        return new InterfaceJeu(CompteJoueur, ServeurJeu.instance.find(partieID));
     }
 
     @Override
@@ -104,6 +101,11 @@ public class Session extends UnicastRemoteObject implements ISession {
     @Override
     public Compte getCompteJoueurConnectee() throws RemoteException {
         return CompteJoueur;
+    }
+
+    @Override
+    public void registerCallback(IClientCallback client) throws RemoteException {
+        Client = client;
     }
 
 }

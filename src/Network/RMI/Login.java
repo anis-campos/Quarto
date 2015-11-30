@@ -24,7 +24,7 @@ public class Login extends UnicastRemoteObject implements ILogin {
     }
 
     @Override
-    public ISession connexion(String login, String password, IClientCallback client) throws LoginException, RemoteException {
+    public ISession connexion(String login, String password) throws LoginException, RemoteException {
         CompteDAL dal = CompteDAL.getDAL();
         
         if (!dal.checkLogin(login, password)) {
@@ -33,7 +33,7 @@ public class Login extends UnicastRemoteObject implements ILogin {
         
         Compte compte = dal.findCompte(login);
         
-        Session serveur = new Session(compte,client);
+        Session serveur = new Session(compte);
        
        return serveur;
     }

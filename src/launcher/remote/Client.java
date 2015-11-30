@@ -5,9 +5,14 @@
  */
 package launcher.remote;
 
-
+import static Network.RMI.Constantes.CONNEXION;
+import Network.RMI.Interface.ILogin;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -15,18 +20,19 @@ import java.awt.BorderLayout;
  */
 public class Client {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
 
-        MenuReseau frame = new MenuReseau();
-        TestPane pane = new TestPane();
-        frame.getContentPane().add(pane,BorderLayout.CENTER);
-        
+        ILogin service;
+        service = (ILogin) Naming.lookup("rmi:" + CONNEXION);
+
+        ModeReseau frame = ModeReseau.getInstance(service);
+       
+
         frame.setSize(new Dimension(600, 600));
-        
+
         //frame.pack();
-        
         frame.setVisible(true);
-        
+
     }
 
 }

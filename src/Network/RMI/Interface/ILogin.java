@@ -18,6 +18,6 @@ import javax.security.auth.login.LoginException;
 public interface ILogin extends Remote {
 
     
-    ISession connexion(String login, String password, IClientCallback client) throws LoginException, RemoteException;
+    ISession connexion(String login, String password) throws LoginException, RemoteException;
 
 }
