@@ -9,30 +9,30 @@ import controlleur.ControlleurDistant;
 import Databse.Compte;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
-import controlleur.IControlleurDistant;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import model.*;
 
-public class InterfaceJeu implements IJeu {
-
-    IClientCallback client;
+public class InterfaceJeu extends UnicastRemoteObject implements IJeu {
 
     Compte Joueur;
 
     ControlleurDistant controleurPartieServeur;
 
-    public InterfaceJeu(IClientCallback client, Compte Joeur, IControlleurDistant controleur) {
-        this.client = client;
-        this.Joueur = Joeur;
-        this.controleurPartieServeur = (ControlleurDistant) controleur;
-        this.controleurPartieServeur.addObserver(client,Joeur);
+    public InterfaceJeu(Compte joueur, ControlleurDistant controleur) throws RemoteException
+   {
+
+        this.Joueur = joueur;
+        controleurPartieServeur = controleur;
+        
     }
 
     @Override
-    public boolean poserPiece(Coord coord) {    
-        return false;
+    public boolean poserPiece(Coord coord) {
+        return controleurPartieServeur.poserPiece(Joueur,coord);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class InterfaceJeu implements IJeu {
 
     @Override
     public boolean selectionPiece(int idPiece) {
-        return controleurPartieServeur.selectionPiece(Joueur,idPiece);
+        return controleurPartieServeur.selectionPiece(Joueur, idPiece);
     }
 
     @Override
@@ -98,6 +98,11 @@ public class InterfaceJeu implements IJeu {
     @Override
     public boolean onePlayer() {
         return controleurPartieServeur.onePlayer();
+    }
+
+    @Override
+    public void registerClientCallback(IClientCallback client) throws RemoteException {
+        controleurPartieServeur.addObserver(client, Joueur);
     }
 
 }

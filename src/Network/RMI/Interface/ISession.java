@@ -21,8 +21,6 @@ public interface ISession extends Remote,Serializable {
 
     void logout() throws RemoteException;
 
-    void registerCallback(IClientCallback client) throws RemoteException;
-
     PartieItem creerPartie(Parametre p) throws RemoteException;
 
     IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException;
@@ -34,5 +32,7 @@ public interface ISession extends Remote,Serializable {
     List<PartieItem> listePartie() throws RemoteException;
 
     List<Compte> listeComptes() throws RemoteException;
+    
+    Compte getCompteJoueurConnectee() throws RemoteException;
 
 }

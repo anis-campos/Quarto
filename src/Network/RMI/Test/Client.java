@@ -10,13 +10,14 @@ import Databse.Compte;
 import Network.RMI.Interface.*;
 import static Network.RMI.Constantes.CONNEXION;
 import Network.RMI.PartieItem;
-import controlleur.observables.Notification;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Map;
-import java.util.Observable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
@@ -31,53 +32,78 @@ public class Client {
 
         ILogin service = (ILogin) Naming.lookup("rmi:" + CONNEXION);
 
-        
+        ClientCallback clientCallbackJ1 = new ClientCallback("cJ1", NumeroJoueur.J1);
+        ClientCallback clientCallbackJ2 = new ClientCallback("cJ2", NumeroJoueur.J2);
 
-        ISession session = service.connexion("negga", "ytreza", new ClientCallback());
+        ISession sessionJ1 = service.connexion("negga", "ytreza", clientCallbackJ1);
 
-        System.out.println("Client Connecté !!!");
+        ISession sessionJ2 = service.connexion("escroc", "azerty", clientCallbackJ2);
 
-        List<Compte> comptes = session.listeComptes();
-
-        for (Compte compte : comptes) {
-
-            System.out.println(compte);
-        }
-
-        Compte compte = comptes.get(0);
+        System.out.println("Clients Connectés !!!");
 
         //List<PartieItem> listePartie = session.listePartie();
-        final IJeu jeuJ1 = getOrCreatepartie(session, compte);
+        final IJeu jeuJ1 = sessionJ1.creerPartieAvecAdversaire(
+                new Parametre(true, true, true, true, true, true, false, false),
+                sessionJ2.getCompteJoueurConnectee());
+        jeuJ1.registerClientCallback(clientCallbackJ1);
+        
+        final List<PartieItem> listePartie = sessionJ2.listePartie();
+        if (listePartie.size() != 1) {
+            throw new Exception("Execution non conforme");
+        }
+        final IJeu jeuJ2 = sessionJ2.rejoindrePartie(listePartie.get(0).ID);
+        jeuJ2.registerClientCallback(clientCallbackJ2);
 
-        Thread thread = new Thread(new Runnable() {
+        System.out.println("-------------- INFO PARTIE ----------------");
+        System.out.println("\tJoueur 1 : " + jeuJ1.getNomJoueur(NumeroJoueur.J1));
+        System.out.println("\tJoueur 2 : " + jeuJ1.getNomJoueur(NumeroJoueur.J2));
+        System.out.println("\tJoueur Courant : " + jeuJ1.getJoueurCourant());
+        System.out.println("\tParametres : " + listePartie.get(0).Parametres);
+        System.out.println("\n");
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        Semaphore sem = new Semaphore(1);
+
+        executor.execute(new Runnable() {
 
             @Override
             public void run() {
-                System.out.println("Joueur 1 : " + jeuJ1.getNomJoueur(NumeroJoueur.J1));
-                System.out.println("Joueur 2 : " + jeuJ1.getNomJoueur(NumeroJoueur.J2));
-                System.out.println("Joueur Courant : " + jeuJ1.getJoueurCourant());
-                /*
-                 List<Map.Entry<Integer, String>> listPieceDisponible = PartiJeu.getListPieceDisponible();
+                try {
+                    sem.acquire();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println(" [J1] - Selection de 1 : " + jeuJ1.selectionPiece(1));
+                System.out.println(" [J1] - Selection de 2 : " + jeuJ1.selectionPiece(2));
+                System.out.println(" [J1] - Selection de 3 : " + jeuJ1.selectionPiece(3));
+                System.out.println(" [J1] - Selection de 1 : " + jeuJ1.selectionPiece(1));
 
-                 for (Map.Entry<Integer, String> entry : listPieceDisponible) {
-                 System.out.println(String.format("ID:%s - Piece: %s", entry.getKey(),entry.getValue()));
-                 }
-                 */
-                System.out.println(" Selection de 1 : " + jeuJ1.selectionPiece(1));
+                System.out.println(" [J1] - donner pièce 1 : " + jeuJ1.donnerPieceAdversaire());
+                sem.release();
+            }
+        });
 
-                //PartiJeu.getJoueurCourant();
-                for (int i = 0; i < 10; i++) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        executor.execute(new Runnable() {
+
+            @Override
+            public void run() {
+
+                try {
+                    sem.acquire();
+                    System.out.println(" [J2] - Pose de 1 en (3,3) : " + jeuJ2.poserPiece(new Coord(3, 3)));
+                    System.out.println(" [J2] - Selection de 2 : " + jeuJ2.selectionPiece(2));
+                    System.out.println(" [J1] - donner pièce 2 : " + jeuJ2.donnerPieceAdversaire());
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
 
-        thread.start();
-        thread.join();
+        executor.shutdown();
+
+        executor.awaitTermination(Integer.MAX_VALUE, TimeUnit.SECONDS);
+
     }
 
     public static IJeu getOrCreatepartie(ISession session, Compte compte) throws RemoteException {
@@ -93,7 +119,5 @@ public class Client {
         return session.reprendrePartie(listePartie.get(0).ID);
 
     }
-
-
 
 }

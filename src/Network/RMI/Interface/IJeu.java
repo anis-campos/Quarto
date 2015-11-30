@@ -8,6 +8,7 @@ package Network.RMI.Interface;
 import controlleur.IControlleur;
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -15,5 +16,5 @@ import java.rmi.Remote;
  */
 public interface IJeu extends IControlleur,Remote,Serializable{
     
-    
+    void registerClientCallback(IClientCallback client)throws RemoteException;
 }

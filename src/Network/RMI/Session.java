@@ -15,11 +15,9 @@ import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
-import model.Partie;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,8 +27,6 @@ import org.apache.log4j.Logger;
 public class Session extends UnicastRemoteObject implements ISession {
 
     Compte CompteJoueur;
-
-    Joueur joueur;
 
     IClientCallback Client;
 
@@ -46,7 +42,7 @@ public class Session extends UnicastRemoteObject implements ISession {
     public Session(Compte compteJoueur, IClientCallback client) throws RemoteException {
         this.CompteJoueur = compteJoueur;
         this.Client = client;
-        this.joueur = new Joueur(CompteJoueur.pseudo, false, NumeroJoueur.J1);
+      
         try {
             this.clientHost = getClientHost();
         } catch (ServerNotActiveException ex) {
@@ -63,14 +59,10 @@ public class Session extends UnicastRemoteObject implements ISession {
 
     }
 
-    @Override
-    public void registerCallback(IClientCallback client) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public PartieItem creerPartie(Parametre p) throws RemoteException {
-        PartieDistante partieDistante = new PartieDistante(p, joueur);
+        PartieDistante partieDistante = new PartieDistante(p, new Joueur(CompteJoueur.pseudo, false, NumeroJoueur.J1));
         partiesEnAttente.add(partieDistante);
         int index = partiesEnAttente.indexOf(partieDistante);
         return new PartieItem(index, partieDistante.J1.getName(), "N/A", p.toString());
@@ -82,8 +74,8 @@ public class Session extends UnicastRemoteObject implements ISession {
             logger.info(String.format("Partie doublon !  Joueur: %s - IP: %s", CompteJoueur.pseudo, clientHost));
             throw new RemoteException("Vous avez deja une partie contre ce joueur !");
         }
-        long idPartie = ServeurJeu.getInstance().creerPartie(p, joueur, new Joueur(Adversaire.pseudo, false, NumeroJoueur.J2));
-        return new InterfaceJeu(Client, CompteJoueur, ServeurJeu.instance.find(idPartie));
+        long idPartie = ServeurJeu.getInstance().creerPartie(p, new Joueur(CompteJoueur.pseudo, false, NumeroJoueur.J1), new Joueur(Adversaire.pseudo, false, NumeroJoueur.J2));
+        return new InterfaceJeu(CompteJoueur, ServeurJeu.instance.find(idPartie));
     }
 
     @Override
@@ -98,12 +90,18 @@ public class Session extends UnicastRemoteObject implements ISession {
 
     @Override
     public IJeu rejoindrePartie(long partieID) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //TODO : Syncroniser la liste des parties imcomplete
+        return new InterfaceJeu( CompteJoueur, ServeurJeu.instance.find(partieID));
     }
 
     @Override
     public IJeu reprendrePartie(long partieID) throws RemoteException {
-        return new InterfaceJeu(Client, CompteJoueur, ServeurJeu.instance.find(partieID));
+        return new InterfaceJeu(CompteJoueur, ServeurJeu.instance.find(partieID));
+    }
+
+    @Override
+    public Compte getCompteJoueurConnectee() throws RemoteException {
+        return CompteJoueur;
     }
 
 }

@@ -12,12 +12,12 @@ import java.util.Date;
  *
  * @author Anis
  */
-public class Compte implements Serializable{
+public class Compte implements Serializable {
 
     public String pseudo; //unique
 
     String password;
-    
+
     public String Nom;
     public String Prenom;
     public Date naissance;
@@ -32,18 +32,11 @@ public class Compte implements Serializable{
 
     @Override
     public String toString() {
-        return "Compte utilisateur :" +
-                "\n\t pseudo  : "+pseudo+
-                "\n\t Nom     : "+Nom+
-                "\n\t Prenom  : "+Prenom+
-                "\n\t DDN     : " + naissance.toString()+"\n";
+        return "Compte utilisateur :"
+                + "\n\t pseudo  : " + pseudo
+                + "\n\t Nom     : " + Nom
+                + "\n\t Prenom  : " + Prenom
+                + "\n\t DDN     : " + naissance.toString() + "\n";
     }
-    
-    
-    
-
-
-
-   
 
 }

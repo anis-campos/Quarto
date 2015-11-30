@@ -62,7 +62,7 @@ public class ServeurJeu {
         for (Long keySet : jeuEnCours.keySet()) {
 
             ControlleurDistant cd = jeuEnCours.get(keySet);
-            rep.add(new PartieItem(keySet, cd.getNomJoueur(NumeroJoueur.J1), cd.getNomJoueur(NumeroJoueur.J2), "Ajouter une methode dans le controlleur pour afficher les paramteres"));
+            rep.add(new PartieItem(keySet, cd.getNomJoueur(NumeroJoueur.J1), cd.getNomJoueur(NumeroJoueur.J2), cd.getParametres()));
         }
         return rep;
     }

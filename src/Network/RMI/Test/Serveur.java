@@ -5,13 +5,10 @@
  */
 package Network.RMI.Test;
 
-import Network.RMI.Login;
-import static Network.RMI.Constantes.CONNEXION;
-import static Network.RMI.Constantes.PORT_RMI;
 import java.net.MalformedURLException;
-import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,17 +20,15 @@ public class Serveur {
 
     public static void main(String[] args) {
         try {
-            LocateRegistry.createRegistry(PORT_RMI);
-
-            Login serviceImp = new Login();
-
-            String url = "rmi:"+CONNEXION;
-            System.out.println("Enregistrement de l'objet avec l'url : " + url);
-            Naming.rebind(url, serviceImp);
-
-            System.out.println("Serveur lancé");
-        } catch (RemoteException | MalformedURLException ex) {
+            ThreadServeur.getInstance().start();
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Pour arreter le serveur appuyer sur Entrée ");
+            sc.nextLine();
+            ThreadServeur.getInstance().stop();
+            System.exit(0);
+        } catch (RemoteException | NotBoundException | MalformedURLException ex) {
             Logger.getLogger(Serveur.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 }

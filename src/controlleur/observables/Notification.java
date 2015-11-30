@@ -8,7 +8,6 @@ package controlleur.observables;
 import java.io.Serializable;
 import model.NumeroJoueur;
 import model.EtatGUI;
-import model.SortieGUI;
 
 /**
  *

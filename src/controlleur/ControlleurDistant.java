@@ -9,7 +9,9 @@ import Databse.Compte;
 import Network.RMI.Interface.IClientCallback;
 import controlleur.observables.*;
 import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,16 +19,16 @@ import java.util.concurrent.TimeUnit;
 
 import model.*;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 
 /**
  *
  * @author Anis
  */
-public class ControlleurDistant implements IControlleurDistant {
+public class ControlleurDistant extends UnicastRemoteObject implements IControlleurDistant {
 
     private static final Logger logger = Logger.getLogger(ControlleurDistant.class);
     Partie partie;
-
 
     static final int N_J1 = 1;
     static final int N_J2 = 2;
@@ -36,70 +38,8 @@ public class ControlleurDistant implements IControlleurDistant {
 
     List<IClientCallback> cSpectateurs;
 
-    private void envoyerNotification(int id, Notification notif) {
-        ArrayList<Integer> destinataires = new ArrayList<>(3);
-        switch (id) {
-            case 1:
-            case 2:
-            case 4:
-                destinataires.add(id);
-                break;
-
-            case 3:
-                destinataires.add(1);
-                destinataires.add(2);
-                break;
-
-            case 5:
-                destinataires.add(1);
-                destinataires.add(4);
-                break;
-
-            case 6:
-                destinataires.add(2);
-                destinataires.add(4);
-                break;
-
-            case 7:
-                destinataires.add(1);
-                destinataires.add(2);
-                destinataires.add(4);
-                break;
-        }
-        ExecutorService executor = Executors.newFixedThreadPool(20);
-
-        for (Integer destinataire : destinataires) {
-            switch (destinataire) {
-                case N_J1:
-                    executor.execute(new threadNotif(cJ1, notif));
-
-                    break;
-                case N_J2:
-                    executor.execute(new threadNotif(cJ2, notif));
-
-                    break;
-                case N_Spectateur:
-                    for (IClientCallback cSpectateur : cSpectateurs) {
-                        executor.execute(new threadNotif(cSpectateur, notif));
-                    }
-                    break;
-
-            }
-        }
-        executor.shutdown();
-
-        try {
-            executor.awaitTermination(20, TimeUnit.SECONDS);
-
-            //notifieurs.get(destinataire).envoyerNotification(notif);
-        } catch (InterruptedException ex) {
-            logger.error(ex);
-        }
-    }
-
-    public ControlleurDistant(Partie partie) {
+    public ControlleurDistant(Partie partie) throws RemoteException {
         this.partie = partie;
-
 
         cSpectateurs = new ArrayList<>();
 
@@ -111,6 +51,7 @@ public class ControlleurDistant implements IControlleurDistant {
         if (isGoodClient(joueur)) {
 
             boolean rep = partie.poserPiece(coord);
+            logger.info(String.format("rep :%s", rep));
             if (rep) {
 
                 EtatGUI etatprecedent = partie.getEtatGUI();
@@ -159,16 +100,19 @@ public class ControlleurDistant implements IControlleurDistant {
 
     @Override
     public boolean selectionPiece(Compte joueur, int idPiece) {
+
         if (isGoodClient(joueur)) {
 
             boolean rep = partie.selectionPiece(idPiece);
             if (rep) {
+
                 EtatGUI etatprecedent = partie.getEtatGUI();
                 EntreeGUI entree = EntreeGUI.ListePiece;
                 EtatGUI etatActuel = partie.passerEtatSuivant(entree);
                 NotificationPieceSelectionnee notif = new NotificationPieceSelectionnee(idPiece, getJoueurCourant(), etatActuel, etatprecedent);
                 envoyerNotification(N_J1 | N_J2 | N_Spectateur, notif);
             }
+            return rep;
         }
         return false;
     }
@@ -225,12 +169,8 @@ public class ControlleurDistant implements IControlleurDistant {
 
     @Override
     public boolean VerifierJoueurs(Compte joueur1, Compte joueur2) {
-        return getNomJoueur(NumeroJoueur.J1).equals(joueur1.pseudo) && getNomJoueur(NumeroJoueur.J2).equals(joueur2.pseudo);
-    }
-
-    private boolean isGoodClient(Compte joueur) {
-        logger.info(String.format("Joueur Courant: %s, Pseudo: %s", getNomJoueur(getJoueurCourant()), joueur.pseudo));
-        return getNomJoueur(getJoueurCourant()).equals(joueur.pseudo);
+        return (getNomJoueur(NumeroJoueur.J1).equals(joueur1.pseudo) && getNomJoueur(NumeroJoueur.J2).equals(joueur2.pseudo))
+                || (getNomJoueur(NumeroJoueur.J1).equals(joueur2.pseudo) && getNomJoueur(NumeroJoueur.J2).equals(joueur1.pseudo));
     }
 
     @Override
@@ -274,20 +214,14 @@ public class ControlleurDistant implements IControlleurDistant {
         return partie.getAvailableCoords();
     }
 
-    public void addObserver(IClientCallback client, Compte joueur) {
-        if (getNomJoueur(NumeroJoueur.J1).equals(joueur.pseudo)) {
-            cJ1 = client;
-        } else if (getNomJoueur(NumeroJoueur.J2).equals(joueur.pseudo)) {
-            cJ2 = client;
-        } else {
-            cSpectateurs.add(client);
-        }
-
-    }
-
     @Override
     public boolean onePlayer() {
         return false;
+    }
+
+    @Override
+    public String getParametres() {
+        return partie.getParametres().toString();
     }
 
     class threadNotif implements Serializable, Runnable {
@@ -315,20 +249,52 @@ public class ControlleurDistant implements IControlleurDistant {
 
     }
 
-    class Notifieur extends Observable implements Serializable {
+    private boolean isGoodClient(Compte joueur) {
+        logger.info(String.format("Joueur Courant: %s, Pseudo: %s", getNomJoueur(getJoueurCourant()), joueur.pseudo));
+        return getNomJoueur(getJoueurCourant()).equals(joueur.pseudo);
+    }
 
-        public void envoyerNotification(final Notification notif) {
-            setChanged();
-            Thread thread = new Thread(new Runnable() {
+    synchronized public void addObserver(IClientCallback client, Compte joueur) {
+        if (getNomJoueur(NumeroJoueur.J1).equals(joueur.pseudo)) {
+            cJ1 = client;
+            logger.info(String.format("Callback J1 ajoutée"));
 
-                @Override
-                public void run() {
-                    notifyObservers(notif);
-                }
-            });
-            thread.start();
+        } else if (getNomJoueur(NumeroJoueur.J2).equals(joueur.pseudo)) {
+            cJ2 = client;
+            logger.info(String.format("Callback J2 ajoutée"));
+        } else {
+            cSpectateurs.add(client);
+        }
+        logger.info(client);
+        logger.info(joueur);
+        logger.info(this);
+    }
+
+    private void envoyerNotification(int id, Notification notif) {
+
+        ExecutorService executor = Executors.newFixedThreadPool(20);
+        logger.info(this);
+        if ((id & N_J1) == N_J1) {
+            executor.execute(new threadNotif(cJ1, notif));
         }
 
+        if ((id & N_J2) == N_J2) {
+            executor.execute(new threadNotif(cJ2, notif));
+        }
+
+        if ((id & N_Spectateur) == N_Spectateur) {
+            for (IClientCallback cSpectateur : cSpectateurs) {
+                executor.execute(new threadNotif(cSpectateur, notif));
+            }
+        }
+
+        executor.shutdown();
+
+        try {
+            executor.awaitTermination(20, TimeUnit.SECONDS);
+        } catch (InterruptedException ex) {
+            logger.error(ex);
+        }
     }
 
 }
