@@ -7,9 +7,7 @@ package launcher.remote;
 
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
 import java.rmi.RemoteException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;

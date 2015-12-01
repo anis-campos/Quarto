@@ -6,6 +6,7 @@
 package Network.RMI.Interface;
 
 import Databse.Compte;
+import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.PartieItem;
 import java.io.Serializable;
 import java.rmi.Remote;
@@ -25,7 +26,7 @@ public interface ISession extends Remote,Serializable {
 
     PartieItem creerPartie(Parametre p) throws RemoteException;
 
-    IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException;
+    IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException,PartieDoublonException;
 
     IJeu rejoindrePartie(long partieID) throws RemoteException;
 

@@ -7,6 +7,7 @@ package Network.RMI;
 
 import Databse.Compte;
 import Databse.CompteDAL;
+import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ISession;
@@ -67,11 +68,19 @@ public class Session extends UnicastRemoteObject implements ISession {
         return new PartieItem(index, partieDistante.J1.getName(), "N/A", p.toString());
     }
 
+    /**
+     *
+     * @param p
+     * @param Adversaire
+     * @return
+     * @throws RemoteException
+     * @throws PartieDoublonException
+     */
     @Override
-    public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException {
+    public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException,PartieDoublonException {
         if (ServeurJeu.getInstance().exists(CompteJoueur, Adversaire)) {
             logger.info(String.format("Partie doublon !  Joueur: %s - IP: %s", CompteJoueur.pseudo, clientHost));
-            throw new RemoteException("Vous avez deja une partie contre ce joueur !");
+            throw new PartieDoublonException(Adversaire);
         }
         long idPartie = ServeurJeu.getInstance().creerPartie(p, new Joueur(CompteJoueur.pseudo, false, NumeroJoueur.J1), new Joueur(Adversaire.pseudo, false, NumeroJoueur.J2));
         return new InterfaceJeu(CompteJoueur, ServeurJeu.instance.find(idPartie));

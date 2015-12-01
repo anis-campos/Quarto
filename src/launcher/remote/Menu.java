@@ -6,12 +6,14 @@
 package launcher.remote;
 
 import Databse.Compte;
+import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ISession;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Parametre;
 
 /**
@@ -19,10 +21,13 @@ import model.Parametre;
  * @author Anis
  */
 public class Menu extends javax.swing.JPanel {
+
     private final ISession session;
+    private IJeu jeuEnCour;
 
     /**
      * Creates new form Menu
+     *
      * @param session
      */
     public Menu(ISession session) {
@@ -88,11 +93,16 @@ public class Menu extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             List<Compte> listeComptes = session.listeComptes();
-            final IJeu jeuJ1 = session.creerPartieAvecAdversaire(
+            jeuEnCour = session.creerPartieAvecAdversaire(
                     new Parametre(true, true, true, true, true, true, false, false),
                     listeComptes.get(0));
         } catch (RemoteException ex) {
+
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PartieDoublonException ex) {
+
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

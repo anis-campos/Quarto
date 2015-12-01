@@ -49,7 +49,6 @@ public class ModeReseau extends JFrame {
         pane = new TestPane();
         Connexion connexion = new Connexion(service);
         pane.addPage("connexion", connexion);
-        pane.addPage("menu", new Menu(session));
         pane.toggleNavBar();
         this.getContentPane().add(pane, BorderLayout.CENTER);
     }
@@ -57,6 +56,7 @@ public class ModeReseau extends JFrame {
     public void setSession(ISession session) {
         if (this.session == null) {
             this.session = session;
+            pane.addPage("menu", new Menu(this.session));
             pane.setCurrentPage(1);
             pane.toggleNavBar();
             this.repaint();
