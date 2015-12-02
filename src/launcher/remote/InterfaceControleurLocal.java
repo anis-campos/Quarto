@@ -170,7 +170,12 @@ public class InterfaceControleurLocal extends Observable implements IControlleur
 
     @Override
     public boolean onePlayer() {
-        return true;
+       try {
+            return jeuDistant.onePlayer();
+        } catch (RemoteException ex) {
+            transfererExceptionToGUI(ex);
+            return false;
+        }
     }
 
     @Override
