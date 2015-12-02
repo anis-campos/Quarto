@@ -5,10 +5,19 @@
  */
 package launcher.remote;
 
+import Databse.Compte;
+import Network.RMI.Exceptions.PartieDoublonException;
+import Network.RMI.Interface.IClientCallback;
+import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
+import Network.RMI.PartieItem;
 import java.awt.BorderLayout;
+import java.lang.reflect.Parameter;
+import java.nio.channels.SeekableByteChannel;
 import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.GroupLayout;
@@ -16,12 +25,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import launcher.local.PartieBuilder;
+import model.Parametre;
+import view.GUIResolutionTool;
+import view.JPanelQuarto;
 
 /**
  *
  * @author Anis
  */
-public class ModeReseau extends JFrame {
+public class ModeReseau extends JFrame implements ISession {
 
     private final ILogin service;
     private final TestPane pane;
@@ -36,6 +49,13 @@ public class ModeReseau extends JFrame {
         }
         return instance;
     }
+
+    public static ISession getInstance() {
+        return instance;
+    }
+
+    private IJeu jeuEnCour;
+    private InterfaceControleurLocal interfaceControleurLocal;
 
     /**
      * Creates new form MenuReseau
@@ -63,6 +83,7 @@ public class ModeReseau extends JFrame {
         }
     }
 
+    @Override
     public void logout() {
         try {
             session.logout();
@@ -70,10 +91,71 @@ public class ModeReseau extends JFrame {
             Logger.getLogger(ModeReseau.class.getName()).log(Level.SEVERE, null, ex);
         }
         session = null;
-        pane.setCurrentPage(0);
+        pane.setCurrentPage("menu");
         pane.toggleNavBar();
         this.repaint();
 
+    }
+
+    @Override
+    public void registerCallback(IClientCallback client) throws RemoteException {
+        session.registerCallback(client);
+    }
+
+    @Override
+    public PartieItem creerPartie(Parametre p) throws RemoteException {
+        session.creerPartie(p);
+        return null;
+    }
+
+    @Override
+    public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException, PartieDoublonException {
+        jeuEnCour = session.creerPartieAvecAdversaire(
+                new Parametre(true, true, true, true, true, true, false, false),
+                Adversaire);
+        interfaceControleurLocal = new InterfaceControleurLocal(jeuEnCour);
+        launch();
+        return jeuEnCour;
+    }
+
+    private void launch() {
+
+        JPanelQuarto panel = new JPanelQuarto(interfaceControleurLocal, GUIResolutionTool.getSizeOfCase());
+        interfaceControleurLocal.addObserver((Observer) panel);
+
+        pane.addPage("jeu", panel);
+
+        pane.setCurrentPage("jeu");
+
+    }
+
+    @Override
+    public IJeu rejoindrePartie(long partieID) throws RemoteException {
+        jeuEnCour = session.rejoindrePartie(partieID);
+
+        interfaceControleurLocal = new InterfaceControleurLocal(jeuEnCour);
+        launch();
+        return jeuEnCour;
+    }
+
+    @Override
+    public IJeu reprendrePartie(long partieID) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<PartieItem> listePartie() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Compte> listeComptes() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Compte getCompteJoueurConnectee() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -101,4 +183,12 @@ public class ModeReseau extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titre;
     // End of variables declaration//GEN-END:variables
+
+    void afficherList() throws RemoteException {
+        ListePartie listeJeu = new ListePartie();
+        listeJeu.initList(session.listePartie());
+        pane.addPage("listeJeu", listeJeu);
+        pane.setCurrentPage("listeJeu");
+    }
+
 }

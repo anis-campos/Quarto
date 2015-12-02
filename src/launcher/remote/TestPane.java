@@ -67,18 +67,24 @@ public final class TestPane extends JPanel {
     }
 
     public void setCurrentPage(int page) {
-        if (pages.size() > 0) {
+        if (pages.size() > 0  && page>-1 && page<pages.size()) {
             currentPage = page;
             CardLayout layout = (CardLayout) mainPane.getLayout();
             layout.show(mainPane, pages.get(currentPage));
         }
     }
-    
-    public void toggleNavBar(){
+
+    public void setCurrentPage(String pageName) {
+
+        CardLayout layout = (CardLayout) mainPane.getLayout();
+        layout.show(mainPane, pageName);
+
+    }
+
+    public void toggleNavBar() {
         navPane.setVisible(!navPane.isVisible());
     }
 
- 
     public void addPage(String name, Component comp) {
         pages.add(name);
         mainPane.add(comp, name);

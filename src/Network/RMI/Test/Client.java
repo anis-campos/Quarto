@@ -32,8 +32,8 @@ public class Client {
 
         ILogin service = (ILogin) Naming.lookup("rmi:" + CONNEXION);
 
-        ClientCallback clientCallbackJ1 = new ClientCallback("cJ1", NumeroJoueur.J1);
-        ClientCallback clientCallbackJ2 = new ClientCallback("cJ2", NumeroJoueur.J2);
+        ClientCallback clientCallbackJ1 = new ClientCallback();
+        ClientCallback clientCallbackJ2 = new ClientCallback();
 
         ISession sessionJ1 = service.connexion("negga", "ytreza");
 

@@ -7,9 +7,11 @@ package Network.RMI;
 
 import Network.RMI.Interface.IClientCallback;
 import controlleur.observables.Notification;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import model.NumeroJoueur;
+import java.util.Observable;
+import java.util.Observer;
 import org.apache.log4j.Logger;
 
 /**
@@ -19,24 +21,46 @@ import org.apache.log4j.Logger;
 public class ClientCallback extends UnicastRemoteObject implements IClientCallback {
 
     private static final Logger logger = Logger.getLogger(ControlleurDistant.class);
-    private final String nom;
+    
+    private Transmeteur transfereur;
 
-
-    private final NumeroJoueur numJoueur;
-
-    public ClientCallback(String nom, NumeroJoueur numJoueur) throws RemoteException{
-        this.nom = nom;
-        this.numJoueur = numJoueur;
-
+    public ClientCallback() throws RemoteException {
+       transfereur = new Transmeteur();
     }
 
+    /**
+     * Fonction appelé depuis le serveur pour notifier le client.
+     * @param notif
+     * @throws RemoteException 
+     */
     @Override
     public void notifyMe(Notification notif) throws RemoteException {
-        String message = String.format("[%s] - Notification Recu : %s", nom, notif.toString());
+        String message = String.format("Notification Recu : %s", notif.toString());
         logger.info(message);
+        transfereur.setNotification(notif);
+        transfereur.Transferer();
 
-        
+    }
+    
+
+
+    public void addObserver(Observer observer) {
+        transfereur.addObserver(observer);
     }
 
+    public class Transmeteur extends Observable implements Serializable {
+
+        private Notification notification;
+
+        public void setNotification(Notification notification) {
+            this.notification = notification;
+            setChanged();
+        }
+
+        public void Transferer() {
+            notifyObservers(notification);
+        }
+
+    }
 
 }

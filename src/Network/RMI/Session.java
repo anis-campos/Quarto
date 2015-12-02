@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  *
  * @author Anis
  */
-public class Session extends UnicastRemoteObject implements ISession {
+ class Session extends UnicastRemoteObject implements ISession {
 
     Compte CompteJoueur;
 
