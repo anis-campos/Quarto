@@ -16,6 +16,7 @@ import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -25,7 +26,7 @@ import org.apache.log4j.Logger;
  *
  * @author Anis
  */
- class Session extends UnicastRemoteObject implements ISession {
+class Session extends UnicastRemoteObject implements ISession {
 
     Compte CompteJoueur;
 
@@ -77,7 +78,7 @@ import org.apache.log4j.Logger;
      * @throws PartieDoublonException
      */
     @Override
-    public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException,PartieDoublonException {
+    public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException, PartieDoublonException {
         if (ServeurJeu.getInstance().exists(CompteJoueur, Adversaire)) {
             logger.info(String.format("Partie doublon !  Joueur: %s - IP: %s", CompteJoueur.pseudo, clientHost));
             throw new PartieDoublonException(Adversaire);
@@ -93,7 +94,19 @@ import org.apache.log4j.Logger;
 
     @Override
     public List<Compte> listeComptes() throws RemoteException {
-        return CompteDAL.getDAL().getComptes();
+        List<Compte> comptes = CompteDAL.getDAL().getComptes();
+        comptes.removeIf(new Predicate<Compte>() {
+
+            @Override
+            public boolean test(Compte t) {
+                if (t.pseudo.equals(CompteJoueur.pseudo)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        return comptes;
+
     }
 
     @Override

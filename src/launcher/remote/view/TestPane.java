@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote;
+package launcher.remote.view;
 
 import Network.RMI.Interface.ILogin;
 import java.awt.BorderLayout;
@@ -66,7 +66,7 @@ public final class TestPane extends JPanel {
         return currentPage;
     }
 
-    public void setCurrentPage(int page) {
+    private void setCurrentPage(int page) {
         if (pages.size() > 0  && page>-1 && page<pages.size()) {
             currentPage = page;
             CardLayout layout = (CardLayout) mainPane.getLayout();
@@ -86,6 +86,7 @@ public final class TestPane extends JPanel {
     }
 
     public void addPage(String name, Component comp) {
+        if(pages.contains(name)) return;
         pages.add(name);
         mainPane.add(comp, name);
     }

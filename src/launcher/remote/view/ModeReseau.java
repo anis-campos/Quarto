@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote;
+package launcher.remote.view;
 
 import Databse.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
@@ -19,6 +19,7 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import launcher.remote.InterfaceControleurLocal;
 import static launcher.local.PartieBuilder.repackPartieQuarto;
 import model.Parametre;
 import view.GUIResolutionTool;
@@ -67,11 +68,18 @@ public class ModeReseau extends JFrame implements ISession {
         this.getContentPane().add(pane, BorderLayout.CENTER);
     }
 
+    public void afficherParametrage() {
+        pane.addPage("newPartie", new JPanelParametresReseau(session));
+        pane.setCurrentPage("newPartie");
+        repackPartieQuarto(pane);
+        this.repaint();
+    }
+
     public void setSession(ISession session) {
         if (this.session == null) {
             this.session = session;
             pane.addPage("menu", new Menu(this.session));
-            pane.setCurrentPage(1);
+            pane.setCurrentPage("menu");
             pane.toggleNavBar();
             this.repaint();
         }

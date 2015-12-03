@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote;
+package launcher.remote.view;
 
 import Databse.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
@@ -44,28 +44,36 @@ public class Menu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Deconnexion = new javax.swing.JButton();
+        NewPartieAdversaire = new javax.swing.JButton();
+        RejoindrePartie = new javax.swing.JButton();
+        NewPartie = new javax.swing.JButton();
 
-        jButton1.setText("Deconnexion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Deconnexion.setText("Deconnexion");
+        Deconnexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                DeconnexionActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Partie Test");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NewPartieAdversaire.setText("Partie negga vs escroc");
+        NewPartieAdversaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                NewPartieAdversaireActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Rejoindre une partie");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        RejoindrePartie.setText("Rejoindre une partie");
+        RejoindrePartie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                RejoindrePartieActionPerformed(evt);
+            }
+        });
+
+        NewPartie.setText("Nouvelle partie");
+        NewPartie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewPartieActionPerformed(evt);
             }
         });
 
@@ -74,27 +82,30 @@ public class Menu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                    .addComponent(RejoindrePartie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NewPartieAdversaire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Deconnexion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(NewPartie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addComponent(NewPartie)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addComponent(NewPartieAdversaire)
+                .addGap(18, 18, 18)
+                .addComponent(RejoindrePartie)
+                .addGap(28, 28, 28)
+                .addComponent(Deconnexion)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void DeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeconnexionActionPerformed
         try {
             ModeReseau.getInstance().logout();
         } catch (RemoteException ex) {
@@ -102,9 +113,9 @@ public class Menu extends javax.swing.JPanel {
 
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_DeconnexionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void NewPartieAdversaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPartieAdversaireActionPerformed
         try {
             Compte adversaire = session.listeComptes().get(0);
             Parametre parametre = new Parametre(true, true, true, true, true, true, false, false);
@@ -117,20 +128,25 @@ public class Menu extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_NewPartieAdversaireActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void RejoindrePartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejoindrePartieActionPerformed
         try {
             ModeReseau.getInstance(null).afficherList();
         } catch (RemoteException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_RejoindrePartieActionPerformed
+
+    private void NewPartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPartieActionPerformed
+        ModeReseau.getInstance(null).afficherParametrage();
+    }//GEN-LAST:event_NewPartieActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton Deconnexion;
+    private javax.swing.JButton NewPartie;
+    private javax.swing.JButton NewPartieAdversaire;
+    private javax.swing.JButton RejoindrePartie;
     // End of variables declaration//GEN-END:variables
 }

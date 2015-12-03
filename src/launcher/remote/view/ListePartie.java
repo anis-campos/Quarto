@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote;
+package launcher.remote.view;
 
 import Network.RMI.PartieItem;
 import java.rmi.RemoteException;

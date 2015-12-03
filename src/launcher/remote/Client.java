@@ -5,6 +5,7 @@
  */
 package launcher.remote;
 
+import launcher.remote.view.ModeReseau;
 import static Network.RMI.Constantes.CONNEXION;
 import Network.RMI.Interface.ILogin;
 import java.awt.Dimension;
