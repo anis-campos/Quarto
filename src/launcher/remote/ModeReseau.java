@@ -13,19 +13,13 @@ import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
 import Network.RMI.PartieItem;
 import java.awt.BorderLayout;
-import java.lang.reflect.Parameter;
-import java.nio.channels.SeekableByteChannel;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.GroupLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import launcher.local.PartieBuilder;
+import static launcher.local.PartieBuilder.repackPartieQuarto;
 import model.Parametre;
 import view.GUIResolutionTool;
 import view.JPanelQuarto;
@@ -91,7 +85,7 @@ public class ModeReseau extends JFrame implements ISession {
             Logger.getLogger(ModeReseau.class.getName()).log(Level.SEVERE, null, ex);
         }
         session = null;
-        pane.setCurrentPage("menu");
+        pane.setCurrentPage("connexion");
         pane.toggleNavBar();
         this.repaint();
 
@@ -126,6 +120,8 @@ public class ModeReseau extends JFrame implements ISession {
         pane.addPage("jeu", panel);
 
         pane.setCurrentPage("jeu");
+
+        repackPartieQuarto(pane);
 
     }
 

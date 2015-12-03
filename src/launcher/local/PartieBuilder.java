@@ -7,16 +7,13 @@ package launcher.local;
 
 import IA.Bot;
 import controlleur.ControllerLocal;
-import controlleur.IControlleur;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import launcher.remote.InterfaceControleurLocal;
 import model.Joueur;
 import model.Parametre;
 import model.Partie;

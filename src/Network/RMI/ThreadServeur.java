@@ -45,9 +45,14 @@ public class ThreadServeur {
         if (started) {
             return;
         }
-
         try {
             registre = LocateRegistry.createRegistry(PORT_RMI);
+        } catch (RemoteException ex) {
+            System.out.println("Une instance de serveur est déja en cours ... ");
+            System.exit(-1);
+        }
+        try {
+          
 
             serviceImp = new Login();
 
@@ -57,7 +62,9 @@ public class ThreadServeur {
 
             System.out.println("Serveur lancé");
         } catch (RemoteException | MalformedURLException ex) {
+              System.out.println("Impossible de lancer le serveur ... ");
             Logger.getLogger(ThreadServeur.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(-2);
         }
         started = true;
     }
