@@ -5,7 +5,8 @@
  */
 package Network.RMI;
 
-import model.*;
+import model.Joueur;
+import model.Parametre;
 
 /**
  *

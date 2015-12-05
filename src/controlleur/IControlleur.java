@@ -7,12 +7,12 @@ package controlleur;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import model.EtatGUI;
-import model.SortieGUI;
 import java.util.List;
 import java.util.Map;
 import model.Coord;
+import model.EtatGUI;
 import model.NumeroJoueur;
+import model.SortieGUI;
 
 /**
  *

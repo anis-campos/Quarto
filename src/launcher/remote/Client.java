@@ -5,15 +5,14 @@
  */
 package launcher.remote;
 
-import launcher.remote.view.ModeReseau;
 import static Network.RMI.Constantes.CONNEXION;
 import Network.RMI.Interface.ILogin;
 import java.awt.Dimension;
-import java.awt.BorderLayout;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import launcher.remote.view.ModeReseau;
 
 /**
  *

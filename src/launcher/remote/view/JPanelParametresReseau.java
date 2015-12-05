@@ -8,8 +8,6 @@ package launcher.remote.view;
 import Databse.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.ISession;
-import Network.RMI.PartieItem;
-import view.*;
 import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,19 +15,15 @@ import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Year;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
-import launcher.local.PartieBuilder;
-import model.Joueur;
-import model.NumeroJoueur;
 import model.Parametre;
+import view.GUIImageTool;
 
 /**
  *

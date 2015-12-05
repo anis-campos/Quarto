@@ -5,9 +5,8 @@
  */
 package controlleur.observables;
 
-import model.NumeroJoueur;
 import model.EtatGUI;
-import model.SortieGUI;
+import model.NumeroJoueur;
 
 /**
  *

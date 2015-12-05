@@ -13,7 +13,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import model.*;
+import model.Coord;
+import model.EtatGUI;
+import model.NumeroJoueur;
+import model.SortieGUI;
 import org.apache.log4j.Logger;
 
 public class InterfaceJeu extends UnicastRemoteObject implements IJeu {

@@ -11,12 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
 import model.Partie;
-
 import org.apache.log4j.Logger;
 
 /**

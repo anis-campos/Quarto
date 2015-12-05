@@ -6,11 +6,11 @@
 package Network.RMI.Test;
 
 import Network.RMI.ClientCallback;
-import Databse.Compte;
-import Network.RMI.Interface.*;
 import static Network.RMI.Constantes.CONNEXION;
+import Network.RMI.Interface.IJeu;
+import Network.RMI.Interface.ILogin;
+import Network.RMI.Interface.ISession;
 import Network.RMI.PartieItem;
-
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -20,7 +20,9 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.*;
+import model.Coord;
+import model.NumeroJoueur;
+import model.Parametre;
 
 /**
  *

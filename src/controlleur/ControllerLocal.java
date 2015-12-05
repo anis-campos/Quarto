@@ -5,14 +5,23 @@
  */
 package controlleur;
 
-import controlleur.observables.*;
+import controlleur.observables.Notification;
+import controlleur.observables.NotificationDernierTour;
+import controlleur.observables.NotificationMatchNullAnnonce;
+import controlleur.observables.NotificationMatchNullConfirme;
+import controlleur.observables.NotificationPieceDonnee;
+import controlleur.observables.NotificationPiecePlacee;
+import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationPremierTour;
+import controlleur.observables.NotificationQuartoAnnonce;
+import controlleur.observables.NotificationQuartoDetecte;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import model.Coord;
 import model.EntreeGUI;
 import model.EtatGUI;
-import model.Coord;
 import model.NumeroJoueur;
 import model.Partie;
 import model.SortieGUI;

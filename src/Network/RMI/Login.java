@@ -7,7 +7,6 @@ package Network.RMI;
 
 import Databse.Compte;
 import Databse.CompteDAL;
-import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
 import java.rmi.RemoteException;

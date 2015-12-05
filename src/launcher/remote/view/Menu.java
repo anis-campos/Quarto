@@ -10,7 +10,6 @@ import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ISession;
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

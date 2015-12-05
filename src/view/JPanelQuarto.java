@@ -5,23 +5,55 @@
  */
 package view;
 
-import model.EtatGUI;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.*;
-import model.Coord;
-import model.NumeroJoueur;
 import controlleur.IControlleur;
-import controlleur.observables.*;
+import controlleur.observables.Notification;
+import controlleur.observables.NotificationDernierTour;
+import controlleur.observables.NotificationMatchNullAnnonce;
+import controlleur.observables.NotificationMatchNullConfirme;
+import controlleur.observables.NotificationPieceDonnee;
+import controlleur.observables.NotificationPiecePlacee;
+import controlleur.observables.NotificationPieceSelectionnee;
+import controlleur.observables.NotificationQuartoAnnonce;
+import controlleur.observables.NotificationQuartoDetecte;
+import java.awt.AWTException;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import model.Coord;
+import model.EtatGUI;
+import model.NumeroJoueur;
 
 /**
  * @author Anis
