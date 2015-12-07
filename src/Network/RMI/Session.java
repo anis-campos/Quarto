@@ -5,8 +5,8 @@
  */
 package Network.RMI;
 
-import Databse.Compte;
-import Databse.CompteDAL;
+import Database.Compte;
+import Database.CompteDAL;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
@@ -16,7 +16,6 @@ import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import model.Joueur;
 import model.NumeroJoueur;
 import model.Parametre;
@@ -95,16 +94,13 @@ class Session extends UnicastRemoteObject implements ISession {
     @Override
     public List<Compte> listeComptes() throws RemoteException {
         List<Compte> comptes = CompteDAL.getDAL().getComptes();
-        comptes.removeIf(new Predicate<Compte>() {
-
-            @Override
-            public boolean test(Compte t) {
-                if (t.pseudo.equals(CompteJoueur.pseudo)) {
-                    return true;
-                }
-                return false;
+        for (Compte compte : comptes) {
+            if(compte.pseudo.equals(CompteJoueur.pseudo)){
+                listeComptes().remove(compte);
+                break;
             }
-        });
+                
+        }
         return comptes;
 
     }

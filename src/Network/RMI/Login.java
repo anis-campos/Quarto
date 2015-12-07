@@ -5,8 +5,8 @@
  */
 package Network.RMI;
 
-import Databse.Compte;
-import Databse.CompteDAL;
+import Database.Compte;
+import Database.CompteDAL;
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
 import java.rmi.RemoteException;

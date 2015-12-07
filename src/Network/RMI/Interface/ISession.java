@@ -5,7 +5,7 @@
  */
 package Network.RMI.Interface;
 
-import Databse.Compte;
+import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.PartieItem;
 import java.io.Serializable;

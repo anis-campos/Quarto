@@ -5,7 +5,7 @@
  */
 package Network.RMI.Interface;
 
-import Databse.Compte;
+import Database.Compte;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

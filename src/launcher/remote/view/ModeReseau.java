@@ -5,7 +5,7 @@
  */
 package launcher.remote.view;
 
-import Databse.Compte;
+import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
@@ -113,7 +113,7 @@ public class ModeReseau extends JFrame implements ISession {
     @Override
     public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException, PartieDoublonException {
         jeuEnCour = session.creerPartieAvecAdversaire(
-                new Parametre(true, true, true, true, true, true, false, false),
+                new Parametre(true, true, true, true, true, true, false, false, false),
                 Adversaire);
         interfaceControleurLocal = new InterfaceControleurLocal(jeuEnCour);
         launch();

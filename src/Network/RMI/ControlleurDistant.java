@@ -5,7 +5,7 @@
  */
 package Network.RMI;
 
-import Databse.Compte;
+import Database.Compte;
 import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IControlleurDistant;
 import controlleur.observables.Notification;

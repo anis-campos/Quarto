@@ -5,7 +5,7 @@
  */
 package launcher.remote.view;
 
-import Databse.Compte;
+import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ISession;
@@ -117,7 +117,7 @@ public class Menu extends javax.swing.JPanel {
     private void NewPartieAdversaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPartieAdversaireActionPerformed
         try {
             Compte adversaire = session.listeComptes().get(0);
-            Parametre parametre = new Parametre(true, true, true, true, true, true, false, false);
+            Parametre parametre = new Parametre(true, true, true, true, true, true, false, false, false);
             ModeReseau.getInstance().creerPartieAvecAdversaire(parametre, adversaire);
         } catch (RemoteException ex) {
 

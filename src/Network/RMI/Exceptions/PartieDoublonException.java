@@ -5,7 +5,7 @@
  */
 package Network.RMI.Exceptions;
 
-import Databse.Compte;
+import Database.Compte;
 
 /**
  *

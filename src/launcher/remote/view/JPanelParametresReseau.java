@@ -5,7 +5,7 @@
  */
 package launcher.remote.view;
 
-import Databse.Compte;
+import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.ISession;
 import java.awt.CardLayout;
@@ -470,6 +470,7 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
                 this.QuartoCarre.isSelected(),
                 this.QuartoAutoValidation.isSelected(),
                 this.JoueurRandom.isSelected(),
+                false,
                 false
         );
     }
