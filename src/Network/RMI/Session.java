@@ -94,13 +94,6 @@ class Session extends UnicastRemoteObject implements ISession {
     @Override
     public List<Compte> listeComptes() throws RemoteException {
         List<Compte> comptes = CompteDAL.getDAL().getComptes();
-        for (Compte compte : comptes) {
-            if(compte.pseudo.equals(CompteJoueur.pseudo)){
-                listeComptes().remove(compte);
-                break;
-            }
-                
-        }
         return comptes;
 
     }

@@ -97,6 +97,8 @@ public interface IControlleur{
     
     public String getNamePieceJ2();
     
-    boolean onePlayer();
+    public boolean onePlayer();
+    
+    public int getBotLevel();
   
 }

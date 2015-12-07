@@ -34,115 +34,158 @@ public class Bot implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+
         randomBot(arg);
+//            case 1:
+//                break;
+//            case 2:
+//                break;
 
     }
 
     private void randomBot(Object arg) {
-        Thread traitement = null;
+
         Notification notif = (Notification) arg;
         switch (notif.nouvelEtat) {//etat actuel
             case J2DoitPlacer:
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.poserPiece(pickRandomCoord());
-                            }
-
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-
-                traitement.start();
+                Coord targetCoord = null;
+                switch (controller.getBotLevel()) {
+                    case 0:
+                        targetCoord = pickRandomCoord();
+                        break;
+                    case 1:
+                        break;
+                    default:
+                        throw new UnsupportedOperationException("Not supported Bot Level");
+                }
+                placer(targetCoord);
                 break;
             case J2DoitChoisir:
-
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.selectionPiece(pickRandomPiece());
-                            }
-
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                int pieceNb = -1;
+                switch (controller.getBotLevel()) {
+                    case 0:
+                        pieceNb = pickRandomPiece();
+                        break;
+                    case 1:
+                        break;
+                    default:
+                        throw new UnsupportedOperationException("Not supported Bot Level");
+                }
+                choisir(pieceNb);
                 break;
             case J2DoitDonner:
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            controller.donnerPieceAdversaire();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                donner();
                 break;
-
             case J2DernierTour:
                 //annoncer quarto ou annoncer match null
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.annoncerMatchNul();
-                            }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                dernierTour();
                 break;
             case J2PeutConfirmerMatchNull:
                 //annoncer quarto ou confirmer match null
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.annoncerMatchNul();
-                            }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                dernierMot();
                 break;
             default:
                 break;
         }
+    }
+
+    private void choisir(final int pieceNb) {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();//annonce quarto adverse
+                    } else {
+                        controller.selectionPiece(pieceNb);
+                    }
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
+    }
+
+    private void donner() {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    controller.donnerPieceAdversaire();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
+    }
+
+    private void placer(final Coord coord) {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();//annonce Quarto
+                    } else {
+                        controller.poserPiece(coord);
+                    }
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        traitement.start();
+    }
+
+    private void dernierMot() {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();
+                    } else {
+                        controller.annoncerMatchNul();
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
+    }
+
+    private void dernierTour() {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();
+                    } else {
+                        controller.annoncerMatchNul();
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
     }
 
     private int pickRandomPiece() {

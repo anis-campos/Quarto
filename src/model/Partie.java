@@ -323,4 +323,8 @@ public class Partie implements Serializable {
         }
     }
 
+    public int getBotLevel() {
+        return parametres.getBotLevel();
+    }
+
 }

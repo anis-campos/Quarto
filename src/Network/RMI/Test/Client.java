@@ -45,7 +45,7 @@ public class Client {
 
         //List<PartieItem> listePartie = session.listePartie();
         final IJeu jeuJ1 = sessionJ1.creerPartieAvecAdversaire(
-                new Parametre(true, true, true, true, true, true, false, false, false),
+                new Parametre(true, true, true, true, true, true, false, false, false, -1),
                 sessionJ2.getCompteJoueurConnectee());
         jeuJ1.registerClientCallback(clientCallbackJ1);
 

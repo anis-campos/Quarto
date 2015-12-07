@@ -113,7 +113,7 @@ public class ModeReseau extends JFrame implements ISession {
     @Override
     public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException, PartieDoublonException {
         jeuEnCour = session.creerPartieAvecAdversaire(
-                new Parametre(true, true, true, true, true, true, false, false, false),
+                new Parametre(true, true, true, true, true, true, false, false, false, -1),
                 Adversaire);
         interfaceControleurLocal = new InterfaceControleurLocal(jeuEnCour);
         launch();

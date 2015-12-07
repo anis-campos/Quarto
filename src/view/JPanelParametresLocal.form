@@ -30,17 +30,17 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="RetourMenu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jButtonReset" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="CommencerPartie" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel1" min="-2" pref="306" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="83" max="32767" attributes="0"/>
           </Group>
@@ -49,22 +49,22 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="CommencerPartie" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
-                      <Component id="RetourMenu" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jButtonReset" min="-2" pref="74" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" pref="239" max="-2" attributes="0"/>
+                  <Component id="jPanel4" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="RetourMenu" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jButtonReset" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="CommencerPartie" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="51" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -122,7 +122,7 @@
                   <Component id="Couleur" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Creux" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="68" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -186,20 +186,20 @@
                       <Component id="QuartoAutoValidation" min="-2" max="-2" attributes="0"/>
                       <Component id="QuartoCarre" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Component id="QuartoCarre" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jCheckTorus" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="QuartoAutoValidation" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -208,7 +208,7 @@
         <Component class="javax.swing.JCheckBox" name="QuartoCarre">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Activation Quarto par assemblage carr&#xe9; group&#xe9;"/>
+            <Property name="text" type="java.lang.String" value="Quarto par assemblage carr&#xe9; group&#xe9;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="QuartoCarreActionPerformed"/>
@@ -216,13 +216,13 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="QuartoAutoValidation">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Activation de la validation automatique du Quarto"/>
+            <Property name="text" type="java.lang.String" value="Validation automatique du Quarto"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckTorus">
           <Properties>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Activation Quarto Torus (Table de Karnaugh)"/>
+            <Property name="text" type="java.lang.String" value="Quarto Torus (Table de Karnaugh)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -244,18 +244,27 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="JoueurRandom" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
+                      <Component id="contreBot" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelJoueur1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelJoueur2" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabelDifficulte" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="joueur1" pref="183" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabelFacile" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabelDifficile" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="joueur2" max="32767" attributes="0"/>
+                              <Component id="joueur1" max="32767" attributes="0"/>
+                              <Component id="botSlider" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="contreBot" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
               </Group>
@@ -264,21 +273,37 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="JoueurRandom" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="contreBot" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="joueur1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelJoueur1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="joueur2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelJoueur2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
-                  <Component id="JoueurRandom" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="botSlider" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabelFacile" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelDifficile" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabelDifficulte" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -309,12 +334,12 @@
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.joueur2.setTransferHandler(null);"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jLabelJoueur1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Joueur 1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="jLabelJoueur2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Joueur 2"/>
           </Properties>
@@ -335,6 +360,28 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contreBotActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JSlider" name="botSlider">
+          <Properties>
+            <Property name="maximum" type="int" value="1"/>
+            <Property name="snapToTicks" type="boolean" value="true"/>
+            <Property name="value" type="int" value="0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelDifficulte">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Difficult&#xe9;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelFacile">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="facile"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelDifficile">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="difficile"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

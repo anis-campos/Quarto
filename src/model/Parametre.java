@@ -22,8 +22,9 @@ public class Parametre implements Serializable{
     private final Boolean joueurRamdom;
     private final Boolean contreBot;
     private final Boolean torus;
+    private final int botLevel;
 
-    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre, Boolean validationAutomatiqueQuarto, Boolean joueurRamdom, Boolean contreBot, Boolean torus) {
+    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre, Boolean validationAutomatiqueQuarto, Boolean joueurRamdom, Boolean contreBot, Boolean torus, int botLevel) {
         this.hauteur = hauteur;
         this.creux = creux;
         this.couleur = couleur;
@@ -33,6 +34,7 @@ public class Parametre implements Serializable{
         this.joueurRamdom = joueurRamdom;
         this.contreBot = contreBot;
         this.torus = torus;
+        this.botLevel = botLevel;
     }
 
     @Override
@@ -85,6 +87,10 @@ public class Parametre implements Serializable{
 
     public Boolean torusActif() {
         return torus;
+    }
+
+    public int getBotLevel() {
+        return botLevel;
     }
 
 }

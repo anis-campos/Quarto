@@ -28,8 +28,15 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         this.minCharNumber = 3;
         this.maxCharNumber = 10;
         initComponents();
+        hideSlider();
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
 
+    }
+    private void hideSlider(){
+        botSlider.setVisible(false);
+        jLabelDifficulte.setVisible(false);
+        jLabelFacile.setVisible(false);
+        jLabelDifficile.setVisible(false);
     }
 
     /**
@@ -55,10 +62,14 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         joueur1 = new javax.swing.JTextField();
         joueur2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelJoueur1 = new javax.swing.JLabel();
+        jLabelJoueur2 = new javax.swing.JLabel();
         JoueurRandom = new javax.swing.JCheckBox();
         contreBot = new javax.swing.JCheckBox();
+        botSlider = new javax.swing.JSlider();
+        jLabelDifficulte = new javax.swing.JLabel();
+        jLabelFacile = new javax.swing.JLabel();
+        jLabelDifficile = new javax.swing.JLabel();
         jButtonReset = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -138,24 +149,24 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                 .addComponent(Couleur)
                 .addGap(18, 18, 18)
                 .addComponent(Creux)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Paramètrage du Quarto"));
         jPanel5.setOpaque(false);
 
         QuartoCarre.setSelected(true);
-        QuartoCarre.setText("Activation Quarto par assemblage carré groupé");
+        QuartoCarre.setText("Quarto par assemblage carré groupé");
         QuartoCarre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 QuartoCarreActionPerformed(evt);
             }
         });
 
-        QuartoAutoValidation.setText("Activation de la validation automatique du Quarto");
+        QuartoAutoValidation.setText("Validation automatique du Quarto");
 
         jCheckTorus.setSelected(true);
-        jCheckTorus.setText("Activation Quarto Torus (Table de Karnaugh)");
+        jCheckTorus.setText("Quarto Torus (Table de Karnaugh)");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -167,18 +178,18 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                     .addComponent(jCheckTorus)
                     .addComponent(QuartoAutoValidation)
                     .addComponent(QuartoCarre))
-                .addGap(72, 72, 72))
+                .addGap(131, 131, 131))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addComponent(QuartoCarre)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckTorus)
                 .addGap(18, 18, 18)
                 .addComponent(QuartoAutoValidation)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Joueurs"));
@@ -207,9 +218,9 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Joueur 1");
+        jLabelJoueur1.setText("Joueur 1");
 
-        jLabel2.setText("Joueur 2");
+        jLabelJoueur2.setText("Joueur 2");
 
         JoueurRandom.setSelected(true);
         JoueurRandom.setText("Désignation aléatoire du premier joueur");
@@ -226,6 +237,16 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             }
         });
 
+        botSlider.setMaximum(1);
+        botSlider.setSnapToTicks(true);
+        botSlider.setValue(0);
+
+        jLabelDifficulte.setText("Difficulté");
+
+        jLabelFacile.setText("facile");
+
+        jLabelDifficile.setText("difficile");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -233,35 +254,53 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JoueurRandom)
-                        .addGap(89, 89, 89))
+                    .addComponent(JoueurRandom)
+                    .addComponent(contreBot)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelJoueur1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabelJoueur2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabelDifficulte))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(joueur1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                            .addComponent(joueur2)))
-                    .addComponent(contreBot)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelFacile)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelDifficile))
+                            .addComponent(joueur2)
+                            .addComponent(joueur1)
+                            .addComponent(botSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(89, 89, 89))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(17, 17, 17)
+                .addComponent(JoueurRandom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contreBot)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(joueur1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(jLabelJoueur1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(JoueurRandom)
-                .addGap(21, 21, 21))
+                    .addComponent(jLabelJoueur2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelFacile)
+                            .addComponent(jLabelDifficile))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelDifficulte)
+                        .addGap(62, 62, 62))))
         );
 
         jButtonReset.setText("Paramètres par défaut");
@@ -280,33 +319,33 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(RetourMenu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(26, 26, 26)
                         .addComponent(jButtonReset)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CommencerPartie))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                        .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -376,20 +415,35 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         this.Forme.setSelected(true);
         this.Creux.setSelected(true);
         this.Couleur.setSelected(true);
+        this.botSlider.setValue(0);
         this.joueur1.setText("Joueur 1");
         this.joueur2.setText("Joueur 2");
+        this.jCheckTorus.setSelected(true);
+        this.contreBot.setSelected(false);
+        contreBotSelectionAction();
     }//GEN-LAST:event_jButtonResetActionPerformed
 
     private void contreBotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contreBotActionPerformed
-        if(this.contreBot.isSelected()){
-            jLabel2.setVisible(false);
-            joueur2.setVisible(false);
-        }else{
-            jLabel2.setVisible(true);
-            joueur2.setVisible(true);
-        }
+        contreBotSelectionAction();
     }//GEN-LAST:event_contreBotActionPerformed
 
+    private void contreBotSelectionAction(){
+        if (this.contreBot.isSelected()) {
+            jLabelJoueur2.setVisible(false);
+            joueur2.setVisible(false);
+            jLabelDifficulte.setVisible(true);
+            jLabelFacile.setVisible(true);
+            jLabelDifficile.setVisible(true);
+            botSlider.setVisible(true);
+        } else {
+            jLabelJoueur2.setVisible(true);
+            joueur2.setVisible(true);
+            jLabelDifficulte.setVisible(false);
+            jLabelFacile.setVisible(false);
+            jLabelDifficile.setVisible(false);
+            botSlider.setVisible(false);
+        }
+    }
     private Parametre getParametres() {
         return new Parametre(
                 this.Forme.isSelected(),
@@ -400,7 +454,8 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                 this.QuartoAutoValidation.isSelected(),
                 this.JoueurRandom.isSelected(),
                 this.contreBot.isSelected(),
-                this.jCheckTorus.isSelected()
+                this.jCheckTorus.isSelected(),
+                this.botSlider.getValue()
         );
     }
 
@@ -410,7 +465,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
 
     public Joueur getJoueur2() {
         Boolean j2IsBot = this.contreBot.isSelected();
-        return new Joueur((j2IsBot)?"BOT":this.joueur2.getText(), j2IsBot, NumeroJoueur.J2);
+        return new Joueur((j2IsBot) ? "BOT" : this.joueur2.getText(), j2IsBot, NumeroJoueur.J2);
     }
 
     public Boolean getCouleur() {
@@ -444,10 +499,15 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
     public Boolean getContreBot() {
         return contreBot.isSelected();
     }
-    public Boolean getTorus(){
+
+    public Boolean getTorus() {
         return jCheckTorus.isSelected();
     }
-    
+
+    public int getBotSliderValue() {
+        return botSlider.getValue();
+    }
+
     private final int maxCharNumber;
     private final int minCharNumber;
 
@@ -461,11 +521,15 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
     private javax.swing.JCheckBox QuartoCarre;
     private javax.swing.JButton RetourMenu;
     private javax.swing.JCheckBox Taille;
+    private javax.swing.JSlider botSlider;
     private javax.swing.JCheckBox contreBot;
     private javax.swing.JButton jButtonReset;
     private javax.swing.JCheckBox jCheckTorus;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelDifficile;
+    private javax.swing.JLabel jLabelDifficulte;
+    private javax.swing.JLabel jLabelFacile;
+    private javax.swing.JLabel jLabelJoueur1;
+    private javax.swing.JLabel jLabelJoueur2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

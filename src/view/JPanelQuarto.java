@@ -66,31 +66,31 @@ public final class JPanelQuarto extends JPanel implements Observer {
     //Map string=name  label
     private HashMap<Integer, JLabelPiece> listeDePiecesDisponibles;
 
-    private JPanel jPlateau;
+    protected JPanel jPlateau;
 
-    private JPanel jPanelListePieces;
+    protected JPanel jPanelListePieces;
 
-    private JPanelCase jPieceJ1;
-    private JPanelCase jPieceJ2;
+    protected JPanelCase jPieceJ1;
+    protected JPanelCase jPieceJ2;
 
-    private JButton bDonnerJ1;
-    private JButton bDonnerJ2;
-    private JButton bAfficherMenu;
+    protected JButton bDonnerJ1;
+    protected JButton bDonnerJ2;
+    protected JButton bAfficherMenu;
 
-    private final IControlleur controleur;
+    protected final IControlleur controleur;
 
-    private JPanel layeredPane;
+    protected JPanel layeredPane;
 
-    private JButton bAnnoncerQuartoJ1;
-    private JButton bAnnoncerQuartoJ2;
+    protected JButton bAnnoncerQuartoJ1;
+    protected JButton bAnnoncerQuartoJ2;
 
-    private JButton bAnnoncerMatchNullJ1;
-    private JButton bAnnoncerMatchNullJ2;
+    protected JButton bAnnoncerMatchNullJ1;
+    protected JButton bAnnoncerMatchNullJ2;
 
-    private JLabel jLabelJ2;
-    private JLabel jLabelJ1;
-    private final int initFontSize = 12;
-    private final int fontSizeToUse = 24;// TODO = A changer et faire mieux pour gérer les FONTs
+    protected JLabel jLabelJ2;
+    protected JLabel jLabelJ1;
+    protected final int initFontSize = 12;
+    protected final int fontSizeToUse = 24;// TODO = A changer et faire mieux pour gérer les FONTs
 
     JTextArea jTextArea1;
     private final Dimension dimensionCase;
@@ -575,124 +575,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * activer/désactiver)
      */
     private void updateScreen(EtatGUI etat) {
-        switch (etat) {
-            case J1DoitChoisir:
-                bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(true);
-                jPieceJ2.setEnabled(false);
-                jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay(false);
-                break;
-            case J1DoitDonner:
-                bDonnerJ1.setEnabled(true);
-                jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(true);
-                jPieceJ2.setEnabled(false);
-                jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay(false);
-                break;
-            case J1DoitPlacer:
-                bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                jPlateau.setEnabled(true);
-                jPanelListePieces.setEnabled(false);
-                jPieceJ2.setEnabled(false);
-                jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay(true);
-                break;
-            case J2DoitChoisir:
-                if (controleur.onePlayer()) {
-                    jPanelListePieces.setEnabled(false);
-                    jPieceJ2.setEnabled(false);
-                } else {
-                    jPanelListePieces.setEnabled(true);
-                    jPieceJ2.setEnabled(true);
-                }
-                bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                jPlateau.setEnabled(false);
-                jPieceJ1.setEnabled(false);
-                annoncerQuartoDisplay(false);
-                break;
-            case J2DoitDonner:
-                if (controleur.onePlayer()) {
-                    bDonnerJ2.setEnabled(false);
-                    jPanelListePieces.setEnabled(false);
-                    jPieceJ2.setEnabled(false);
-                } else {
-                    bDonnerJ2.setEnabled(true);
-                    jPanelListePieces.setEnabled(true);
-                    jPieceJ2.setEnabled(true);
-                }
-                bDonnerJ1.setEnabled(false);
-                jPlateau.setEnabled(false);
-                jPieceJ1.setEnabled(false);
-                annoncerQuartoDisplay(false);
-                break;
-            case J2DoitPlacer:
-                if (controleur.onePlayer()) {
-                    jPlateau.setEnabled(false);
-                    jPieceJ2.setEnabled(false);
-                } else {
-                    jPlateau.setEnabled(true);
-                    jPieceJ2.setEnabled(true);
-                }
-                bDonnerJ2.setEnabled(false);
-                bDonnerJ1.setEnabled(false);
-                jPanelListePieces.setEnabled(false);
-                jPieceJ1.setEnabled(false);
-                annoncerQuartoDisplay(true);
-                break;
-            case J1AAnnonceQuarto:
-                break;
-            case J2AAnnonceQuarto:
-                break;
-            case J2PeutConfirmerMatchNull:
-                annoncerQuartoDisplay(true);
-                bAnnoncerMatchNullJ1.setEnabled(false);
-                bAnnoncerMatchNullJ2.setEnabled(true);
-                break;
-            case J1PeutConfirmerMatchNull:
-                annoncerQuartoDisplay(true);
-                bAnnoncerMatchNullJ2.setEnabled(false);
-                bAnnoncerMatchNullJ1.setEnabled(true);
-                break;
-            case EtatNonDefinit:
-                break;
-            case J1DernierTour:
-                annoncerQuartoDisplay(false);
-                bAnnoncerMatchNullJ1.setEnabled(true);
-                bAnnoncerMatchNullJ2.setEnabled(false);
-                break;
-            case J2DernierTour:
-                annoncerQuartoDisplay(false);
-                bAnnoncerMatchNullJ2.setEnabled(true);
-                bAnnoncerMatchNullJ1.setEnabled(false);
-                break;
-
-            case J1ATrouveUnQuarto:
-            case J2ATrouveUnQuarto:
-            case J1EtJ2OntAnnonceMatchNull:
-                jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                bDonnerJ1.setEnabled(false);
-                bAnnoncerQuartoJ1.setEnabled(false);
-                bAnnoncerQuartoJ2.setEnabled(false);
-                bAnnoncerMatchNullJ1.setEnabled(false);
-                bAnnoncerMatchNullJ2.setEnabled(false);
-                break;
-
-            default:
-                break;
-        }
-        majLabelJoueur();
-        jTextArea1.setText("Le jeux est passé en état :" + etat);
-        this.revalidate();
-        this.repaint();
-
+        ScreenUpdater.updateScreen(this, etat);
     }
 
     /**
@@ -748,58 +631,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    /**
-     * Gère l'affichage des boutons AnnoncerQuarto selon le joueur qui joue
-     */
-    private void annoncerQuartoDisplay(Boolean quartoAdversaire) {
 
-        NumeroJoueur numJoueurCourant = controleur.getJoueurCourant();
-        if (!controleur.getIsValidationAutoEnabled()) {
-            //tant qu'il n'y a pas de pièce posées on grise les boutons Quarto
-            if (!controleur.getListPiecePlateauJeu().isEmpty()) {
-                if (numJoueurCourant == NumeroJoueur.J1) {
-                    if (quartoAdversaire) {
-                        bAnnoncerQuartoJ1.setText("Quarto Adverse!");
-                    } else {
-                        bAnnoncerQuartoJ1.setText("Quarto!");
-                    }
-                    bAnnoncerQuartoJ1.setEnabled(true);
-                    bAnnoncerQuartoJ2.setEnabled(false);
 
-                } else {
 
-                    if (quartoAdversaire) {
-                        bAnnoncerQuartoJ2.setText("Quarto Adverse!");
-                    } else {
-                        bAnnoncerQuartoJ2.setText("Quarto!");
-                    }
-                    bAnnoncerQuartoJ2.setEnabled(true);
-                    bAnnoncerQuartoJ1.setEnabled(false);
-
-                }
-            } else {
-                bAnnoncerQuartoJ1.setEnabled(false);
-                bAnnoncerQuartoJ2.setEnabled(false);
-            }
-        } else {
-            bAnnoncerQuartoJ1.setVisible(false);
-            bAnnoncerQuartoJ2.setVisible(false);
-        }
-    }
-
-    /**
-     * Mis en valeur du joueur courant ( nom plus grand et en GRAS)
-     */
-    private void majLabelJoueur() {
-
-        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, fontSizeToUse));
-            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.PLAIN, initFontSize));
-        } else {
-            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.PLAIN, initFontSize));
-            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.BOLD, fontSizeToUse));
-        }
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
