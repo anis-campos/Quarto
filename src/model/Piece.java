@@ -5,13 +5,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Anis
  */
-public class Piece {
+public class Piece implements Serializable{
 
     protected Boolean carre;
     protected Boolean grand;

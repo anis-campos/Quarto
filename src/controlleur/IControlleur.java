@@ -86,12 +86,7 @@ public interface IControlleur{
      */
     List<Map.Entry<Coord, String>> getListPiecePlateauJeu();
 
-    /**
-     * Obtenir la liste des pièces placées dans le plateau
-     * @return Une liste de nom de pièces
-     */
-    List<String> getListPiecePlacee();
-    
+
     String getNomJoueur(NumeroJoueur nj);
 
     Boolean getIsValidationAutoEnabled();

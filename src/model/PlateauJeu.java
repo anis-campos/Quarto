@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author timotheetroncy
  */
-public class PlateauJeu {
+public class PlateauJeu implements Serializable {
 
     private final HashMap<Coord, Piece> plateauJeuCoordPiece;
     private final HashMap<Piece, Coord> plateauJeuPieceCoord;

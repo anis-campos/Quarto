@@ -6,20 +6,21 @@
 package model;
 
 import IA.Bot;
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+
 
 /**
  *
  * @author timotheetroncy
  */
-public class Partie {
+public class Partie implements Serializable {
 
     private final PlateauJeu plateauJeu;
     private final ArrayList<Piece> listPiece;
@@ -32,6 +33,8 @@ public class Partie {
     private Coord coordDernierePiecePlacee;
     private ArrayList<ArrayList<Coord>> quartos;
     private Bot bot;
+    
+    private static final Logger logger = Logger.getLogger(Partie.class);
 
     private Joueur joueurCourant;
 
@@ -84,7 +87,7 @@ public class Partie {
                 laPiece = new Piece(booleanMatrix[i][0] || !parametres.formeActif(), booleanMatrix[i][1] || !parametres.hauteurActif(), booleanMatrix[i][2] || !parametres.couleurActif(), booleanMatrix[i][3] || !parametres.creuxActif());
                 listPiece.add(laPiece);
             } catch (Exception ex) {
-                Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error(ex);
             }
 
         }
@@ -121,14 +124,6 @@ public class Partie {
         }
     }
 
-    private Piece getPieceAdversaire() {
-        if (joueurCourant == joueur1) {
-            return caseJoueur2;
-        } else {
-            return caseJoueur1;
-        }
-    }
-
     private void setPieceJoueurCourant(Piece piece) {
         if (joueurCourant == joueur1) {
             caseJoueur1 = piece;
@@ -151,8 +146,10 @@ public class Partie {
             Piece pieceJoueurCourant = getPieceJoueurCourant();
             if (pieceJoueurCourant != null) {
                 listPiece.add(pieceJoueurCourant);
+                logger.info("Piece remise dans la liste : "+pieceJoueurCourant.getName());
                 setPieceJoueurCourant(null);
             }
+            logger.info("Piece enlevée de la liste : "+piece.getName());
             setPieceJoueurCourant(piece);
 
             return true;
@@ -164,9 +161,11 @@ public class Partie {
     public boolean donnerPieceAdversaire() {
 
         Piece pieceJoueurCourant = getPieceJoueurCourant();
+        if(pieceJoueurCourant==null)
+            return false;
         setPieceJoueurAdversaire(pieceJoueurCourant);
+        logger.info("Piece donnée : "+pieceJoueurCourant.getName());
         setPieceJoueurCourant(null);
-
         return true;
     }
 
@@ -179,6 +178,7 @@ public class Partie {
                 return piece;
             }
         }
+        logger.warn("Piece n'est pas dispo : " + idPiece);
         return null;
     }
 
@@ -210,13 +210,7 @@ public class Partie {
         return plateauJeu;
     }
 
-    public List<String> getListPieceNamePlacees() {
-        List<String> rep = new ArrayList<>();
-        for (Piece piece : plateauJeu.getClonedPieceList()) {
-            rep.add(piece.getName());
-        }
-        return rep;
-    }
+
 
     public boolean thereIsQuarto() {
         quartos = new ArrayList<>();
@@ -236,8 +230,11 @@ public class Partie {
     }
 
     public EtatGUI passerEtatSuivant(EntreeGUI entree) {
-        etatActuel = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
-        return etatActuel;
+        EtatGUI etatSuivant = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
+        if (etatSuivant != EtatGUI.EtatNonDefinit) {
+            etatActuel = etatSuivant;
+        }
+        return etatSuivant;
     }
 
     public SortieGUI getSortieGUI() {
@@ -248,7 +245,7 @@ public class Partie {
         return parametres.validationAutoActif();
     }
 
-    private final Joueur designe1Joueur() {
+    private Joueur designe1Joueur() {
         if (parametres.joueurRandom()) {
             Random r = new Random();
             int valeurMax = 3;

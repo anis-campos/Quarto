@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author timotheetroncy
  */
-public class Parametre {
+public class Parametre implements Serializable{
 
     private final Boolean hauteur;
     private final Boolean creux;
@@ -32,6 +34,22 @@ public class Parametre {
         this.contreBot = contreBot;
         this.torus = torus;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "[Hauteur: %s, Surface: %s, Couleur: %s, Forme: %s, QuartoCarré: %s, ValidationAuto: %s, PremierJoueurAléatoire: %s, JeuContreBot: %s]",
+                hauteur,
+                creux,
+                couleur,
+                forme,
+                quartoCarre,
+                validationAutomatiqueQuarto,
+                joueurRamdom,
+                contreBot);
+    }
+    
+    
 
     public Boolean hauteurActif() {
         return hauteur;
