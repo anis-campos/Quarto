@@ -5,9 +5,8 @@
  */
 package controlleur.observables;
 
-import model.NumeroJoueur;
 import model.EtatGUI;
-import model.SortieGUI;
+import model.NumeroJoueur;
 
 /**
  *
@@ -22,6 +21,11 @@ public class NotificationPieceSelectionnee extends Notification {
         this.idPiece = idPiece;
     }
 
-   
+    @Override
+    public String toString() {
+        return super.toString() + "\b\b, IdPiece:"+idPiece+"]"; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 }

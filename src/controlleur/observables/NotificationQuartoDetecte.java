@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import model.Coord;
 import model.EtatGUI;
 import model.NumeroJoueur;
-import model.SortieGUI;
 
 /**
  *

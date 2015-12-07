@@ -12,7 +12,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import launcher.localLauncher.PartieBuilder;
+import launcher.local.PartieBuilder;
 import model.Joueur;
 import model.Parametre;
 
