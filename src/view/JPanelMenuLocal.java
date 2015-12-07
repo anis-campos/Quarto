@@ -151,14 +151,15 @@ public class JPanelMenuLocal extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAfficherRegleActionPerformed
     private Parametre getParametres(JPanelParametresLocal panelParametres) {
         return new Parametre(
-                panelParametres.getForme().isSelected(),
-                panelParametres.getTaille().isSelected(),
-                panelParametres.getCouleur().isSelected(),
-                panelParametres.getCreux().isSelected(),
-                panelParametres.getQuartoCarre().isSelected(),
-                panelParametres.getQuartoAutoValidation().isSelected(),
-                panelParametres.getJoueurRandom().isSelected(),
-                panelParametres.getContreBot().isSelected()
+                panelParametres.getForme(),
+                panelParametres.getTaille(),
+                panelParametres.getCouleur(),
+                panelParametres.getCreux(),
+                panelParametres.getQuartoCarre(),
+                panelParametres.getQuartoAutoValidation(),
+                panelParametres.getJoueurRandom(),
+                panelParametres.getContreBot(),
+                panelParametres.getTorus()
         );
     }
 

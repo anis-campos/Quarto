@@ -59,7 +59,8 @@ public class ParametreDAO extends DAO<Parametre> {
                      executeQuery.getBoolean("quartoCarre"),
                      executeQuery.getBoolean("validationAuto"),
                      executeQuery.getBoolean("joueurRandom"),
-                     executeQuery.getBoolean("bot")
+                     executeQuery.getBoolean("bot"),
+                     executeQuery.getBoolean("torus")
                     );
              return p;
         } catch (SQLException ex) {

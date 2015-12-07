@@ -19,10 +19,9 @@ public class Parametre {
     private final Boolean validationAutomatiqueQuarto;
     private final Boolean joueurRamdom;
     private final Boolean contreBot;
+    private final Boolean torus;
 
-    
-
-    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre,Boolean validationAutomatiqueQuarto,Boolean joueurRamdom, Boolean contreBot) {
+    public Parametre(Boolean forme, Boolean hauteur, Boolean couleur, Boolean creux, Boolean quartoCarre, Boolean validationAutomatiqueQuarto, Boolean joueurRamdom, Boolean contreBot, Boolean torus) {
         this.hauteur = hauteur;
         this.creux = creux;
         this.couleur = couleur;
@@ -31,6 +30,7 @@ public class Parametre {
         this.validationAutomatiqueQuarto = validationAutomatiqueQuarto;
         this.joueurRamdom = joueurRamdom;
         this.contreBot = contreBot;
+        this.torus = torus;
     }
 
     public Boolean hauteurActif() {
@@ -48,18 +48,25 @@ public class Parametre {
     public Boolean formeActif() {
         return forme;
     }
-    public Boolean quartoCarreActif(){
+
+    public Boolean quartoCarreActif() {
         return quartoCarre;
     }
-    public Boolean validationAutoActif(){
+
+    public Boolean validationAutoActif() {
         return validationAutomatiqueQuarto;
     }
+
     public Boolean joueurRandom() {
         return joueurRamdom;
     }
+
     public Boolean contreBot() {
         return contreBot;
     }
-    
+
+    public Boolean torusActif() {
+        return torus;
+    }
 
 }

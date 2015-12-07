@@ -39,10 +39,10 @@ public class QuartoCalculator {
         remplirDiagDesc(plateau, coordDernierePiece);
         remplirDiagMont(plateau, coordDernierePiece);
         if (p.quartoCarreActif()) {
-            remplirCarreHD(plateau, coordDernierePiece);
-            remplirCarreHG(plateau, coordDernierePiece);
-            remplirCarreBD(plateau, coordDernierePiece);
-            remplirCarreBG(plateau, coordDernierePiece);
+            remplirCarreHD(plateau, coordDernierePiece, p);
+            remplirCarreHG(plateau, coordDernierePiece, p);
+            remplirCarreBD(plateau, coordDernierePiece, p);
+            remplirCarreBG(plateau, coordDernierePiece, p);
         }
         return checkQuarto(p, plateau, listeDeCoordRetour);
     }
@@ -112,103 +112,96 @@ public class QuartoCalculator {
         }
     }
 
-    private static void remplirCarreHD(PlateauJeu plateau, Coord coordDernierePiece) {
+    private static void remplirCarreHD(PlateauJeu plateau, Coord coordDernierePiece, Parametre p) {
         int x, y;
+        String squareName = "HD";
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
-        Piece pieceCourante;
-        if (x != 0 && y != 3) {
+        addPieceFromImageCoords(plateau, p, x, y, squareName);
+        addPieceFromImageCoords(plateau, p, x - 1, y, squareName);
+        addPieceFromImageCoords(plateau, p, x - 1, y + 1, squareName);
+        addPieceFromImageCoords(plateau, p, x, y + 1, squareName);
 
-            pieceCourante = plateau.getPieceFromCoord(coordDernierePiece);
-            if (pieceCourante != null) {
-                carreHD.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x - 1, y));
-            if (pieceCourante != null) {
-                carreHD.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x - 1, y + 1));
-            if (pieceCourante != null) {
-                carreHD.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x, y + 1));
-            if (pieceCourante != null) {
-                carreHD.add(pieceCourante);
-            }
-        }
     }
 
-    private static void remplirCarreHG(PlateauJeu plateau, Coord coordDernierePiece) {
+    private static void remplirCarreHG(PlateauJeu plateau, Coord coordDernierePiece, Parametre p) {
         int x, y;
+        String squareName = "HG";
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
-        Piece pieceCourante;
-        if (x != 0 && y != 0) {
-            pieceCourante = plateau.getPieceFromCoord(coordDernierePiece);
-            if (pieceCourante != null) {
-                carreHG.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x - 1, y));
-            if (pieceCourante != null) {
-                carreHG.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x - 1, y - 1));
-            if (pieceCourante != null) {
-                carreHG.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x, y - 1));
-            if (pieceCourante != null) {
-                carreHG.add(pieceCourante);
-            }
-        }
+
+        addPieceFromImageCoords(plateau, p, x, y, squareName);
+        addPieceFromImageCoords(plateau, p, x - 1, y, squareName);
+        addPieceFromImageCoords(plateau, p, x - 1, y - 1, squareName);
+        addPieceFromImageCoords(plateau, p, x, y - 1, squareName);
+
     }
 
-    private static void remplirCarreBD(PlateauJeu plateau, Coord coordDernierePiece) {
+    private static void remplirCarreBD(PlateauJeu plateau, Coord coordDernierePiece, Parametre p) {
         int x, y;
+        String squareName = "BD";
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
-        Piece pieceCourante;
-        if (x != 3 && y != 3) {
-            pieceCourante = plateau.getPieceFromCoord(coordDernierePiece);
-            if (pieceCourante != null) {
-                carreBD.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x + 1, y));
-            if (pieceCourante != null) {
-                carreBD.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x, y + 1));
-            if (pieceCourante != null) {
-                carreBD.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x + 1, y + 1));
-            if (pieceCourante != null) {
-                carreBD.add(pieceCourante);
-            }
-        }
+
+        addPieceFromImageCoords(plateau, p, x, y, squareName);
+        addPieceFromImageCoords(plateau, p, x + 1, y, squareName);
+        addPieceFromImageCoords(plateau, p, x, y + 1, squareName);
+        addPieceFromImageCoords(plateau, p, x + 1, y + 1, squareName);
+
     }
 
-    private static void remplirCarreBG(PlateauJeu plateau, Coord coordDernierePiece) {
+    private static void remplirCarreBG(PlateauJeu plateau, Coord coordDernierePiece, Parametre p) {
         int x, y;
+        String squareName = "BG";
         x = coordDernierePiece.x;
         y = coordDernierePiece.y;
-        Piece pieceCourante;
-        if (x != 3 && y != 0) {
-            pieceCourante = plateau.getPieceFromCoord(coordDernierePiece);
-            if (pieceCourante != null) {
-                carreBG.add(pieceCourante);
+
+        addPieceFromImageCoords(plateau, p, x, y, squareName);
+        addPieceFromImageCoords(plateau, p, x, y - 1, squareName);
+        addPieceFromImageCoords(plateau, p, x + 1, y - 1, squareName);
+        addPieceFromImageCoords(plateau, p, x + 1, y, squareName);
+    }
+
+    private static void addPieceFromImageCoords(PlateauJeu plateau, Parametre p, int imageX, int imageY, String squareName) {
+        if (imageX == -1 || imageY == -1 || imageX == 4 || imageY == 4) {
+            if (p.torusActif()) {
+                if (imageX == -1) {
+                    imageX = 3;
+                }
+                if (imageY == -1) {
+                    imageY = 3;
+                }
+                if (imageX == 4) {
+                    imageX = 0;
+                }
+                if (imageY == 4) {
+                    imageY = 0;
+                }
+                Piece pieceCourante = plateau.getPieceFromCoord(new Coord(imageX, imageY));
+                addPieceToSquare(plateau, squareName, pieceCourante);
             }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x, y - 1));
-            if (pieceCourante != null) {
-                carreBG.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x + 1, y - 1));
-            if (pieceCourante != null) {
-                carreBG.add(pieceCourante);
-            }
-            pieceCourante = plateau.getPieceFromCoord(new Coord(x + 1, y));
-            if (pieceCourante != null) {
-                carreBG.add(pieceCourante);
+        } else {
+            Piece pieceCourante = plateau.getPieceFromCoord(new Coord(imageX, imageY));
+            addPieceToSquare(plateau, squareName, pieceCourante);
+        }
+
+    }
+
+    private static void addPieceToSquare(PlateauJeu plateau, String squareName, Piece pieceCourante) {
+        if (pieceCourante != null) {
+            switch (squareName) {
+                case "BG":
+                    carreBG.add(pieceCourante);
+                    break;
+                case "HG":
+                    carreHG.add(pieceCourante);
+                    break;
+                case "BD":
+                    carreBD.add(pieceCourante);
+                    break;
+                case "HD":
+                    carreHD.add(pieceCourante);
+                    break;
             }
         }
     }
@@ -307,5 +300,5 @@ public class QuartoCalculator {
         }
         return false;
     }
- 
+
 }

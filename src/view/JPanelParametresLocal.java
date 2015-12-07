@@ -53,6 +53,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         QuartoCarre = new javax.swing.JCheckBox();
         QuartoAutoValidation = new javax.swing.JCheckBox();
+        jCheckTorus = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         joueur1 = new javax.swing.JTextField();
         joueur2 = new javax.swing.JTextField();
@@ -155,6 +156,9 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
 
         QuartoAutoValidation.setText("Activation de la validation automatique du Quarto");
 
+        jCheckTorus.setSelected(true);
+        jCheckTorus.setText("Activation Quarto Torus (Table de Karnaugh)");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -162,6 +166,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckTorus)
                     .addComponent(QuartoAutoValidation)
                     .addComponent(QuartoCarre))
                 .addGap(72, 72, 72))
@@ -171,9 +176,11 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(QuartoCarre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckTorus)
+                .addGap(18, 18, 18)
                 .addComponent(QuartoAutoValidation)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Joueurs"));
@@ -233,16 +240,13 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                         .addGap(89, 89, 89))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(joueur1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                    .addComponent(joueur2)))
-                            .addComponent(contreBot))
-                        .addGap(0, 0, 0))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(joueur1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                            .addComponent(joueur2)))
+                    .addComponent(contreBot)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,15 +300,15 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -397,7 +401,8 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                 this.QuartoCarre.isSelected(),
                 this.QuartoAutoValidation.isSelected(),
                 this.JoueurRandom.isSelected(),
-                this.contreBot.isSelected()
+                this.contreBot.isSelected(),
+                this.jCheckTorus.isSelected()
         );
     }
 
@@ -410,36 +415,39 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         return new Joueur((j2IsBot)?"BOT":this.joueur2.getText(), j2IsBot, NumeroJoueur.J2);
     }
 
-    public JCheckBox getCouleur() {
-        return Couleur;
+    public Boolean getCouleur() {
+        return Couleur.isSelected();
     }
 
-    public JCheckBox getCreux() {
-        return Creux;
+    public Boolean getCreux() {
+        return Creux.isSelected();
     }
 
-    public JCheckBox getForme() {
-        return Forme;
+    public Boolean getForme() {
+        return Forme.isSelected();
     }
 
-    public JCheckBox getJoueurRandom() {
-        return JoueurRandom;
+    public Boolean getJoueurRandom() {
+        return JoueurRandom.isSelected();
     }
 
-    public JCheckBox getQuartoAutoValidation() {
-        return QuartoAutoValidation;
+    public Boolean getQuartoAutoValidation() {
+        return QuartoAutoValidation.isSelected();
     }
 
-    public JCheckBox getQuartoCarre() {
-        return QuartoCarre;
+    public Boolean getQuartoCarre() {
+        return QuartoCarre.isSelected();
     }
 
-    public JCheckBox getTaille() {
-        return Taille;
+    public Boolean getTaille() {
+        return Taille.isSelected();
     }
 
-    public JCheckBox getContreBot() {
-        return contreBot;
+    public Boolean getContreBot() {
+        return contreBot.isSelected();
+    }
+    public Boolean getTorus(){
+        return jCheckTorus.isSelected();
     }
     
     private final int maxCharNumber;
@@ -457,6 +465,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
     private javax.swing.JCheckBox Taille;
     private javax.swing.JCheckBox contreBot;
     private javax.swing.JButton jButtonReset;
+    private javax.swing.JCheckBox jCheckTorus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

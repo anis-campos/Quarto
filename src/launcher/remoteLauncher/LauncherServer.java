@@ -39,7 +39,7 @@ public class LauncherServer {
 
     public static void main(String[] args) {
 
-        Parametre p = new Parametre(true, true, true, true, true, true, false,true);
+        Parametre p = new Parametre(true, true, true, true, true, true, false, true, true);
         Joueur j1 = new Joueur("Serveur", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Client", false, NumeroJoueur.J2);
 

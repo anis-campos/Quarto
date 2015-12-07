@@ -39,8 +39,8 @@ public class LauncherClient {
 
     public static void main(String[] args) {
 
-        Parametre p = new Parametre(true, true, true, true, true, true, false,true) ;
-        
+        Parametre p = new Parametre(true, true, true, true, true, true, false, true, true);
+
         Joueur j1 = new Joueur("Serveur", false, NumeroJoueur.J1);
         Joueur j2 = new Joueur("Client", false, NumeroJoueur.J2);
 
@@ -99,7 +99,6 @@ public class LauncherClient {
 
     public static boolean Connexion(AbstractController controller) {
         try {
-
             System.out.println("Demande de connexion");
             Socket socket = new Socket(IP_SERVER, PORT);
             System.out.println("Connexion tablie avec le serveur, authentification :"); // Si le message s'affiche c'est que je suis connect
