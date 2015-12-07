@@ -54,7 +54,7 @@ public class ThreadServeur {
 
             serviceImp = new Login();
 
-            url = "rmi:" + CONNEXION;
+            url = "rmi://localhost" + CONNEXION;
             System.out.println("Enregistrement de l'objet avec l'url : " + url);
             Naming.rebind(url, serviceImp);
 
