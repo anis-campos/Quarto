@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author timotheetroncy
  */
-public class PlateauJeu implements Serializable {
+public class PlateauJeu implements Serializable, Comparable {
 
     private final HashMap<Coord, Piece> plateauJeuCoordPiece;
     private final HashMap<Piece, Coord> plateauJeuPieceCoord;
@@ -127,13 +127,36 @@ public class PlateauJeu implements Serializable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         PlateauJeu clonedPL = new PlateauJeu();
         for (Map.Entry<Coord, Piece> pc : plateauJeuCoordPiece.entrySet()) {
             clonedPL.addPiece(pc.getKey().clone(),pc.getValue().clone());
         }
         return clonedPL;
     }
-    
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for(Map.Entry<Coord, Piece> cp: plateauJeuCoordPiece.entrySet()){
+            hash+=cp.hashCode();
+        }
+        
+        return hash; //To change body of generated methods, choose Tools | Templates.
+        
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(this.hashCode()>((PlateauJeu)o).hashCode())return 1;
+        if(this.hashCode()<((PlateauJeu)o).hashCode())return -1;
+        return 0;
+    }
+    
+    
 }

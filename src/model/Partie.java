@@ -111,10 +111,6 @@ public class Partie implements Serializable {
         return addPiece;
     }
 
-    public Coord getDerniereCoord() {
-        return coordDernierePiecePlacee;
-    }
-
     private Piece getPieceJoueurCourant() {
         if (joueurCourant == joueur1) {
             return caseJoueur1;
@@ -339,4 +335,10 @@ public class Partie implements Serializable {
         return caseJoueur2.clone();
     }
 
+    public Piece getClonedDernierePiecePlacee() throws CloneNotSupportedException{
+        if(coordDernierePiecePlacee != null){
+            return plateauJeu.getPieceFromCoord(coordDernierePiecePlacee).clone();
+        }
+        return null;
+    }
 }

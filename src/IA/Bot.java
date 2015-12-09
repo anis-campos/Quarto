@@ -36,10 +36,10 @@ public class Bot implements Observer {
         this.partie = partie;
         switch (controller.getBotLevel()) {
             case 2:
-                this.miniMax = new MiniMax(3, 3);
+                this.miniMax = new MiniMax(2, this.partie.getParametres());
                 break;
             default:
-                this.miniMax = null;
+                this.miniMax = new MiniMax(2, this.partie.getParametres());//DEBUG
                 break;
         }
 
@@ -87,6 +87,7 @@ public class Bot implements Observer {
                         pieceNb = pickRandomPiece();
                         break;
                     case 1:
+                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee());
                         //Si une piece ne permet pas à l'adversaire de faire un quarto immédiat, c'est celle-ci qui lui est donnée, sinon random
                         Piece piece = pickPieceToAvoidQuarto(partie.getClonedPlateauJeu(), partie.getClonedListePiece());
                         if(piece == null){
