@@ -79,7 +79,7 @@ public class Piece implements Serializable{
     }
 
     @Override
-    protected Piece clone() throws CloneNotSupportedException {
+    public Piece clone() throws CloneNotSupportedException {
         return new Piece(carre, grand, fonce, plein, id);
     }
 

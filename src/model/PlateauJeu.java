@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -126,5 +125,15 @@ public class PlateauJeu implements Serializable {
     public String toString() {
         return "PlateauJeu{" + "plateauJeuCoordPiece=" + plateauJeuCoordPiece + ", plateauJeuPieceCoord=" + plateauJeuPieceCoord + '}';
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        PlateauJeu clonedPL = new PlateauJeu();
+        for (Map.Entry<Coord, Piece> pc : plateauJeuCoordPiece.entrySet()) {
+            clonedPL.addPiece(pc.getKey().clone(),pc.getValue().clone());
+        }
+        return clonedPL;
+    }
+    
 
 }

@@ -17,6 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coord;
 import model.Partie;
+import model.Piece;
+import model.PlateauJeu;
+import model.QuartoCalculator;
 
 /**
  *
@@ -26,39 +29,56 @@ public class Bot implements Observer {
 
     private final IControlleur controller;
     private final Partie partie;
+    private final MiniMax miniMax;
 
     public Bot(IControlleur controller, Partie partie) {
         this.controller = controller;
         this.partie = partie;
+        switch (controller.getBotLevel()) {
+            case 2:
+                this.miniMax = new MiniMax(3, 3);
+                break;
+            default:
+                this.miniMax = null;
+                break;
+        }
+
     }
 
     @Override
     public void update(Observable o, Object arg) {
 
-        randomBot(arg);
-//            case 1:
-//                break;
-//            case 2:
-//                break;
+        try {
+            algosBot(arg);
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    private void randomBot(Object arg) {
+    private void algosBot(Object arg) throws CloneNotSupportedException {
 
         Notification notif = (Notification) arg;
         switch (notif.nouvelEtat) {//etat actuel
             case J2DoitPlacer:
-                Coord targetCoord = null;
+                Coord coord = null;
                 switch (controller.getBotLevel()) {
                     case 0:
-                        targetCoord = pickRandomCoord();
+                        coord = pickRandomCoord();
                         break;
                     case 1:
+                        //Si un quarto peut être fait à partir de la pièce stockée, celui-ci est fait, sinon random
+                        coord = pickCoordToMakeQuartoFromPiece(partie.getClonedPlateauJeu(), partie.getClonedPieceJoueur2());
+                        if (coord == null) {
+                            coord = pickRandomCoord();
+                        }
+                        break;
+                    case 2:
                         break;
                     default:
                         throw new UnsupportedOperationException("Not supported Bot Level");
                 }
-                placer(targetCoord);
+                placer(coord);
                 break;
             case J2DoitChoisir:
                 int pieceNb = -1;
@@ -67,6 +87,16 @@ public class Bot implements Observer {
                         pieceNb = pickRandomPiece();
                         break;
                     case 1:
+                        //Si une piece ne permet pas à l'adversaire de faire un quarto immédiat, c'est celle-ci qui lui est donnée, sinon random
+                        Piece piece = pickPieceToAvoidQuarto(partie.getClonedPlateauJeu(), partie.getClonedListePiece());
+                        if(piece == null){
+                            //il est impossible d'éviter une quarto de l'adversaire
+                            pieceNb = pickRandomPiece();
+                        }else{
+                            pieceNb = piece.getId();
+                        }
+                        break;
+                    case 2:
                         break;
                     default:
                         throw new UnsupportedOperationException("Not supported Bot Level");
@@ -200,6 +230,41 @@ public class Bot implements Observer {
         Random random = new Random();
         int index = random.nextInt(coordsDispos.size());
         return coordsDispos.get(index);
+    }
+
+    //Return null if no quarto possible from piece
+    private Coord pickCoordToMakeQuartoFromPiece(PlateauJeu plateauJeu, Piece pieceAPoser) {
+        if (pieceAPoser == null) {
+            return null;
+        }
+        Coord currentCoord;
+        Piece currentPiece;
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                currentCoord = new Coord(x, y);
+                currentPiece = plateauJeu.getPieceFromCoord(currentCoord);
+                if (currentPiece == null) {
+                    //On peut poser une piece ici
+                    plateauJeu.addPiece(currentCoord, pieceAPoser);
+                    if (QuartoCalculator.thereIsQuarto(plateauJeu, partie.getParametres(), currentCoord)) {
+                        return currentCoord;
+                    }
+                    plateauJeu.removePieceFromPiece(pieceAPoser);
+                }
+            }
+        }
+        return null;
+    }
+
+    //return null si aucune piece de la liste ne permet d'éviter un quarto
+    private Piece pickPieceToAvoidQuarto(PlateauJeu clonedPlateauJeu, ArrayList<Piece> clonedListePiece) {
+        for(Piece p: clonedListePiece){
+            Coord coord = pickCoordToMakeQuartoFromPiece(clonedPlateauJeu, p);
+            if(coord == null){
+                return p;
+            }
+        }
+        return null;
     }
 
 }
