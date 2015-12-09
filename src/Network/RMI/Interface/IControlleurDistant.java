@@ -94,7 +94,6 @@ public interface IControlleurDistant extends Serializable, Remote {
      */
     List<Map.Entry<Integer, String>> getListPieceDisponible() throws RemoteException;
 
-
     /**
      * Obtenir le nom d'un joeur
      *
@@ -141,5 +140,7 @@ public interface IControlleurDistant extends Serializable, Remote {
     List<Map.Entry<Coord, String>> getListPiecePlateauJeu() throws RemoteException;
 
     public boolean onePlayer() throws RemoteException;
+
+    public void terminerPartie(Compte joueur) throws RemoteException;
 
 }

@@ -101,6 +101,7 @@ public class InterfaceJeu extends UnicastRemoteObject implements IJeu {
 
     @Override
     public void registerClientCallback(IClientCallback client) throws RemoteException {
+        logger.warn(client);
         controleurPartieServeur.addObserver(client, Joueur);
     }
 
@@ -117,8 +118,8 @@ public class InterfaceJeu extends UnicastRemoteObject implements IJeu {
     @Override
     public void quiterPartie() throws RemoteException {
         //TODO notification que le joeuer a quiter la partie.
+        controleurPartieServeur.quiterPartie(Joueur);
         logger.warn(Joueur.pseudo + " à quité la partie !");
-        unexportObject(this, true);
     }
 
     @Override
@@ -134,6 +135,14 @@ public class InterfaceJeu extends UnicastRemoteObject implements IJeu {
     @Override
     public List<Map.Entry<Coord, String>> getListPiecePlateauJeu() throws RemoteException {
         return controleurPartieServeur.getListPiecePlateauJeu();
+    }
+
+    @Override
+    public void terminerPartie() throws RemoteException {
+        logger.warn(Joueur.pseudo + " à supprimé la partie !");
+        controleurPartieServeur.terminerPartie(Joueur);
+        controleurPartieServeur = null;
+        unexportObject(this, true);
     }
 
 }

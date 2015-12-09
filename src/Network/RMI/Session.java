@@ -41,6 +41,7 @@ class Session extends UnicastRemoteObject implements ISession {
     private String clientHost;
 
     public Session(Compte compteJoueur) throws RemoteException {
+  
         this.CompteJoueur = compteJoueur;
 
         try {
@@ -94,13 +95,7 @@ class Session extends UnicastRemoteObject implements ISession {
     @Override
     public List<Compte> listeComptes() throws RemoteException {
         List<Compte> comptes = CompteDAL.getDAL().getComptes();
-        for (Compte compte : comptes) {
-            if(compte.pseudo.equals(CompteJoueur.pseudo)){
-                listeComptes().remove(compte);
-                break;
-            }
-                
-        }
+      
         return comptes;
 
     }
@@ -124,6 +119,11 @@ class Session extends UnicastRemoteObject implements ISession {
     @Override
     public void registerCallback(IClientCallback client) throws RemoteException {
         Client = client;
+    }
+
+    @Override
+    public void terminerPartie(long partieID) throws RemoteException {
+        ServeurJeu.getInstance().remove(partieID);
     }
 
 }

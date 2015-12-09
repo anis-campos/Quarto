@@ -21,4 +21,5 @@ public enum EntreeGUI {
     J2AnnonceQuarto,
     J1AnnonceMatchNull,
     J2AnnonceMatchNull,
+    SupprimerPartie
 }

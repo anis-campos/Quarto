@@ -31,6 +31,8 @@ public interface ISession extends Remote,Serializable {
     IJeu rejoindrePartie(long partieID) throws RemoteException;
 
     IJeu reprendrePartie(long partieID) throws RemoteException;
+    
+    void terminerPartie(long partieID) throws RemoteException;
 
     List<PartieItem> listePartie() throws RemoteException;
 

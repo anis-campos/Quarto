@@ -29,6 +29,7 @@ public class MatriceDeTransition {
             for (EntreeGUI entreeGUI : EntreeGUI.values()) {
                 map.put(entreeGUI, EtatGUI.EtatNonDefinit);
             }
+            map.put(EntreeGUI.SupprimerPartie, EtatGUI.PartieSupprimee);
             matrice.put(etatGUI, map);
         }
 

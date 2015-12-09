@@ -33,4 +33,6 @@ public enum EtatGUI {
 
     J1EtJ2OntAnnonceMatchNull,
     
+    PartieSupprimee,
+    
 }

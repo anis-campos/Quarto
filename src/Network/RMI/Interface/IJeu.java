@@ -143,4 +143,6 @@ public interface IJeu extends Remote, Serializable {
     void registerClientCallback(IClientCallback client) throws RemoteException;
 
     void quiterPartie() throws RemoteException;
+
+    public void terminerPartie() throws RemoteException;
 }

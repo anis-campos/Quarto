@@ -10,8 +10,10 @@ import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IControlleurDistant;
 import controlleur.observables.Notification;
 import controlleur.observables.NotificationDernierTour;
+import controlleur.observables.NotificationJoueurAQuitte;
 import controlleur.observables.NotificationMatchNullAnnonce;
 import controlleur.observables.NotificationMatchNullConfirme;
+import controlleur.observables.NotificationPartieSupprimee;
 import controlleur.observables.NotificationPieceDonnee;
 import controlleur.observables.NotificationPiecePlacee;
 import controlleur.observables.NotificationPieceSelectionnee;
@@ -247,6 +249,21 @@ public class ControlleurDistant extends UnicastRemoteObject implements IControll
         return partie.getPiecesPlateauJeu();
     }
 
+    @Override
+    public void terminerPartie(Compte joueur) throws RemoteException {
+        EtatGUI etatPrecedent = partie.getEtatGUI();
+        partie.passerEtatSuivant(EntreeGUI.SupprimerPartie);
+        NotificationPartieSupprimee notif = new NotificationPartieSupprimee(joueur, getNumJoueur(joueur),getEtatCourant(),etatPrecedent);
+        envoyerNotification(N_J1 | N_J2 | N_Spectateur, notif);
+        unexportObject(this, true);
+    }
+
+    void quiterPartie(Compte Joueur) {
+        
+        NotificationJoueurAQuitte notif = new NotificationJoueurAQuitte(Joueur, getNumJoueur(Joueur),getEtatCourant(),getEtatCourant());
+        envoyerNotification(N_J1 | N_J2 | N_Spectateur, notif);
+    }
+
     class threadNotif implements Serializable, Runnable {
 
         private final IClientCallback callback;
@@ -275,6 +292,14 @@ public class ControlleurDistant extends UnicastRemoteObject implements IControll
     private boolean isGoodClient(Compte joueur) {
         logger.info(String.format("Joueur Courant: %s, Pseudo: %s", getNomJoueur(getJoueurCourant()), joueur.pseudo));
         return getNomJoueur(getJoueurCourant()).equals(joueur.pseudo);
+    }
+
+    private NumeroJoueur getNumJoueur(Compte joueur) {
+        if (joueur.pseudo.equals(getNomJoueur(NumeroJoueur.J1))) {
+            return NumeroJoueur.J1;
+        } else {
+            return NumeroJoueur.J2;
+        }
     }
 
     synchronized public void addObserver(IClientCallback client, Compte joueur) {

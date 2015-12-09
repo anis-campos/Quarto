@@ -6,15 +6,18 @@
 package Network.RMI;
 
 import static Network.RMI.Constantes.CONNEXION;
+import static Network.RMI.Constantes.HOTE;
 import static Network.RMI.Constantes.PORT_RMI;
+import static Network.RMI.Constantes.PORT_RMI_OBJ;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.rmi.server.RMISocketFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +30,8 @@ public class ThreadServeur {
     private Login serviceImp;
     private String url;
     private boolean started;
+
+    private static final Logger logger = Logger.getLogger(ThreadServeur.class);
 
     private ThreadServeur() {
 
@@ -44,26 +49,27 @@ public class ThreadServeur {
             return;
         }
         try {
+            System.setProperty("java.net.preferIPv4Stack" , "true");
+            System.setProperty("java.rmi.server.hostname", HOTE );
+            RMISocketFactory.setSocketFactory(new MyRMISocketFactory(PORT_RMI_OBJ));
             registre = LocateRegistry.createRegistry(PORT_RMI);
-        } catch (RemoteException ex) {
-            System.out.println("Une instance de serveur est déja en cours ... ");
-            System.exit(-1);
-        }
-        try {
-          
 
             serviceImp = new Login();
 
-            url = "rmi://localhost" + CONNEXION;
+            url = "rmi://"+HOTE+":"+PORT_RMI + CONNEXION;
             System.out.println("Enregistrement de l'objet avec l'url : " + url);
             Naming.rebind(url, serviceImp);
 
             System.out.println("Serveur lancé");
-        } catch (RemoteException | MalformedURLException ex) {
-              System.out.println("Impossible de lancer le serveur ... ");
-            Logger.getLogger(ThreadServeur.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (RemoteException ex) {
+            logger.error(ex);
+            System.exit(-1);
+        } catch (IOException ex) {
+            logger.error(ex);
             System.exit(-2);
         }
+        
         started = true;
     }
 
@@ -71,7 +77,7 @@ public class ThreadServeur {
 
         String[] listEndpoints = Naming.list(url);
         for (String endpoint : listEndpoints) {
-            System.out.println("Arret de : "+endpoint);
+            System.out.println("Arret de : " + endpoint);
             Naming.unbind(endpoint);
         }
         started = false;

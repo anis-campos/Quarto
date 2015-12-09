@@ -122,7 +122,7 @@ public class ModeReseau extends JFrame implements ISession {
 
     private void launch() {
 
-        JPanelQuarto panel = new JPanelQuarto(interfaceControleurLocal, GUIResolutionTool.getSizeOfCase());
+        JPanelQuarto panel = new JPanelQuartoRemote(interfaceControleurLocal, GUIResolutionTool.getSizeOfCase(), jeuEnCour);
         interfaceControleurLocal.addObserver((Observer) panel);
 
         pane.addPage("jeu", panel);
@@ -162,6 +162,22 @@ public class ModeReseau extends JFrame implements ISession {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    void afficherList() throws RemoteException {
+        ListePartie listeJeu = new ListePartie();
+        try {
+            listeJeu.initList(session.listePartie());
+        } catch (NullPointerException ex) {
+            System.out.println("Liste Vide");
+        }
+        pane.addPage("listeJeu", listeJeu);
+        pane.setCurrentPage("listeJeu");
+    }
+
+    @Override
+    public void terminerPartie(long partieID) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,12 +203,5 @@ public class ModeReseau extends JFrame implements ISession {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titre;
     // End of variables declaration//GEN-END:variables
-
-    void afficherList() throws RemoteException {
-        ListePartie listeJeu = new ListePartie();
-        listeJeu.initList(session.listePartie());
-        pane.addPage("listeJeu", listeJeu);
-        pane.setCurrentPage("listeJeu");
-    }
 
 }

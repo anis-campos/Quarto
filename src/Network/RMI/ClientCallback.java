@@ -20,18 +20,19 @@ import org.apache.log4j.Logger;
  */
 public class ClientCallback extends UnicastRemoteObject implements IClientCallback {
 
-    private static final Logger logger = Logger.getLogger(ControlleurDistant.class);
-    
-    private Transmeteur transfereur;
+    private static final Logger logger = Logger.getLogger(ClientCallback.class);
+    private final Transmeteur transfereur;
 
     public ClientCallback() throws RemoteException {
-       transfereur = new Transmeteur();
+        
+        transfereur = new Transmeteur();
     }
 
     /**
      * Fonction appelé depuis le serveur pour notifier le client.
+     *
      * @param notif
-     * @throws RemoteException 
+     * @throws RemoteException
      */
     @Override
     public void notifyMe(Notification notif) throws RemoteException {
@@ -41,8 +42,6 @@ public class ClientCallback extends UnicastRemoteObject implements IClientCallba
         transfereur.Transferer();
 
     }
-    
-
 
     public void addObserver(Observer observer) {
         transfereur.addObserver(observer);

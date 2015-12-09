@@ -9,6 +9,7 @@ import Database.Compte;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import model.Joueur;
@@ -56,6 +57,7 @@ public class ServeurJeu {
     }
 
     List<PartieItem> getListItem() {
+       
         List<PartieItem> rep = new ArrayList<>();
         for (Long keySet : jeuEnCours.keySet()) {
 
@@ -72,6 +74,10 @@ public class ServeurJeu {
             }
         }
         return false;
+    }
+
+    void remove(long partieID) {
+        jeuEnCours.remove(partieID);
     }
 
 }

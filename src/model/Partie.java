@@ -229,7 +229,7 @@ public class Partie implements Serializable {
         return etatActuel;
     }
 
-    public EtatGUI passerEtatSuivant(EntreeGUI entree) {
+    synchronized public EtatGUI passerEtatSuivant(EntreeGUI entree) {
         EtatGUI etatSuivant = MatriceDeTransition.getInstance().getEtatSuivant(etatActuel, entree);
         if (etatSuivant != EtatGUI.EtatNonDefinit) {
             etatActuel = etatSuivant;

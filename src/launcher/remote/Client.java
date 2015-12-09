@@ -5,7 +5,7 @@
  */
 package launcher.remote;
 
-import static Network.RMI.Constantes.CONNEXION;
+import static Network.RMI.Constantes.URL_CONNEXION;
 import Network.RMI.Interface.ILogin;
 import java.awt.Dimension;
 import java.net.MalformedURLException;
@@ -23,7 +23,9 @@ public class Client {
     public static void main(String[] args) throws NotBoundException, MalformedURLException, RemoteException {
 
         ILogin service;
-        service = (ILogin) Naming.lookup("rmi:" + CONNEXION);
+        
+        
+        service = (ILogin) Naming.lookup(URL_CONNEXION);
 
         ModeReseau frame = ModeReseau.getInstance(service);
        

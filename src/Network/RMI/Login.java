@@ -19,24 +19,24 @@ import javax.security.auth.login.LoginException;
  */
 public class Login extends UnicastRemoteObject implements ILogin {
 
+
+
     public Login() throws RemoteException {
     }
 
     @Override
     public ISession connexion(String login, String password) throws LoginException, RemoteException {
         CompteDAL dal = CompteDAL.getDAL();
-        
+
         if (!dal.checkLogin(login, password)) {
             throw new LoginException();
         }
-        
+
         Compte compte = dal.findCompte(login);
-        
+
         Session serveur = new Session(compte);
-       
-       return serveur;
+
+        return serveur;
     }
-
-
 
 }

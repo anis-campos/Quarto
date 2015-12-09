@@ -58,43 +58,43 @@ import model.NumeroJoueur;
 /**
  * @author Anis
  */
-public final class JPanelQuarto extends JPanel implements Observer {
+public  class JPanelQuarto extends JPanel implements Observer {
 
-    private HashMap<JPanelCase, Coord> mapCoordByCase;
-    private HashMap<Coord, JPanelCase> mapCaseByCoord;
+    protected final HashMap<JPanelCase, Coord> mapCoordByCase;
+    protected final HashMap<Coord, JPanelCase> mapCaseByCoord;
 
     //Map string=name  label
-    private HashMap<Integer, JLabelPiece> listeDePiecesDisponibles;
+    protected final HashMap<Integer, JLabelPiece> listeDePiecesDisponibles;
 
-    private JPanel jPlateau;
+    protected JPanel jPlateau;
 
-    private JPanel jPanelListePieces;
+    protected JPanel jPanelListePieces;
 
-    private JPanelCase jPieceJ1;
-    private JPanelCase jPieceJ2;
+    protected JPanelCase jPieceJ1;
+    protected JPanelCase jPieceJ2;
 
-    private JButton bDonnerJ1;
-    private JButton bDonnerJ2;
-    private JButton bAfficherMenu;
+    protected JButton bDonnerJ1;
+    protected JButton bDonnerJ2;
+    protected JButton bAfficherMenu;
 
-    private final IControlleur controleur;
+    protected final IControlleur controleur;
 
-    private JPanel layeredPane;
+    protected JPanel layeredPane;
 
-    private JButton bAnnoncerQuartoJ1;
-    private JButton bAnnoncerQuartoJ2;
+    protected JButton bAnnoncerQuartoJ1;
+    protected JButton bAnnoncerQuartoJ2;
 
-    private JButton bAnnoncerMatchNullJ1;
-    private JButton bAnnoncerMatchNullJ2;
+    protected JButton bAnnoncerMatchNullJ1;
+    protected JButton bAnnoncerMatchNullJ2;
 
-    private JLabel jLabelJ2;
-    private JLabel jLabelJ1;
-    private final int initFontSize = 12;
-    private final int fontSizeToUse = 24;// TODO = A changer et faire mieux pour gérer les FONTs
+    protected JLabel jLabelJ2;
+    protected JLabel jLabelJ1;
+    protected final int initFontSize = 12;
+    protected final int fontSizeToUse = 24;// TODO = A changer et faire mieux pour gérer les FONTs
 
     JTextArea jTextArea1;
-    private final Dimension dimensionCase;
-    private final Image backgroundImage;
+    protected final Dimension dimensionCase;
+    protected final Image backgroundImage;
 
     public JPanelQuarto(IControlleur controleur, Dimension dimensionCase) {
 
@@ -115,11 +115,6 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
         updateScreen(controleur.getEtatCourant());
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
-        if (controleur.onePlayer()) {
-            bAnnoncerQuartoJ2NotVisible();
-            bDonnerJ2NotVisible();
-            bAnnoncerMatchNullJ2NotVisible();
-        }
 
     }
 
@@ -204,7 +199,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    private void robotClick(Robot bot, Point p) {
+    protected void robotClick(Robot bot, Point p) {
         bot.mouseMove(p.x, p.y);
         bot.mousePress(InputEvent.BUTTON1_MASK);
         bot.mouseRelease(InputEvent.BUTTON1_MASK);
@@ -218,7 +213,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Fonction d'initialisation des composants de la GUI
      */
-    private void initComponents() {
+    protected void initComponents() {
         buildPlateauJeu();
         Box entete = buildEntete();
         buildListePieces();
@@ -242,7 +237,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    private void buildPlateauJeu() {
+    protected void buildPlateauJeu() {
         jPlateau = new JPanel();
 
         GridLayout grid = new GridLayout(4, 4);
@@ -273,7 +268,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         }
     }
 
-    private Box buildEntete() {
+    protected Box buildEntete() {
         Box jEntete = Box.createVerticalBox();
         jEntete.setOpaque(false);
         JLabel Titre = new JLabel("QUARTO");
@@ -302,7 +297,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         return jEntete;
     }
 
-    private void buildListePieces() {
+    protected void buildListePieces() {
         jPanelListePieces = new JPanel();
         jPanelListePieces.setOpaque(false);
         GridLayout grid = new GridLayout(2, 8);
@@ -323,7 +318,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         });
     }
 
-    private Box buildZoneJ1() {
+    protected Box buildZoneJ1() {
         Box jZoneJ1 = Box.createVerticalBox();
         jZoneJ1.setBackground(Color.red);
         jZoneJ1.setPreferredSize(new Dimension(210, 210));
@@ -362,7 +357,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         return jZoneJ1;
     }
 
-    private Box buildZoneJ2() {
+    protected Box buildZoneJ2() {
         Box jZoneJ2 = Box.createVerticalBox();
         jZoneJ2.setBackground(Color.blue);
         jZoneJ2.setPreferredSize(new Dimension(210, 210));
@@ -400,7 +395,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         return jZoneJ2;
     }
 
-    private void placeBlocs(Box Centre, Box Bottom, Box entete) {
+    protected void placeBlocs(Box Centre, Box Bottom, Box entete) {
         layeredPane = new JPanel();
         layeredPane.setLayout(new BorderLayout(20, 20));
         layeredPane.add(entete, BorderLayout.NORTH);
@@ -412,7 +407,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
 
     public void initFromData() {
 
-        //CONSTRUCTION DES PIECES SUR les plateaux
+        //CONSTRUCTION DES PIECES DISPONIBLES
         for (Map.Entry<Integer, String> IdEtNomPiece : controleur.getListPieceDisponible()) {
             JLabelPiece jLabelPiece = new JLabelPiece(IdEtNomPiece.getKey(), IdEtNomPiece.getValue(), dimensionCase, new PieceClickAction(IdEtNomPiece.getKey()));
             listeDePiecesDisponibles.put(IdEtNomPiece.getKey(), jLabelPiece);
@@ -448,6 +443,13 @@ public final class JPanelQuarto extends JPanel implements Observer {
         bAnnoncerMatchNullJ1.setEnabled(false);
         bAnnoncerMatchNullJ2.setEnabled(false);
 
+        //Cacher l'action du Joueur 2 qui est un BOT/JOUEUR RESEAU
+        if (controleur.onePlayer()) {
+            bAnnoncerQuartoJ2NotVisible();
+            bDonnerJ2NotVisible();
+            bAnnoncerMatchNullJ2NotVisible();
+        }
+
     }
 
     /**
@@ -456,7 +458,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * @param num Le NumeroJoueur du joueur
      * @return Le JPanel de ce joueur
      */
-    private JPanelCase getPanelJoueur(NumeroJoueur num) {
+    protected JPanelCase getPanelJoueur(NumeroJoueur num) {
         JPanelCase panel;
         if (num == NumeroJoueur.J1) {
             panel = jPieceJ1;
@@ -538,7 +540,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         }
     }
 
-    private void printWinPopup(ArrayList<ArrayList<Coord>> quartosTrouves, String nomJoueur) {
+    protected void printWinPopup(ArrayList<ArrayList<Coord>> quartosTrouves, String nomJoueur) {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         surlignerQuartos(quartosTrouves);
 
@@ -546,7 +548,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         JOptionPane.showMessageDialog(frame, "BRAVO '" + nomJoueur + "' , VOUS AVEZ GAGNE!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
     }
 
-    private void printLoosePopup(String nomJoueur) {
+    protected void printLoosePopup(String nomJoueur) {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         Icon icon = new ImageIcon(GUIImageTool.getImage("/images/defeat.png"));
         JOptionPane.showMessageDialog(frame, "DOMMAGE '" + nomJoueur + "' , VOUS AVEZ PERDU!", "Fin de Partie", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -574,7 +576,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * @param etat Etat du jeu (définit les éléments à afficher
      * activer/désactiver)
      */
-    private void updateScreen(EtatGUI etat) {
+    protected void updateScreen(EtatGUI etat) {
         switch (etat) {
             case J1DoitChoisir:
                 bDonnerJ1.setEnabled(false);
@@ -701,7 +703,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * @param donner Notification à l'interface après avoir mis à jour le model
      * (envoyée par le controller pour mettre à jour la vue)
      */
-    private void notifDonnerPiece(NotificationPieceDonnee donner) {
+    protected void notifDonnerPiece(NotificationPieceDonnee donner) {
         JPanelCase panelSource = getPanelJoueur(donner.joueurSource);
         JPanelCase panelDestination = getPanelJoueur(donner.joueurAdversaire);
         JLabelPiece lab = panelSource.getPiece();
@@ -715,7 +717,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      * @param selectionnee Notification de Selection de la pièce (envoyée par le
      * controlleur pour mettre à jour la vue)
      */
-    private void notifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
+    protected void notifSelectionnerPiece(NotificationPieceSelectionnee selectionnee) {
 
         JLabelPiece lab = listeDePiecesDisponibles.get(selectionnee.idPiece);
 
@@ -737,7 +739,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      *
      * @param placee Notification du placement de la pièce sur le plateau
      */
-    private void notifPlacerPiece(NotificationPiecePlacee placee) {
+    protected void notifPlacerPiece(NotificationPiecePlacee placee) {
         JPanelCase casePlateau = mapCaseByCoord.get(placee.casePlateau);
         JPanelCase panelJoueur = getPanelJoueur(placee.joueurSource);
         if (!panelJoueur.isEmpty()) {
@@ -751,7 +753,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Gère l'affichage des boutons AnnoncerQuarto selon le joueur qui joue
      */
-    private void annoncerQuartoDisplay(Boolean quartoAdversaire) {
+    protected void annoncerQuartoDisplay(Boolean quartoAdversaire) {
 
         NumeroJoueur numJoueurCourant = controleur.getJoueurCourant();
         if (!controleur.getIsValidationAutoEnabled()) {
@@ -790,7 +792,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Mis en valeur du joueur courant ( nom plus grand et en GRAS)
      */
-    private void majLabelJoueur() {
+    protected void majLabelJoueur() {
 
         if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
             jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, fontSizeToUse));
@@ -811,7 +813,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
      *
      * @param quartos
      */
-    private void surlignerQuartos(ArrayList<ArrayList<Coord>> quartos) {
+    protected void surlignerQuartos(ArrayList<ArrayList<Coord>> quartos) {
 
         for (ArrayList<Coord> quarto : quartos) {
 
@@ -828,7 +830,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur un bouton donner
      */
-    private class ButtonDonnerClickListener implements ActionListener {
+    protected class ButtonDonnerClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -840,7 +842,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur un bouton annoncer quarto
      */
-    private class ButtonAnnoncerQuartoClickListener implements ActionListener {
+    protected class ButtonAnnoncerQuartoClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -848,7 +850,7 @@ public final class JPanelQuarto extends JPanel implements Observer {
         }
     }
 
-    private class ButtonAnnoncerMatchNullClickListener implements ActionListener {
+    protected class ButtonAnnoncerMatchNullClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -859,9 +861,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur un pièce
      */
-    private class PieceClickAction implements Runnable {
+    protected class PieceClickAction implements Runnable {
 
-        private final int idPiece;
+        protected final int idPiece;
 
         public PieceClickAction(int idPiece) {
             this.idPiece = idPiece;
@@ -877,9 +879,9 @@ public final class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur une case du plateau
      */
-    private class CasePlateauClickAction implements Runnable {
+    protected class CasePlateauClickAction implements Runnable {
 
-        private final Coord coord;
+        protected final Coord coord;
 
         public CasePlateauClickAction(Coord coord) {
             this.coord = coord;

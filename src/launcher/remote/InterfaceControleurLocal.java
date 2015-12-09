@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,7 @@ package launcher.remote;
 import Network.RMI.ClientCallback;
 import Network.RMI.Interface.IJeu;
 import controlleur.IControlleur;
+import controlleur.observables.NotificationErreurReseau;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class InterfaceControleurLocal extends Observable implements IControlleur
 
     private Boolean transfererExceptionToGUI(Exception ex) {
         setChanged();
-        notifyObservers(ex);
+        notifyObservers(new NotificationErreurReseau(ex));
         Logger.getLogger(InterfaceControleurLocal.class.getName()).log(Level.SEVERE, null, ex);
         return false;
     }
