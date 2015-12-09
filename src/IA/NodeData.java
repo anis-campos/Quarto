@@ -83,6 +83,11 @@ public class NodeData implements Comparable{
     public int compareTo(Object o) {
         return this.plateauJeu.compareTo(((NodeData)o).plateauJeu);
     }
+
+    public void setGain(int gain) {
+        this.gain = gain;
+    }
+    
     
     
     

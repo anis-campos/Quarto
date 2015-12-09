@@ -5,7 +5,12 @@
  */
 package IA;
 
+import IA.Tree.Node;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import model.Coord;
 import model.Parametre;
 import model.Piece;
@@ -19,8 +24,9 @@ public class MiniMax {
 
     private final int maxDepth;
     private final Parametre p;
-    private Tree<NodeData> tree;
+    private final Tree<NodeData> tree;
     private Tree.Node<NodeData> rootNode;
+    private Map.Entry<Coord, Piece> nextMove;
 
     public MiniMax(int maxDepth, Parametre p) {
         tree = new Tree<>();
@@ -35,25 +41,55 @@ public class MiniMax {
             setChildren(rootNode);
 
             //DEBUG
-            tree.visitNodes(new Tree.NodeVisitor<NodeData>() {
-
-                @Override
-                public boolean visit(final Tree.Node<NodeData> node) {
-                    final StringBuilder sb = new StringBuilder();
-                    Tree.Node<NodeData> curr = node;
-                    do {
-                        if (sb.length() > 0) {
-                            sb.insert(0, " > ");
-                        }
-                        sb.insert(0, String.valueOf(curr.getValue().getGain()));
-                        curr = curr.getParent();
-                    } while (curr != null);
-                    System.out.println(sb);
-                    return true;
-                }
-            });
+//            tree.visitNodes(new Tree.NodeVisitor<NodeData>() {
+//
+//                @Override
+//                public boolean visit(final Tree.Node<NodeData> node) {
+//                    final StringBuilder sb = new StringBuilder();
+//                    Tree.Node<NodeData> curr = node;
+//                    do {
+//                        if (sb.length() > 0) {
+//                            sb.insert(0, " > ");
+//                        }
+//                        sb.insert(0, String.valueOf(curr.getValue().getGain()));
+//                        curr = curr.getParent();
+//                    } while (curr != null);
+//                    //System.out.println(sb);
+//                    return true;
+//                }
+//            });
             //FIN DEBUG
         }
+
+    }
+
+    public void setMove() {
+        Node<NodeData> greaterNode = getGreaterNode();
+        if (greaterNode != null) {
+            nextMove = new AbstractMap.SimpleEntry<>(greaterNode.getValue().getCoordDernierePiecePosee(), greaterNode.getValue().getDernierePiecePosee());
+        } else {
+            nextMove = null;
+        }
+    }
+
+    private Node<NodeData> getGreaterNode() {
+        ArrayList<Node<NodeData>> childList = rootNode.getChildren();
+        Node<NodeData> greaterNode = null;
+        for (Node<NodeData> node : childList) {
+            if (greaterNode == null) {
+                greaterNode = node;
+            }
+            if (node.getValue().getGain() > greaterNode.getValue().getGain()) {
+                greaterNode = node;
+            }
+            if (greaterNode.getValue().getGain() == 100) {
+                return greaterNode;
+            }
+        }
+        return greaterNode;
+    }
+
+    public void flushTree() {
 
     }
 
@@ -71,7 +107,14 @@ public class MiniMax {
 
                     NodeData childNode = new NodeData(clonedPJ, clonedListPiece, p, depth, !parentNode.getValue().getAdversaire(), coord, piece);
                     Tree.Node<NodeData> childTreeNode = parentNode.addChild(childNode);
-                    setChildren(childTreeNode);
+                    if (depth == 0 || parentNode.getValue().getGain() != 0) {
+                        // C"est une feuille, propager resultat vers le haut 
+                        if (parentNode.getValue().getGain() != 0) {
+                            propagerGainFeuille(childTreeNode);
+                        }
+                    } else {
+                        setChildren(childTreeNode);
+                    }
                 }
             }
         }
@@ -79,10 +122,37 @@ public class MiniMax {
 
     private ArrayList<Piece> getClonedArrayList(ArrayList<Piece> listePieceToClone) throws CloneNotSupportedException {
         ArrayList<Piece> clonedList = new ArrayList<>();
-        for (Piece p : listePieceToClone) {
-            clonedList.add(p.clone());
+        for (Piece piece : listePieceToClone) {
+            clonedList.add(piece.clone());
         }
         return clonedList;
+    }
+
+    private void propagerGainFeuille(Tree.Node<NodeData> childTreeNode) {
+        if (!childTreeNode.getParent().equals(rootNode)) {
+            int gainFils = childTreeNode.getValue().getGain();
+            int gainParent = childTreeNode.getParent().getValue().getGain();
+
+            boolean filsAdversaire = childTreeNode.getValue().getAdversaire();
+
+            if (filsAdversaire) {
+                if (gainParent > gainFils) {
+                    childTreeNode.getParent().getValue().setGain(gainFils);
+                    propagerGainFeuille(childTreeNode.getParent());
+                }
+            } else {
+                if (gainParent < gainFils) {
+                    childTreeNode.getParent().getValue().setGain(gainFils);
+                    propagerGainFeuille(childTreeNode.getParent());
+                }
+
+            }
+        }
+
+    }
+
+    public Entry<Coord, Piece> getNextMove() {
+        return nextMove;
     }
 
 }

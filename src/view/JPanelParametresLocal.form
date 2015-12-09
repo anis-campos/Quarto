@@ -51,7 +51,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="50" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jPanel1" min="-2" pref="239" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel4" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -258,11 +258,13 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabelFacile" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jLabelMoyen" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                   <Component id="jLabelDifficile" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="joueur2" max="32767" attributes="0"/>
                               <Component id="joueur1" max="32767" attributes="0"/>
-                              <Component id="botSlider" alignment="0" max="32767" attributes="0"/>
+                              <Component id="botSlider" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -295,11 +297,12 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabelFacile" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelDifficile" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelMoyen" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="13" max="32767" attributes="0"/>
                           <Component id="jLabelDifficulte" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       </Group>
@@ -363,7 +366,7 @@
         </Component>
         <Component class="javax.swing.JSlider" name="botSlider">
           <Properties>
-            <Property name="maximum" type="int" value="1"/>
+            <Property name="maximum" type="int" value="2"/>
             <Property name="snapToTicks" type="boolean" value="true"/>
             <Property name="value" type="int" value="0"/>
           </Properties>
@@ -381,6 +384,11 @@
         <Component class="javax.swing.JLabel" name="jLabelDifficile">
           <Properties>
             <Property name="text" type="java.lang.String" value="difficile"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelMoyen">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="moyen"/>
           </Properties>
         </Component>
       </SubComponents>

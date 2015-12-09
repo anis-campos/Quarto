@@ -39,7 +39,7 @@ public class Bot implements Observer {
                 this.miniMax = new MiniMax(2, this.partie.getParametres());
                 break;
             default:
-                this.miniMax = new MiniMax(2, this.partie.getParametres());//DEBUG
+                this.miniMax = null;
                 break;
         }
 
@@ -74,6 +74,10 @@ public class Bot implements Observer {
                         }
                         break;
                     case 2:
+                        coord = miniMax.getNextMove().getKey();
+                        if (coord == null) {
+                            coord = pickRandomCoord();
+                        }
                         break;
                     default:
                         throw new UnsupportedOperationException("Not supported Bot Level");
@@ -87,17 +91,17 @@ public class Bot implements Observer {
                         pieceNb = pickRandomPiece();
                         break;
                     case 1:
-                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee());
                         //Si une piece ne permet pas à l'adversaire de faire un quarto immédiat, c'est celle-ci qui lui est donnée, sinon random
                         Piece piece = pickPieceToAvoidQuarto(partie.getClonedPlateauJeu(), partie.getClonedListePiece());
-                        if(piece == null){
+                        if (piece == null) {
                             //il est impossible d'éviter une quarto de l'adversaire
                             pieceNb = pickRandomPiece();
-                        }else{
+                        } else {
                             pieceNb = piece.getId();
                         }
                         break;
                     case 2:
+                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee());
                         break;
                     default:
                         throw new UnsupportedOperationException("Not supported Bot Level");
@@ -259,9 +263,9 @@ public class Bot implements Observer {
 
     //return null si aucune piece de la liste ne permet d'éviter un quarto
     private Piece pickPieceToAvoidQuarto(PlateauJeu clonedPlateauJeu, ArrayList<Piece> clonedListePiece) {
-        for(Piece p: clonedListePiece){
+        for (Piece p : clonedListePiece) {
             Coord coord = pickCoordToMakeQuartoFromPiece(clonedPlateauJeu, p);
-            if(coord == null){
+            if (coord == null) {
                 return p;
             }
         }

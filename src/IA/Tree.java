@@ -82,7 +82,7 @@ public class Tree<T> {
                 new TreeSet<>(new NodeComparator<>((Comparator<T>) comparator));
         }
 
-        public List<Node<T>> getChildren(){
+        public ArrayList<Node<T>> getChildren(){
             return new ArrayList<>(children);
         }
 

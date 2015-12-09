@@ -37,6 +37,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         jLabelDifficulte.setVisible(false);
         jLabelFacile.setVisible(false);
         jLabelDifficile.setVisible(false);
+        jLabelMoyen.setVisible(false);
     }
 
     /**
@@ -70,6 +71,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         jLabelDifficulte = new javax.swing.JLabel();
         jLabelFacile = new javax.swing.JLabel();
         jLabelDifficile = new javax.swing.JLabel();
+        jLabelMoyen = new javax.swing.JLabel();
         jButtonReset = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -237,7 +239,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             }
         });
 
-        botSlider.setMaximum(1);
+        botSlider.setMaximum(2);
         botSlider.setSnapToTicks(true);
         botSlider.setValue(0);
 
@@ -246,6 +248,8 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
         jLabelFacile.setText("facile");
 
         jLabelDifficile.setText("difficile");
+
+        jLabelMoyen.setText("moyen");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -267,10 +271,12 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabelFacile)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelMoyen)
+                                .addGap(31, 31, 31)
                                 .addComponent(jLabelDifficile))
                             .addComponent(joueur2)
                             .addComponent(joueur1)
-                            .addComponent(botSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(botSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addGap(89, 89, 89))
         );
         jPanel1Layout.setVerticalGroup(
@@ -295,10 +301,11 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelFacile)
-                            .addComponent(jLabelDifficile))
+                            .addComponent(jLabelDifficile)
+                            .addComponent(jLabelMoyen))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                         .addComponent(jLabelDifficulte)
                         .addGap(62, 62, 62))))
         );
@@ -335,7 +342,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,6 +442,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             jLabelFacile.setVisible(true);
             jLabelDifficile.setVisible(true);
             botSlider.setVisible(true);
+            jLabelMoyen.setVisible(true);
         } else {
             jLabelJoueur2.setVisible(true);
             joueur2.setVisible(true);
@@ -442,6 +450,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
             jLabelFacile.setVisible(false);
             jLabelDifficile.setVisible(false);
             botSlider.setVisible(false);
+            jLabelMoyen.setVisible(false);
         }
     }
     private Parametre getParametres() {
@@ -530,6 +539,7 @@ public class JPanelParametresLocal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelFacile;
     private javax.swing.JLabel jLabelJoueur1;
     private javax.swing.JLabel jLabelJoueur2;
+    private javax.swing.JLabel jLabelMoyen;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
