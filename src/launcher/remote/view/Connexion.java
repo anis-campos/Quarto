@@ -7,11 +7,18 @@ package launcher.remote.view;
 
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.security.auth.login.LoginException;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import static launcher.local.PartieBuilder.repackPartieQuarto;
+import view.GUIImageTool;
+import view.JPanelMenuPrincipal;
 
 /**
  *
@@ -21,6 +28,7 @@ public class Connexion extends JPanel {
 
     private final ILogin service;
     private ISession session;
+    private final Image backgroundImage;
 
     /**
      * Creates new form Connexion
@@ -30,7 +38,14 @@ public class Connexion extends JPanel {
     public Connexion(ILogin service) {
         initComponents();
         this.service = service;
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
 
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
     }
 
     /**
@@ -48,21 +63,28 @@ public class Connexion extends JPanel {
         login = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         Connecter = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Connexion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 14))); // NOI18N
-
-        password.setText("ytreza");
+        setOpaque(false);
 
         jLabel2.setText("Mot de passe :");
 
         jLabel1.setText("Identifiant : ");
 
-        login.setText("negga");
+        jPanel1.setOpaque(false);
 
         Connecter.setText("Connexion");
         Connecter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConnecterActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Retour Menu Principal");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -72,15 +94,19 @@ public class Connexion extends JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Connecter)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(Connecter, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Connecter)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Connecter, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -97,7 +123,7 @@ public class Connexion extends JPanel {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                             .addComponent(login))))
                 .addContainerGap())
         );
@@ -114,7 +140,7 @@ public class Connexion extends JPanel {
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,16 +150,23 @@ public class Connexion extends JPanel {
             char[] passwordArray = this.password.getPassword();
             String passwordStr = String.valueOf(passwordArray);
             session = service.connexion(loginStr, passwordStr);
-            ModeReseau.getInstance(null).setSession(session);
+            ModeReseau2.getInstance(null).setSession(session);
         } catch (LoginException | RemoteException ex) {
             //TODO : afficher allert mavais password
             Logger.getLogger(Connexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ConnecterActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        frame.setContentPane(new JPanelMenuPrincipal());
+        repackPartieQuarto((JPanel) frame.getContentPane());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Connecter;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

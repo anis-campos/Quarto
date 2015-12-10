@@ -12,7 +12,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import launcher.remote.view.ModeReseau;
+import javax.swing.JFrame;
+import launcher.remote.view.ModeReseau2;
 
 /**
  *
@@ -27,9 +28,11 @@ public class Client {
         
         service = (ILogin) Naming.lookup(URL_CONNEXION);
 
-        ModeReseau frame = ModeReseau.getInstance(service);
+        JFrame frame = new JFrame();
        
 
+        frame.setContentPane(ModeReseau2.getInstance(service));
+        
         frame.setSize(new Dimension(600, 600));
 
         //frame.pack();

@@ -6,6 +6,8 @@
 package launcher.remote.view;
 
 import Network.RMI.PartieItem;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
+import view.GUIImageTool;
 
 /**
  *
@@ -21,11 +24,15 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ListePartie extends javax.swing.JPanel {
 
+    private final Image backgroundImage;
+
     /**
      * Creates new form ListePartie
      */
     public ListePartie() {
         initComponents();
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
+
     }
 
     public void initList(List<PartieItem> list) {
@@ -49,7 +56,7 @@ public class ListePartie extends javax.swing.JPanel {
                 int col = jTable1.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
                     try {
-                        ModeReseau.getInstance().rejoindrePartie((long) jTable1.getModel().getValueAt(row, 4));
+                        ModeReseau2.getInstance().rejoindrePartie((long) jTable1.getModel().getValueAt(row, 4));
                     } catch (RemoteException ex) {
                         Logger.getLogger(ListePartie.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -92,6 +99,12 @@ public class ListePartie extends javax.swing.JPanel {
             return getValueAt(0, col).getClass();
         }
 
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
     }
 
     /**
@@ -154,6 +167,7 @@ public class ListePartie extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setOpaque(false);
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);

@@ -58,7 +58,7 @@ import model.NumeroJoueur;
 /**
  * @author Anis
  */
-public  class JPanelQuarto extends JPanel implements Observer {
+public class JPanelQuarto extends JPanel implements Observer {
 
     protected final HashMap<JPanelCase, Coord> mapCoordByCase;
     protected final HashMap<Coord, JPanelCase> mapCaseByCoord;
@@ -95,6 +95,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
     JTextArea jTextArea1;
     protected final Dimension dimensionCase;
     protected final Image backgroundImage;
+    protected JLabel Titre;
 
     public JPanelQuarto(IControlleur controleur, Dimension dimensionCase) {
 
@@ -271,7 +272,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
     protected Box buildEntete() {
         Box jEntete = Box.createVerticalBox();
         jEntete.setOpaque(false);
-        JLabel Titre = new JLabel("QUARTO");
+        Titre = new JLabel("QUARTO");
         Titre.setOpaque(false);
         Titre.setFont(new Font("Arial", Font.BOLD, 48));
 
@@ -395,6 +396,10 @@ public  class JPanelQuarto extends JPanel implements Observer {
         return jZoneJ2;
     }
 
+    public void cacherAfficherMenu() {
+        this.bAfficherMenu.setVisible(false);
+    }
+
     protected void placeBlocs(Box Centre, Box Bottom, Box entete) {
         layeredPane = new JPanel();
         layeredPane.setLayout(new BorderLayout(20, 20));
@@ -427,7 +432,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
             jPieceJ1.setPiece(labelPieceJ1);
         }
         //CONSTRUCTION PIECE J2
-        String nameJ2 = controleur.getNamePieceJ1();
+        String nameJ2 = controleur.getNamePieceJ2();
         if (nameJ2 != null) {
             JLabelPiece labelPieceJ2 = new JLabelPiece(-1, nameJ2, dimensionCase, null);
             jPieceJ2.setPiece(labelPieceJ2);

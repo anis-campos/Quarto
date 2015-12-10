@@ -9,11 +9,14 @@ import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ISession;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Parametre;
+import view.GUIImageTool;
 
 /**
  *
@@ -23,6 +26,7 @@ public class Menu extends javax.swing.JPanel {
 
     private final ISession session;
     private IJeu jeuEnCour;
+    private final Image backgroundImage;
 
     /**
      * Creates new form Menu
@@ -32,6 +36,15 @@ public class Menu extends javax.swing.JPanel {
     public Menu(ISession session) {
         initComponents();
         this.session = session;
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
+
+        this.NewPartieAdversaire.setVisible(false);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
     }
 
     /**
@@ -106,7 +119,7 @@ public class Menu extends javax.swing.JPanel {
 
     private void DeconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeconnexionActionPerformed
         try {
-            ModeReseau.getInstance().logout();
+            ModeReseau2.getInstance().logout();
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 
@@ -117,8 +130,8 @@ public class Menu extends javax.swing.JPanel {
     private void NewPartieAdversaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPartieAdversaireActionPerformed
         try {
             Compte adversaire = session.listeComptes().get(0);
-            Parametre parametre = new Parametre(true, true, true, true, true, true, false, false, false, -1);
-            ModeReseau.getInstance().creerPartieAvecAdversaire(parametre, adversaire);
+            Parametre parametre = new Parametre(true, true, true, true, true, true, false, false, false);
+            ModeReseau2.getInstance().creerPartieAvecAdversaire(parametre, adversaire);
         } catch (RemoteException ex) {
 
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,14 +144,14 @@ public class Menu extends javax.swing.JPanel {
 
     private void RejoindrePartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RejoindrePartieActionPerformed
         try {
-            ModeReseau.getInstance(null).afficherList();
+            ModeReseau2.getInstance(null).afficherList();
         } catch (RemoteException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_RejoindrePartieActionPerformed
 
     private void NewPartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPartieActionPerformed
-        ModeReseau.getInstance(null).afficherParametrage();
+        ModeReseau2.getInstance(null).afficherParametrage();
     }//GEN-LAST:event_NewPartieActionPerformed
 
 

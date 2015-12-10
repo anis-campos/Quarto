@@ -5,15 +5,11 @@
  */
 package launcher.local;
 
-import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import view.JPanelMenuLocal;
-import view.JPanelParametresLocal;
+import view.PanelGeneral;
 import view.fenetrePrincipale;
 
 /**
@@ -21,7 +17,7 @@ import view.fenetrePrincipale;
  * @author timotheetroncy
  */
 public class LauncherQuarto {
-    public static JPanel generalPanel;
+    public static PanelGeneral generalPanel;
 
     public static void main(String[] args) {
 
@@ -29,38 +25,11 @@ public class LauncherQuarto {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation(600, 10);
         frame.setResizable(true);
-      
 
-        generalPanel = new JPanel();
-        CardLayout cardLayout = new CardLayout();
-        cardLayout.setHgap(0);
-        cardLayout.setVgap(0);
-        JPanel menu = new JPanelMenuLocal();
-        JPanel parametres = new JPanelParametresLocal();
-
-        
-        generalPanel.setLayout(cardLayout);
-        generalPanel.setVisible(true);
-        generalPanel.setEnabled(true);
-        generalPanel.setName("generalPanel");
-        generalPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generalPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-        menu.setVisible(true);
-        menu.setEnabled(true);
-        menu.setName("menu");
-        parametres.setVisible(true);
-        parametres.setEnabled(true);
-        parametres.setName("parametres");
-
-        generalPanel.add("menu", menu);
-        generalPanel.add("parametres", parametres);
-
-        cardLayout.show(generalPanel, "menu");
+         generalPanel = new PanelGeneral();
 
         frame.setContentPane(generalPanel);
-       
-        
-      
+
         frame.pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);

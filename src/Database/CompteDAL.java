@@ -36,8 +36,11 @@ public class CompteDAL {
 
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
-            aRemplacerParDAO.add(new Compte("escroc", "azerty", "DESCOSTER", "Florent", format.parse("19700101")));
-            aRemplacerParDAO.add(new Compte("negga", "ytreza", "DA SILVA CAMPOS", "Anis", format.parse("19940627")));
+            aRemplacerParDAO.add(new Compte("Anis", "adsc", "DA SILVA CAMPOS", "Anis", format.parse("19940627")));
+            aRemplacerParDAO.add(new Compte("Timothée", "tt", "TRONCY", "Timothée", format.parse("19940627")));
+            aRemplacerParDAO.add(new Compte("Joachim", "jv", "VEROT", "Joachim", format.parse("19940627")));
+            aRemplacerParDAO.add(new Compte("Florent", "fd", "DECOSTER", "Florent", format.parse("19940627")));
+            aRemplacerParDAO.add(new Compte("Nicolas", "nb", "BRAT", "Nicolas", format.parse("19940627")));
 
             return aRemplacerParDAO;
         } catch (ParseException ex) {
