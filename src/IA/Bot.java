@@ -17,6 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Coord;
 import model.Partie;
+import model.Piece;
+import model.PlateauJeu;
+import model.QuartoCalculator;
 
 /**
  *
@@ -26,123 +29,209 @@ public class Bot implements Observer {
 
     private final IControlleur controller;
     private final Partie partie;
+    private final MiniMax miniMax;
 
     public Bot(IControlleur controller, Partie partie) {
         this.controller = controller;
         this.partie = partie;
+        switch (controller.getBotLevel()) {
+            case 2:
+                this.miniMax = new MiniMax(2, this.partie.getParametres());
+                break;
+            default:
+                this.miniMax = null;
+                break;
+        }
+
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        randomBot(arg);
+
+        try {
+            algosBot(arg);
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    private void randomBot(Object arg) {
-        Thread traitement = null;
+    private void algosBot(Object arg) throws CloneNotSupportedException {
+
         Notification notif = (Notification) arg;
         switch (notif.nouvelEtat) {//etat actuel
             case J2DoitPlacer:
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.poserPiece(pickRandomCoord());
-                            }
-
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                Coord coord = null;
+                switch (controller.getBotLevel()) {
+                    case 0:
+                        coord = pickRandomCoord();
+                        break;
+                    case 1:
+                        //Si un quarto peut être fait à partir de la pièce stockée, celui-ci est fait, sinon random
+                        coord = pickCoordToMakeQuartoFromPiece(partie.getClonedPlateauJeu(), partie.getClonedPieceJoueur2());
+                        if (coord == null) {
+                            coord = pickRandomCoord();
                         }
-                    }
-                });
-
-                traitement.start();
+                        break;
+                    case 2:
+                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee(), partie.getClonedPieceJoueur2());
+                        if (miniMax.setNextMove()) {
+                            Map.Entry<Coord, Piece> nextMove = miniMax.getNextMove();
+                            coord = nextMove.getKey();
+                        } else {
+                            System.out.println("random placement\n");
+                            coord = pickRandomCoord();
+                        }
+                        break;
+                    default:
+                        throw new UnsupportedOperationException("Not supported Bot Level");
+                }
+                placer(coord);
                 break;
             case J2DoitChoisir:
-
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.selectionPiece(pickRandomPiece());
-                            }
-
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                int pieceNb = -1;
+                switch (controller.getBotLevel()) {
+                    case 0:
+                        pieceNb = pickRandomPiece();
+                        break;
+                    case 1:
+                        //Si une piece ne permet pas à l'adversaire de faire un quarto immédiat, c'est celle-ci qui lui est donnée, sinon random
+                        Piece piece = pickPieceToAvoidQuarto(partie.getClonedPlateauJeu(), partie.getClonedListePiece());
+                        if (piece == null) {
+                            //il est impossible d'éviter une quarto de l'adversaire
+                            pieceNb = pickRandomPiece();
+                        } else {
+                            pieceNb = piece.getId();
                         }
-                    }
-                });
-                traitement.start();
+                        break;
+                    case 2:
+                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee(), null);
+                        if (miniMax.setNextMove()) {
+                            Map.Entry<Coord, Piece> nextMove = miniMax.getNextMove();
+                            pieceNb = nextMove.getValue().getId();
+                        } else {
+                            System.out.println("random choix\n");
+                            pieceNb = pickRandomPiece();
+                        }
+                        break;
+                    default:
+                        throw new UnsupportedOperationException("Not supported Bot Level");
+                }
+                choisir(pieceNb);
                 break;
             case J2DoitDonner:
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            controller.donnerPieceAdversaire();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                donner();
                 break;
-
             case J2DernierTour:
                 //annoncer quarto ou annoncer match null
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.annoncerMatchNul();
-                            }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                dernierTour();
                 break;
             case J2PeutConfirmerMatchNull:
                 //annoncer quarto ou confirmer match null
-                traitement = new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(1500);
-                            if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
-                                controller.annoncerQuarto();
-                            } else {
-                                controller.annoncerMatchNul();
-                            }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                });
-                traitement.start();
+                dernierMot();
                 break;
             default:
                 break;
         }
+    }
+
+    private void choisir(final int pieceNb) {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();//annonce quarto adverse
+                    } else {
+                        controller.selectionPiece(pieceNb);
+                    }
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
+    }
+
+    private void donner() {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    controller.donnerPieceAdversaire();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
+    }
+
+    private void placer(final Coord coord) {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();//annonce Quarto
+                    } else {
+                        controller.poserPiece(coord);
+                    }
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        traitement.start();
+    }
+
+    private void dernierMot() {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();
+                    } else {
+                        controller.annoncerMatchNul();
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
+    }
+
+    private void dernierTour() {
+        Thread traitement = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    if (partie.getCoordDernierePiecePlacee() != null && partie.thereIsQuarto()) {
+                        controller.annoncerQuarto();
+                    } else {
+                        controller.annoncerMatchNul();
+                    }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bot.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        traitement.start();
     }
 
     private int pickRandomPiece() {
@@ -157,6 +246,41 @@ public class Bot implements Observer {
         Random random = new Random();
         int index = random.nextInt(coordsDispos.size());
         return coordsDispos.get(index);
+    }
+
+    //Return null if no quarto possible from piece
+    private Coord pickCoordToMakeQuartoFromPiece(PlateauJeu plateauJeu, Piece pieceAPoser) {
+        if (pieceAPoser == null) {
+            return null;
+        }
+        Coord currentCoord;
+        Piece currentPiece;
+        for (int x = 0; x < 4; x++) {
+            for (int y = 0; y < 4; y++) {
+                currentCoord = new Coord(x, y);
+                currentPiece = plateauJeu.getPieceFromCoord(currentCoord);
+                if (currentPiece == null) {
+                    //On peut poser une piece ici
+                    plateauJeu.addPiece(currentCoord, pieceAPoser);
+                    if (QuartoCalculator.thereIsQuarto(plateauJeu, partie.getParametres(), currentCoord)) {
+                        return currentCoord;
+                    }
+                    plateauJeu.removePieceFromPiece(pieceAPoser);
+                }
+            }
+        }
+        return null;
+    }
+
+    //return null si aucune piece de la liste ne permet d'éviter un quarto
+    private Piece pickPieceToAvoidQuarto(PlateauJeu clonedPlateauJeu, ArrayList<Piece> clonedListePiece) {
+        for (Piece p : clonedListePiece) {
+            Coord coord = pickCoordToMakeQuartoFromPiece(clonedPlateauJeu, p);
+            if (coord == null) {
+                return p;
+            }
+        }
+        return null;
     }
 
 }

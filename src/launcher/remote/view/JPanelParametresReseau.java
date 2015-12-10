@@ -471,7 +471,8 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
                 this.QuartoAutoValidation.isSelected(),
                 this.JoueurRandom.isSelected(),
                 false,
-                false
+                false,
+                -1
         );
     }
 

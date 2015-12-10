@@ -576,125 +576,8 @@ public  class JPanelQuarto extends JPanel implements Observer {
      * @param etat Etat du jeu (définit les éléments à afficher
      * activer/désactiver)
      */
-    protected void updateScreen(EtatGUI etat) {
-        switch (etat) {
-            case J1DoitChoisir:
-                bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(true);
-                jPieceJ2.setEnabled(false);
-                jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay(false);
-                break;
-            case J1DoitDonner:
-                bDonnerJ1.setEnabled(true);
-                jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(true);
-                jPieceJ2.setEnabled(false);
-                jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay(false);
-                break;
-            case J1DoitPlacer:
-                bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                jPlateau.setEnabled(true);
-                jPanelListePieces.setEnabled(false);
-                jPieceJ2.setEnabled(false);
-                jPieceJ1.setEnabled(true);
-                annoncerQuartoDisplay(true);
-                break;
-            case J2DoitChoisir:
-                if (controleur.onePlayer()) {
-                    jPanelListePieces.setEnabled(false);
-                    jPieceJ2.setEnabled(false);
-                } else {
-                    jPanelListePieces.setEnabled(true);
-                    jPieceJ2.setEnabled(true);
-                }
-                bDonnerJ1.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                jPlateau.setEnabled(false);
-                jPieceJ1.setEnabled(false);
-                annoncerQuartoDisplay(false);
-                break;
-            case J2DoitDonner:
-                if (controleur.onePlayer()) {
-                    bDonnerJ2.setEnabled(false);
-                    jPanelListePieces.setEnabled(false);
-                    jPieceJ2.setEnabled(false);
-                } else {
-                    bDonnerJ2.setEnabled(true);
-                    jPanelListePieces.setEnabled(true);
-                    jPieceJ2.setEnabled(true);
-                }
-                bDonnerJ1.setEnabled(false);
-                jPlateau.setEnabled(false);
-                jPieceJ1.setEnabled(false);
-                annoncerQuartoDisplay(false);
-                break;
-            case J2DoitPlacer:
-                if (controleur.onePlayer()) {
-                    jPlateau.setEnabled(false);
-                    jPieceJ2.setEnabled(false);
-                } else {
-                    jPlateau.setEnabled(true);
-                    jPieceJ2.setEnabled(true);
-                }
-                bDonnerJ2.setEnabled(false);
-                bDonnerJ1.setEnabled(false);
-                jPanelListePieces.setEnabled(false);
-                jPieceJ1.setEnabled(false);
-                annoncerQuartoDisplay(true);
-                break;
-            case J1AAnnonceQuarto:
-                break;
-            case J2AAnnonceQuarto:
-                break;
-            case J2PeutConfirmerMatchNull:
-                annoncerQuartoDisplay(true);
-                bAnnoncerMatchNullJ1.setEnabled(false);
-                bAnnoncerMatchNullJ2.setEnabled(true);
-                break;
-            case J1PeutConfirmerMatchNull:
-                annoncerQuartoDisplay(true);
-                bAnnoncerMatchNullJ2.setEnabled(false);
-                bAnnoncerMatchNullJ1.setEnabled(true);
-                break;
-            case EtatNonDefinit:
-                break;
-            case J1DernierTour:
-                annoncerQuartoDisplay(false);
-                bAnnoncerMatchNullJ1.setEnabled(true);
-                bAnnoncerMatchNullJ2.setEnabled(false);
-                break;
-            case J2DernierTour:
-                annoncerQuartoDisplay(false);
-                bAnnoncerMatchNullJ2.setEnabled(true);
-                bAnnoncerMatchNullJ1.setEnabled(false);
-                break;
-
-            case J1ATrouveUnQuarto:
-            case J2ATrouveUnQuarto:
-            case J1EtJ2OntAnnonceMatchNull:
-                jPlateau.setEnabled(false);
-                jPanelListePieces.setEnabled(false);
-                bDonnerJ2.setEnabled(false);
-                bDonnerJ1.setEnabled(false);
-                bAnnoncerQuartoJ1.setEnabled(false);
-                bAnnoncerQuartoJ2.setEnabled(false);
-                bAnnoncerMatchNullJ1.setEnabled(false);
-                bAnnoncerMatchNullJ2.setEnabled(false);
-                break;
-
-            default:
-                break;
-        }
-        majLabelJoueur();
-        jTextArea1.setText("Le jeux est passé en état :" + etat);
-        this.revalidate();
-        this.repaint();
-
+    private void updateScreen(EtatGUI etat) {
+        ScreenUpdater.updateScreen(this, etat);
     }
 
     /**
@@ -750,58 +633,9 @@ public  class JPanelQuarto extends JPanel implements Observer {
 
     }
 
-    /**
-     * Gère l'affichage des boutons AnnoncerQuarto selon le joueur qui joue
-     */
-    protected void annoncerQuartoDisplay(Boolean quartoAdversaire) {
 
-        NumeroJoueur numJoueurCourant = controleur.getJoueurCourant();
-        if (!controleur.getIsValidationAutoEnabled()) {
-            //tant qu'il n'y a pas de pièce posées on grise les boutons Quarto
-            if (!controleur.getListPiecePlateauJeu().isEmpty()) {
-                if (numJoueurCourant == NumeroJoueur.J1) {
-                    if (quartoAdversaire) {
-                        bAnnoncerQuartoJ1.setText("Quarto Adverse!");
-                    } else {
-                        bAnnoncerQuartoJ1.setText("Quarto!");
-                    }
-                    bAnnoncerQuartoJ1.setEnabled(true);
-                    bAnnoncerQuartoJ2.setEnabled(false);
 
-                } else {
 
-                    if (quartoAdversaire) {
-                        bAnnoncerQuartoJ2.setText("Quarto Adverse!");
-                    } else {
-                        bAnnoncerQuartoJ2.setText("Quarto!");
-                    }
-                    bAnnoncerQuartoJ2.setEnabled(true);
-                    bAnnoncerQuartoJ1.setEnabled(false);
-
-                }
-            } else {
-                bAnnoncerQuartoJ1.setEnabled(false);
-                bAnnoncerQuartoJ2.setEnabled(false);
-            }
-        } else {
-            bAnnoncerQuartoJ1.setVisible(false);
-            bAnnoncerQuartoJ2.setVisible(false);
-        }
-    }
-
-    /**
-     * Mis en valeur du joueur courant ( nom plus grand et en GRAS)
-     */
-    protected void majLabelJoueur() {
-
-        if (controleur.getJoueurCourant() == NumeroJoueur.J1) {
-            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.BOLD, fontSizeToUse));
-            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.PLAIN, initFontSize));
-        } else {
-            jLabelJ1.setFont(new Font(jLabelJ1.getFont().getName(), Font.PLAIN, initFontSize));
-            jLabelJ2.setFont(new Font(jLabelJ2.getFont().getName(), Font.BOLD, fontSizeToUse));
-        }
-    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -813,7 +647,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
      *
      * @param quartos
      */
-    protected void surlignerQuartos(ArrayList<ArrayList<Coord>> quartos) {
+    private void surlignerQuartos(ArrayList<ArrayList<Coord>> quartos) {
 
         for (ArrayList<Coord> quarto : quartos) {
 
@@ -830,7 +664,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur un bouton donner
      */
-    protected class ButtonDonnerClickListener implements ActionListener {
+    private class ButtonDonnerClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -842,7 +676,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur un bouton annoncer quarto
      */
-    protected class ButtonAnnoncerQuartoClickListener implements ActionListener {
+    private class ButtonAnnoncerQuartoClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -850,7 +684,7 @@ public  class JPanelQuarto extends JPanel implements Observer {
         }
     }
 
-    protected class ButtonAnnoncerMatchNullClickListener implements ActionListener {
+    private class ButtonAnnoncerMatchNullClickListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -861,9 +695,9 @@ public  class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur un pièce
      */
-    protected class PieceClickAction implements Runnable {
+    private class PieceClickAction implements Runnable {
 
-        protected final int idPiece;
+        private final int idPiece;
 
         public PieceClickAction(int idPiece) {
             this.idPiece = idPiece;
@@ -879,9 +713,9 @@ public  class JPanelQuarto extends JPanel implements Observer {
     /**
      * Action du click sur une case du plateau
      */
-    protected class CasePlateauClickAction implements Runnable {
+    private class CasePlateauClickAction implements Runnable {
 
-        protected final Coord coord;
+        private final Coord coord;
 
         public CasePlateauClickAction(Coord coord) {
             this.coord = coord;

@@ -219,4 +219,9 @@ public class ControllerLocal extends Observable implements IControlleur {
         return partie.getNamePieceJ2();
     }
 
+    @Override
+    public int getBotLevel() {
+        return partie.getBotLevel();
+    }
+
 }

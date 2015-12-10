@@ -46,6 +46,9 @@ public class QuartoCalculator {
         }
         return checkQuarto(p, plateau, listeDeCoordRetour);
     }
+    public static Boolean thereIsQuarto(PlateauJeu plateau, Parametre p, Coord coordDernierePiece){
+        return thereIsQuarto(plateau, p, coordDernierePiece, new ArrayList<ArrayList<Coord>>());
+    }
 
     private static void emptyData() {
         vertical = new ArrayList();

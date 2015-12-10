@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Random;
 import org.apache.log4j.Logger;
 
-
 /**
  *
  * @author timotheetroncy
@@ -33,7 +32,7 @@ public class Partie implements Serializable {
     private Coord coordDernierePiecePlacee;
     private ArrayList<ArrayList<Coord>> quartos;
     private Bot bot;
-    
+
     private static final Logger logger = Logger.getLogger(Partie.class);
 
     private Joueur joueurCourant;
@@ -112,10 +111,6 @@ public class Partie implements Serializable {
         return addPiece;
     }
 
-    public Coord getDerniereCoord() {
-        return coordDernierePiecePlacee;
-    }
-
     private Piece getPieceJoueurCourant() {
         if (joueurCourant == joueur1) {
             return caseJoueur1;
@@ -146,10 +141,10 @@ public class Partie implements Serializable {
             Piece pieceJoueurCourant = getPieceJoueurCourant();
             if (pieceJoueurCourant != null) {
                 listPiece.add(pieceJoueurCourant);
-                logger.info("Piece remise dans la liste : "+pieceJoueurCourant.getName());
+                logger.info("Piece remise dans la liste : " + pieceJoueurCourant.getName());
                 setPieceJoueurCourant(null);
             }
-            logger.info("Piece enlevée de la liste : "+piece.getName());
+            logger.info("Piece enlevée de la liste : " + piece.getName());
             setPieceJoueurCourant(piece);
 
             return true;
@@ -161,10 +156,11 @@ public class Partie implements Serializable {
     public boolean donnerPieceAdversaire() {
 
         Piece pieceJoueurCourant = getPieceJoueurCourant();
-        if(pieceJoueurCourant==null)
+        if (pieceJoueurCourant == null) {
             return false;
+        }
         setPieceJoueurAdversaire(pieceJoueurCourant);
-        logger.info("Piece donnée : "+pieceJoueurCourant.getName());
+        logger.info("Piece donnée : " + pieceJoueurCourant.getName());
         setPieceJoueurCourant(null);
         return true;
     }
@@ -206,11 +202,17 @@ public class Partie implements Serializable {
         }
     }
 
-    public PlateauJeu getPlateauJeu() {
-        return plateauJeu;
+    public PlateauJeu getClonedPlateauJeu() throws CloneNotSupportedException {
+        return (PlateauJeu) plateauJeu.clone();
     }
 
-
+    public ArrayList<Piece> getClonedListePiece() throws CloneNotSupportedException {
+        ArrayList<Piece> clonedPieceList = new ArrayList<>();
+        for (Piece p: listPiece) {
+            clonedPieceList.add(p.clone());
+        }
+        return clonedPieceList;
+    }
 
     public boolean thereIsQuarto() {
         quartos = new ArrayList<>();
@@ -304,23 +306,39 @@ public class Partie implements Serializable {
     public boolean onePlayer() {
         return joueur2.isBot();
     }
-    public List<Map.Entry<Coord, String>> getPiecesPlateauJeu(){
+
+    public List<Map.Entry<Coord, String>> getPiecesPlateauJeu() {
         return plateauJeu.getPiecesPlateauJeu();
     }
-    
-    public String getNamePieceJ1(){
-        if(caseJoueur1 != null){
+
+    public String getNamePieceJ1() {
+        if (caseJoueur1 != null) {
             return caseJoueur1.getName();
-        }else{
-            return null;
-        }
-    }
-    public String getNamePieceJ2(){
-        if(caseJoueur2 != null){
-            return caseJoueur2.getName();
-        }else{
+        } else {
             return null;
         }
     }
 
+    public String getNamePieceJ2() {
+        if (caseJoueur2 != null) {
+            return caseJoueur2.getName();
+        } else {
+            return null;
+        }
+    }
+
+    public int getBotLevel() {
+        return parametres.getBotLevel();
+    }
+
+    public Piece getClonedPieceJoueur2() throws CloneNotSupportedException {
+        return caseJoueur2.clone();
+    }
+
+    public Piece getClonedDernierePiecePlacee() throws CloneNotSupportedException{
+        if(coordDernierePiecePlacee != null){
+            return plateauJeu.getPieceFromCoord(coordDernierePiecePlacee).clone();
+        }
+        return null;
+    }
 }

@@ -159,7 +159,8 @@ public class JPanelMenuLocal extends javax.swing.JPanel {
                 panelParametres.getQuartoAutoValidation(),
                 panelParametres.getJoueurRandom(),
                 panelParametres.getContreBot(),
-                panelParametres.getTorus()
+                panelParametres.getTorus(),
+                panelParametres.getBotSliderValue()
         );
     }
 

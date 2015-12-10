@@ -60,7 +60,8 @@ public class ParametreDAO extends DAO<Parametre> {
                      executeQuery.getBoolean("validationAuto"),
                      executeQuery.getBoolean("joueurRandom"),
                      executeQuery.getBoolean("bot"),
-                     executeQuery.getBoolean("torus")
+                     executeQuery.getBoolean("torus"),
+                     executeQuery.getInt("botLevel")
                     );
              return p;
         } catch (SQLException ex) {

@@ -64,7 +64,7 @@ public class Client {
 
         //List<PartieItem> listePartie = session.listePartie();
         final IJeu jeuJ1 = sessionJ1.creerPartieAvecAdversaire(
-                new Parametre(true, true, true, true, true, true, false, false, false),
+                new Parametre(true, true, true, true, true, true, false, false, false, -1),
                 sessionJ2.getCompteJoueurConnectee());
         logger.info("PARTIE CREE!!!\n");
         logger.info("Interface J1\n\t" + jeuJ1);
