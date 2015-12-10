@@ -48,7 +48,7 @@ public class JPanelQuartoRemote extends JPanelQuarto {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(!fini) return;
+        if(fini) return;
         
         super.update(o, arg);
 

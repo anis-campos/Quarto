@@ -39,4 +39,8 @@ public class Compte implements Serializable {
                 + "\n\t DDN     : " + naissance.toString() + "\n";
     }
 
+    public String NomPrenom() {
+        return Nom + " " + Prenom;
+    }
+
 }
