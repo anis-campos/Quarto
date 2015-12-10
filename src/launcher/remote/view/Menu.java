@@ -130,7 +130,7 @@ public class Menu extends javax.swing.JPanel {
     private void NewPartieAdversaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPartieAdversaireActionPerformed
         try {
             Compte adversaire = session.listeComptes().get(0);
-            Parametre parametre = new Parametre(true, true, true, true, true, true, false, false, false);
+            Parametre parametre = new Parametre(true, true, true, true, true, true, false, false,false,2);
             ModeReseau2.getInstance().creerPartieAvecAdversaire(parametre, adversaire);
         } catch (RemoteException ex) {
 

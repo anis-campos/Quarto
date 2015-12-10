@@ -127,7 +127,7 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
     @Override
     public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException, PartieDoublonException {
         jeuEnCour = session.creerPartieAvecAdversaire(
-                new Parametre(true, true, true, true, true, true, false, false, false),
+                new Parametre(true, true, true, true, true, true, false, false, false,2),
                 Adversaire);
         interfaceControleurLocal = new InterfaceControleurLocal(jeuEnCour);
         launch();

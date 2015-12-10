@@ -43,9 +43,9 @@ public class Client {
 
         ILogin service = (ILogin) Naming.lookup(URL_CONNEXION);
 
-        ISession sessionJ1 = service.connexion("negga", "ytreza");
+        ISession sessionJ1 = service.connexion("Anis", "adsc");
 
-        ISession sessionJ2 = service.connexion("escroc", "azerty");
+        ISession sessionJ2 = service.connexion("Florent", "fd");
 
         logger.info("J1 : \n\t" + sessionJ1);
         logger.info("J2 : \n\t" + sessionJ2);
