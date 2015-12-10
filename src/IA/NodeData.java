@@ -38,9 +38,9 @@ public class NodeData implements Comparable{
     private void evalNode(Parametre p){
         if (QuartoCalculator.thereIsQuarto(plateauJeu, p, coordDernierePiecePosee)) {
             if(adversaire){
-                gain = -100;
+                gain = -100*(depth+1);
             }else{
-                gain = 100;
+                gain = 100*(depth+1);
             }
         }else{
             gain = 0;

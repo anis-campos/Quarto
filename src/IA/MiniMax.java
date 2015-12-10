@@ -24,91 +24,83 @@ public class MiniMax {
 
     private final int maxDepth;
     private final Parametre p;
-    private final Tree<NodeData> tree;
+    private Tree<NodeData> tree;
     private Tree.Node<NodeData> rootNode;
     private Map.Entry<Coord, Piece> nextMove;
+    private Piece pieceJ2;
+    private Boolean doitPlacer;
 
     public MiniMax(int maxDepth, Parametre p) {
-        tree = new Tree<>();
         this.maxDepth = maxDepth;
         this.p = p;
     }
 
-    public void buildTree(PlateauJeu plateauJeu, ArrayList<Piece> listPiece, Coord coordDernierePiecePosee, Piece dernierePiecePosee) throws CloneNotSupportedException {
+    public void buildTree(PlateauJeu plateauJeu, ArrayList<Piece> listPiece, Coord coordDernierePiecePosee, Piece dernierePiecePosee, Piece pieceJ2) throws CloneNotSupportedException {
+        //Si PieceJ2 != null alors doitPlacer == true alors adversaire == true sur rootNode
+        //Si PieceJ2 == null alors doitPlacer == false alors adversaire == false sur RootNode
+        tree = new Tree<>();
+        rootNode = null;
+        this.pieceJ2 = pieceJ2;
+        this.doitPlacer = (this.pieceJ2 != null);
+
         if (coordDernierePiecePosee != null) {
             rootNode = tree.getRootElement();
-            rootNode.setValue(new NodeData(plateauJeu, listPiece, p, maxDepth, true, coordDernierePiecePosee, dernierePiecePosee));
+            rootNode.setValue(new NodeData(plateauJeu, listPiece, p, maxDepth, doitPlacer, coordDernierePiecePosee, dernierePiecePosee));
             setChildren(rootNode);
-
-            //DEBUG
-//            tree.visitNodes(new Tree.NodeVisitor<NodeData>() {
-//
-//                @Override
-//                public boolean visit(final Tree.Node<NodeData> node) {
-//                    final StringBuilder sb = new StringBuilder();
-//                    Tree.Node<NodeData> curr = node;
-//                    do {
-//                        if (sb.length() > 0) {
-//                            sb.insert(0, " > ");
-//                        }
-//                        sb.insert(0, String.valueOf(curr.getValue().getGain()));
-//                        curr = curr.getParent();
-//                    } while (curr != null);
-//                    //System.out.println(sb);
-//                    return true;
-//                }
-//            });
-            //FIN DEBUG
         }
 
     }
 
-    public void setMove() {
-        Node<NodeData> greaterNode = getGreaterNode();
-        if (greaterNode != null) {
-            nextMove = new AbstractMap.SimpleEntry<>(greaterNode.getValue().getCoordDernierePiecePosee(), greaterNode.getValue().getDernierePiecePosee());
-        } else {
+    public Boolean setNextMove() {
+        if (rootNode == null) {
             nextMove = null;
+            return false;
+        } else {
+            Node<NodeData> greaterNode = getGreaterNode();
+            if (greaterNode != null) {
+                nextMove = new AbstractMap.SimpleEntry<>(greaterNode.getValue().getCoordDernierePiecePosee(), greaterNode.getValue().getDernierePiecePosee());
+                return true;
+            } else {
+                nextMove = null;
+                return false;
+            }
         }
     }
 
     private Node<NodeData> getGreaterNode() {
         ArrayList<Node<NodeData>> childList = rootNode.getChildren();
+
         Node<NodeData> greaterNode = null;
         for (Node<NodeData> node : childList) {
+                    System.out.print(node.getValue().getGain()+" ");
             if (greaterNode == null) {
                 greaterNode = node;
             }
             if (node.getValue().getGain() > greaterNode.getValue().getGain()) {
                 greaterNode = node;
             }
-            if (greaterNode.getValue().getGain() == 100) {
-                return greaterNode;
-            }
         }
+        System.out.print("\n");
         return greaterNode;
-    }
-
-    public void flushTree() {
-
     }
 
     private void setChildren(Tree.Node<NodeData> parentNode) throws CloneNotSupportedException {
         int depth = parentNode.getValue().getDepth() - 1;
         if (depth >= 0) {
-            for (Piece piece : parentNode.getValue().getListPiece()) {
+            //si parentNode est le rootNode et qu'on est dans l'état doitPlacer on commence l'algo avec la pieceJ2 uniquement
+            if (depth == (maxDepth - 1) && this.doitPlacer) {
                 for (Coord coord : parentNode.getValue().getPlateauJeu().getAvailableCoords()) {
 
                     PlateauJeu clonedPJ = (PlateauJeu) parentNode.getValue().getPlateauJeu().clone();
                     ArrayList<Piece> clonedListPiece = getClonedArrayList(parentNode.getValue().getListPiece());
 
-                    clonedListPiece.remove(piece);//DEBUG
-                    clonedPJ.addPiece(coord, piece);
-
-                    NodeData childNode = new NodeData(clonedPJ, clonedListPiece, p, depth, !parentNode.getValue().getAdversaire(), coord, piece);
+                    clonedListPiece.remove(this.pieceJ2);
+                    clonedPJ.addPiece(coord, this.pieceJ2);
+                    
+                    NodeData childNode = new NodeData(clonedPJ, clonedListPiece, p, depth, !parentNode.getValue().getAdversaire(), coord, this.pieceJ2);
                     Tree.Node<NodeData> childTreeNode = parentNode.addChild(childNode);
                     if (depth == 0 || parentNode.getValue().getGain() != 0) {
-                        // C"est une feuille, propager resultat vers le haut 
+                        // C'est une feuille, propager resultat vers le haut 
                         if (parentNode.getValue().getGain() != 0) {
                             propagerGainFeuille(childTreeNode);
                         }
@@ -116,7 +108,30 @@ public class MiniMax {
                         setChildren(childTreeNode);
                     }
                 }
+            } else {
+                for (Piece piece : parentNode.getValue().getListPiece()) {
+                    for (Coord coord : parentNode.getValue().getPlateauJeu().getAvailableCoords()) {
+
+                        PlateauJeu clonedPJ = (PlateauJeu) parentNode.getValue().getPlateauJeu().clone();
+                        ArrayList<Piece> clonedListPiece = getClonedArrayList(parentNode.getValue().getListPiece());
+
+                        clonedListPiece.remove(piece);
+                        clonedPJ.addPiece(coord, piece);
+
+                        NodeData childNode = new NodeData(clonedPJ, clonedListPiece, p, depth, !parentNode.getValue().getAdversaire(), coord, piece);
+                        Tree.Node<NodeData> childTreeNode = parentNode.addChild(childNode);
+                        if (depth == 0 || parentNode.getValue().getGain() != 0) {
+                            // C"est une feuille, propager resultat vers le haut 
+                            if (parentNode.getValue().getGain() != 0) {
+                                propagerGainFeuille(childTreeNode);
+                            }
+                        } else {
+                            setChildren(childTreeNode);
+                        }
+                    }
+                }
             }
+
         }
     }
 
