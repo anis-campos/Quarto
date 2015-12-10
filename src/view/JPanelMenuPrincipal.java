@@ -5,14 +5,25 @@
  */
 package view;
 
+import static Network.RMI.Constantes.URL_CONNEXION;
+import Network.RMI.Interface.ILogin;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.security.auth.login.LoginException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import static launcher.local.PartieBuilder.repackPartieQuarto;
+import launcher.remote.view.ModeReseau2;
 
 /**
  *
@@ -29,7 +40,6 @@ public class JPanelMenuPrincipal extends javax.swing.JPanel {
     public JPanelMenuPrincipal() {
         initComponents();
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
-
     }
 
     /**
@@ -51,7 +61,7 @@ public class JPanelMenuPrincipal extends javax.swing.JPanel {
             }
         });
 
-        jButtonRemote.setText("Joueur en réseaux");
+        jButtonRemote.setText("Joueur en réseau");
         jButtonRemote.setPreferredSize(new java.awt.Dimension(150, 29));
         jButtonRemote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,36 +93,39 @@ public class JPanelMenuPrincipal extends javax.swing.JPanel {
 
     private void jButtonRemoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoteActionPerformed
 
+        
+        
+        try {
+            ILogin service = (ILogin) Naming.lookup(URL_CONNEXION);
+            
+            try {
+                service.connexion("", "");
+            } catch (LoginException ex) {
+            }
+
+            JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+
+            frame.setContentPane(ModeReseau2.getInstance(service));
+
+            repackPartieQuarto((JPanel) frame.getContentPane());
+
+        } catch (NotBoundException | MalformedURLException | RemoteException e) {
+            String message = "Impossible de se connecter au serveur. Veuillez vérifier que :\n"
+                    + "\t- Vous avez lancé le serveur de jeu avant de lancer le client.\n"
+                    + "\t- Votre client est sur le même réseau que votre serveur.\n"
+                    + "\t- ...";
+            JOptionPane.showMessageDialog(this,message,"Erreur de connexion",JOptionPane.ERROR_MESSAGE);
+        }
+
 
     }//GEN-LAST:event_jButtonRemoteActionPerformed
 
     private void jButtonLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLocalActionPerformed
 
-        generalPanel = new JPanel();
-        CardLayout cardLayout = new CardLayout();
-        cardLayout.setHgap(0);
-        cardLayout.setVgap(0);
-        JPanel menu = new JPanelMenuLocal();
-        JPanel parametres = new JPanelParametresLocal();
-
-        generalPanel.setLayout(cardLayout);
-        generalPanel.setVisible(true);
-        generalPanel.setEnabled(true);
-        generalPanel.setName("generalPanel");
-        generalPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generalPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-        menu.setVisible(true);
-        menu.setEnabled(true);
-        menu.setName("menu");
-        parametres.setVisible(true);
-        parametres.setEnabled(true);
-        parametres.setName("parametres");
-
-        generalPanel.add("menu", menu);
-        generalPanel.add("parametres", parametres);
-
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
 
+        generalPanel = new PanelGeneral();
+        
         frame.setContentPane(generalPanel);
 
         repackPartieQuarto(generalPanel);

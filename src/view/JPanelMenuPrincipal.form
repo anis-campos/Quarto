@@ -49,7 +49,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonRemote">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Joueur en r&#xe9;seaux"/>
+        <Property name="text" type="java.lang.String" value="Joueur en r&#xe9;seau"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[150, 29]"/>
         </Property>

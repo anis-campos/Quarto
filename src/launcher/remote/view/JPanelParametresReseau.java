@@ -396,10 +396,10 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
         try {
             if (Adversaire == null) {
 
-                ModeReseau.getInstance().creerPartie(getParametres());
+                ModeReseau2.getInstance().creerPartie(getParametres());
 
             } else {
-                ModeReseau.getInstance().creerPartieAvecAdversaire(getParametres(), Adversaire);
+                ModeReseau2.getInstance().creerPartieAvecAdversaire(getParametres(), Adversaire);
             }
         } catch (RemoteException ex) {
             Logger.getLogger(JPanelParametresReseau.class.getName()).log(Level.SEVERE, null, ex);

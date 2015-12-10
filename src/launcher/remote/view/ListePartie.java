@@ -49,7 +49,7 @@ public class ListePartie extends javax.swing.JPanel {
                 int col = jTable1.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
                     try {
-                        ModeReseau.getInstance().rejoindrePartie((long) jTable1.getModel().getValueAt(row, 4));
+                        ModeReseau2.getInstance().rejoindrePartie((long) jTable1.getModel().getValueAt(row, 4));
                     } catch (RemoteException ex) {
                         Logger.getLogger(ListePartie.class.getName()).log(Level.SEVERE, null, ex);
                     }
