@@ -5,7 +5,7 @@
  */
 package controlleur.observables;
 
-import Databse.Compte;
+import Database.Compte;
 import model.EtatGUI;
 import model.NumeroJoueur;
 
