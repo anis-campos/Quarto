@@ -6,6 +6,8 @@
 package launcher.remote.view;
 
 import Network.RMI.PartieItem;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
+import view.GUIImageTool;
 
 /**
  *
@@ -21,11 +24,15 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ListePartie extends javax.swing.JPanel {
 
+    private final Image backgroundImage;
+
     /**
      * Creates new form ListePartie
      */
     public ListePartie() {
         initComponents();
+        this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
+
     }
 
     public void initList(List<PartieItem> list) {
@@ -94,6 +101,12 @@ public class ListePartie extends javax.swing.JPanel {
 
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        g.drawImage(backgroundImage, 0, 0, this);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,6 +167,7 @@ public class ListePartie extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setOpaque(false);
         jScrollPane1.setViewportView(jTable1);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);

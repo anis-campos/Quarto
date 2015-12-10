@@ -9,12 +9,7 @@ import Network.RMI.Interface.IJeu;
 import controlleur.IControlleur;
 import controlleur.observables.*;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.rmi.RemoteException;
 import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import view.JPanelQuarto;
 
@@ -32,6 +27,12 @@ public class JPanelQuartoRemote extends JPanelQuarto {
         
         this.JeuDistant = jeuDistant;
         fini = false;
+        
+        super.cacherAfficherMenu();
+        
+        super.Titre.setVisible(false);
+        
+        /*
         bAfficherMenu.addActionListener(new AbstractAction() {
 
             @Override
@@ -43,7 +44,7 @@ public class JPanelQuartoRemote extends JPanelQuarto {
                     Logger.getLogger(JPanelQuartoRemote.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });
+        });*/
     }
 
     @Override

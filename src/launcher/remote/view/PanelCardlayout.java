@@ -97,8 +97,19 @@ navPane.setOpaque(false);
     }
 
     public void addPage(String name, Component comp) {
-        if(pages.contains(name)) return;
-        pages.add(name);
+        if(pages.contains(name)) {
+          
+            for (Component component : mainPane.getComponents()) {
+                if(component.getName().equals(name)){
+                    mainPane.remove(comp);
+                    break;
+                }
+            }
+        }
+        else
+            pages.add(name);
+        
+        comp.setName(name);
         mainPane.add(comp, name);
     }
 

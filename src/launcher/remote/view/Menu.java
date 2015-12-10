@@ -38,6 +38,7 @@ public class Menu extends javax.swing.JPanel {
         this.session = session;
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
 
+        this.NewPartieAdversaire.setVisible(false);
     }
 
     @Override

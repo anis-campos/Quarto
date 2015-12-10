@@ -6,12 +6,8 @@
 package launcher.local;
 
 import java.awt.AWTException;
-import java.awt.CardLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import view.JPanelQuarto;
 import view.PanelGeneral;
 
 /**

@@ -211,7 +211,7 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
 
         Titre.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         Titre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Titre.setText("MODE RESEAU");
+        Titre.setText("QUARTO - MODE RESEAU");
 
         jLabelNomJoueur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNomJoueur.setText("Joueur :");
@@ -222,11 +222,11 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Titre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelNomJoueur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
