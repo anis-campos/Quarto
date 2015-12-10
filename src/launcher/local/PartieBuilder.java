@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import static java.lang.Thread.sleep;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -63,12 +64,14 @@ public class PartieBuilder {
         //Si la partie est contre bot
         // Le bot est toujours J2
         if (partie.onePlayer()) {
-            Bot bot = new Bot(controllerLocal, partie);
-            controllerLocal.addObserver(bot);
-            controllerLocal.notifierBotPremierTour();
+
+            
             panel.bAnnoncerQuartoJ2NotVisible();
             panel.bDonnerJ2NotVisible();
             panel.bAnnoncerMatchNullJ2NotVisible();
+            Bot bot = new Bot(controllerLocal, partie);
+            controllerLocal.addObserver(bot);
+            controllerLocal.notifierBotPremierTour();
         }
         
     }

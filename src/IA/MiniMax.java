@@ -48,7 +48,6 @@ public class MiniMax {
             rootNode.setValue(new NodeData(plateauJeu, listPiece, p, maxDepth, doitPlacer, coordDernierePiecePosee, dernierePiecePosee));
             setChildren(rootNode);
         }
-
     }
 
     public Boolean setNextMove() {
@@ -56,7 +55,7 @@ public class MiniMax {
             nextMove = null;
             return false;
         } else {
-            Node<NodeData> greaterNode = getGreaterNode();
+            Node<NodeData> greaterNode = getBestNode();
             if (greaterNode != null) {
                 nextMove = new AbstractMap.SimpleEntry<>(greaterNode.getValue().getCoordDernierePiecePosee(), greaterNode.getValue().getDernierePiecePosee());
                 return true;
@@ -67,12 +66,33 @@ public class MiniMax {
         }
     }
 
-    private Node<NodeData> getGreaterNode() {
+    private Node<NodeData> getBestNode() {
         ArrayList<Node<NodeData>> childList = rootNode.getChildren();
-
+        ArrayList<Node<NodeData>> negChildList = new ArrayList<>();
+        ArrayList<Node<NodeData>> nodesToRemove = new ArrayList<>();
+        
+        for (Node<NodeData> node : childList) {
+            if (node.getValue().getGain() < 0) {
+                negChildList.add(node);
+            }
+        }
+        
+        for (Node<NodeData> node : childList) {
+            for(Node<NodeData> negNode : negChildList) {
+                if(node.getValue().getDernierePiecePosee().equals(negNode.getValue().getDernierePiecePosee())){
+                    nodesToRemove.add(node);
+                    //ce n'est pas un noeud à utiliser (pièce qui fait gagner l'adversaire)
+                }
+            }
+        }
+        for(Node<NodeData> node: nodesToRemove){
+            childList.remove(node);
+        }
+        
+        
         Node<NodeData> greaterNode = null;
         for (Node<NodeData> node : childList) {
-                    System.out.print(node.getValue().getGain()+" ");
+            System.out.print(node.getValue().getGain() + " ");
             if (greaterNode == null) {
                 greaterNode = node;
             }
@@ -89,14 +109,15 @@ public class MiniMax {
         if (depth >= 0) {
             //si parentNode est le rootNode et qu'on est dans l'état doitPlacer on commence l'algo avec la pieceJ2 uniquement
             if (depth == (maxDepth - 1) && this.doitPlacer) {
+
                 for (Coord coord : parentNode.getValue().getPlateauJeu().getAvailableCoords()) {
 
                     PlateauJeu clonedPJ = (PlateauJeu) parentNode.getValue().getPlateauJeu().clone();
                     ArrayList<Piece> clonedListPiece = getClonedArrayList(parentNode.getValue().getListPiece());
 
-                    clonedListPiece.remove(this.pieceJ2);
+                    //clonedListPiece.remove(this.pieceJ2);
                     clonedPJ.addPiece(coord, this.pieceJ2);
-                    
+
                     NodeData childNode = new NodeData(clonedPJ, clonedListPiece, p, depth, !parentNode.getValue().getAdversaire(), coord, this.pieceJ2);
                     Tree.Node<NodeData> childTreeNode = parentNode.addChild(childNode);
                     if (depth == 0 || parentNode.getValue().getGain() != 0) {
@@ -115,7 +136,7 @@ public class MiniMax {
                         PlateauJeu clonedPJ = (PlateauJeu) parentNode.getValue().getPlateauJeu().clone();
                         ArrayList<Piece> clonedListPiece = getClonedArrayList(parentNode.getValue().getListPiece());
 
-                        clonedListPiece.remove(piece);
+                        removePieceFromArray(clonedListPiece, piece);
                         clonedPJ.addPiece(coord, piece);
 
                         NodeData childNode = new NodeData(clonedPJ, clonedListPiece, p, depth, !parentNode.getValue().getAdversaire(), coord, piece);
@@ -135,6 +156,16 @@ public class MiniMax {
         }
     }
 
+    private void removePieceFromArray(ArrayList<Piece> listPiece, Piece pToRemove) {
+        Piece removeThis = null;
+        for (Piece pc : listPiece) {
+            if (pc.equals(pToRemove)) {
+                removeThis = pc;
+            }
+        }
+        listPiece.remove(removeThis);
+    }
+
     private ArrayList<Piece> getClonedArrayList(ArrayList<Piece> listePieceToClone) throws CloneNotSupportedException {
         ArrayList<Piece> clonedList = new ArrayList<>();
         for (Piece piece : listePieceToClone) {
@@ -144,26 +175,27 @@ public class MiniMax {
     }
 
     private void propagerGainFeuille(Tree.Node<NodeData> childTreeNode) {
-        if (!childTreeNode.getParent().equals(rootNode)) {
+        if (!childTreeNode.equals(rootNode)) {
             int gainFils = childTreeNode.getValue().getGain();
             int gainParent = childTreeNode.getParent().getValue().getGain();
 
             boolean filsAdversaire = childTreeNode.getValue().getAdversaire();
 
             if (filsAdversaire) {
-                if (gainParent > gainFils) {
+                if (gainParent < gainFils) {
+                    System.out.print("parent < enfant\n");
                     childTreeNode.getParent().getValue().setGain(gainFils);
                     propagerGainFeuille(childTreeNode.getParent());
                 }
             } else {
-                if (gainParent < gainFils) {
+                if (gainParent > gainFils) {
+                    System.out.print("parent > enfant\n");
                     childTreeNode.getParent().getValue().setGain(gainFils);
                     propagerGainFeuille(childTreeNode.getParent());
                 }
 
             }
         }
-
     }
 
     public Entry<Coord, Piece> getNextMove() {

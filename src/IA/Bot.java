@@ -74,7 +74,7 @@ public class Bot implements Observer {
                         }
                         break;
                     case 2:
-                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee().clone(), partie.getClonedDernierePiecePlacee(), partie.getClonedPieceJoueur2());
+                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee(), partie.getClonedPieceJoueur2());
                         if (miniMax.setNextMove()) {
                             Map.Entry<Coord, Piece> nextMove = miniMax.getNextMove();
                             coord = nextMove.getKey();
@@ -105,7 +105,7 @@ public class Bot implements Observer {
                         }
                         break;
                     case 2:
-                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee().clone(), partie.getClonedDernierePiecePlacee(), null);
+                        miniMax.buildTree(partie.getClonedPlateauJeu(), partie.getClonedListePiece(), partie.getCoordDernierePiecePlacee(), partie.getClonedDernierePiecePlacee(), null);
                         if (miniMax.setNextMove()) {
                             Map.Entry<Coord, Piece> nextMove = miniMax.getNextMove();
                             pieceNb = nextMove.getValue().getId();
