@@ -43,6 +43,7 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
         this.backgroundImage = GUIImageTool.getImage("/images/wood_texture.jpg");
         this.session = session;
 
+
     }
 
     /**
@@ -60,8 +61,6 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        CommencerPartie = new javax.swing.JButton();
-        RetourMenu = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Taille = new javax.swing.JCheckBox();
         Creux = new javax.swing.JCheckBox();
@@ -78,7 +77,9 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jButtonReset = new javax.swing.JButton();
+        CommencerPartie = new javax.swing.JButton();
 
         jPanel2.setMinimumSize(new java.awt.Dimension(100, 70));
         jPanel2.setPreferredSize(new java.awt.Dimension(400, 70));
@@ -132,20 +133,6 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
         setName("parametres"); // NOI18N
         setOpaque(false);
-
-        CommencerPartie.setText("Commencer la partie");
-        CommencerPartie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CommencerPartieActionPerformed(evt);
-            }
-        });
-
-        RetourMenu.setText("Retour au menu");
-        RetourMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RetourMenuActionPerformed(evt);
-            }
-        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Paramètres du jeu de pièce"));
         jPanel4.setOpaque(false);
@@ -230,6 +217,7 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
 
         jCheckTorus.setSelected(true);
         jCheckTorus.setText("Quarto Torus (Table de Karnaugh)");
+        jCheckTorus.setOpaque(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -323,12 +311,47 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setOpaque(false);
+
         jButtonReset.setText("Paramètres par défaut");
         jButtonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonResetActionPerformed(evt);
             }
         });
+
+        CommencerPartie.setText("Commencer la partie");
+        CommencerPartie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CommencerPartieActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonReset)
+                .addGap(21, 21, 21)
+                .addComponent(CommencerPartie)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {CommencerPartie, jButtonReset});
+
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {CommencerPartie, jButtonReset});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -338,34 +361,25 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
                 .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(RetourMenu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonReset)
-                        .addGap(27, 27, 27)
-                        .addComponent(CommencerPartie))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CommencerPartie, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(RetourMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -384,11 +398,6 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
     private void QuartoCarreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuartoCarreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_QuartoCarreActionPerformed
-
-    private void RetourMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetourMenuActionPerformed
-        CardLayout cl = (CardLayout) this.getParent().getLayout();
-        cl.show(this.getParent(), "menu");
-    }//GEN-LAST:event_RetourMenuActionPerformed
 
     private void CommencerPartieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommencerPartieActionPerformed
         try {
@@ -594,7 +603,6 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
     private javax.swing.JTextField PseudoAdversaire;
     private javax.swing.JCheckBox QuartoAutoValidation;
     private javax.swing.JCheckBox QuartoCarre;
-    private javax.swing.JButton RetourMenu;
     private javax.swing.JCheckBox Taille;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -606,6 +614,7 @@ public class JPanelParametresReseau extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;

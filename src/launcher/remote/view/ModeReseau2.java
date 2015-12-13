@@ -69,6 +69,7 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
         pane = new PanelCardlayout();
         Connexion connexion = new Connexion(service);
         pane.addPage("connexion", connexion);
+        pane.setCurrentPage("connexion");
         this.add(pane, BorderLayout.CENTER);
     }
 

@@ -216,7 +216,7 @@ public class ControlleurDistant extends UnicastRemoteObject implements IControll
 
     @Override
     public boolean onePlayer() {
-        return false;
+        return true;
     }
 
     @Override
