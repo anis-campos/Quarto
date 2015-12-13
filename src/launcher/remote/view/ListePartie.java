@@ -123,6 +123,8 @@ public class ListePartie extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setOpaque(false);
+
         jLabel1.setText("Liste des parties en cours");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -143,6 +145,8 @@ public class ListePartie extends javax.swing.JPanel {
         );
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setOpaque(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

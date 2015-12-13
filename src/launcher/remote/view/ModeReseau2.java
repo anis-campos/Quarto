@@ -69,7 +69,6 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
         pane = new PanelCardlayout();
         Connexion connexion = new Connexion(service);
         pane.addPage("connexion", connexion);
-        pane.toggleNavBar();
         this.add(pane, BorderLayout.CENTER);
     }
 
@@ -91,7 +90,6 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
             this.session = session;
             pane.addPage("menu", new Menu(this.session));
             pane.setCurrentPage("menu");
-            pane.toggleNavBar();
             jLabelNomJoueur.setVisible(true);
             Compte compteJoueurConnectee = session.getCompteJoueurConnectee();
             jLabelNomJoueur.setText(compteJoueurConnectee.NomPrenom());
@@ -108,7 +106,7 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
         }
         session = null;
         pane.setCurrentPage("connexion");
-        pane.toggleNavBar();
+      
         this.repaint();
 
     }
@@ -127,7 +125,7 @@ public class ModeReseau2 extends javax.swing.JPanel implements ISession {
     @Override
     public IJeu creerPartieAvecAdversaire(Parametre p, Compte Adversaire) throws RemoteException, PartieDoublonException {
         jeuEnCour = session.creerPartieAvecAdversaire(
-                new Parametre(true, true, true, true, true, true, false, false, false,2),
+                p,
                 Adversaire);
         interfaceControleurLocal = new InterfaceControleurLocal(jeuEnCour);
         launch();
