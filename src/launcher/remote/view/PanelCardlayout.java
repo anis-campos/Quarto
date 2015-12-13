@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -35,27 +34,26 @@ public final class PanelCardlayout extends JPanel {
         mainPane = new JPanel(new CardLayout());
         navPane = new JPanel();
 
-       /* JButton btnPrev = new JButton("<<");
-        JButton btnNext = new JButton(">>");
+        /* JButton btnPrev = new JButton("<<");
+         JButton btnNext = new JButton(">>");
 
-        navPane.add(btnPrev);
-        navPane.add(btnNext);
+         navPane.add(btnPrev);
+         navPane.add(btnNext);
 
-        btnPrev.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setCurrentPage(getCurrentPage() - 1);
-            }
-        });
-        btnNext.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setCurrentPage(getCurrentPage() + 1);
-            }
-        });*/
-        
+         btnPrev.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+         setCurrentPage(getCurrentPage() - 1);
+         }
+         });
+         btnNext.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+         setCurrentPage(getCurrentPage() + 1);
+         }
+         });*/
         JButton buttonAfficherMenu = new JButton("Retour au Menu");
-        
+
         buttonAfficherMenu.addActionListener(new AbstractAction() {
 
             @Override
@@ -63,10 +61,10 @@ public final class PanelCardlayout extends JPanel {
                 setCurrentPage("menu");
             }
         });
-        
+
         navPane.add(buttonAfficherMenu);
-navPane.setOpaque(false);
-        
+        navPane.setOpaque(false);
+
         add(mainPane);
         add(navPane, BorderLayout.SOUTH);
 
@@ -78,7 +76,7 @@ navPane.setOpaque(false);
     }
 
     private void setCurrentPage(int page) {
-        if (pages.size() > 0  && page>-1 && page<pages.size()) {
+        if (pages.size() > 0 && page > -1 && page < pages.size()) {
             currentPage = page;
             CardLayout layout = (CardLayout) mainPane.getLayout();
             layout.show(mainPane, pages.get(currentPage));
@@ -87,6 +85,10 @@ navPane.setOpaque(false);
 
     public void setCurrentPage(String pageName) {
 
+        if(pageName.equalsIgnoreCase("menu") || pageName.equalsIgnoreCase("connexion") )
+            navPane.setVisible(false);
+        else
+            navPane.setVisible(true);
         CardLayout layout = (CardLayout) mainPane.getLayout();
         layout.show(mainPane, pageName);
 
@@ -97,18 +99,18 @@ navPane.setOpaque(false);
     }
 
     public void addPage(String name, Component comp) {
-        if(pages.contains(name)) {
-          
+        if (pages.contains(name)) {
+
             for (Component component : mainPane.getComponents()) {
-                if(component.getName().equals(name)){
+                if (component.getName().equals(name)) {
                     mainPane.remove(comp);
                     break;
                 }
             }
-        }
-        else
+        } else {
             pages.add(name);
-        
+        }
+
         comp.setName(name);
         mainPane.add(comp, name);
     }
