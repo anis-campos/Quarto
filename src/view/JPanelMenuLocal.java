@@ -11,7 +11,10 @@ import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -112,21 +115,27 @@ public class JPanelMenuLocal extends javax.swing.JPanel {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonAfficherRegle, jButtonCommencer, jButtonContinuer, jButtonParametrer});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addComponent(jButtonParametrer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonContinuer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonAfficherRegle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonAfficherRegle, jButtonCommencer, jButtonContinuer, jButtonParametrer});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonParametrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonParametrerActionPerformed
@@ -157,8 +166,23 @@ public class JPanelMenuLocal extends javax.swing.JPanel {
     private void jButtonAfficherRegleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAfficherRegleActionPerformed
         if (Desktop.isDesktopSupported()) {
             try {
-                File myFile = new File(getClass().getClassLoader().getResource("rules.pdf").getFile());
-                Desktop.getDesktop().open(myFile);
+
+                File file = new File("manual.pdf");
+                if (!file.exists()) {
+                    // In JAR
+                    InputStream inputStream = ClassLoader.getSystemClassLoader()
+                            .getResourceAsStream("res/ManuelutilisateurduQuarto.pdf");
+                    // Copy file
+                    OutputStream outputStream = new FileOutputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, length);
+                    }
+                    outputStream.close();
+                    inputStream.close();
+                }
+                Desktop.getDesktop().open(file);
             } catch (IOException ex) {
                 // no application registered for PDFs
             }
@@ -205,10 +229,9 @@ public class JPanelMenuLocal extends javax.swing.JPanel {
         this.jButtonContinuer.setEnabled(isEnable);
     }
 
-    
-    public void test(){
+    public void test() {
         this.jButtonCommencer.doClick();
-        
+
     }
-   
+
 }
