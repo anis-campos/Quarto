@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote.view;
+package view.remote;
 
 import Network.RMI.Implementation.PartieItem;
 import java.awt.Graphics;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
-import view.GUIImageTool;
+import view.local.GUIImageTool;
 
 /**
  *

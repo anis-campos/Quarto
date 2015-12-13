@@ -16,9 +16,9 @@ import javax.swing.SwingUtilities;
 import model.Joueur;
 import model.Parametre;
 import model.Partie;
-import view.GUIResolutionTool;
-import view.JPanelQuarto;
-import view.PanelGeneral;
+import view.local.GUIResolutionTool;
+import view.local.JPanelQuarto;
+import view.local.PanelGeneral;
 
 /**
  *

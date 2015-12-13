@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote.view;
+package view.remote;
 
 import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
@@ -22,10 +22,10 @@ import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static launcher.local.PartieBuilder.repackPartieQuarto;
-import launcher.remote.InterfaceControleurLocal;
+import controlleur.InterfaceControleurLocal;
 import model.Parametre;
-import view.GUIImageTool;
-import view.JPanelQuarto;
+import view.local.GUIImageTool;
+import view.local.JPanelQuarto;
 
 /**
  *

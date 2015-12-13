@@ -9,8 +9,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-import view.PanelGeneral;
-import view.fenetrePrincipale;
+import view.local.PanelGeneral;
+import view.local.fenetrePrincipale;
 
 /**
  *

@@ -23,7 +23,7 @@ public class PartieTest {
     
     public PartieTest() {
         instance = new Partie(
-                new Parametre(true, true, true, true, true, true, true,true), 
+                new Parametre(true, true, true, true, true, true, true,true,true,-2), 
                 new Joueur("J1", false, NumeroJoueur.J1), 
                 new Joueur("J2", false, NumeroJoueur.J2));
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.local;
 
 import static Network.RMI.Implementation.Constantes.URL_CONNEXION;
 import Network.RMI.Interface.ILogin;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import static launcher.local.PartieBuilder.repackPartieQuarto;
-import launcher.remote.view.ModeReseau2;
+import view.remote.ModeReseau2;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package launcher.remote.view;
+package view.remote;
 
 import Network.RMI.Interface.IJeu;
 import controlleur.IControlleur;
@@ -11,7 +11,7 @@ import controlleur.observables.*;
 import java.awt.Dimension;
 import java.util.Observable;
 import javax.swing.JOptionPane;
-import view.JPanelQuarto;
+import view.local.JPanelQuarto;
 
 /**
  *

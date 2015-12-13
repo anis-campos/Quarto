@@ -5,12 +5,8 @@
  */
 package model;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  *
@@ -28,7 +24,7 @@ public class testQuartoCalculator {
 
     @Before
     public void setUp() {
-        p = new Parametre(true, true, true, true, true,true,true,true);
+        p = new Parametre(true, true, true, true, true,true,true,true,true,-2);
         j1 = new Joueur("Joueur1", false, NumeroJoueur.J1);
         j2 = new Joueur("Joueur2", false, NumeroJoueur.J2);
         partie = new Partie(p, j1, j2);
@@ -38,19 +34,5 @@ public class testQuartoCalculator {
     public void tearDown() {
     }
 
-    @Test
-    public void testPlateauJeu() {
-        try {
-            partie.getPlateauJeu().addPiece(new Coord(0, 0), partie.popPieceAvailableByName("CARRE_GRAND_CLAIR_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(0, 1), partie.popPieceAvailableByName("CARRE_GRAND_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 0), partie.popPieceAvailableByName("CARRE_PETIT_FONCE_CREUX"));
-            partie.getPlateauJeu().addPiece(new Coord(1, 1), partie.popPieceAvailableByName("CARRE_GRAND_CLAIR_PLEIN"));
-            
-            ArrayList<ArrayList<Coord>> quartoCoordList = new ArrayList();
-            System.out.println(QuartoCalculator.thereIsQuarto(partie.getPlateauJeu(), p, new Coord(0, 0),quartoCoordList).toString());
-            System.out.println(quartoCoordList);
-        } catch (Exception ex) {
-            Logger.getLogger(testQuartoCalculator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 }

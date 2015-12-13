@@ -13,7 +13,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import javax.swing.JFrame;
-import launcher.remote.view.ModeReseau2;
+import view.remote.ModeReseau2;
 
 /**
  *

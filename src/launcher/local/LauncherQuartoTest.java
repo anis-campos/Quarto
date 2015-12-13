@@ -8,7 +8,7 @@ package launcher.local;
 import java.awt.AWTException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import view.PanelGeneral;
+import view.local.PanelGeneral;
 
 /**
  *

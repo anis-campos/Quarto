@@ -10,8 +10,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import view.JPanelMenuPrincipal;
-import view.fenetrePrincipale;
+import view.local.JPanelMenuPrincipal;
+import view.local.fenetrePrincipale;
 
 /**
  *
