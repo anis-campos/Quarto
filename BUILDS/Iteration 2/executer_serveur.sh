@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar Serveur_v1.0.jar;
+java -jar QuartoServeur_v1.0.jar;

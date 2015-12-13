@@ -5,7 +5,7 @@
  */
 package launcher.remote;
 
-import Network.RMI.ClientCallback;
+import Network.RMI.Implementation.ClientCallback;
 import Network.RMI.Interface.IJeu;
 import controlleur.IControlleur;
 import controlleur.observables.NotificationErreurReseau;

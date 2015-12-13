@@ -5,7 +5,7 @@
  */
 package launcher.remote;
 
-import Network.RMI.ThreadServeur;
+import Network.RMI.Implementation.ThreadServeur;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

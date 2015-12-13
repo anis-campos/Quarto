@@ -5,7 +5,7 @@
  */
 package view;
 
-import static Network.RMI.Constantes.URL_CONNEXION;
+import static Network.RMI.Implementation.Constantes.URL_CONNEXION;
 import Network.RMI.Interface.ILogin;
 import java.awt.CardLayout;
 import java.awt.Component;

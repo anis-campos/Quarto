@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.Test;
+package Network.Test;
 
-import Network.RMI.ClientCallback;
-import static Network.RMI.Constantes.PORT_RMI_CLIENT_CALLBACK;
-import static Network.RMI.Constantes.URL_CONNEXION;
+import Network.RMI.Implementation.ClientCallback;
+import static Network.RMI.Implementation.Constantes.PORT_RMI_CLIENT_CALLBACK;
+import static Network.RMI.Implementation.Constantes.URL_CONNEXION;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
-import Network.RMI.MyRMISocketFactory;
-import Network.RMI.PartieItem;
+import Network.RMI.Implementation.MyRMISocketFactory;
+import Network.RMI.Implementation.PartieItem;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.RMISocketFactory;

@@ -11,7 +11,7 @@ import Network.RMI.Interface.IClientCallback;
 import Network.RMI.Interface.IJeu;
 import Network.RMI.Interface.ILogin;
 import Network.RMI.Interface.ISession;
-import Network.RMI.PartieItem;
+import Network.RMI.Implementation.PartieItem;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;

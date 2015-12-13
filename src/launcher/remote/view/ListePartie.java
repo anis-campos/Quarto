@@ -5,7 +5,7 @@
  */
 package launcher.remote.view;
 
-import Network.RMI.PartieItem;
+import Network.RMI.Implementation.PartieItem;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.rmi.RemoteException;

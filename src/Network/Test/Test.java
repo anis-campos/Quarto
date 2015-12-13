@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.Test;
+package Network.Test;
 
-import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -13,9 +12,7 @@ import java.rmi.RemoteException;
  *
  * @author Anis
  */
-public interface Test extends Serializable,Remote{
-    
-    
+public interface Test extends Remote{
+
     String HelloWorld() throws RemoteException;
-    
 }

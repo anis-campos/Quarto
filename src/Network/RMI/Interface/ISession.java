@@ -7,7 +7,7 @@ package Network.RMI.Interface;
 
 import Database.Compte;
 import Network.RMI.Exceptions.PartieDoublonException;
-import Network.RMI.PartieItem;
+import Network.RMI.Implementation.PartieItem;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

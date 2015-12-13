@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.Test;
+package Network.Fowarding;
 
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
 /**
@@ -15,7 +15,7 @@ package Network.RMI.Test;
  * fine, you will get the shell prompt. Try the port on localhost.
  *
  */
-import static Network.RMI.Constantes.PORT_RMI_CLIENT_CALLBACK;
+import static Network.RMI.Implementation.Constantes.PORT_RMI_CLIENT_CALLBACK;
 import com.jcraft.jsch.*;
 
 public class PortForwardingL {

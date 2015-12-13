@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Network.RMI.Test;
+package Network.Test;
 
-import static Network.RMI.Constantes.PORT_RMI;
+import static Network.RMI.Implementation.Constantes.PORT_RMI;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
